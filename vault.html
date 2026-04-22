@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Secret Vault · Tic Tech Toe Labs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Members-only vault — training resources, templates, and bonus material for clients of Tic Tech Toe Labs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@300;400;700&family=Gloock&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ----- vault-specific ----- */
+  .vault-lock{
+    max-width:520px;margin:40px auto 0;
+    border:2px solid var(--ink);border-radius:var(--radius);background:#fff;
+    box-shadow:var(--shadow);padding:36px;position:relative;
+  }
+  .vault-lock::before{
+    content:"";position:absolute;top:-28px;left:50%;transform:translateX(-50%);
+    width:54px;height:54px;border-radius:50%;background:var(--ink);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:26px;
+    border:2px solid var(--ink);
+  }
+  .vault-lock::before{content:"🔒"}
+  .vault-lock h2{text-align:center;margin-top:6px;font-size:38px}
+  .vault-lock .tagline{text-align:center;color:var(--ink-2);margin-bottom:22px}
+  .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+  .field label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-3)}
+  .field input{
+    font-family:'Kalam',cursive;font-size:17px;padding:12px 14px;
+    border:2px solid var(--ink);border-radius:8px;background:var(--paper);outline:none;
+  }
+  .field input:focus{background:#fff;box-shadow:0 0 0 3px var(--accent-soft)}
+  .vault-lock .btn.primary{width:100%;justify-content:center;margin-top:6px;font-size:17px;padding:14px}
+  .error{
+    color:#c2410c;font-family:'Kalam';font-size:14px;margin-top:6px;
+    padding:8px 10px;background:#ffe7d9;border:1.5px dashed #c2410c;border-radius:6px;
+    display:none;
+  }
+  .error.show{display:block}
+  .hint{
+    font-family:'Caveat',cursive;color:var(--ink-3);text-align:center;
+    margin-top:16px;font-size:17px;
+  }
+  .hint a{color:var(--accent);text-decoration-thickness:2px}
+
+  /* vault content (hidden until unlock) */
+  #vault-content{display:none}
+  #vault-content.unlocked{display:block}
+
+  .res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media (max-width:900px){.res-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.res-grid{grid-template-columns:1fr}}
+  .res{
+    border:2px solid var(--ink);background:#fff;border-radius:var(--radius);
+    padding:20px;box-shadow:var(--shadow);position:relative;
+  }
+  .res .kind{
+    position:absolute;top:-10px;left:14px;background:var(--accent);color:#fff;
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;
+    padding:3px 10px;border:2px solid var(--ink);border-radius:4px;
+  }
+  .res h4{margin:4px 0 6px}
+  .res p{color:var(--ink-2);margin-bottom:10px;font-size:15px}
+  .res .meta{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--ink-3);text-transform:uppercase;margin-bottom:8px}
+
+  .welcome-bar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 18px;border:2px solid var(--ink);border-radius:var(--radius);
+    background:var(--paper-2);margin-bottom:24px;flex-wrap:wrap;gap:10px;
+  }
+  .welcome-bar .who{font-family:'Caveat';font-size:22px}
+  .welcome-bar .who strong{font-family:'Gloock';font-size:18px;color:var(--accent)}
+</style>
+</head>
+<body data-page="vault">
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="dot"></span> Tic Tech Toe <small>Labs</small></a>
+    <button class="nav-toggle" aria-label="menu">☰ Menu</button>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="training.html">Training</a>
+      <a href="contact.html">Contact</a>
+      <a href="vault.html" class="active">Secret Vault</a>
+      <a href="contact.html#analysis" class="btn primary sm nav-cta desktop">Free training needs analysis →</a>
+    </nav>
+  </div>
+</header>
+
+<!-- LOCK SCREEN -->
+<section class="page-hero" id="vault-lock">
+  <div class="container">
+    <p class="mono" style="text-align:center">▸ Members only</p>
+    <h1 style="text-align:center">The <em class="hand accent">Secret</em> Vault.</h1>
+    <p class="sub" style="max-width:620px;margin:16px auto 0;text-align:center">
+      A private library of training resources, prompt packs, templates, and bonus material — only for clients who've been through a Tic Tech Toe Labs session.
+    </p>
+
+    <div class="vault-lock">
+      <h2>Enter the vault</h2>
+      <p class="tagline">Sign in with the credentials we sent you after training.</p>
+
+      <form id="vault-form" autocomplete="off">
+        <div class="field">
+          <label for="vault-user">Username</label>
+          <input type="text" id="vault-user" name="user" required autocomplete="off" spellcheck="false" />
+        </div>
+        <div class="field">
+          <label for="vault-pass">Password</label>
+          <input type="password" id="vault-pass" name="pass" required autocomplete="off" />
+        </div>
+        <div class="error" id="vault-error">Hmm, that combo didn't work. Check with Khai if you've forgotten.</div>
+        <button type="submit" class="btn primary">Unlock the vault →</button>
+      </form>
+
+      <div class="hint">
+        Don't have an account?<br>
+        <a href="contact.html">Contact us</a> — vault access is given to clients after their first session.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VAULT CONTENT (revealed after successful login) -->
+<section id="vault-content">
+  <div class="container">
+    <div class="welcome-bar">
+      <div class="who">Welcome back, <strong id="vault-greet">friend</strong> ✎</div>
+      <button class="btn sm ghost" id="vault-logout">Sign out</button>
+    </div>
+
+    <div class="section-head">
+      <div class="section-eyebrow">▸ Bonus material</div>
+      <h2>Your library.</h2>
+      <p class="lead">Everything we reference in class — plus the stuff we don't have time for.</p>
+    </div>
+
+    <div class="res-grid">
+      <div class="res">
+        <span class="kind">PROMPT PACK</span>
+        <div class="meta">40 PROMPTS · PDF</div>
+        <h4>AI at Work · starter prompts</h4>
+        <p>Email, research, summarising, reports — the prompts we demo in class, packaged for copy-paste.</p>
+        <a href="#" class="btn sm">Download PDF →</a>
+      </div>
+      <div class="res">
+        <span class="kind">TEMPLATE</span>
+        <div class="meta">MS FORMS · GDOCS</div>
+        <h4>Weekly AI journal template</h4>
+        <p>The "what I tried, what saved me time" template. Run it with your team for 4 weeks, watch habits stick.</p>
+        <a href="#" class="btn sm">Open template →</a>
+      </div>
+      <div class="res">
+        <span class="kind">CHEAT SHEET</span>
+        <div class="meta">1 PAGE · PDF</div>
+        <h4>MS365 shortcuts that actually matter</h4>
+        <p>The 15 keyboard and UI shortcuts that compound — curated from a decade of watching people waste time.</p>
+        <a href="#" class="btn sm">Download PDF →</a>
+      </div>
+      <div class="res">
+        <span class="kind">RECORDING</span>
+        <div class="meta">42 MIN · MP4</div>
+        <h4>Gemini in Google Workspace · walkthrough</h4>
+        <p>The extended version of the demo we ran in class — paced so you can follow along at your desk.</p>
+        <a href="#" class="btn sm">Watch →</a>
+      </div>
+      <div class="res">
+        <span class="kind">WORKBOOK</span>
+        <div class="meta">24 PAGES · PDF</div>
+        <h4>Shopify growth · 30-day playbook</h4>
+        <p>Zayed's day-by-day playbook — the same one used in 20+ eCom transformations. For members only.</p>
+        <a href="#" class="btn sm">Download PDF →</a>
+      </div>
+      <div class="res">
+        <span class="kind">SLIDES</span>
+        <div class="meta">PDF · EDITABLE</div>
+        <h4>AI for the Workplace · full deck</h4>
+        <p>Our latest keynote deck. Hand it to your team, share with your boss, steal shamelessly.</p>
+        <a href="#" class="btn sm">Download deck →</a>
+      </div>
+    </div>
+
+    <div style="margin-top:40px">
+      <div class="section-eyebrow">▸ Coming soon</div>
+      <p style="color:var(--ink-2);margin-top:6px">More resources are added monthly. Got a request? <a href="contact.html">Tell us what you'd like to see next.</a></p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand">Tic Tech Toe <span class="hand" style="color:var(--accent);font-size:28px">Labs</span></div>
+        <p style="margin-top:10px;max-width:380px">Corporate AI and digital-skills training, led by Khai &amp; Zayed. Based in Singapore, delivered worldwide.</p>
+      </div>
+      <div><h5>Explore</h5><ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="training.html">Training</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="vault.html">Secret Vault</a></li>
+      </ul></div>
+      <div><h5>Get in touch</h5><ul>
+        <li><a href="mailto:khai@tictechtoelabs.com">khai@tictechtoelabs.com</a></li>
+        <li><a href="https://wa.me/6587449872">WhatsApp · +65 8744 9872</a></li>
+        <li><a href="contact.html#analysis">Free training needs analysis</a></li>
+      </ul></div>
+      <div><h5>Follow</h5><ul>
+        <li><a href="https://www.linkedin.com/in/khairun-kamaruzaini-49b35a159/" target="_blank" rel="noopener">LinkedIn · Khai</a></li>
+      </ul></div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Tic Tech Toe Labs · SG</span>
+      <span>Built with care, coffee, and opinions</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ==============================================
+   Secret Vault — client-side gate
+   ==============================================
+   HOW TO ADD / EDIT MEMBERS
+   ------------------------------------------------
+   Add { user, pass } pairs below. Username is
+   matched case-insensitively; password is exact.
+
+   NOTE: This is a *light* client-side gate.
+   Anyone who views page source can see the
+   credentials. For real security, move the vault
+   behind a server-side login (Netlify Identity,
+   Auth0, Cloudflare Access, etc).
+   ============================================== */
+const VAULT_MEMBERS = [
+  { user: "demo",   pass: "tictechtoe2026" },
+  { user: "khai",   pass: "changeme!" },
+  { user: "client", pass: "welcome123" }
+];
+
+const lockEl    = document.getElementById("vault-lock");
+const contentEl = document.getElementById("vault-content");
+const formEl    = document.getElementById("vault-form");
+const errEl     = document.getElementById("vault-error");
+const greetEl   = document.getElementById("vault-greet");
+const userIn    = document.getElementById("vault-user");
+const passIn    = document.getElementById("vault-pass");
+const logoutEl  = document.getElementById("vault-logout");
+
+function unlock(name){
+  lockEl.style.display = "none";
+  contentEl.classList.add("unlocked");
+  greetEl.textContent = name;
+  sessionStorage.setItem("ttt-vault-user", name);
+}
+function lock(){
+  sessionStorage.removeItem("ttt-vault-user");
+  contentEl.classList.remove("unlocked");
+  lockEl.style.display = "";
+  userIn.value = ""; passIn.value = "";
+  userIn.focus();
+}
+
+// auto-unlock if user already authed this session
+const saved = sessionStorage.getItem("ttt-vault-user");
+if (saved) unlock(saved);
+
+formEl.addEventListener("submit", e => {
+  e.preventDefault();
+  const u = userIn.value.trim().toLowerCase();
+  const p = passIn.value;
+  const match = VAULT_MEMBERS.find(m => m.user.toLowerCase() === u && m.pass === p);
+  if (match) {
+    errEl.classList.remove("show");
+    unlock(match.user);
+  } else {
+    errEl.classList.add("show");
+    passIn.select();
+  }
+});
+
+logoutEl.addEventListener("click", lock);
+</script>
+<script src="script.js"></script>
+</body>
+</html>

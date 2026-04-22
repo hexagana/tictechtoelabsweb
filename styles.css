@@ -1,0 +1,240 @@
+/* ============================================================
+   Tic Tech Toe Labs — shared styles
+   Playful-sketchy, cleaned up for production. Light mode only.
+   ============================================================ */
+:root{
+  --ink:#1a1a1a;
+  --ink-2:#3a3a3a;
+  --ink-3:#6b6b6b;
+  --ink-4:#9a9a9a;
+  --paper:#f6f3ec;
+  --paper-2:#efeadd;
+  --paper-3:#e8e2d0;
+  --line:#1a1a1a;
+  --accent:#ff5a1f;        /* marker orange (tweakable) */
+  --accent-ink:#ffffff;
+  --accent-soft:#fff0e8;
+  --highlight:#ffd23b;
+  --shadow: 6px 6px 0 var(--ink);
+  --radius: 12px;
+  --radius-sm: 6px;
+  --container: 1200px;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Kalam","Comic Sans MS",cursive,sans-serif;
+  font-size:17px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration-color:var(--accent);text-underline-offset:4px}
+a:hover{text-decoration-thickness:2px}
+
+/* ---------- type ---------- */
+h1,h2,h3,h4,h5{font-family:"Gloock",Georgia,serif;font-weight:400;letter-spacing:-.5px;margin:0}
+h1{font-size:clamp(48px,6vw,96px);line-height:.95;letter-spacing:-1.5px}
+h2{font-size:clamp(34px,3.8vw,56px);line-height:1;letter-spacing:-1px}
+h3{font-size:clamp(24px,2.2vw,32px);line-height:1.1}
+h4{font-size:20px;line-height:1.25}
+h5{font-size:16px}
+p{margin:0 0 14px}
+.hand{font-family:"Caveat",cursive;font-weight:500}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;letter-spacing:1px;color:var(--ink-3);text-transform:uppercase}
+.hl{background:linear-gradient(transparent 55%, var(--highlight) 55%);padding:0 4px}
+.accent{color:var(--accent)}
+.scribble{font-family:"Caveat",cursive;color:var(--accent);font-size:1.2em;transform:rotate(-3deg);display:inline-block}
+
+/* ---------- layout ---------- */
+.container{max-width:var(--container);margin:0 auto;padding:0 28px}
+section{padding:80px 0;position:relative}
+.section-eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:3px;color:var(--ink-3);text-transform:uppercase;margin:0 0 10px}
+.section-head{margin-bottom:42px;max-width:780px}
+.section-head p.lead{font-size:18px;color:var(--ink-2);margin-top:14px;max-width:640px}
+
+/* ---------- nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:var(--paper);
+  border-bottom:2px solid var(--ink);
+}
+.nav-inner{
+  max-width:var(--container);margin:0 auto;padding:14px 28px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+}
+.logo{
+  font-family:"Gloock",serif;font-size:22px;letter-spacing:-.5px;
+  display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);
+  white-space:nowrap;
+}
+.logo .dot{width:10px;height:10px;background:var(--accent);border-radius:50%;display:inline-block}
+.logo small{font-family:"Caveat",cursive;color:var(--ink-3);font-size:18px;font-weight:500}
+.nav-links{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.nav-links a{
+  font-family:"Kalam",cursive;font-size:16px;font-weight:400;
+  padding:6px 12px;border-radius:6px;color:var(--ink-2);text-decoration:none;position:relative;
+}
+.nav-links a:hover{color:var(--ink);background:var(--paper-2)}
+.nav-links a.active{color:var(--ink)}
+.nav-links a.active::after{
+  content:"";position:absolute;left:12px;right:12px;bottom:2px;height:6px;
+  background:var(--highlight);z-index:-1;
+}
+.nav-cta{margin-left:8px}
+
+/* mobile nav */
+.nav-toggle{display:none;background:transparent;border:2px solid var(--ink);padding:6px 10px;border-radius:6px;font-family:"Kalam";font-size:14px;cursor:pointer}
+@media (max-width: 860px){
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--paper);border-bottom:2px solid var(--ink);flex-direction:column;align-items:stretch;padding:10px 28px 14px;gap:0}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:10px 0;border-bottom:1.5px dashed var(--ink-4)}
+  .nav-links a:last-child{border-bottom:0}
+  .nav-toggle{display:inline-block}
+  .nav-cta.desktop{display:none}
+}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:"Kalam",cursive;font-weight:700;font-size:16px;
+  padding:12px 20px;border-radius:10px;
+  border:2px solid var(--ink);background:#fff;color:var(--ink);
+  text-decoration:none;cursor:pointer;
+  box-shadow:3px 3px 0 var(--ink);
+  transition:transform .12s ease, box-shadow .12s ease;
+  white-space:nowrap;
+}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
+.btn:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--ink)}
+.btn.ghost{box-shadow:none;background:transparent}
+.btn.ghost:hover{background:var(--paper-2);box-shadow:none;transform:none}
+.btn.sm{padding:8px 14px;font-size:14px}
+.btn .arrow{display:inline-block;transition:transform .12s}
+.btn:hover .arrow{transform:translateX(3px)}
+
+/* ---------- cards ---------- */
+.card{
+  background:#fff;border:2px solid var(--ink);border-radius:var(--radius);
+  padding:22px;position:relative;
+}
+.card.shadow{box-shadow:var(--shadow)}
+.tag{
+  display:inline-block;border:1.5px solid var(--ink);padding:3px 10px;border-radius:999px;
+  font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:1.2px;
+  color:var(--ink);background:#fff;text-transform:uppercase;
+}
+.tag.filled{background:var(--ink);color:#fff}
+.tag.accent{background:var(--accent);color:#fff;border-color:var(--ink)}
+
+/* photos */
+.photo{
+  background:var(--paper-3);
+  overflow:hidden;position:relative;
+  border:2px solid var(--ink);border-radius:var(--radius-sm);
+}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.photo .cap{
+  position:absolute;left:8px;bottom:8px;
+  font-family:"JetBrains Mono",monospace;font-size:10px;color:#fff;
+  background:rgba(0,0,0,.55);padding:3px 8px;border-radius:4px;letter-spacing:.5px;
+}
+
+/* tape strip decor */
+.tape{
+  position:absolute;width:80px;height:20px;
+  background:rgba(255,210,59,.75);
+  box-shadow:0 1px 3px rgba(0,0,0,.12);
+  transform:rotate(-3deg);
+}
+
+/* ---------- hero (shared pieces) ---------- */
+.page-hero{padding:64px 0 56px;position:relative;overflow:hidden}
+.page-hero h1 em{font-family:"Caveat",cursive;font-style:normal;color:var(--accent);font-weight:500}
+.page-hero .sub{font-size:19px;color:var(--ink-2);max-width:560px;margin-top:18px}
+.page-hero .cta-row{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+
+/* ---------- lead gen banner ---------- */
+.leadgen{
+  background:var(--ink);color:#fff;border-radius:var(--radius);
+  padding:32px;display:grid;grid-template-columns:1.4fr .9fr;gap:28px;align-items:center;
+  position:relative;overflow:hidden;
+}
+.leadgen::before{
+  content:"FREE";position:absolute;top:-12px;right:-18px;
+  background:var(--accent);color:#fff;font-family:"Gloock",serif;font-size:38px;
+  padding:22px 38px 16px;transform:rotate(12deg);border:2px solid #fff;
+  letter-spacing:1px;
+}
+.leadgen h3{font-size:30px;line-height:1.1;color:#fff}
+.leadgen p{color:#d9d4c6;margin:10px 0 0;max-width:520px}
+.leadgen .cta-row{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+.leadgen .points{font-family:"Kalam",cursive;font-size:15px;color:#e7e3d6}
+.leadgen .points li{margin:6px 0;list-style:none;padding-left:22px;position:relative}
+.leadgen .points li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:700}
+@media (max-width:760px){
+  .leadgen{grid-template-columns:1fr;padding:26px}
+  .leadgen::before{font-size:24px;padding:14px 22px 10px}
+}
+
+/* ---------- footer ---------- */
+.site-footer{
+  background:var(--ink);color:#d9d4c6;padding:60px 0 28px;margin-top:80px;
+  border-top:2px solid var(--ink);
+}
+.site-footer a{color:#fff}
+.footer-grid{
+  display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;
+  padding-bottom:36px;border-bottom:1.5px dashed #555;margin-bottom:20px;
+}
+.site-footer h5{font-family:"Gloock",serif;color:#fff;font-size:16px;margin:0 0 12px}
+.site-footer .brand{font-family:"Gloock",serif;font-size:26px;color:#fff}
+.site-footer ul{list-style:none;padding:0;margin:0;font-size:15px;line-height:2}
+.site-footer .legal{display:flex;justify-content:space-between;gap:12px;font-family:"JetBrains Mono",monospace;font-size:11px;color:#999;letter-spacing:1px;text-transform:uppercase;flex-wrap:wrap}
+@media (max-width:760px){.footer-grid{grid-template-columns:1fr 1fr}}
+
+/* ---------- annotation / note style for dev ---------- */
+.note{font-family:"Caveat",cursive;color:var(--accent);font-size:17px}
+
+/* ---------- misc utilities ---------- */
+.divider{border:0;border-top:2px dashed var(--ink-4);margin:40px 0}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media (max-width:900px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr 1fr;gap:16px}}
+@media (max-width:560px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+
+/* ---------- tweaks panel (persistent per-page) ---------- */
+#tweaks-panel{
+  position:fixed;right:18px;bottom:18px;z-index:60;width:300px;
+  background:#fff;border:2px solid var(--ink);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:16px;display:none;font-family:"Kalam",cursive;
+}
+#tweaks-panel.open{display:block}
+#tweaks-panel h4{font-family:"Gloock",serif;font-size:18px;margin:0 0 10px}
+#tweaks-panel .row{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+#tweaks-panel label{font-size:13px;color:var(--ink-3);text-transform:uppercase;letter-spacing:1px;font-family:"JetBrains Mono",monospace}
+#tweaks-panel input[type=text]{border:1.5px solid var(--ink);border-radius:6px;padding:8px;font-family:"Kalam";font-size:14px;background:var(--paper)}
+#tweaks-panel .swatches{display:flex;gap:6px;flex-wrap:wrap}
+#tweaks-panel .sw{width:30px;height:30px;border-radius:50%;border:2px solid var(--ink);cursor:pointer}
+#tweaks-panel .sw.active{box-shadow:0 0 0 2px #fff, 0 0 0 4px var(--ink)}
+#tweaks-panel .photos{display:flex;gap:6px;flex-wrap:wrap}
+#tweaks-panel .photos button{width:60px;height:44px;border:2px solid var(--ink);border-radius:4px;overflow:hidden;cursor:pointer;padding:0;background:#fff}
+#tweaks-panel .photos button img{width:100%;height:100%;object-fit:cover}
+#tweaks-panel .photos button.active{outline:3px solid var(--accent);outline-offset:1px}
+#tweaks-panel .close{position:absolute;top:8px;right:10px;background:transparent;border:0;font-size:20px;cursor:pointer;color:var(--ink-3);line-height:1}
+
+/* pulsing tweak button (shows when edit mode is on) */
+.edit-indicator{
+  position:fixed;right:18px;bottom:18px;z-index:59;
+  background:var(--accent);color:#fff;border:2px solid var(--ink);border-radius:999px;
+  padding:10px 16px;font-family:"Kalam";font-weight:700;cursor:pointer;
+  box-shadow:var(--shadow);display:none;
+}
+.edit-indicator.visible{display:inline-flex;align-items:center;gap:6px}

@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Training · Tic Tech Toe Labs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Courses on AI at Work, MS365/Google Workspace, Shopify, SEO, data literacy — delivered on-site or virtually.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@300;400;700&family=Gloock&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media (max-width:900px){.mod-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.mod-grid{grid-template-columns:1fr}}
+  .mod{border:2px solid var(--ink);background:#fff;border-radius:var(--radius);padding:22px;position:relative;box-shadow:var(--shadow)}
+  .mod .num{position:absolute;top:-16px;left:-16px;width:42px;height:42px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Gloock',serif;font-size:18px;border:2px solid var(--ink)}
+  .mod h3{margin:6px 0 8px}
+  .mod .tagline{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+  .gallery{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:auto auto;gap:12px}
+  .gallery .photo{border-radius:var(--radius-sm)}
+  .gallery .g1{grid-row:1/3}
+  @media (max-width:760px){.gallery{grid-template-columns:1fr 1fr}.gallery .g1{grid-row:auto}}
+  .client-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+  @media (max-width:900px){.client-grid{grid-template-columns:repeat(3,1fr)}}
+  .client-chip{border:1.5px dashed var(--ink-3);padding:14px 10px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-2);background:var(--paper);border-radius:6px;letter-spacing:1px}
+  .faq details{border:2px solid var(--ink);border-radius:var(--radius-sm);background:#fff;padding:16px 20px;margin-bottom:10px}
+  .faq summary{font-family:'Gloock',serif;font-size:18px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  .faq summary::after{content:"+";font-family:'Caveat';font-size:32px;color:var(--accent);line-height:1}
+  .faq details[open] summary::after{content:"−"}
+  .faq p{margin:12px 0 0;color:var(--ink-2)}
+</style>
+</head>
+<body data-page="training">
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="dot"></span> Tic Tech Toe <small>Labs</small></a>
+    <button class="nav-toggle" aria-label="menu">☰ Menu</button>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="training.html" class="active">Training</a>
+      <a href="contact.html">Contact</a>
+      <a href="vault.html">Secret Vault</a>
+      <a href="contact.html#analysis" class="btn primary sm nav-cta desktop">Free training needs analysis →</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="mono">▸ Training menu</p>
+    <h1>What your team will <em class="hand accent">actually</em> leave with.</h1>
+    <p class="sub">Every session ends with a thing your team can open on Monday. Not vibes, not slides — muscle memory. Pick a module, combine several, or let us design a custom programme around your tech stack.</p>
+    <div class="cta-row">
+      <a href="contact.html" class="btn primary">Request a proposal <span class="arrow">→</span></a>
+      <a href="contact.html#analysis" class="btn ghost">Start with a free needs analysis</a>
+    </div>
+  </div>
+</section>
+
+<!-- COURSE GRID -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">▸ Core modules</div>
+      <h2>Six programmes. One principle: practical or it doesn't ship.</h2>
+    </div>
+    <div class="mod-grid">
+      <div class="mod">
+        <span class="num">1</span>
+        <h3>AI at Work</h3>
+        <p>Prompt patterns mapped to the tasks your team already does. Email, spec docs, reports, research, analysis — the un-sexy jobs that eat their week.</p>
+        <div class="tagline"><span class="tag">1–2 DAYS</span><span class="tag">ANY TEAM</span></div>
+      </div>
+      <div class="mod">
+        <span class="num">2</span>
+        <h3>MS365 / Google Workspace, unlocked</h3>
+        <p>The 15% of features that give you 80% of the value. Channels, Planner, approvals, Docs, Forms, Gemini, Copilot — taught in plain language.</p>
+        <div class="tagline"><span class="tag">1–2 DAYS</span><span class="tag">ANY TEAM</span></div>
+      </div>
+      <div class="mod">
+        <span class="num">3</span>
+        <h3>Shopify growth playbook</h3>
+        <p>Enterprise patterns, mid-market budgets. From first theme to first six figures — Zayed has run 20+ of these.</p>
+        <div class="tagline"><span class="tag">1 DAY</span><span class="tag">eCOM</span></div>
+      </div>
+      <div class="mod">
+        <span class="num">4</span>
+        <h3>SEO &amp; content engines</h3>
+        <p>How to build a publishing habit Google rewards — without burning out your marketing hire.</p>
+        <div class="tagline"><span class="tag">1 DAY</span><span class="tag">MKT</span></div>
+      </div>
+      <div class="mod">
+        <span class="num">5</span>
+        <h3>Google Gemini in Google Workspace</h3>
+        <p>Turn everyday Workspace tasks into fast, smart, and fun wins with Google Gemini as your AI work buddy.</p>
+        <div class="tagline"><span class="tag">1–2 DAYS</span><span class="tag">ANY TEAM</span></div>
+      </div>
+      <div class="mod">
+        <span class="num">6</span>
+        <h3>Data literacy for managers</h3>
+        <p>Read a dashboard, write a metric, pick a benchmark. The unfancy version — for PMs and team leads.</p>
+        <div class="tagline"><span class="tag">1–2 DAYS</span><span class="tag">PM/LEADS</span></div>
+      </div>
+    </div>
+    <p class="mono" style="text-align:center;margin-top:28px">Custom programmes available · on-site SG · virtual worldwide</p>
+  </div>
+</section>
+
+<!-- DELIVERY FORMATS -->
+<section style="padding-top:0">
+  <div class="container">
+    <div class="card" style="padding:36px;background:var(--paper-2)">
+      <div class="section-eyebrow">▸ How we deliver</div>
+      <h2 style="margin-bottom:18px">Formats to fit your calendar.</h2>
+      <div class="grid-3">
+        <div>
+          <h4 style="margin-bottom:6px">🏢 On-site workshops</h4>
+          <p style="margin:0;color:var(--ink-2)">Full-day or 2-day intensives in your office. Up to 30 pax per session (we've done 136 in theatre format, too).</p>
+        </div>
+        <div>
+          <h4 style="margin-bottom:6px">💻 Virtual cohorts</h4>
+          <p style="margin:0;color:var(--ink-2)">Live, interactive, delivered over Teams or Google Meet. Works for distributed teams across APAC, MEA, EU.</p>
+        </div>
+        <div>
+          <h4 style="margin-bottom:6px">✎ Custom programmes</h4>
+          <p style="margin:0;color:var(--ink-2)">Designed around your tech stack, your KPIs, your team's starting point. Usually begins with a needs analysis.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">▸ Training photos</div>
+      <h2>Rooms we've walked into.</h2>
+    </div>
+    <div class="gallery">
+      <div class="photo g1" style="aspect-ratio:4/5"><img src="assets/khai-image-generation.jpg" alt=""><span class="cap">AI FOR THE WORKPLACE · 2026</span></div>
+      <div class="photo"><img src="assets/khai-doing-talks.jpg" alt=""><span class="cap">AI REVOLUTION TALK · 136 PAX</span></div>
+      <div class="photo"><img src="assets/class-selfie.jpg" alt=""><span class="cap">COHORT SELFIE</span></div>
+      <div class="photo"><img src="assets/khai-capitol.jpg" alt=""><span class="cap">CAPITOL KEMPINSKI</span></div>
+      <div class="photo"><img src="assets/zayed-talk.jpg" alt=""><span class="cap">ZAYED · ON STAGE</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENT WALL -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">▸ Clients</div>
+      <h2>The Companies We Have Trained.</h2>
+      <p class="lead">A non-exhaustive list — and the start of a longer conversation.</p>
+    </div>
+    <div class="client-grid">
+      <div class="client-chip">HITACHI HIGH TECH</div>
+      <div class="client-chip">HITACHI ELEVATORS</div>
+      <div class="client-chip">HITACHI METALS</div>
+      <div class="client-chip">MITSUBISHI ELECTRIC</div>
+      <div class="client-chip">STARBUCKS SG</div>
+      <div class="client-chip">ABBOTT LABS</div>
+      <div class="client-chip">IHG</div>
+      <div class="client-chip">CAPITOL KEMPINSKI</div>
+      <div class="client-chip">PENINSULA HOTEL</div>
+      <div class="client-chip">AMARA HOTEL</div>
+      <div class="client-chip">SANMINA</div>
+      <div class="client-chip">OMS OILFIELD</div>
+      <div class="client-chip">SIM LIAN HOLDING</div>
+      <div class="client-chip">SEAMEO RELC</div>
+      <div class="client-chip">SINGAPORE POWER</div>
+      <div class="client-chip">SNEF</div>
+      <div class="client-chip">ITE WEST</div>
+      <div class="client-chip">TRACTORS SG</div>
+      <div class="client-chip">TAKASAGO</div>
+      <div class="client-chip">HOUR GLASS</div>
+      <div class="client-chip">FURUNO</div>
+      <div class="client-chip">KH ROBERTS</div>
+      <div class="client-chip">WOODLANDS TRANSPORT</div>
+      <div class="client-chip">YTL STARHILL</div>
+      <div class="client-chip">CHEVALIER</div>
+      <div class="client-chip">COMMUNE SG</div>
+      <div class="client-chip">BROADWAY</div>
+      <div class="client-chip">DYNAMAC</div>
+      <div class="client-chip">TRAVELITE</div>
+      <div class="client-chip">HAW PAR HEALTH</div>
+      <div class="client-chip">LIVEN NUTRIENTS</div>
+      <div class="client-chip">KINOBIOTECH</div>
+      <div class="client-chip">APBA HR</div>
+      <div class="client-chip">AGLOW SPA</div>
+      <div class="client-chip">OVOL</div>
+      <div class="client-chip">+ 10 MORE</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="container" style="max-width:880px">
+    <div class="section-head">
+      <div class="section-eyebrow">▸ FAQ</div>
+      <h2>Questions we get a lot.</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>How many people can attend a session?</summary>
+        <p>Workshop format works best with 8–30 pax. For lecture-style "talks", we've delivered to audiences of 130+ comfortably. We'll recommend the right format based on your goals.</p>
+      </details>
+      <details>
+        <summary>Do you deliver outside Singapore?</summary>
+        <p>Yes. On-site globally for the right brief, and virtual delivery as standard. Recent sessions have run across APAC, Middle East, and EU.</p>
+      </details>
+      <details>
+        <summary>Can you customise content to our tech stack?</summary>
+        <p>That's actually the default — most of our engagements start with a needs analysis and get tailored from there. We adapt to MS365, Google Workspace, Shopify, HubSpot, and most common business tooling.</p>
+      </details>
+      <details>
+        <summary>How do you price?</summary>
+        <p>Day-rate based, scaled to cohort size and content depth. Indicative pricing comes in your proposal after a short discovery call. No surprises, no hidden consulting fees.</p>
+      </details>
+      <details>
+        <summary>Do you issue certificates?</summary>
+        <p>Yes — participants receive a Tic Tech Toe Labs certificate of completion. We can also align sessions with SkillsFuture claims where applicable (ask us).</p>
+      </details>
+      <details>
+        <summary>What's the free needs analysis, really?</summary>
+        <p>A 10-question form, a short follow-up call if useful, then a short PDF report from us: where your team is, where the quick wins are, and which programmes (ours or not) would actually move the needle. No sales pitch in the report itself.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="container">
+    <div class="leadgen">
+      <div>
+        <div class="mono" style="color:#d9d4c6;margin-bottom:8px">LEAD MAGNET · NO CATCH</div>
+        <h3>Not sure which programme fits your team?</h3>
+        <p>Start with the free Digital Training Needs Analysis. We'll send back a short report with an honest recommendation, tailored to your stack and goals.</p>
+        <div class="cta-row">
+          <a href="contact.html#analysis" class="btn primary">Start my analysis <span class="arrow">→</span></a>
+          <a href="contact.html" class="btn" style="background:transparent;color:#fff;border-color:#fff;box-shadow:none">Contact us directly</a>
+        </div>
+      </div>
+      <div>
+        <ul class="points">
+          <li>5-minute discovery form</li>
+          <li>PDF report back within 24 hours</li>
+          <li>Recommendations, not a sales deck</li>
+          <li>Confidential · no database sharing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand">Tic Tech Toe <span class="hand" style="color:var(--accent);font-size:28px">Labs</span></div>
+        <p style="margin-top:10px;max-width:380px">Corporate AI and digital-skills training, led by Khai &amp; Zayed. Based in Singapore, delivered worldwide.</p>
+      </div>
+      <div><h5>Explore</h5><ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="training.html">Training</a></li>
+        <li><a href="contact.html">Contact</a></li>
+          <li><a href="vault.html">Secret Vault</a></li>
+        </ul></div>
+      <div><h5>Get in touch</h5><ul>
+        <li><a href="mailto:khai@tictechtoelabs.com">khai@tictechtoelabs.com</a></li>
+        <li><a href="https://wa.me/6587449872">WhatsApp · +65 8744 9872</a></li>
+        <li><a href="contact.html#analysis">Free training needs analysis</a></li>
+      </ul></div>
+      <div><h5>Follow</h5><ul>
+        <li><a href="https://www.linkedin.com/in/khairun-kamaruzaini-49b35a159/" target="_blank" rel="noopener">LinkedIn · Khai</a></li>
+      </ul></div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Tic Tech Toe Labs · SG</span>
+      <span>Built with care, coffee, and opinions</span>
+    </div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

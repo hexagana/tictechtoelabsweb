@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Testimonials · Tic Tech Toe Labs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Unedited feedback from past Tic Tech Toe Labs cohorts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@300;400;700&family=Gloock&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media (max-width:900px){.t-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.t-grid{grid-template-columns:1fr}}
+  .t-card{
+    background:#fff;border:2px solid var(--ink);border-radius:var(--radius);
+    padding:22px;box-shadow:var(--shadow);position:relative;
+    break-inside:avoid;
+  }
+  .t-card .q{font-family:'Gloock',serif;color:var(--accent);font-size:48px;line-height:0;position:relative;top:18px}
+  .t-card .body{font-family:'Gloock',serif;font-size:17px;line-height:1.45;margin-top:8px;color:var(--ink)}
+  .t-card .who{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.2px;color:var(--ink-3);margin-top:14px;text-transform:uppercase}
+  .t-card .tag{position:absolute;top:-10px;right:14px}
+  .masonry{column-count:3;column-gap:22px}
+  @media (max-width:900px){.masonry{column-count:2}}
+  @media (max-width:560px){.masonry{column-count:1}}
+  .masonry .t-card{margin-bottom:22px;display:inline-block;width:100%}
+  .stars{color:var(--accent);font-size:14px;letter-spacing:1px;margin-bottom:6px}
+  .filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+  .chip{border:1.5px solid var(--ink);background:#fff;padding:6px 14px;border-radius:999px;font-family:'Kalam';font-size:14px;cursor:pointer}
+  .chip.active{background:var(--ink);color:#fff}
+</style>
+</head>
+<body data-page="testimonials">
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="dot"></span> Tic Tech Toe <small>Labs</small></a>
+    <button class="nav-toggle" aria-label="menu">☰ Menu</button>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="training.html">Training</a>
+      <a href="contact.html">Contact</a>
+      <a href="vault.html">Secret Vault</a>
+      <a href="contact.html#analysis" class="btn primary sm nav-cta desktop">Free training needs analysis →</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="mono">▸ Kind words</p>
+    <h1>What people say <em class="hand accent">after class.</em></h1>
+    <p class="sub">Unedited quotes from people who sat through our sessions. The good, the specific, the occasionally chaotic — exactly as they were written.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px">
+      <div class="card shadow" style="padding:14px 20px">
+        <div style="font-family:'Gloock',serif;font-size:28px;line-height:1;color:var(--accent)">4.8<span style="font-size:14px;color:var(--ink-3)">/5</span></div>
+        <div class="mono" style="margin-top:2px">AVG RATING</div>
+      </div>
+      <div class="card shadow" style="padding:14px 20px">
+        <div style="font-family:'Gloock',serif;font-size:28px;line-height:1">5000+</div>
+        <div class="mono" style="margin-top:2px">PARTICIPANTS</div>
+      </div>
+      <div class="card shadow" style="padding:14px 20px">
+        <div style="font-family:'Gloock',serif;font-size:28px;line-height:1">350+</div>
+        <div class="mono" style="margin-top:2px">COMPANIES</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS MASONRY -->
+<section style="padding-top:20px">
+  <div class="container">
+    <div class="section-eyebrow">▸ Every word, unfiltered</div>
+    <h2 style="margin-bottom:22px">The full feedback wall.</h2>
+
+    <div class="masonry">
+      <!-- Real quotes from home page -->
+      <div class="t-card">
+        <span class="tag accent">AI AT WORK</span>
+        <div class="stars">★★★★★</div>
+        <div class="q">"</div>
+        <p class="body">Very updated info share and trainer Khai is well update and knowledgeable big thumbs up</p>
+        <div class="who">— Marketing Manager · Tractors SG</div>
+      </div>
+
+      <div class="t-card">
+        <span class="tag">AI AT WORK</span>
+        <div class="stars">★★★★★</div>
+        <div class="q">"</div>
+        <p class="body">Very interactive session learnt a lot of new stuff regarding usage and power of AI</p>
+        <div class="who">— Ops Manager · NSRCC Country Club</div>
+      </div>
+
+      <div class="t-card">
+        <span class="tag accent">AI AT WORK</span>
+        <div class="stars">★★★★★</div>
+        <div class="q">"</div>
+        <p class="body">Trainer Khai was very professional and informative. He also engages with us and his hands on activities were very informative and useful to my work as well.</p>
+        <div class="who">— Director of Sales · Sanmina Penjuru</div>
+      </div>
+
+      <!-- Placeholder cards — replace with real quotes as they come in -->
+      <div class="t-card">
+        <span class="tag">PLACEHOLDER</span>
+        <div class="stars">★★★★★</div>
+        <div class="q">"</div>
+        <p class="body">[Placeholder] Add a real quote here — e.g. something specific about hours saved per week, a behaviour change, or an "aha" moment from class.</p>
+        <div class="who">— Role · Company</div>
+      </div>
+
+      <div class="t-card">
+        <span class="tag">PLACEHOLDER</span>
+        <div class="stars">★★★★★</div>
+        <div class="q">"</div>
+        <p class="body">[Placeholder] Short quote, punchy and specific works best. Keep original phrasing if possible.</p>
+        <div class="who">— Role · Company</div>
+      </div>
+
+      <div class="t-card">
+        <span class="tag">PLACEHOLDER</span>
+        <div class="stars">★★★★★</div>
+        <div class="q">"</div>
+        <p class="body">[Placeholder] Great place for a longer quote — one that describes the before/after or what they'd tell a colleague about the session.</p>
+        <div class="who">— Role · Company</div>
+      </div>
+
+      <div class="t-card">
+        <span class="tag">PLACEHOLDER</span>
+        <div class="stars">★★★★★</div>
+        <div class="q">"</div>
+        <p class="body">[Placeholder] A quote from a sceptical attendee who changed their mind works really well here.</p>
+        <div class="who">— Role · Company</div>
+      </div>
+
+      <div class="t-card">
+        <span class="tag">PLACEHOLDER</span>
+        <div class="stars">★★★★★</div>
+        <div class="q">"</div>
+        <p class="body">[Placeholder] Short and punchy — two sentences max is ideal.</p>
+        <div class="who">— Role · Company</div>
+      </div>
+
+      <div class="t-card">
+        <span class="tag">PLACEHOLDER</span>
+        <div class="stars">★★★★★</div>
+        <div class="q">"</div>
+        <p class="body">[Placeholder] Quote from an HR or L&amp;D lead about getting ROI from training. These carry a lot of weight for other buyers.</p>
+        <div class="who">— Role · Company</div>
+      </div>
+    </div>
+
+    <p class="mono" style="margin-top:26px;color:var(--ink-3)">More quotes added monthly. Feedback collected via anonymous post-session surveys.</p>
+  </div>
+</section>
+
+<!-- FEEDBACK GALLERY CAROUSEL -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">▸ Gallery</div>
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:18px">
+      <div>
+        <h2 style="margin-bottom:4px">Feedback from the wild.</h2>
+        <p style="color:var(--ink-2);max-width:560px">Some screenshots, some survey summaries, and some snapshots from recent sessions. Scroll through them!</p>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap" class="admin-only">
+        <label for="gallery-upload" class="btn sm primary" style="cursor:pointer">＋ Upload images</label>
+        <input id="gallery-upload" type="file" accept="image/*" multiple style="display:none">
+        <button class="btn sm ghost" id="gallery-clear" title="Remove only images you uploaded">Clear uploads</button>
+        <button class="btn sm ghost" id="admin-exit" title="Exit admin mode">Exit admin</button>
+      </div>
+    </div>
+
+    <div class="carousel" id="gallery">
+      <button class="car-arrow left" id="car-prev" aria-label="previous">←</button>
+      <div class="car-track" id="car-track">
+        <!-- slides injected by JS -->
+      </div>
+      <button class="car-arrow right" id="car-next" aria-label="next">→</button>
+    </div>
+    <div class="car-dots" id="car-dots"></div>
+
+    <p class="mono admin-only" style="margin-top:12px;color:var(--ink-3)">ADMIN MODE ON · Uploaded images are stored locally in this browser. To publish across the live site, send them to us and we'll bake them in as permanent slides.</p>
+  </div>
+</section>
+
+<style>
+  /* Admin gate — controls hidden for normal visitors */
+  .admin-only{display:none !important}
+  body.admin .admin-only{display:flex !important}
+  body.admin p.admin-only{display:block !important}
+  body:not(.admin) .car-slide .del{display:none}
+  body:not(.admin) .car-slide .cap-text{pointer-events:none;cursor:default;border:none}
+
+  /* Admin badge — tiny indicator when logged in */
+  .admin-badge{
+    display:none;position:fixed;bottom:16px;right:16px;z-index:50;
+    background:var(--ink);color:#fff;font-family:'JetBrains Mono',monospace;
+    font-size:11px;letter-spacing:1.5px;padding:8px 12px;border-radius:6px;
+    box-shadow:2px 2px 0 var(--accent);
+  }
+  body.admin .admin-badge{display:block}
+
+  /* Carousel */
+  .carousel{position:relative;border:2px solid var(--ink);border-radius:var(--radius);background:var(--paper-2);box-shadow:var(--shadow);overflow:hidden}
+  .car-track{
+    display:flex;overflow-x:auto;scroll-snap-type:x mandatory;
+    gap:22px;padding:30px 60px;scroll-behavior:smooth;
+    scrollbar-width:thin;
+  }
+  .car-track::-webkit-scrollbar{height:8px}
+  .car-track::-webkit-scrollbar-thumb{background:var(--ink-3);border-radius:4px}
+  .car-slide{
+    flex:0 0 auto;scroll-snap-align:center;
+    width:min(560px,80%);
+    background:#fff;border:2px solid var(--ink);border-radius:10px;
+    padding:14px;box-shadow:4px 4px 0 var(--ink);
+    transform:rotate(var(--tilt, 0deg));transition:transform .2s ease;
+    position:relative;
+  }
+  .car-slide:hover{transform:rotate(0deg) scale(1.01)}
+  .car-slide img{display:block;width:100%;height:380px;object-fit:cover;border-radius:6px;background:#eee}
+  .car-slide .cap{
+    font-family:'Kalam',cursive;font-size:16px;margin-top:10px;color:var(--ink);
+    display:flex;justify-content:space-between;align-items:center;gap:10px;
+  }
+  .car-slide .del{
+    background:transparent;border:1.5px solid var(--ink);border-radius:6px;
+    padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;
+    letter-spacing:1px;cursor:pointer;color:var(--ink-2);
+  }
+  .car-slide .del:hover{background:var(--ink);color:#fff}
+  .car-slide .pin{
+    position:absolute;top:-8px;left:24px;width:14px;height:14px;border-radius:50%;
+    background:var(--accent);border:2px solid var(--ink);box-shadow:0 2px 0 rgba(0,0,0,.2);
+  }
+  .car-slide.placeholder{background:var(--paper);display:flex;align-items:center;justify-content:center;flex-direction:column;min-height:420px}
+  .car-slide.placeholder .ph-icon{font-family:'Gloock',serif;font-size:64px;color:var(--ink-3)}
+  .car-slide.placeholder .ph-text{font-family:'Kalam';color:var(--ink-3);margin-top:10px;text-align:center;max-width:300px}
+
+  .car-arrow{
+    position:absolute;top:50%;transform:translateY(-50%);z-index:5;
+    width:44px;height:44px;border-radius:50%;border:2px solid var(--ink);
+    background:#fff;font-size:18px;cursor:pointer;box-shadow:2px 2px 0 var(--ink);
+  }
+  .car-arrow:hover{background:var(--accent);color:#fff}
+  .car-arrow.left{left:10px}
+  .car-arrow.right{right:10px}
+
+  .car-dots{display:flex;gap:6px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+  .car-dot{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--ink);background:#fff;cursor:pointer;padding:0}
+  .car-dot.active{background:var(--ink)}
+
+  @media (max-width:560px){
+    .car-track{padding:20px 40px}
+    .car-slide img{height:260px}
+  }
+</style>
+
+<div class="admin-badge">● ADMIN MODE <span style="color:var(--accent)">·</span> gallery editable</div>
+
+<script>
+/* ==============================================
+   Admin mode gate for the feedback gallery.
+   ------------------------------------------------
+   Visitors see a read-only carousel.
+   Admins enter by visiting  testimonials.html#admin
+   and entering the password below.
+   Session persists until tab close or Exit admin.
+
+   NOTE: This is a *client-side* check. For true
+   server-side security (so controls don't even
+   exist in page source for non-admins), you'd
+   need a real backend — Netlify Functions,
+   Supabase, Cloudflare Workers, etc.
+   ============================================== */
+const ADMIN_PASSWORD = "ttt-admin-2026";   // ← change this
+const ADMIN_KEY = "ttt-admin-session";
+
+function setAdmin(on){
+  if (on) {
+    document.body.classList.add('admin');
+    sessionStorage.setItem(ADMIN_KEY, '1');
+  } else {
+    document.body.classList.remove('admin');
+    sessionStorage.removeItem(ADMIN_KEY);
+  }
+}
+
+// Restore admin across nav
+if (sessionStorage.getItem(ADMIN_KEY) === '1') setAdmin(true);
+
+// Enter admin via #admin hash → password prompt
+function checkAdminHash(){
+  if (location.hash.toLowerCase() === '#admin' && !document.body.classList.contains('admin')) {
+    const pw = prompt('Admin password:');
+    if (pw === ADMIN_PASSWORD) {
+      setAdmin(true);
+    } else if (pw !== null) {
+      alert('Wrong password.');
+    }
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+}
+checkAdminHash();
+window.addEventListener('hashchange', checkAdminHash);
+
+// Exit admin
+document.addEventListener('click', e => {
+  if (e.target && e.target.id === 'admin-exit') setAdmin(false);
+});
+</script>
+
+<script>
+(() => {
+  const track = document.getElementById('car-track');
+  const dots  = document.getElementById('car-dots');
+  const prev  = document.getElementById('car-prev');
+  const next  = document.getElementById('car-next');
+  const upIn  = document.getElementById('gallery-upload');
+  const clrBt = document.getElementById('gallery-clear');
+  const KEY   = 'ttt-gallery-v1';
+
+  // Seeded placeholder slides — swap for real screenshots anytime.
+  const SEED = [
+    { kind:'placeholder', caption:'Survey summary · "AI at Work" · Tractors SG · Q4 2025' },
+    { kind:'placeholder', caption:'Post-session Forms export · NSRCC Country Club' },
+    { kind:'placeholder', caption:'Smart-board photo · Shopify Growth cohort' },
+    { kind:'placeholder', caption:'Screenshot · Gemini hands-on · Sanmina Penjuru' }
+  ];
+
+  // Local uploads (data URLs, stored in localStorage)
+  function loadUploads(){
+    try { return JSON.parse(localStorage.getItem(KEY)) || []; }
+    catch { return []; }
+  }
+  function saveUploads(arr){
+    try { localStorage.setItem(KEY, JSON.stringify(arr)); }
+    catch(e){ alert('Could not save — storage full. Try fewer/smaller images.'); }
+  }
+  let uploads = loadUploads();
+
+  const tilts = [-1.2, 0.8, -0.5, 1.1, -0.9, 0.6, -1.4, 0.3];
+
+  function render(){
+    track.innerHTML = '';
+    dots.innerHTML = '';
+    const items = [...SEED, ...uploads.map(u => ({kind:'upload', ...u}))];
+    items.forEach((it, i) => {
+      const s = document.createElement('div');
+      s.className = 'car-slide' + (it.kind === 'placeholder' ? ' placeholder' : '');
+      s.style.setProperty('--tilt', tilts[i % tilts.length] + 'deg');
+      s.innerHTML = `<span class="pin"></span>`;
+      if (it.kind === 'placeholder') {
+        s.innerHTML += `
+          <div class="ph-icon">☺</div>
+          <div class="ph-text">${it.caption}</div>
+          <div class="mono" style="margin-top:10px;color:var(--ink-3);font-size:10px">PLACEHOLDER · Upload an image to replace</div>`;
+      } else {
+        s.innerHTML += `
+          <img src="${it.src}" alt="${(it.caption||'Feedback image').replace(/"/g,'&quot;')}">
+          <div class="cap">
+            <span contenteditable="true" data-idx="${i - SEED.length}" class="cap-text">${it.caption || 'Click to add caption…'}</span>
+            <button class="del" data-idx="${i - SEED.length}">REMOVE</button>
+          </div>`;
+      }
+      track.appendChild(s);
+
+      const d = document.createElement('button');
+      d.className = 'car-dot';
+      d.setAttribute('aria-label', 'Go to slide ' + (i+1));
+      d.addEventListener('click', () => goTo(i));
+      dots.appendChild(d);
+    });
+    wireCaps();
+    updateDots();
+  }
+
+  function wireCaps(){
+    track.querySelectorAll('.del').forEach(b => {
+      b.addEventListener('click', () => {
+        const idx = parseInt(b.dataset.idx, 10);
+        uploads.splice(idx, 1);
+        saveUploads(uploads); render();
+      });
+    });
+    track.querySelectorAll('.cap-text').forEach(el => {
+      el.addEventListener('blur', () => {
+        const idx = parseInt(el.dataset.idx, 10);
+        if (uploads[idx]) { uploads[idx].caption = el.textContent.trim(); saveUploads(uploads); }
+      });
+      el.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); el.blur(); }});
+    });
+  }
+
+  function slideWidth(){
+    const s = track.querySelector('.car-slide');
+    if (!s) return 400;
+    const gap = parseFloat(getComputedStyle(track).gap) || 22;
+    return s.getBoundingClientRect().width + gap;
+  }
+  function currentIdx(){
+    return Math.round(track.scrollLeft / slideWidth());
+  }
+  function goTo(i){
+    track.scrollTo({ left: i * slideWidth(), behavior: 'smooth' });
+    setTimeout(updateDots, 300);
+  }
+  function updateDots(){
+    const i = currentIdx();
+    dots.querySelectorAll('.car-dot').forEach((d, k) => d.classList.toggle('active', k === i));
+  }
+
+  prev.addEventListener('click', () => goTo(Math.max(0, currentIdx() - 1)));
+  next.addEventListener('click', () => goTo(Math.min(track.children.length - 1, currentIdx() + 1)));
+  track.addEventListener('scroll', () => { requestAnimationFrame(updateDots); });
+
+  // Keyboard nav when gallery visible
+  document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT' || e.target.isContentEditable) return;
+    if (e.key === 'ArrowLeft')  prev.click();
+    if (e.key === 'ArrowRight') next.click();
+  });
+
+  // Upload handler — read files as data URLs, store locally.
+  upIn.addEventListener('change', async e => {
+    const files = [...e.target.files];
+    for (const f of files) {
+      if (!f.type.startsWith('image/')) continue;
+      const dataURL = await new Promise((res, rej) => {
+        const r = new FileReader();
+        r.onload = () => res(r.result);
+        r.onerror = rej;
+        r.readAsDataURL(f);
+      });
+      uploads.push({ src: dataURL, caption: f.name.replace(/\.[^.]+$/, '') });
+    }
+    saveUploads(uploads); render();
+    upIn.value = '';
+    // Scroll to the first newly-added slide
+    setTimeout(() => goTo(SEED.length + uploads.length - files.length), 100);
+  });
+
+  clrBt.addEventListener('click', () => {
+    if (!uploads.length) return alert('No uploads to clear.');
+    if (confirm('Remove all ' + uploads.length + ' uploaded image(s)? Placeholders will remain.')) {
+      uploads = []; saveUploads(uploads); render();
+    }
+  });
+
+  render();
+})();
+</script>
+
+<!-- CTA -->
+<section>
+  <div class="container">
+    <div class="leadgen">
+      <div>
+        <div class="mono" style="color:#d9d4c6;margin-bottom:8px">LEAD MAGNET · NO CATCH</div>
+        <h3>Want to know if we're right for your team?</h3>
+        <p>Start with a free Digital Training Needs Analysis. We'll send back a short, honest report — whether or not the recommendation includes us.</p>
+        <div class="cta-row">
+          <a href="contact.html#analysis" class="btn primary">Start my analysis <span class="arrow">→</span></a>
+        </div>
+      </div>
+      <div>
+        <ul class="points">
+          <li>5-minute discovery form</li>
+          <li>PDF report back within 24 hours</li>
+          <li>Confidential · no database sharing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand">Tic Tech Toe <span class="hand" style="color:var(--accent);font-size:28px">Labs</span></div>
+        <p style="margin-top:10px;max-width:380px">Corporate AI and digital-skills training, led by Khai &amp; Zayed. Based in Singapore, delivered worldwide.</p>
+      </div>
+      <div><h5>Explore</h5><ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="training.html">Training</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="vault.html">Secret Vault</a></li>
+      </ul></div>
+      <div><h5>Get in touch</h5><ul>
+        <li><a href="mailto:khai@tictechtoelabs.com">khai@tictechtoelabs.com</a></li>
+        <li><a href="https://wa.me/6587449872">WhatsApp · +65 8744 9872</a></li>
+        <li><a href="contact.html#analysis">Free training needs analysis</a></li>
+      </ul></div>
+      <div><h5>Follow</h5><ul>
+        <li><a href="https://www.linkedin.com/in/khairun-kamaruzaini-49b35a159/" target="_blank" rel="noopener">LinkedIn · Khai</a></li>
+      </ul></div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Tic Tech Toe Labs · SG</span>
+      <span>Built with care, coffee, and opinions</span>
+    </div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
