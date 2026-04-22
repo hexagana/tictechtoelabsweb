@@ -59,6 +59,10 @@ function initNav(){
 
 /* ---------- tweaks panel ---------- */
 function initTweaks(){
+  // only show tweaks on pages that actually have a tweakable hero
+  if (!document.querySelector("[data-hero-photo]") && !document.querySelector("[data-hero-headline]")) {
+    return;
+  }
   const t = loadTweaks();
   applyTweaks(t);
 

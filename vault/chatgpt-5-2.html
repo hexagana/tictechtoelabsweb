@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<link rel="apple-touch-icon" href="../assets/logo.png">
+<title>ChatGPT 5.2 · Secret Vault · Tic Tech Toe Labs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@300;400;700&family=Gloock&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script>
+  // gate — send back to login if not signed in
+  if (!sessionStorage.getItem("ttt-vault-user")) {
+    window.location.replace("../vault.html");
+  }
+</script>
+<style>
+  .vault-subpage .back-row{
+    display:flex;justify-content:space-between;align-items:center;gap:14px;
+    margin:0 0 18px;flex-wrap:wrap;
+  }
+  .vault-subpage .back-row .crumbs{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;
+    color:var(--ink-3);text-transform:uppercase;
+  }
+  .vault-subpage .back-row .crumbs a{color:var(--ink-3);text-decoration:underline}
+  .vault-subpage .back-row .crumbs a:hover{color:var(--accent)}
+
+  /* user-content paste zone */
+  .paste-zone{
+    margin-top:28px;padding:28px;
+    border:2px dashed var(--ink-3);border-radius:var(--radius);
+    background:#fff;
+  }
+  .paste-zone .paste-empty{
+    font-family:'Caveat',cursive;color:var(--ink-3);font-size:20px;
+    text-align:center;padding:40px 10px;
+  }
+  .paste-zone .paste-empty small{
+    display:block;font-family:'JetBrains Mono',monospace;
+    font-size:11px;letter-spacing:1.5px;margin-top:8px;text-transform:uppercase;
+  }
+  /* when the paste zone has real content, drop the dashed chrome */
+  .paste-zone:has(> :not(.paste-empty)){
+    border:none;padding:0;background:transparent;
+  }
+
+  .back-to-vault{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 20px;border:2px solid var(--ink);border-radius:999px;
+    background:var(--ink);color:#fff;text-decoration:none;font-weight:600;
+    box-shadow:var(--shadow-sm);transition:transform .15s ease;
+  }
+  .back-to-vault:hover{transform:translate(-2px,-2px);box-shadow:var(--shadow)}
+  .back-to-vault .arrow{font-family:'JetBrains Mono',monospace}
+  .bottom-row{margin:56px 0 20px;display:flex;justify-content:center}
+</style>
+</head>
+<body data-page="vault-chatgpt-5-2">
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo"><span class="dot"></span> Tic Tech Toe <small>Labs</small></a>
+    <button class="nav-toggle" aria-label="menu">☰ Menu</button>
+    <nav class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../about.html">About</a>
+      <a href="../training.html">Training</a>
+      <a href="../testimonials.html">Testimonials</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../vault.html" class="active">Secret Vault</a>
+      <a href="../contact.html#analysis" class="btn primary sm nav-cta desktop">Free training needs analysis →</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero vault-subpage">
+  <div class="container">
+    <div class="back-row">
+      <span class="crumbs"><a href="index.html">Secret Vault</a> &nbsp;/&nbsp; CHATGPT 5.2</span>
+      <a href="index.html" class="btn sm ghost">← Back to vault</a>
+    </div>
+    <p class="mono">▸ Update</p>
+    <h1>ChatGPT 5.2</h1>
+    <p class="sub">What does the latest model offer?</p>
+  </div>
+</section>
+
+<section>
+  <div class="container vault-subpage">
+
+    <!-- ======================================================
+         PASTE YOUR GOOGLE SITES HTML BELOW THIS LINE
+         Everything between the dashed block below is safe to
+         replace with your exported HTML. Keep the <div class="paste-zone">
+         wrapper so styling stays tidy.
+         ====================================================== -->
+    <div class="paste-zone">
+
+      <!-- ===== BEGIN PASTED CONTENT ===== -->
+
+      <div class="paste-empty">
+        Content for "ChatGPT 5.2" goes here.
+        <small>Paste the HTML from Google Sites in this spot.</small>
+      </div>
+
+      <!-- ===== END PASTED CONTENT ===== -->
+
+    </div>
+    <!-- ====================================================== -->
+
+    <div class="bottom-row">
+      <a href="index.html" class="back-to-vault"><span class="arrow">←</span> Back to the Secret Vault</a>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand">Tic Tech Toe <span class="hand" style="color:var(--accent);font-size:28px">Labs</span></div>
+        <p style="margin-top:10px;max-width:380px">Corporate AI and digital-skills training, led by Khai &amp; Zayed. Based in Singapore, delivered worldwide.</p>
+      </div>
+      <div><h5>Explore</h5><ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../training.html">Training</a></li>
+        <li><a href="../testimonials.html">Testimonials</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../vault.html">Secret Vault</a></li>
+      </ul></div>
+      <div><h5>Get in touch</h5><ul>
+        <li><a href="mailto:khai@tictechtoelabs.com">khai@tictechtoelabs.com</a></li>
+        <li><a href="https://wa.me/6587449872">WhatsApp · +65 8744 9872</a></li>
+        <li><a href="../contact.html#analysis">Free training needs analysis</a></li>
+      </ul></div>
+      <div><h5>Follow</h5><ul>
+        <li><a href="https://www.linkedin.com/in/khairun-kamaruzaini-49b35a159/" target="_blank" rel="noopener">LinkedIn · Khai</a></li>
+      </ul></div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Tic Tech Toe Labs · SG</span>
+      <span>Built with care, coffee, and opinions</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js?v=3"></script>
+</body>
+</html>

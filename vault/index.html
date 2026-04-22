@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<link rel="apple-touch-icon" href="../assets/logo.png">
+<title>Secret Vault · Tic Tech Toe Labs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@300;400;700&family=Gloock&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script>
+  // gate — send back to login if not signed in
+  if (!sessionStorage.getItem("ttt-vault-user")) {
+    window.location.replace("../vault.html");
+  }
+</script>
+<style>
+  .welcome-bar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 18px;border:2px solid var(--ink);border-radius:var(--radius);
+    background:var(--paper-2);margin-bottom:28px;flex-wrap:wrap;gap:10px;
+  }
+  .welcome-bar .who{font-family:'Caveat';font-size:22px}
+  .welcome-bar .who strong{font-family:'Gloock';font-size:18px;color:var(--accent)}
+
+  .vault-group{margin-top:48px}
+  .vault-group:first-of-type{margin-top:24px}
+  .group-head{
+    display:flex;align-items:baseline;gap:16px;margin-bottom:20px;
+    border-bottom:2px solid var(--ink);padding-bottom:10px;
+  }
+  .group-head h3{font-size:28px;margin:0}
+  .group-head .count{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;
+    color:var(--ink-3);text-transform:uppercase;
+  }
+
+  .vault-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media (max-width:900px){.vault-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.vault-grid{grid-template-columns:1fr}}
+
+  .v-card{
+    display:flex;flex-direction:column;gap:8px;
+    border:2px solid var(--ink);background:#fff;border-radius:var(--radius);
+    padding:18px 18px 16px;box-shadow:var(--shadow-sm);
+    text-decoration:none;color:inherit;position:relative;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .v-card:hover{transform:translate(-2px,-2px);box-shadow:var(--shadow)}
+  .v-card .tag{
+    position:absolute;top:-10px;left:14px;background:var(--paper-2);
+    border:2px solid var(--ink);border-radius:4px;
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;
+    padding:3px 8px;text-transform:uppercase;
+  }
+  .v-card h4{margin:4px 0 2px;font-size:19px;line-height:1.25}
+  .v-card p{color:var(--ink-2);font-size:14px;margin:0;flex:1}
+  .v-card .go{
+    display:inline-flex;align-items:center;gap:6px;margin-top:10px;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;
+    text-transform:uppercase;color:var(--accent);
+  }
+</style>
+</head>
+<body data-page="vault-hub">
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo"><span class="dot"></span> Tic Tech Toe <small>Labs</small></a>
+    <button class="nav-toggle" aria-label="menu">☰ Menu</button>
+    <nav class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../about.html">About</a>
+      <a href="../training.html">Training</a>
+      <a href="../testimonials.html">Testimonials</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../vault.html" class="active">Secret Vault</a>
+      <a href="../contact.html#analysis" class="btn primary sm nav-cta desktop">Free training needs analysis →</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="mono">▸ Members area</p>
+    <h1>The <em class="hand accent">Vault</em>.</h1>
+    <p class="sub">Every resource, cheat sheet, prompt pack, and quiz we reference in training — in one place.</p>
+
+    <div class="welcome-bar" style="margin-top:30px">
+      <div class="who">Welcome back, <strong id="vault-greet">friend</strong> ✎</div>
+      <button class="btn sm ghost" id="vault-logout">Sign out</button>
+    </div>
+  </div>
+</section>
+
+<!-- vault hub renders here -->
+<section>
+  <div class="container" id="vault-hub"></div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand">Tic Tech Toe <span class="hand" style="color:var(--accent);font-size:28px">Labs</span></div>
+        <p style="margin-top:10px;max-width:380px">Corporate AI and digital-skills training, led by Khai &amp; Zayed. Based in Singapore, delivered worldwide.</p>
+      </div>
+      <div><h5>Explore</h5><ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../training.html">Training</a></li>
+        <li><a href="../testimonials.html">Testimonials</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../vault.html">Secret Vault</a></li>
+      </ul></div>
+      <div><h5>Get in touch</h5><ul>
+        <li><a href="mailto:khai@tictechtoelabs.com">khai@tictechtoelabs.com</a></li>
+        <li><a href="https://wa.me/6587449872">WhatsApp · +65 8744 9872</a></li>
+        <li><a href="../contact.html#analysis">Free training needs analysis</a></li>
+      </ul></div>
+      <div><h5>Follow</h5><ul>
+        <li><a href="https://www.linkedin.com/in/khairun-kamaruzaini-49b35a159/" target="_blank" rel="noopener">LinkedIn · Khai</a></li>
+      </ul></div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Tic Tech Toe Labs · SG</span>
+      <span>Built with care, coffee, and opinions</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ==========================================================================
+   VAULT CARDS
+   ==========================================================================
+   HOW TO ADD A NEW CARD
+   --------------------------------------------------------------------------
+   1. Create a new HTML subpage in the /vault/ folder (easiest way: copy an
+      existing subpage like microsoft-copilot.html, rename it, edit content).
+   2. Add one new object to VAULT_CARDS below. Required fields:
+        group : one of the group names used below (Microsoft · M365,
+                Google · Workspace & AI, AI tools · the wider ecosystem,
+                Prompts & playbooks, Governance & safety, Quizzes & fun).
+                Add a new group name if you need one — the hub creates groups
+                automatically from whatever strings it sees.
+        title : the card's headline (alphabetised on this field).
+        tag   : short label shown in the corner (GUIDE / UPDATE / QUIZ / ...).
+        desc  : one-line description.
+        href  : filename of the subpage (just "my-page.html").
+   3. Save. Cards auto-sort A→Z within each group. No other files to edit.
+   ========================================================================== */
+
+const VAULT_CARDS = [
+  // ---------------- Microsoft · M365 ----------------
+  { group:"Microsoft · M365",
+    title:"Microsoft Copilot 101",
+    tag:"GUIDE", desc:"Your guide to using Microsoft Copilot for Work.",
+    href:"microsoft-copilot.html" },
+  { group:"Microsoft · M365",
+    title:"Microsoft Copilot · December 2025 Updates",
+    tag:"UPDATE", desc:"Copilot is now integrated into desktop apps!",
+    href:"copilot-dec-2025.html" },
+  { group:"Microsoft · M365",
+    title:"Copilot in PowerPoint · Dec 2025",
+    tag:"UPDATE", desc:"Powerful new Copilot features you can use inside PowerPoint.",
+    href:"copilot-powerpoint.html" },
+  { group:"Microsoft · M365",
+    title:"Copilot group activity",
+    tag:"ACTIVITY", desc:"A quick, fun group activity so everyone appreciates MS Copilot more.",
+    href:"copilot-group-activity.html" },
+  { group:"Microsoft · M365",
+    title:"MS365 license comparison",
+    tag:"REFERENCE", desc:"A clear guide to what each MS365 licence actually covers.",
+    href:"ms365-license-comparison.html" },
+  { group:"Microsoft · M365",
+    title:"Power Automate resources",
+    tag:"GUIDE", desc:"Your beginner's guide to Microsoft Power Automate.",
+    href:"power-automate.html" },
+  { group:"Microsoft · M365",
+    title:"Power BI resources",
+    tag:"GUIDE", desc:"Your beginner's guide to the Power BI app.",
+    href:"power-bi.html" },
+  { group:"Microsoft · M365",
+    title:"MS Teams for work",
+    tag:"GUIDE", desc:"The easiest guide to start your productive journey in MS Teams.",
+    href:"ms-teams.html" },
+  { group:"Microsoft · M365",
+    title:"M365 integrated productivity tools",
+    tag:"GUIDE", desc:"Your one-stop spot to supercharge your M365 productivity.",
+    href:"m365-integrated-tools.html" },
+  { group:"Microsoft · M365",
+    title:"New MS Outlook",
+    tag:"GUIDE", desc:"Get started with the new Outlook and build great email habits.",
+    href:"ms-outlook.html" },
+  { group:"Microsoft · M365",
+    title:"Excel 2016",
+    tag:"GUIDE", desc:"Your guide to Excel 2016.",
+    href:"excel-2016.html" },
+  { group:"Microsoft · M365",
+    title:"Microsoft Stream",
+    tag:"GUIDE", desc:"The guide to using Microsoft Stream for work.",
+    href:"ms-stream.html" },
+
+  // ---------------- Google · Workspace & AI ----------------
+  { group:"Google · Workspace & AI",
+    title:"Google Looker Studio",
+    tag:"GUIDE", desc:"Your guide to using Looker Studio to analyse data.",
+    href:"looker-studio.html" },
+  { group:"Google · Workspace & AI",
+    title:"Google Gemini resources",
+    tag:"GUIDE", desc:"Your guide to Gemini for Work.",
+    href:"gemini.html" },
+  { group:"Google · Workspace & AI",
+    title:"NotebookLM",
+    tag:"GUIDE", desc:"Your guide to Google NotebookLM.",
+    href:"notebook-lm.html" },
+  { group:"Google · Workspace & AI",
+    title:"Google Gemini for marketing",
+    tag:"PLAYBOOK", desc:"Cool marketing moves you can try out on Google Gemini.",
+    href:"gemini-marketing.html" },
+  { group:"Google · Workspace & AI",
+    title:"Google AI · free use cases",
+    tag:"TIPS", desc:"Why pay for Google AI when these features are free?",
+    href:"google-ai-free.html" },
+  { group:"Google · Workspace & AI",
+    title:"Gemini dynamic view",
+    tag:"PLAYBOOK", desc:"10 use cases to try on Google Gemini's dynamic view.",
+    href:"gemini-dynamic-view.html" },
+
+  // ---------------- AI tools · the wider ecosystem ----------------
+  { group:"AI tools · the wider ecosystem",
+    title:"Canva AI",
+    tag:"PLAYBOOK", desc:"Use cases for Canva AI at work.",
+    href:"canva-ai.html" },
+  { group:"AI tools · the wider ecosystem",
+    title:"Perplexity AI",
+    tag:"GUIDE", desc:"Your guide to Perplexity.",
+    href:"perplexity.html" },
+  { group:"AI tools · the wider ecosystem",
+    title:"ChatGPT 101",
+    tag:"GUIDE", desc:"All you need to know about using ChatGPT.",
+    href:"chatgpt-101.html" },
+  { group:"AI tools · the wider ecosystem",
+    title:"ChatGPT 5.2",
+    tag:"UPDATE", desc:"What does the latest model offer?",
+    href:"chatgpt-5-2.html" },
+  { group:"AI tools · the wider ecosystem",
+    title:"How to create custom GPTs",
+    tag:"HOW-TO", desc:"Outsource repetitive work to AI agents you build.",
+    href:"custom-gpts.html" },
+  { group:"AI tools · the wider ecosystem",
+    title:"Base44",
+    tag:"TOOL", desc:"A perfect app builder.",
+    href:"base-44.html" },
+
+  // ---------------- Prompts & playbooks ----------------
+  { group:"Prompts & playbooks",
+    title:"Social media cheatsheet",
+    tag:"CHEAT SHEET", desc:"Your quick guide to hacking your way into social media.",
+    href:"social-media-cheatsheet.html" },
+  { group:"Prompts & playbooks",
+    title:"Checklist & planner prompts",
+    tag:"PROMPTS", desc:"Prompt templates for better checklists on every project.",
+    href:"checklist-prompts.html" },
+  { group:"Prompts & playbooks",
+    title:"McKinsey-level market research prompts",
+    tag:"PROMPTS", desc:"Prompts to step up all your market research.",
+    href:"mckinsey-prompts.html" },
+
+  // ---------------- Governance & safety ----------------
+  { group:"Governance & safety",
+    title:"Disabling data capture",
+    tag:"HOW-TO", desc:"How to keep your data safe while using generative AI platforms.",
+    href:"disabling-data-collection.html" },
+  { group:"Governance & safety",
+    title:"The Shadow AI Report 2025",
+    tag:"REPORT", desc:"How careless organisations are at data and AI governance.",
+    href:"shadow-ai-report.html" },
+
+  // ---------------- Quizzes & fun ----------------
+  { group:"Quizzes & fun",
+    title:"Metric calculator",
+    tag:"CALCULATOR", desc:"A good metric calculator for logistics and sales teams.",
+    href:"metric-calculator.html" },
+  { group:"Quizzes & fun",
+    title:"2-day SFDW mock-up quiz",
+    tag:"QUIZ", desc:"Try this quiz as practice.",
+    href:"sfdw-2day-quiz.html" },
+  { group:"Quizzes & fun",
+    title:"1-day SFDW quiz",
+    tag:"QUIZ", desc:"Try this quiz as practice.",
+    href:"sfdw-1day-quiz.html" },
+  { group:"Quizzes & fun",
+    title:"What colour are you?",
+    tag:"QUIZ", desc:"Based on the popular book <em>Surrounded by Idiots</em>.",
+    href:"what-colour-are-you.html" },
+];
+
+// Preserve the intended display order of groups — anything new goes last.
+const GROUP_ORDER = [
+  "Microsoft · M365",
+  "Google · Workspace & AI",
+  "AI tools · the wider ecosystem",
+  "Prompts & playbooks",
+  "Governance & safety",
+  "Quizzes & fun",
+];
+
+// ---- render ---- //
+(function renderVault(){
+  const root = document.getElementById("vault-hub");
+
+  // group cards
+  const byGroup = new Map();
+  for (const c of VAULT_CARDS) {
+    if (!byGroup.has(c.group)) byGroup.set(c.group, []);
+    byGroup.get(c.group).push(c);
+  }
+
+  // determine group order: defined ones first, then any extras alphabetically
+  const seen = new Set(GROUP_ORDER);
+  const extras = [...byGroup.keys()].filter(g => !seen.has(g)).sort((a,b)=>a.localeCompare(b));
+  const groups = [...GROUP_ORDER.filter(g => byGroup.has(g)), ...extras];
+
+  // build DOM
+  const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  // titles may include <em> on purpose; desc may include <em>
+  for (const g of groups) {
+    const list = byGroup.get(g).slice().sort((a,b) =>
+      a.title.replace(/<[^>]+>/g,"").toLowerCase()
+        .localeCompare(b.title.replace(/<[^>]+>/g,"").toLowerCase())
+    );
+    const section = document.createElement("div");
+    section.className = "vault-group";
+    section.innerHTML = `
+      <div class="group-head">
+        <h3>${esc(g)}</h3>
+        <span class="count">${list.length} RESOURCE${list.length===1?"":"S"}</span>
+      </div>
+      <div class="vault-grid">
+        ${list.map(c => `
+          <a class="v-card" href="${encodeURI(c.href)}">
+            <span class="tag">${esc(c.tag)}</span>
+            <h4>${c.title}</h4>
+            <p>${c.desc}</p>
+            <span class="go">Open →</span>
+          </a>
+        `).join("")}
+      </div>
+    `;
+    root.appendChild(section);
+  }
+
+  // footer note
+  const note = document.createElement("div");
+  note.style.marginTop = "48px";
+  note.innerHTML = `
+    <div class="section-eyebrow">▸ Coming soon</div>
+    <p style="color:var(--ink-2);margin-top:6px">More resources added monthly. Got a request? <a href="../contact.html">Tell us what you'd like to see next.</a></p>
+  `;
+  root.appendChild(note);
+})();
+
+// greet + logout
+const greet = document.getElementById("vault-greet");
+const who = sessionStorage.getItem("ttt-vault-user");
+if (who) greet.textContent = who;
+document.getElementById("vault-logout").addEventListener("click", () => {
+  sessionStorage.removeItem("ttt-vault-user");
+  window.location.href = "../vault.html";
+});
+</script>
+<script src="../script.js?v=3"></script>
+</body>
+</html>
