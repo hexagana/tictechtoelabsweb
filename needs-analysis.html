@@ -235,12 +235,12 @@
     <p>Corporate AI and digital-skills training, led by Khai &amp; Zayed. Based in Singapore, delivered worldwide.</p>
     <div class="legal">
       <span>© 2026 Tic Tech Toe Labs · SG</span>
-      <span><a href="mailto:khai@tictechtoelabs.com">khai@tictechtoelabs.com</a> · <a href="https://wa.me/6587449872">WhatsApp +65 8744 9872</a></span>
+      <span><a href="/cdn-cgi/l/email-protection#553e3d343c15213c362130363d213a30393437267b363a38"><span class="__cf_email__" data-cfemail="abc0c3cac2ebdfc2c8dfcec8c3dfc4cec7cac9d885c8c4c6">[email&#160;protected]</span></a> · <a href="https://wa.me/6587449872">WhatsApp +65 8744 9872</a></span>
     </div>
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ==========================================================================
    CONFIG  — edit these values
    ========================================================================== */
@@ -839,6 +839,43 @@ function sendLead(scores){
   // Readable per-area scores
   scores.coreScores.forEach(c=>{ payload['Score · '+c.name] = c.score; });
   Object.entries(scores.ai.sub).forEach(([k,v])=>{ if(v!=null) payload['AI · '+k] = v; });
+
+  // ---- ANALYSED REPORT (ready to turn into a proposal outline) ----
+  const lines = [];
+  lines.push('=== DIGITAL & AI READINESS ANALYSIS — '+company+' ===');
+  lines.push('Prepared for: '+(answers['q1']||'')+'   |   '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}));
+  lines.push('');
+  lines.push('Digital Skills Readiness: '+scores.digitalOverall+'/100 ('+band(scores.digitalOverall).label+')');
+  lines.push('AI Readiness: '+(scores.aiOverall==null?'—':scores.aiOverall+'/100 ('+band(scores.aiOverall).label+')'));
+  lines.push('');
+  lines.push('--- PRIORITY TRAINING GAPS (lowest readiness first) ---');
+  scores.topGaps.forEach((g,idx)=>{
+    const b = band(g.score);
+    const recs = (RECS[g.id] && RECS[g.id][recLevel(g.score)]) || [];
+    lines.push('');
+    lines.push((idx+1)+'. '+g.name+' — '+g.score+'/100 ('+b.label+')');
+    recs.forEach(r=>lines.push('   • '+r));
+  });
+  lines.push('');
+  lines.push('--- CONTEXT ---');
+  lines.push('Training urgency: '+(answers['q33']||'—'));
+  lines.push('Biggest barrier: '+(answers['q32']||'—'));
+  lines.push('Preferred formats: '+((answers['q34']||[]).join(', ')||'—'));
+  lines.push('Max session length: '+(answers['q35']||'—'));
+  lines.push('Members to nominate: '+(answers['q42']||'—'));
+  lines.push('Team proficient in core digital skills: '+(answers['q38']||'—'));
+  lines.push('Team using AI tools: '+(answers['q39']||'—'));
+  if(answers['q41']){ lines.push(''); lines.push('What they want AI to change: "'+answers['q41']+'"'); }
+  const nextStep = 'Suggested next step: a focused programme on '
+    + scores.topGaps.slice(0,2).map(g=>g.name).join(' & ')
+    + ', delivered as '+((answers['q34']||['blended learning'])[0].toLowerCase())
+    + ' in '+(answers['q35']||'short')+' sessions'
+    + ((answers['q33']==='Immediately'||answers['q33']==='Within 3 months')?'. Start within the next few weeks given their urgency.':'.');
+  lines.push('');
+  lines.push('--- RECOMMENDED PLAN ---');
+  lines.push(nextStep);
+  payload['ANALYSED REPORT'] = lines.join('\n');
+
   // Full raw responses kept in one collapsible field for your records
   payload['Full responses (JSON)'] = JSON.stringify(answers);
   const statusEl=()=>document.getElementById('leadStatus');
