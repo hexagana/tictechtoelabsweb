@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Topic 2 · Build &amp; Customise a Department SharePoint Site</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --navy-900:#0f172a; --navy-800:#1e293b; --navy-700:#334155;
+    --slate-500:#64748b; --slate-400:#94a3b8; --slate-300:#cbd5e1; --slate-200:#e2e8f0; --slate-100:#f1f5f9; --slate-50:#f8fafc;
+    --amber-500:#f59e0b; --amber-400:#fbbf24; --amber-100:#fef3c7;
+    --teal-500:#0d9488; --teal-100:#ccfbf1; --teal-50:#f0fdfa;
+    --blue-500:#2563eb; --blue-700:#1d4ed8; --blue-300:#93c5fd; --blue-50:#eff6ff;
+    --purple-500:#7c3aed; --purple-50:#f5f3ff;
+    --rose-600:#be123c; --rose-50:#fff1f2;
+    --green-600:#16a34a; --green-50:#f0fdf4;
+    --sp:#03787c; /* SharePoint teal */ --sp-dark:#025a5d;
+    --white:#fff;
+  }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif; color:var(--navy-900); background:var(--slate-50); line-height:1.68; -webkit-font-smoothing:antialiased; }
+
+  /* HERO */
+  .hero {
+    background:
+      radial-gradient(at 12% 20%, rgba(13,148,136,0.30) 0, transparent 50%),
+      radial-gradient(at 88% 78%, rgba(37,99,235,0.20) 0, transparent 52%),
+      linear-gradient(135deg,#0f172a 0%,#1e293b 100%);
+    color:#fff; padding:3.2rem 2rem 3rem;
+  }
+  .hero-inner { max-width:1000px; margin:0 auto; }
+  .breadcrumb { display:flex; gap:0.5rem; align-items:center; font-size:0.85rem; color:var(--slate-300); margin-bottom:1.4rem; flex-wrap:wrap; }
+  .breadcrumb a { color:var(--blue-300); text-decoration:none; }
+  .breadcrumb a:hover { text-decoration:underline; }
+  .breadcrumb .sep { color:var(--slate-500); }
+  .hero-tag { display:inline-block; background:rgba(13,148,136,0.22); color:#5eead4; padding:0.4rem 1rem; border-radius:999px; font-size:0.76rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:1.1rem; border:1px solid rgba(13,148,136,0.45); }
+  .hero h1 { font-family:'Poppins',sans-serif; font-size:clamp(1.85rem,4vw,2.7rem); font-weight:800; line-height:1.14; margin-bottom:0.8rem; letter-spacing:-0.02em; }
+  .hero h1 span { background:linear-gradient(90deg,#5eead4,#60a5fa); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .hero p { color:var(--slate-300); font-size:1.05rem; max-width:720px; }
+
+  .container { max-width:1000px; margin:0 auto; padding:2.5rem 2rem 3.5rem; }
+
+  /* OBJECTIVE */
+  .objective { background:linear-gradient(135deg,var(--teal-50) 0%,#fff 60%); border:1px solid var(--slate-200); border-left:4px solid var(--teal-500); border-radius:14px; padding:1.5rem 1.75rem; margin-bottom:2.4rem; box-shadow:0 4px 20px rgba(15,23,42,0.05); }
+  .objective h2 { font-family:'Poppins',sans-serif; font-size:1.1rem; margin-bottom:0.55rem; display:flex; align-items:center; gap:0.5rem; }
+  .objective ul { padding-left:1.2rem; color:var(--navy-700); font-size:0.96rem; }
+  .objective li { margin-bottom:0.3rem; }
+  .objective li::marker { color:var(--teal-500); }
+
+  /* TOC */
+  .toc { background:#fff; border-radius:14px; padding:1.5rem 1.75rem; margin-bottom:2.6rem; box-shadow:0 4px 20px rgba(15,23,42,0.05); border:1px solid var(--slate-200); }
+  .toc h2 { font-family:'Poppins',sans-serif; font-size:1.05rem; margin-bottom:1rem; }
+  .toc-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:0.7rem; }
+  .toc a { display:flex; align-items:center; gap:0.7rem; padding:0.7rem 0.9rem; background:var(--slate-50); border:1px solid var(--slate-200); border-radius:9px; text-decoration:none; color:var(--navy-800); font-size:0.9rem; font-weight:500; transition:all .2s ease; }
+  .toc a:hover { background:var(--navy-900); color:#fff; transform:translateX(3px); border-color:var(--navy-900); }
+  .toc a .n { display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:7px; background:var(--teal-500); color:#fff; font-weight:700; font-size:0.8rem; flex-shrink:0; }
+
+  /* PRIMER */
+  .primer { background:linear-gradient(135deg,var(--blue-50) 0%,#fff 65%); border:1px solid var(--slate-200); border-left:4px solid var(--blue-500); border-radius:14px; padding:1.5rem 1.75rem; margin-bottom:2.8rem; }
+  .primer h3 { font-family:'Poppins',sans-serif; font-size:1.1rem; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.5rem; }
+  .primer p { font-size:0.94rem; color:var(--navy-700); margin-bottom:0.7rem; }
+  .primer .miniflow { display:flex; flex-wrap:wrap; align-items:center; gap:0.5rem; font-size:0.85rem; }
+  .primer .fstep { background:#fff; border:1px solid var(--slate-200); border-radius:8px; padding:0.4rem 0.75rem; font-weight:600; color:var(--navy-800); }
+  .primer .farr { color:var(--blue-500); font-weight:700; }
+
+  /* SUBTOPIC BLOCKS */
+  .subtopic { margin-bottom:3.4rem; scroll-margin-top:1rem; }
+  .st-head { display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.1rem; padding-bottom:1rem; border-bottom:2px solid var(--slate-200); }
+  .st-num { width:52px; height:52px; border-radius:13px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-family:'Poppins',sans-serif; font-weight:800; font-size:1.3rem; color:#fff; background:var(--teal-500); box-shadow:0 6px 18px rgba(13,148,136,0.32); }
+  .st-head .st-t { flex:1; }
+  .st-head h2 { font-family:'Poppins',sans-serif; font-size:1.5rem; letter-spacing:-0.01em; line-height:1.2; }
+  .st-head .st-sub { font-size:0.88rem; color:var(--slate-500); font-weight:500; margin-top:0.15rem; }
+  .st-time { font-size:0.72rem; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--teal-500); background:var(--teal-50); border:1px solid var(--teal-100); padding:0.3rem 0.7rem; border-radius:999px; white-space:nowrap; }
+
+  .obj-line { background:var(--slate-50); border:1px solid var(--slate-200); border-radius:10px; padding:0.9rem 1.1rem; margin-bottom:1.2rem; font-size:0.94rem; }
+  .obj-line strong { color:var(--teal-500); font-family:'Poppins',sans-serif; }
+
+  .steps { counter-reset:step; margin:0.5rem 0 0.5rem; }
+  .step { display:flex; gap:1rem; padding:0.95rem 0; border-bottom:1px dashed var(--slate-200); }
+  .step:last-child { border-bottom:none; }
+  .step-num { counter-increment:step; flex-shrink:0; width:32px; height:32px; border-radius:50%; background:var(--navy-800); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.9rem; }
+  .step-num::before { content:counter(step); }
+  .step-body h4 { font-family:'Poppins',sans-serif; font-size:0.98rem; margin-bottom:0.15rem; }
+  .step-body p { font-size:0.92rem; color:var(--navy-700); }
+  .step-body code, .obj-line code, .primer code { font-family:'JetBrains Mono',monospace; background:var(--slate-100); border:1px solid var(--slate-200); padding:0.05rem 0.4rem; border-radius:5px; font-size:0.85em; }
+  .kbd { display:inline-block; background:#fff; border:1px solid var(--slate-300); border-bottom-width:2px; border-radius:6px; padding:0.05rem 0.45rem; font-family:'JetBrains Mono',monospace; font-size:0.82em; font-weight:600; }
+
+  /* FIGURE + SP MOCKS */
+  figure { margin:1.6rem 0 0.4rem; }
+  figcaption { font-size:0.82rem; color:var(--slate-500); text-align:center; margin-top:0.75rem; font-style:italic; }
+
+  .sp-mock { border:1px solid var(--slate-200); border-radius:12px; overflow:hidden; box-shadow:0 8px 28px rgba(15,23,42,0.12); background:#fff; font-size:0.9rem; }
+  .sp-chrome { background:var(--slate-100); border-bottom:1px solid var(--slate-200); padding:0.55rem 0.85rem; display:flex; align-items:center; gap:0.5rem; }
+  .sp-chrome .dots { display:flex; gap:0.35rem; }
+  .sp-chrome .dots span { width:11px; height:11px; border-radius:50%; }
+  .sp-chrome .r{background:#f87171;} .sp-chrome .y{background:#fbbf24;} .sp-chrome .g{background:#34d399;}
+  .sp-url { flex:1; background:#fff; border:1px solid var(--slate-200); border-radius:6px; padding:0.28rem 0.7rem; font-family:'JetBrains Mono',monospace; font-size:0.74rem; color:var(--slate-500); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  /* SharePoint site header bar */
+  .sp-site { background:var(--sp); color:#fff; padding:0.7rem 1rem; display:flex; align-items:center; gap:0.7rem; }
+  .sp-logo { width:30px; height:30px; border-radius:7px; background:rgba(255,255,255,0.18); display:flex; align-items:center; justify-content:center; font-size:0.95rem; flex-shrink:0; }
+  .sp-site .name { font-family:'Poppins',sans-serif; font-weight:700; font-size:0.92rem; }
+  .sp-site .name small { display:block; font-family:'Inter',sans-serif; font-weight:400; font-size:0.68rem; opacity:0.85; }
+  .sp-nav { display:flex; gap:0.9rem; margin-left:auto; font-size:0.78rem; opacity:0.92; }
+  .sp-nav span.active { border-bottom:2px solid #fff; padding-bottom:2px; }
+  /* command bar */
+  .sp-cmd { display:flex; align-items:center; gap:1.1rem; padding:0.55rem 1rem; border-bottom:1px solid var(--slate-200); background:#fff; font-size:0.8rem; color:var(--navy-700); flex-wrap:wrap; }
+  .sp-cmd .c { display:inline-flex; align-items:center; gap:0.35rem; font-weight:600; }
+  .sp-cmd .c.pri { color:var(--sp); }
+  .sp-cmd .c .ic { font-size:0.9rem; }
+  .sp-cmd .edit-pill { margin-left:auto; background:var(--sp); color:#fff; padding:0.3rem 0.85rem; border-radius:6px; font-weight:600; }
+  .sp-body { padding:1rem 1.1rem 1.2rem; background:#fbfcfe; }
+
+  /* generic table (list / library) */
+  .sp-table { width:100%; border-collapse:collapse; font-size:0.82rem; background:#fff; border:1px solid var(--slate-200); border-radius:8px; overflow:hidden; }
+  .sp-table thead th { background:#f6f8fb; text-align:left; padding:0.55rem 0.8rem; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--slate-500); border-bottom:1px solid var(--slate-200); font-weight:700; white-space:nowrap; }
+  .sp-table thead th .sortic { color:var(--sp); font-size:0.65rem; }
+  .sp-table tbody td { padding:0.55rem 0.8rem; border-bottom:1px solid var(--slate-100); color:var(--navy-800); }
+  .sp-table tbody tr:last-child td { border-bottom:none; }
+  .sp-table tbody tr:hover { background:#f6fbfb; }
+  .sp-table .fico { color:var(--amber-500); }
+  .sp-table .wf { color:#2b579a; } /* word */
+  .sp-table .xl { color:#217346; } /* excel */
+  .sp-table .pp { color:#d24726; } /* ppt */
+  .st-status { font-size:0.68rem; font-weight:700; padding:0.15rem 0.55rem; border-radius:999px; }
+  .st-status.done { background:var(--green-50); color:var(--green-600); }
+  .st-status.prog { background:var(--amber-100); color:#b45309; }
+  .st-status.todo { background:var(--slate-100); color:var(--slate-500); }
+  .st-status.high { background:var(--rose-50); color:var(--rose-600); }
+  .mono { font-family:'JetBrains Mono',monospace; }
+  .dcol .d { color:var(--teal-500); font-weight:700; }
+
+  /* Planner board mock */
+  .planner { display:grid; grid-template-columns:repeat(3,1fr); gap:0.7rem; }
+  @media (max-width:640px){ .planner { grid-template-columns:1fr; } }
+  .bucket { background:#fff; border:1px solid var(--slate-200); border-radius:9px; padding:0.6rem; }
+  .bucket h5 { font-family:'Poppins',sans-serif; font-size:0.8rem; margin-bottom:0.5rem; display:flex; align-items:center; justify-content:space-between; }
+  .bucket h5 .cnt { font-size:0.66rem; color:var(--slate-400); font-weight:600; }
+  .task { background:var(--slate-50); border:1px solid var(--slate-200); border-radius:7px; padding:0.5rem 0.6rem; margin-bottom:0.45rem; }
+  .task:last-child { margin-bottom:0; }
+  .task .tt { font-size:0.78rem; font-weight:600; color:var(--navy-800); margin-bottom:0.3rem; }
+  .task .tm { display:flex; align-items:center; gap:0.4rem; }
+  .task .flag { width:6px; height:6px; border-radius:50%; }
+  .task .assignee { width:18px; height:18px; border-radius:50%; background:var(--teal-500); color:#fff; font-size:0.6rem; display:flex; align-items:center; justify-content:center; font-weight:700; margin-left:auto; }
+  .task .due { font-size:0.66rem; color:var(--slate-500); }
+
+  /* Quick links mock */
+  .ql-wrap { background:#fff; border:1px solid var(--slate-200); border-radius:9px; padding:0.9rem; }
+  .ql-title { font-family:'Poppins',sans-serif; font-size:0.85rem; margin-bottom:0.7rem; color:var(--navy-800); }
+  .ql-row { display:flex; flex-wrap:wrap; gap:0.6rem; }
+  .ql-btn { display:inline-flex; align-items:center; gap:0.5rem; background:var(--slate-50); border:1px solid var(--slate-200); border-radius:9px; padding:0.6rem 0.9rem; font-size:0.8rem; font-weight:600; color:var(--navy-800); }
+  .ql-btn .qic { width:26px; height:26px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; color:#fff; }
+  .ql-btn .a{background:#2b579a;} .ql-btn .b{background:var(--sp);} .ql-btn .c{background:var(--amber-500);} .ql-btn .d{background:var(--purple-500);} .ql-btn .e{background:var(--rose-600);}
+
+  /* web part picker mock */
+  .wp-picker { background:#fff; border:1px solid var(--slate-200); border-radius:10px; padding:0.9rem; box-shadow:0 10px 30px rgba(15,23,42,0.12); max-width:430px; margin:0 auto; }
+  .wp-search { background:var(--slate-50); border:1px solid var(--slate-200); border-radius:7px; padding:0.4rem 0.7rem; font-size:0.78rem; color:var(--slate-500); margin-bottom:0.8rem; }
+  .wp-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.55rem; }
+  .wp-item { border:1px solid var(--slate-200); border-radius:8px; padding:0.6rem 0.4rem; text-align:center; font-size:0.7rem; font-weight:600; color:var(--navy-700); }
+  .wp-item .wic { font-size:1.2rem; display:block; margin-bottom:0.25rem; }
+  .wp-item.sel { border-color:var(--sp); background:var(--teal-50); box-shadow:0 0 0 2px rgba(3,120,124,0.25); }
+
+  /* the "add web part" plus rail */
+  .add-rail { display:flex; align-items:center; gap:0.6rem; justify-content:center; padding:0.7rem 0; }
+  .add-rail .line { height:1px; background:var(--slate-300); flex:1; }
+  .add-rail .plus { width:34px; height:34px; border-radius:50%; background:var(--sp); color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.2rem; font-weight:700; box-shadow:0 4px 12px rgba(3,120,124,0.35); }
+
+  /* annotation callout under figures */
+  .annot { display:flex; gap:0.6rem; align-items:flex-start; background:var(--amber-100); border-radius:9px; padding:0.7rem 0.9rem; margin-top:0.9rem; font-size:0.85rem; color:#78350f; }
+  .annot .pin { flex-shrink:0; }
+
+  .tip { background:linear-gradient(135deg,var(--green-50) 0%,#fff 75%); border-left:4px solid var(--green-600); border-radius:10px; padding:1rem 1.2rem; margin-top:1.2rem; font-size:0.9rem; color:var(--navy-700); }
+  .tip strong { color:var(--green-600); }
+
+  /* recap */
+  .recap { background:linear-gradient(135deg,var(--navy-900) 0%,var(--navy-800) 100%); color:#fff; border-radius:16px; padding:2rem; margin-top:2rem; }
+  .recap h3 { font-family:'Poppins',sans-serif; font-size:1.25rem; margin-bottom:1rem; }
+  .recap-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:0.8rem; }
+  .recap-item { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:0.9rem 1rem; }
+  .recap-item .ri-n { font-family:'Poppins',sans-serif; font-weight:800; color:#5eead4; font-size:0.85rem; margin-bottom:0.2rem; }
+  .recap-item p { font-size:0.83rem; color:var(--slate-300); }
+
+  .pagenav { display:flex; justify-content:space-between; align-items:center; margin-top:2.6rem; padding-top:1.5rem; border-top:1px solid var(--slate-200); flex-wrap:wrap; gap:1rem; }
+  .pagenav a { text-decoration:none; font-weight:600; font-size:0.92rem; display:inline-flex; align-items:center; gap:0.4rem; }
+  .pagenav .back { color:var(--slate-500); }
+  .pagenav .back:hover { color:var(--navy-900); }
+  .pagenav .home { background:var(--navy-900); color:#fff; padding:0.8rem 1.4rem; border-radius:10px; transition:transform .2s ease; }
+  .pagenav .home:hover { transform:translateY(-2px); }
+
+  footer { background:var(--navy-900); color:var(--slate-300); padding:2rem; text-align:center; font-size:0.85rem; }
+  footer p + p { margin-top:0.5rem; color:var(--slate-500); font-size:0.78rem; }
+
+  @media (max-width:720px){
+    .hero { padding:2.6rem 1.25rem 2.4rem; }
+    .container { padding:2rem 1.25rem 2.5rem; }
+    .st-head { flex-wrap:wrap; }
+    .sp-nav { display:none; }
+    .wp-grid { grid-template-columns:repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <nav class="breadcrumb">
+      <a href="learning-hub.html">Learning Hub</a><span class="sep">›</span>
+      <span>Topic 2</span>
+    </nav>
+    <span class="hero-tag">Topic 2 · Hands-on Build · 45 min</span>
+    <h1>Build &amp; Customise a <span>Department SharePoint Site</span></h1>
+    <p>You'll create a team site for your department, then add the four building blocks that turn a blank page into a working hub: a list, a task board, quick-link buttons, and a document library.</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- OBJECTIVE -->
+  <section class="objective">
+    <h2>🎯 What you'll build today</h2>
+    <ul>
+      <li>Create a <strong>department team site</strong> and understand how a SharePoint page is edited.</li>
+      <li>Add a <strong>SharePoint list</strong> to track structured information (e.g. a request or asset register).</li>
+      <li>Add a <strong>Planner / To-Do task board</strong> so the team can see who's doing what.</li>
+      <li>Add a section of <strong>quick-link buttons</strong> to your most-used tools and pages.</li>
+      <li>Integrate a <strong>document library</strong> right onto the home page — connected to the folder system from Topic 1.</li>
+    </ul>
+  </section>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <h2>📑 On this page</h2>
+    <div class="toc-grid">
+      <a href="#site"><span class="n">0</span> Create the department site</a>
+      <a href="#list"><span class="n">1</span> Add a SharePoint list</a>
+      <a href="#planner"><span class="n">2</span> Add a Planner task board</a>
+      <a href="#links"><span class="n">3</span> Add quick-link buttons</a>
+      <a href="#library"><span class="n">4</span> Integrate a document library</a>
+    </div>
+  </nav>
+
+  <!-- PRIMER -->
+  <section class="primer">
+    <h3>🧱 One skill unlocks all four: adding a web part</h3>
+    <p>Everything below is added the same way. On your site's home page you click <strong>Edit</strong> (top-right), hover where you want the content, click the circled <strong>+</strong>, and pick a <strong>web part</strong>. Learn this once and you can add anything.</p>
+    <div class="miniflow">
+      <span class="fstep">Open your site</span><span class="farr">→</span>
+      <span class="fstep">Click <strong>Edit</strong></span><span class="farr">→</span>
+      <span class="fstep">Click the <strong>＋</strong></span><span class="farr">→</span>
+      <span class="fstep">Choose a web part</span><span class="farr">→</span>
+      <span class="fstep">Click <strong>Republish</strong></span>
+    </div>
+  </section>
+
+  <!-- ===== SUBTOPIC 0: CREATE SITE ===== -->
+  <section class="subtopic" id="site">
+    <div class="st-head">
+      <span class="st-num" style="background:var(--navy-800)">0</span>
+      <div class="st-t">
+        <h2>Create the department site</h2>
+        <div class="st-sub">Your team's home base in SharePoint</div>
+      </div>
+      <span class="st-time">~7 min</span>
+    </div>
+    <div class="obj-line"><strong>Objective:</strong> Spin up a <em>Team site</em> for your department that everyone can access, with its own document library ready to use.</div>
+
+    <div class="steps">
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Open SharePoint</h4><p>Go to <code>office.com</code> (or the Microsoft 365 app launcher — the <span class="kbd">▦</span> waffle, top-left) and click <strong>SharePoint</strong>.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Click "＋ Create site"</h4><p>You'll see it near the top of the SharePoint start page. Choose <strong>Team site</strong> — this gives your department shared files, a calendar, and a document library out of the box.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Name it after the department</h4><p>e.g. <code>Afton – Operations</code>. SharePoint auto-creates the address and a matching Microsoft 365 group.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Add members</h4><p>Add your team as <strong>Members</strong> (can edit) and keep yourself as <strong>Owner</strong> (full control). Click <strong>Finish</strong>.</p></div></div>
+    </div>
+
+    <figure>
+      <div class="sp-mock">
+        <div class="sp-chrome"><span class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></span><span class="sp-url">https://aftonchemical.sharepoint.com/sites/Operations</span></div>
+        <div class="sp-body" style="padding:1.3rem;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.9rem;">
+            <div class="wp-item sel" style="padding:1.1rem 0.8rem; text-align:left;">
+              <span class="wic" style="font-size:1.6rem;">👥</span>
+              <div style="font-size:0.86rem; font-weight:700; color:var(--navy-900); margin-bottom:0.2rem;">Team site</div>
+              <div style="font-size:0.72rem; color:var(--slate-500); font-weight:400;">Collaborate on files &amp; tasks with your department. Includes a document library. <strong>← Choose this</strong></div>
+            </div>
+            <div class="wp-item" style="padding:1.1rem 0.8rem; text-align:left;">
+              <span class="wic" style="font-size:1.6rem;">📢</span>
+              <div style="font-size:0.86rem; font-weight:700; color:var(--navy-900); margin-bottom:0.2rem;">Communication site</div>
+              <div style="font-size:0.72rem; color:var(--slate-500); font-weight:400;">Broadcast news &amp; info to a wide audience. Fewer collaboration tools.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <figcaption>Illustrative reference — the "Create a site" choice. For a department hub, pick <strong>Team site</strong>.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===== SUBTOPIC 1: LIST ===== -->
+  <section class="subtopic" id="list">
+    <div class="st-head">
+      <span class="st-num">1</span>
+      <div class="st-t">
+        <h2>Add a SharePoint list</h2>
+        <div class="st-sub">Track structured information — like a smart, shared spreadsheet</div>
+      </div>
+      <span class="st-time">~9 min</span>
+    </div>
+    <div class="obj-line"><strong>Objective:</strong> Create a list to track a repeating process for the department — for example an <em>Equipment / Asset Register</em> or a <em>Request Tracker</em> — with columns, statuses, and views everyone shares.</div>
+
+    <div class="steps">
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>On the home page, click Edit → ＋ → List</h4><p>Or from the command bar choose <strong>＋ New → List</strong>. You can start <strong>Blank</strong>, from an <strong>Excel</strong> file, or from a ready-made <strong>template</strong>.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Name the list</h4><p>e.g. <code>Equipment Register</code>. Give it a clear description so the team knows what it's for.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Add your columns</h4><p>Click <strong>＋ Add column</strong> and choose a data type per column — <em>Text</em>, <em>Choice</em> (for status), <em>Date</em>, <em>Person</em>, <em>Number</em>. Data types keep entries clean and filterable.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Enter a few rows, then save a view</h4><p>Add items with <strong>＋ New</strong>. Filter or group by <em>Status</em>, then <strong>Save view as</strong> "Open items" so the team lands on the right filter.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Republish the page</h4><p>Back on the home page, the list web part now shows live data. Click <strong>Republish</strong> to make it visible to everyone.</p></div></div>
+    </div>
+
+    <figure>
+      <div class="sp-mock">
+        <div class="sp-chrome"><span class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></span><span class="sp-url">https://aftonchemical.sharepoint.com/sites/Operations/Lists/Equipment Register</span></div>
+        <div class="sp-site"><div class="sp-logo">🧪</div><div class="name">Afton – Operations<small>Equipment Register</small></div><div class="sp-nav"><span>Home</span><span class="active">Lists</span><span>Documents</span></div></div>
+        <div class="sp-cmd"><span class="c pri"><span class="ic">＋</span> New</span><span class="c"><span class="ic">⤢</span> Edit in grid</span><span class="c"><span class="ic">⚲</span> Filter: Status</span><span class="c">▦ All items ▾</span></div>
+        <div class="sp-body">
+          <table class="sp-table">
+            <thead><tr><th>Asset ID <span class="sortic">▲</span></th><th>Equipment</th><th>Location</th><th>Status</th><th>Next Service</th><th>Owner</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">AF-1042</td><td>Viscometer</td><td>Lab A</td><td><span class="st-status done">Operational</span></td><td class="dcol"><span class="d">2026-08-14</span></td><td>J. Tan</td></tr>
+              <tr><td class="mono">AF-1043</td><td>Centrifuge</td><td>Lab A</td><td><span class="st-status prog">Servicing</span></td><td class="dcol"><span class="d">2026-07-22</span></td><td>R. Lim</td></tr>
+              <tr><td class="mono">AF-1051</td><td>Fume Hood 3</td><td>Lab B</td><td><span class="st-status high">Attention</span></td><td class="dcol"><span class="d">2026-07-18</span></td><td>M. Ng</td></tr>
+              <tr><td class="mono">AF-1067</td><td>Spectrometer</td><td>QC Room</td><td><span class="st-status done">Operational</span></td><td class="dcol"><span class="d">2026-09-30</span></td><td>S. Devi</td></tr>
+            </tbody>
+          </table>
+          <div class="annot"><span class="pin">📌</span><div>Notice the <strong>Status</strong> column uses a <em>Choice</em> data type — that's what gives you the coloured badges and lets you filter to just "Attention" items in one click.</div></div>
+        </div>
+      </div>
+      <figcaption>Illustrative reference — a SharePoint list acts like a shared spreadsheet with data types, coloured statuses, and saved views.</figcaption>
+    </figure>
+    <div class="tip"><strong>Tip:</strong> A list beats a spreadsheet on a shared drive because two people can edit at once, every change is tracked, and you can filter, group, and even trigger reminders — no version conflicts.</div>
+  </section>
+
+  <!-- ===== SUBTOPIC 2: PLANNER ===== -->
+  <section class="subtopic" id="planner">
+    <div class="st-head">
+      <span class="st-num" style="background:var(--purple-500); box-shadow:0 6px 18px rgba(124,58,237,0.32)">2</span>
+      <div class="st-t">
+        <h2>Add a Planner / To-Do task board</h2>
+        <div class="st-sub">See who's doing what, at a glance</div>
+      </div>
+      <span class="st-time">~9 min</span>
+    </div>
+    <div class="obj-line"><strong>Objective:</strong> Embed a <em>Planner</em> board on the site so the department can assign tasks, set due dates, and track progress across simple columns (buckets).</div>
+
+    <div class="steps">
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Edit the page → ＋ → search "Planner"</h4><p>In the web part picker, type <code>Planner</code> and select the <strong>Tasks by Planner and To Do</strong> web part.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Create a new plan (or link an existing one)</h4><p>Choose <strong>Create a new plan</strong> and name it — e.g. <code>Operations – Weekly Tasks</code>. It's automatically tied to your team.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Set up buckets</h4><p>Buckets are your columns. Create <strong>To do</strong>, <strong>In progress</strong>, and <strong>Done</strong> — or use stages that fit your workflow.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Add tasks and assign people</h4><p>Click <strong>＋ Add task</strong>, give it a title, a <strong>due date</strong>, and <strong>assign</strong> a team member. Drag tasks between buckets as work progresses.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Republish</h4><p>The board is now live on the home page and stays in sync with Planner and Microsoft To Do.</p></div></div>
+    </div>
+
+    <figure>
+      <div class="sp-mock">
+        <div class="sp-chrome"><span class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></span><span class="sp-url">https://aftonchemical.sharepoint.com/sites/Operations/SitePages/Home.aspx</span></div>
+        <div class="sp-site"><div class="sp-logo">📋</div><div class="name">Afton – Operations<small>Operations – Weekly Tasks · Board</small></div><div class="sp-nav"><span class="active">Board</span><span>Charts</span><span>Schedule</span></div></div>
+        <div class="sp-cmd"><span class="c pri"><span class="ic">＋</span> Add task</span><span class="c">Group by: Bucket ▾</span><span class="c"><span class="ic">⚲</span> Filter</span></div>
+        <div class="sp-body">
+          <div class="planner">
+            <div class="bucket">
+              <h5>To do <span class="cnt">2</span></h5>
+              <div class="task"><div class="tt">Update SDS binder for Lab B</div><div class="tm"><span class="flag" style="background:var(--rose-600)"></span><span class="due">Due 18 Jul</span><span class="assignee">MN</span></div></div>
+              <div class="task"><div class="tt">Order replacement filters</div><div class="tm"><span class="flag" style="background:var(--amber-500)"></span><span class="due">Due 21 Jul</span><span class="assignee">RL</span></div></div>
+            </div>
+            <div class="bucket">
+              <h5>In progress <span class="cnt">2</span></h5>
+              <div class="task"><div class="tt">Fume Hood 3 service call</div><div class="tm"><span class="flag" style="background:var(--rose-600)"></span><span class="due">Due 18 Jul</span><span class="assignee">JT</span></div></div>
+              <div class="task"><div class="tt">Draft Q3 safety report</div><div class="tm"><span class="flag" style="background:var(--teal-500)"></span><span class="due">Due 30 Jul</span><span class="assignee">SD</span></div></div>
+            </div>
+            <div class="bucket">
+              <h5>Done <span class="cnt">2</span></h5>
+              <div class="task" style="opacity:0.7;"><div class="tt" style="text-decoration:line-through;">Monthly calibration check</div><div class="tm"><span class="flag" style="background:var(--green-600)"></span><span class="due">✓ 12 Jul</span><span class="assignee">RL</span></div></div>
+              <div class="task" style="opacity:0.7;"><div class="tt" style="text-decoration:line-through;">Restock PPE cabinet</div><div class="tm"><span class="flag" style="background:var(--green-600)"></span><span class="due">✓ 10 Jul</span><span class="assignee">MN</span></div></div>
+            </div>
+          </div>
+          <div class="annot"><span class="pin">📌</span><div>The coloured dot is the task's <strong>priority flag</strong>; the circle on the right is the <strong>assigned person</strong>. Drag a card from <em>To do</em> to <em>Done</em> and everyone sees it update instantly.</div></div>
+        </div>
+      </div>
+      <figcaption>Illustrative reference — the Planner board web part embedded on the department home page.</figcaption>
+    </figure>
+    <div class="tip"><strong>Tip:</strong> Tasks assigned in Planner also appear in each person's <strong>Microsoft To Do</strong> and Teams — so nobody has to remember to check the site.</div>
+  </section>
+
+  <!-- ===== SUBTOPIC 3: QUICK LINKS ===== -->
+  <section class="subtopic" id="links">
+    <div class="st-head">
+      <span class="st-num" style="background:var(--amber-500); box-shadow:0 6px 18px rgba(245,158,11,0.32)">3</span>
+      <div class="st-t">
+        <h2>Add a section of quick-link buttons</h2>
+        <div class="st-sub">One-click access to the tools your team uses daily</div>
+      </div>
+      <span class="st-time">~7 min</span>
+    </div>
+    <div class="obj-line"><strong>Objective:</strong> Add a <em>Quick links</em> web part — a tidy row of clickable buttons pointing to your most-used pages, tools, and documents.</div>
+
+    <div class="steps">
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Edit the page → ＋ → Quick links</h4><p>In the picker, choose <strong>Quick links</strong>. It drops in a labelled section you can fill with buttons.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Click ＋ Add and paste a link</h4><p>Paste a URL (an internal SharePoint page, a document, or an external site like your ERP), give it a friendly <strong>title</strong>, and pick an <strong>icon</strong>.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Choose a layout</h4><p>In the web part settings (pencil ✎), pick a layout — <strong>Button</strong>, <strong>Compact</strong>, or <strong>Filmstrip</strong>. Button and Compact look cleanest for a link bar.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Reorder &amp; republish</h4><p>Drag buttons into priority order (most-used first) and click <strong>Republish</strong>.</p></div></div>
+    </div>
+
+    <figure>
+      <div class="sp-mock">
+        <div class="sp-chrome"><span class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></span><span class="sp-url">https://aftonchemical.sharepoint.com/sites/Operations/SitePages/Home.aspx</span></div>
+        <div class="sp-site"><div class="sp-logo">🔗</div><div class="name">Afton – Operations<small>Home</small></div><div class="sp-nav"><span class="active">Home</span><span>Documents</span><span>Pages</span></div></div>
+        <div class="sp-cmd"><span class="c">＋ New</span><span class="edit-pill">✎ Edit</span></div>
+        <div class="sp-body">
+          <div class="ql-wrap">
+            <div class="ql-title">Department Quick Links</div>
+            <div class="ql-row">
+              <span class="ql-btn"><span class="qic a">📄</span> SOP Library</span>
+              <span class="ql-btn"><span class="qic b">🧪</span> SDS / Safety Data</span>
+              <span class="ql-btn"><span class="qic c">📊</span> ERP Dashboard</span>
+              <span class="ql-btn"><span class="qic d">📅</span> Shift Roster</span>
+              <span class="ql-btn"><span class="qic e">🎫</span> Raise a Ticket</span>
+            </div>
+          </div>
+          <div class="annot"><span class="pin">📌</span><div>Each button is one link + one icon. Point them at the pages your team opens 10 times a day — your document library, the roster, your ticketing tool — so they're never more than one click away.</div></div>
+        </div>
+      </div>
+      <figcaption>Illustrative reference — the Quick links web part in <em>Button</em> layout, acting as a department launchpad.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===== SUBTOPIC 4: LIBRARY ===== -->
+  <section class="subtopic" id="library">
+    <div class="st-head">
+      <span class="st-num" style="background:var(--blue-500); box-shadow:0 6px 18px rgba(37,99,235,0.32)">4</span>
+      <div class="st-t">
+        <h2>Integrate a document library</h2>
+        <div class="st-sub">Surface your files right on the home page</div>
+      </div>
+      <span class="st-time">~9 min</span>
+    </div>
+    <div class="obj-line"><strong>Objective:</strong> Show a <em>document library</em> directly on the department home page — organised with the date-first folder convention from Topic 1 — so files are visible without hunting through menus.</div>
+
+    <div class="steps">
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Set up the library first</h4><p>Open <strong>Documents</strong> and create your top-level folders using PARA + the date-first convention: <code>Projects</code>, <code>Areas</code>, <code>Resources</code>, <code>Archives</code>, with dated folders inside (e.g. <code>2026-07-16 Afton Onboarding</code>).</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Edit the home page → ＋ → Document library</h4><p>In the picker, choose the <strong>Document library</strong> web part.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Pick which library and view to show</h4><p>Select your <strong>Documents</strong> library, then choose a <strong>view</strong> (e.g. "All Documents" or a custom filtered view). You can show a specific folder as the starting point.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Set the size &amp; command bar</h4><p>In settings (✎), choose how many items to show and whether people can upload directly from the home page. Turn on the command bar so they can add files in place.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h4>Republish</h4><p>Files now live on the home page. Because folders are date-first, they stay in order automatically — the payoff from Topic 1.</p></div></div>
+    </div>
+
+    <figure>
+      <div class="sp-mock">
+        <div class="sp-chrome"><span class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></span><span class="sp-url">https://aftonchemical.sharepoint.com/sites/Operations/Shared Documents</span></div>
+        <div class="sp-site"><div class="sp-logo">📁</div><div class="name">Afton – Operations<small>Documents</small></div><div class="sp-nav"><span>Home</span><span class="active">Documents</span><span>Pages</span></div></div>
+        <div class="sp-cmd"><span class="c pri"><span class="ic">＋</span> New</span><span class="c"><span class="ic">⬆</span> Upload</span><span class="c"><span class="ic">⇄</span> Sync</span><span class="c">▦ All Documents ▾</span></div>
+        <div class="sp-body">
+          <table class="sp-table">
+            <thead><tr><th>Name <span class="sortic">▲</span></th><th>Modified</th><th>Modified By</th></tr></thead>
+            <tbody>
+              <tr><td><span class="fico">📁</span> <span class="dcol"><span class="d">2026-07-16</span></span> Afton Onboarding</td><td>16 Jul</td><td>K. Rahman</td></tr>
+              <tr><td><span class="fico">📁</span> <span class="dcol"><span class="d">2026-07-28</span></span> July Report</td><td>28 Jul</td><td>J. Tan</td></tr>
+              <tr><td><span class="fico">📁</span> <span class="dcol"><span class="d">2026-08-02</span></span> Safety Audit</td><td>2 Aug</td><td>M. Ng</td></tr>
+              <tr><td><span class="wf">📄</span> Operations Handbook.docx</td><td>10 Jul</td><td>S. Devi</td></tr>
+              <tr><td><span class="xl">📊</span> Equipment Log.xlsx</td><td>12 Jul</td><td>R. Lim</td></tr>
+              <tr><td><span class="pp">📑</span> Dept Induction.pptx</td><td>9 Jul</td><td>K. Rahman</td></tr>
+            </tbody>
+          </table>
+          <div class="annot"><span class="pin">📌</span><div>The dated folders sit at the top in perfect order because <strong>Name</strong> is sorted A→Z — exactly the behaviour you set up in Topic 1. Word, Excel, and PowerPoint files open and co-edit right in the browser.</div></div>
+        </div>
+      </div>
+      <figcaption>Illustrative reference — a document library embedded on the site, using the date-first + PARA structure from Topic 1.</figcaption>
+    </figure>
+
+    <div class="tip"><strong>Tip:</strong> Click <strong>Sync</strong> (or "Add shortcut to OneDrive") and the library appears in File Explorer — so the team can work with SharePoint files as if they were local, while everything stays backed up and shared.</div>
+  </section>
+
+  <!-- RECAP -->
+  <section class="recap">
+    <h3>✅ You've built a working department hub</h3>
+    <div class="recap-grid">
+      <div class="recap-item"><div class="ri-n">List</div><p>Structured, filterable tracking that beats a shared spreadsheet.</p></div>
+      <div class="recap-item"><div class="ri-n">Planner</div><p>A shared task board synced to To Do and Teams.</p></div>
+      <div class="recap-item"><div class="ri-n">Quick links</div><p>One-click access to the team's daily tools.</p></div>
+      <div class="recap-item"><div class="ri-n">Library</div><p>Files on the home page, self-sorting by date.</p></div>
+    </div>
+  </section>
+
+  <!-- PAGE NAV -->
+  <nav class="pagenav">
+    <a class="back" href="learning-hub.html">← Back to Learning Hub</a>
+    <a class="home" href="https://www.tictechtoelabs.com/vault/digital-note-taking.html" target="_blank" rel="noopener">Open the CODE × PARA guide →</a>
+  </nav>
+
+</main>
+
+<footer>
+  <p>Tic Tech Toe Labs · Workplace Digital Skills Training</p>
+  <p>Afton Chemical · Episode 9 · SharePoint for Departments (Part 1) · 16 July 2026</p>
+</footer>
+
+</body>
+</html>

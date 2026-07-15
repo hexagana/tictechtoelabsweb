@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Afton Chemical · SharePoint for Departments · Learning Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --navy-900:#0f172a; --navy-800:#1e293b; --navy-700:#334155;
+    --slate-500:#64748b; --slate-300:#cbd5e1; --slate-100:#f1f5f9; --slate-50:#f8fafc;
+    --amber-500:#f59e0b; --amber-400:#fbbf24; --amber-100:#fef3c7;
+    --teal-500:#0d9488; --blue-500:#2563eb; --blue-700:#1d4ed8; --blue-300:#93c5fd;
+    --white:#fff;
+  }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    color:var(--navy-900); background:var(--slate-50); line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background:
+      radial-gradient(at 10% 20%, rgba(37,99,235,0.28) 0, transparent 50%),
+      radial-gradient(at 90% 80%, rgba(245,158,11,0.18) 0, transparent 50%),
+      linear-gradient(135deg,#0f172a 0%,#1e293b 100%);
+    color:#fff; padding:3.5rem 2rem 3rem;
+  }
+  .hero-inner { max-width:1080px; margin:0 auto; }
+  .breadcrumb { display:flex; gap:0.5rem; align-items:center; font-size:0.85rem; color:var(--slate-300); margin-bottom:1.5rem; }
+  .breadcrumb a { color:var(--blue-300); text-decoration:none; }
+  .breadcrumb a:hover { text-decoration:underline; }
+  .breadcrumb span.sep { color:var(--slate-500); }
+  .hero-tag {
+    display:inline-block; background:rgba(37,99,235,0.20); color:var(--blue-300);
+    padding:0.4rem 1rem; border-radius:999px; font-size:0.78rem; font-weight:600;
+    letter-spacing:0.08em; text-transform:uppercase; margin-bottom:1.1rem;
+    border:1px solid rgba(37,99,235,0.42);
+  }
+  .hero h1 {
+    font-family:'Poppins',sans-serif; font-size:clamp(1.9rem,4.2vw,2.8rem);
+    font-weight:800; line-height:1.15; margin-bottom:0.75rem; letter-spacing:-0.02em;
+  }
+  .hero h1 span {
+    background:linear-gradient(90deg,#60a5fa,var(--amber-400));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  }
+  .hero p { color:var(--slate-300); font-size:1.05rem; max-width:720px; }
+
+  .container { max-width:1080px; margin:0 auto; padding:2.5rem 2rem 3.5rem; }
+
+  .intro-card {
+    background:#fff; border-radius:14px; padding:1.5rem 1.75rem; margin-bottom:2.5rem;
+    box-shadow:0 4px 20px rgba(15,23,42,0.06); border-left:4px solid var(--blue-500);
+  }
+  .intro-card h2 { font-family:'Poppins',sans-serif; font-size:1.15rem; margin-bottom:0.45rem; }
+  .intro-card p { color:var(--navy-700); font-size:0.96rem; }
+
+  .section-heading {
+    font-family:'Poppins',sans-serif; font-size:1.35rem; margin-bottom:1.25rem;
+    padding-bottom:0.6rem; border-bottom:2px solid #e2e8f0;
+    display:flex; align-items:center; gap:0.6rem;
+  }
+  .section-heading .heading-pill {
+    font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+    background:#eff6ff; color:var(--blue-700); padding:0.25rem 0.7rem; border-radius:999px; margin-left:auto;
+  }
+
+  /* ===== CARD GRID ===== */
+  .card-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:1.25rem; }
+
+  .topic-card {
+    display:flex; flex-direction:column; background:#fff; border-radius:16px;
+    padding:1.7rem 1.8rem; box-shadow:0 2px 14px rgba(15,23,42,0.05);
+    border:1px solid #e2e8f0; text-decoration:none; color:inherit;
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    min-height:270px; position:relative; overflow:hidden;
+  }
+  .topic-card::after {
+    content:""; position:absolute; top:0; left:0; right:0; height:5px;
+    background:var(--blue-500);
+  }
+  .topic-card.accent-teal::after { background:var(--teal-500); }
+  .topic-card:hover { transform:translateY(-4px); box-shadow:0 14px 36px rgba(15,23,42,0.13); border-color:var(--blue-500); }
+  .topic-card.accent-teal:hover { border-color:var(--teal-500); }
+  .topic-card:focus-visible { outline:3px solid var(--blue-500); outline-offset:2px; }
+
+  .card-meta { display:flex; align-items:center; gap:0.75rem; margin-bottom:1.1rem; }
+  .card-badge {
+    display:inline-flex; align-items:center; justify-content:center;
+    min-width:46px; height:46px; padding:0 0.5rem; border-radius:11px;
+    background:var(--blue-500); color:#fff; font-family:'Poppins',sans-serif; font-weight:800; font-size:1.05rem; flex-shrink:0;
+  }
+  .topic-card.accent-teal .card-badge { background:var(--teal-500); }
+  .card-time { font-size:0.78rem; font-weight:600; letter-spacing:0.04em; color:var(--slate-500); background:var(--slate-100); padding:0.3rem 0.7rem; border-radius:6px; }
+
+  .card-title { font-family:'Poppins',sans-serif; font-size:1.28rem; font-weight:700; line-height:1.3; margin-bottom:0.6rem; }
+  .card-desc { color:#475569; font-size:0.94rem; line-height:1.6; margin-bottom:1.1rem; flex-grow:1; }
+
+  .chip-row { display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:1.25rem; }
+  .chip {
+    font-size:0.74rem; font-weight:600; color:var(--navy-700);
+    background:var(--slate-100); border:1px solid #e2e8f0;
+    padding:0.28rem 0.65rem; border-radius:999px;
+  }
+  .topic-card.accent-teal .chip { background:#f0fdfa; border-color:#ccfbf1; color:#0f766e; }
+
+  .card-cta { display:inline-flex; align-items:center; gap:0.4rem; color:var(--blue-700); font-weight:600; font-size:0.92rem; margin-top:auto; }
+  .topic-card.accent-teal .card-cta { color:#0f766e; }
+  .card-cta .arrow { transition:transform .2s ease; font-size:1.1rem; }
+  .topic-card:hover .card-cta .arrow { transform:translateX(5px); }
+
+  .backlink { display:inline-flex; align-items:center; gap:0.4rem; margin-top:2.5rem; color:var(--slate-500); text-decoration:none; font-size:0.9rem; font-weight:500; }
+  .backlink:hover { color:var(--navy-900); }
+
+  footer { background:var(--navy-900); color:var(--slate-300); padding:2rem; text-align:center; font-size:0.85rem; }
+  footer p + p { margin-top:0.5rem; color:var(--slate-500); font-size:0.78rem; }
+
+  @media (max-width:720px){
+    .hero { padding:3rem 1.25rem 2.5rem; }
+    .container { padding:2rem 1.25rem 2.5rem; }
+    .card-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="hero-tag">Afton Chemical · Episode 9 · SharePoint for Departments (Part 1)</span>
+    <h1>Your <span>Learning Hub</span></h1>
+    <p>Two topics for today, in the order we'll cover them. Click a card to open its full lesson — each opens in a new tab so you never lose your place here. Come back anytime to revisit the steps and screenshots.</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="intro-card">
+    <h2>🧭 How today works</h2>
+    <p>We spend the first 45 minutes on <strong>capturing and organising files properly</strong> — the habits that make everything else easier. Then we spend the next 45 minutes <strong>building a real department SharePoint site</strong> you can reuse. Work through the cards top to bottom.</p>
+  </section>
+
+  <h2 class="section-heading">
+    Today's Topics
+    <span class="heading-pill">2 × 45 min</span>
+  </h2>
+
+  <div class="card-grid">
+
+    <!-- TOPIC 1 -->
+    <a class="topic-card" href="https://www.tictechtoelabs.com/vault/digital-note-taking.html" target="_blank" rel="noopener">
+      <div class="card-meta">
+        <span class="card-badge">1</span>
+        <span class="card-time">⏱ 45 min · Foundations</span>
+      </div>
+      <h3 class="card-title">CODE × PARA — Digital Note-Taking</h3>
+      <p class="card-desc">Why file organisation matters, and the two methods that fix it: <strong>CODE</strong> (Capture · Organise · Distill · Express) for getting information in, and <strong>PARA</strong> (Projects · Areas · Resources · Archives) for giving every file one home. Full guide with step-by-step screenshots.</p>
+      <div class="chip-row">
+        <span class="chip">CODE method</span>
+        <span class="chip">PARA method</span>
+        <span class="chip">Digital notes</span>
+      </div>
+      <span class="card-cta">Open the guide <span class="arrow">→</span></span>
+    </a>
+
+    <!-- TOPIC 2 -->
+    <a class="topic-card accent-teal" href="topic-2-department-sharepoint-site.html" target="_blank" rel="noopener">
+      <div class="card-meta">
+        <span class="card-badge">2</span>
+        <span class="card-time">⏱ 45 min · Hands-on Build</span>
+      </div>
+      <h3 class="card-title">Build &amp; Customise a Department SharePoint Site</h3>
+      <p class="card-desc">Create a team site, then add the four building blocks that make it useful: a <strong>SharePoint list</strong>, a <strong>Planner task board</strong>, a section of <strong>quick-link buttons</strong>, and an integrated <strong>document library</strong>.</p>
+      <div class="chip-row">
+        <span class="chip">SharePoint List</span>
+        <span class="chip">Planner / To-Do</span>
+        <span class="chip">Link buttons</span>
+        <span class="chip">Document Library</span>
+      </div>
+      <span class="card-cta">Open lesson <span class="arrow">→</span></span>
+    </a>
+
+  </div>
+
+</main>
+
+<footer>
+  <p>Tic Tech Toe Labs · Workplace Digital Skills Training</p>
+  <p>Afton Chemical · Episode 9 · SharePoint for Departments (Part 1) · 16 July 2026</p>
+</footer>
+
+</body>
+</html>
