@@ -1,0 +1,868 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital &amp; AI Skills — Training Needs Analysis · Tic Tech Toe Labs</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@300;400;700&family=Gloock&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<!--
+  ============================================================================
+  TRAINING NEEDS ANALYSIS (TNA) — Digital & AI Skills
+  Self-contained interactive form + instant gap-analysis + PDF export.
+  Upload this single file anywhere (your website, a subfolder, etc.). No build
+  step, no dependencies, works offline.
+
+  >>> ONE THING TO CONFIGURE: where your leads (contact + scores) get sent. <<<
+  Scroll to the CONFIG block at the top of the <script> near the bottom of this
+  file and paste your endpoint URL into  leadsEndpoint.
+     - Formspree:  https://formspree.io/f/xxxxxxx
+     - Make.com:   your "Custom webhook" URL
+     - Leave it as ''  -> the form still works fully; leads just aren't sent
+       anywhere (you'd rely on the exported PDF).
+  ============================================================================
+-->
+<style>
+  :root{
+    --accent:#ff5a1f;
+    --accent-dark:#e04a12;
+    --accent-soft:#fff0e8;
+    --ink:#1a1a1a;
+    --ink-2:#3a3a3a;
+    --ink-3:#6b6b6b;
+    --muted:#6b6b6b;
+    --line:#d8d0bf;
+    --bg:#f6f3ec;
+    --paper-2:#efeadd;
+    --card:#ffffff;
+    --highlight:#ffd23b;
+    --good:#1a9e6a;
+    --warn:#e0932f;
+    --bad:#d9534f;
+    --radius:12px;
+    --shadow:6px 6px 0 var(--ink);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Kalam','Comic Sans MS',cursive,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.55;font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:28px 18px 80px}
+  .card{background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:30px 32px}
+
+  /* Header */
+  .brand{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .brand-badge{width:44px;height:44px;border-radius:10px;background:var(--accent);border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Gloock',serif;font-size:18px;flex:0 0 auto}
+  .brand h1{font-family:'Gloock',serif;font-size:19px;margin:0;font-weight:400;letter-spacing:-.3px}
+  .brand p{font-family:'Caveat',cursive;font-size:16px;margin:0;color:var(--accent);font-weight:500}
+
+  /* Progress */
+  .progress-shell{position:sticky;top:66px;z-index:30;background:var(--bg);padding:10px 0 12px;margin-bottom:10px}
+  .progress-meta{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .progress-track{height:9px;background:#fff;border:2px solid var(--ink);border-radius:99px;overflow:hidden}
+  .progress-fill{height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .35s ease}
+
+  h2.section-title{font-family:'Gloock',serif;font-weight:400;font-size:30px;letter-spacing:-.5px;margin:2px 0 6px}
+  .section-sub{color:var(--ink-2);font-size:15px;margin:0 0 22px}
+
+  /* Questions */
+  .q{padding:20px 0;border-top:1.5px dashed var(--line)}
+  .q:first-of-type{border-top:none}
+  .q-label{font-weight:700;font-size:16px;margin-bottom:12px;display:block}
+  .q-num{color:var(--accent);font-weight:700;margin-right:6px}
+  .req{color:var(--bad);margin-left:3px}
+  .hint{font-weight:400;color:var(--muted);font-size:13px;display:block;margin-top:3px}
+
+  input[type=text],input[type=email],input[type=tel],textarea,select{
+    width:100%;padding:12px 13px;border:2px solid var(--ink);border-radius:8px;
+    font-size:15px;font-family:inherit;color:var(--ink);background:#fff;transition:border .15s,box-shadow .15s
+  }
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:3px 3px 0 var(--accent);background:#fff}
+  textarea{min-height:96px;resize:vertical}
+
+  .opt{display:flex;align-items:center;gap:11px;padding:11px 13px;border:2px solid var(--ink);border-radius:8px;margin:8px 0;cursor:pointer;background:#fff;transition:.12s;font-size:15px}
+  .opt:hover{background:var(--paper-2)}
+  .opt input{accent-color:var(--accent);width:17px;height:17px;flex:0 0 auto;cursor:pointer}
+  .opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+
+  /* Matrix */
+  .matrix-scroll{overflow-x:auto;margin-top:4px;-webkit-overflow-scrolling:touch}
+  table.matrix{border-collapse:collapse;width:100%;min-width:540px;font-size:13.5px}
+  table.matrix th{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--muted);font-size:11px;padding:8px 6px;text-align:center;vertical-align:bottom}
+  table.matrix th.rowhead{text-align:left;width:34%}
+  table.matrix td{padding:9px 6px;text-align:center;border-top:1px solid var(--line)}
+  table.matrix td.rowhead{text-align:left;font-weight:700;color:var(--ink)}
+  table.matrix tr:nth-child(even){background:var(--bg)}
+  table.matrix input{accent-color:var(--accent);width:18px;height:18px;cursor:pointer}
+  .cellbtn{display:inline-flex;width:100%;justify-content:center;padding:6px 0;border-radius:7px;cursor:pointer}
+  .cellbtn:hover{background:var(--accent-soft)}
+
+  /* Form nav (prev/next) */
+  .form-nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px}
+  .wrap button{font-family:'Kalam',cursive;font-size:16px;font-weight:700;border-radius:10px;padding:12px 22px;cursor:pointer;border:2px solid var(--ink);transition:transform .12s ease,box-shadow .12s ease;box-shadow:3px 3px 0 var(--ink)}
+  .wrap button:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
+  .wrap button:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-ghost{background:#fff;color:var(--ink)}
+  .wrap button:disabled{opacity:.5;cursor:not-allowed}
+  .err{color:var(--bad);font-size:14px;font-weight:700;margin-top:12px;display:none}
+  .err.show{display:block}
+
+  /* Intro */
+  .intro-list{list-style:none;padding:0;margin:18px 0}
+  .intro-list li{display:flex;gap:11px;align-items:flex-start;padding:9px 0;font-size:15px}
+  .intro-list .ic{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--accent-soft);border:2px solid var(--ink);color:var(--accent);display:flex;align-items:center;justify-content:center;font-family:'Gloock',serif;font-size:14px;font-weight:700}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+  .chip{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.5px;background:#fff;border:1.5px solid var(--ink);color:var(--ink);padding:5px 11px;border-radius:99px;font-weight:600}
+
+  /* ===== Results ===== */
+  .res-hero{background:var(--ink);color:#fff;border:2px solid var(--ink);border-radius:var(--radius);padding:28px 30px;margin-bottom:20px;box-shadow:var(--shadow)}
+  .res-hero h2{font-family:'Gloock',serif;font-weight:400;margin:0 0 4px;font-size:26px;letter-spacing:-.5px}
+  .res-hero p{margin:0;opacity:.85;font-size:14px}
+  .score-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:22px}
+  .score-big{flex:1;min-width:180px;background:rgba(255,255,255,.1);border-radius:10px;padding:16px 18px}
+  .score-big .lbl{font-family:'JetBrains Mono',monospace;font-size:11px;opacity:.85;text-transform:uppercase;letter-spacing:.6px}
+  .score-big .val{font-family:'Gloock',serif;font-size:40px;line-height:1.1;margin-top:4px}
+  .score-big .band{font-size:14px;color:var(--highlight);margin-top:2px}
+
+  .panel{background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px;margin-bottom:20px}
+  .panel h3{font-family:'Gloock',serif;font-weight:400;margin:0 0 4px;font-size:22px;letter-spacing:-.4px}
+  .panel .psub{color:var(--ink-2);font-size:14px;margin:0 0 18px}
+
+  .bar-item{margin:14px 0}
+  .bar-head{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;margin-bottom:5px}
+  .bar-head .name{font-weight:600}
+  .bar-head .pct{font-weight:700}
+  .bar-track{height:11px;background:#eef1f7;border-radius:99px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:99px;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+  .tagband{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:99px;margin-left:8px;vertical-align:middle}
+
+  .gap-card{border:2px solid var(--ink);border-left-width:6px;border-radius:10px;padding:16px 18px;margin:14px 0;background:#fff}
+  .gap-card h4{font-family:'Gloock',serif;font-weight:400;margin:0 0 4px;font-size:18px}
+  .gap-card .meta{font-size:12.5px;color:var(--muted);margin-bottom:9px}
+  .gap-card ul{margin:8px 0 0;padding-left:18px;font-size:14px}
+  .gap-card li{margin:4px 0}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px;background:var(--accent-soft);color:var(--accent-dark);margin:0 6px 6px 0}
+
+  .radar-wrap{display:flex;justify-content:center;padding:6px 0}
+  .kv{display:grid;grid-template-columns:1fr auto;gap:6px 14px;font-size:14px}
+  .kv .k{color:var(--muted)}
+  .kv .v{font-weight:600;text-align:right}
+  .callout{background:var(--accent-soft);border:2px solid var(--ink);border-radius:10px;padding:14px 16px;font-size:15px;margin-top:6px}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:640px){.two-col{grid-template-columns:1fr}.wrap{padding:16px 12px 70px}.card,.panel{padding:20px 18px}}
+
+  .footnote{font-size:12px;color:var(--muted);text-align:center;margin-top:24px}
+  .noprint-toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:10px;font-size:13.5px;opacity:0;pointer-events:none;transition:.3s;z-index:60}
+  .noprint-toast.show{opacity:1}
+
+  /* ===== Site header + footer (brand chrome) ===== */
+  .site-nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:2px solid var(--ink)}
+  .site-nav-inner{max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .site-logo{font-family:'Gloock',serif;font-size:21px;letter-spacing:-.5px;display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);white-space:nowrap}
+  .site-logo .dot{width:22px;height:22px;background:url('assets/favicon.png') center/contain no-repeat;border-radius:50%;display:inline-block}
+  .site-logo small{font-family:'Caveat',cursive;color:var(--ink-3);font-size:18px}
+  .site-links{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+  .site-links a{font-family:'Kalam',cursive;font-size:15px;padding:6px 11px;border-radius:6px;color:var(--ink-2);text-decoration:none}
+  .site-links a:hover{color:var(--ink);background:var(--paper-2)}
+  .site-links a.cta{background:var(--accent);color:#fff;border:2px solid var(--ink);font-weight:700;box-shadow:3px 3px 0 var(--ink)}
+  .site-footer{background:var(--ink);color:#d9d4c6;padding:44px 0 24px;margin-top:70px}
+  .site-footer .fwrap{max-width:1100px;margin:0 auto;padding:0 20px}
+  .site-footer a{color:#fff}
+  .site-footer .brand-row{font-family:'Gloock',serif;font-size:24px;color:#fff}
+  .site-footer .brand-row span{font-family:'Caveat',cursive;color:var(--accent);font-size:26px}
+  .site-footer p{max-width:420px;margin:10px 0 22px;font-size:14px}
+  .site-footer .legal{display:flex;justify-content:space-between;gap:12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#999;letter-spacing:1px;text-transform:uppercase;flex-wrap:wrap;border-top:1.5px dashed #555;padding-top:18px;margin-top:6px}
+
+  /* Print / PDF */
+  @media print{
+    body{background:#fff}
+    .progress-shell,.form-nav,.no-print,.brand,.site-nav,.site-footer{display:none !important}
+    .wrap{max-width:100%;padding:0}
+    .panel,.res-hero{box-shadow:none;break-inside:avoid;page-break-inside:avoid}
+    .gap-card{break-inside:avoid}
+    .res-hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .bar-fill,.tagband,.res-hero,.brand-badge{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="site-logo"><span class="dot"></span> Tic Tech Toe <small>Labs</small></a>
+    <nav class="site-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="training.html">Training</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="contact.html">Contact</a>
+      <a href="vault.html">Secret Vault</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="brand no-print">
+    <div class="brand-badge">TT</div>
+    <div>
+      <h1>Digital &amp; AI Skills — Training Needs Analysis</h1>
+      <p>Find your team's digital &amp; AI skill gaps in ~7 minutes</p>
+    </div>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-shell no-print" id="progressShell" style="display:none">
+    <div class="progress-meta"><span id="progLabel">Section 1 of 7</span><span id="progPct">0%</span></div>
+    <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
+  </div>
+
+  <!-- Dynamic content mounts here -->
+  <div id="app"></div>
+
+</div>
+
+<div class="noprint-toast" id="toast"></div>
+
+<footer class="site-footer no-print">
+  <div class="fwrap">
+    <div class="brand-row">Tic Tech Toe <span>Labs</span></div>
+    <p>Corporate AI and digital-skills training, led by Khai &amp; Zayed. Based in Singapore, delivered worldwide.</p>
+    <div class="legal">
+      <span>© 2026 Tic Tech Toe Labs · SG</span>
+      <span><a href="mailto:khai@tictechtoelabs.com">khai@tictechtoelabs.com</a> · <a href="https://wa.me/6587449872">WhatsApp +65 8744 9872</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ==========================================================================
+   CONFIG  — edit these values
+   ========================================================================== */
+const CONFIG = {
+  brandName: 'Tic Tech Toe',
+  brandInitials: 'TT',
+
+  // WHERE YOUR LEADS GO. Paste a Formspree or Make.com webhook URL here.
+  // Leave '' to disable sending (form still works; use the exported PDF).
+  leadsEndpoint: 'https://formspree.io/f/mgogowzw',
+
+  // If your endpoint expects a plain form-encoded POST instead of JSON
+  // (some setups do), set this to 'form'. Formspree & Make.com accept 'json'.
+  leadsFormat: 'json'
+};
+
+/* ==========================================================================
+   SCALES
+   ========================================================================== */
+const S = {
+  conf:  ['Not confident','Slightly confident','Moderately confident','Very confident','Expert'],
+  confNA:['Not confident','Slightly confident','Moderately confident','Very confident','Expert','Not applicable'],
+  freq:  ['Never','Rarely','Sometimes','Often','Always'],
+  imp:   ['Not important','Somewhat important','Moderately important','Very important','Extremely important']
+};
+
+/* ==========================================================================
+   FORM SCHEMA  (mirrors the Microsoft Form, 7 sections, 42 questions)
+   types: text | email | tel | longtext | single | multi | yesno | matrix
+   ========================================================================== */
+const FORM = [
+  { title:'Personal Info', sub:'A few details so we can tailor your results and follow up.', questions:[
+    {id:'q1', n:1, t:'Name', type:'text', req:true},
+    {id:'q2', n:2, t:'Email Address', type:'email', req:true},
+    {id:'qCompany', n:'2b', t:'Company Name', type:'text', req:true},
+    {id:'qPhone', n:'2c', t:'Phone (optional)', type:'tel', req:false},
+    {id:'q3', n:3, t:'What is your role in the company?', type:'single', req:true,
+      options:['Training Manager','Business Owner','Director','HR Personnel','Manager','Team Lead','Executive','Admin','Other']},
+    {id:'q4', n:4, t:'Which department/function do you represent?', type:'multi', req:false,
+      options:['Finance','HR','Operations','IT','Marketing','Sales','Customer Service','Other']},
+    {id:'q5', n:5, t:'Team size (if applicable)', type:'single', req:false,
+      options:['Just me','2–5','6–10','11–25','26–50','50+']},
+    {id:'q6', n:6, t:'Primary work location', type:'single', req:false,
+      options:['Office-based','Hybrid','Fully remote']},
+    {id:'q7', n:7, t:'Years of experience in current role', type:'single', req:false,
+      options:['< 1 year','1–3 years','3–5 years','5+ years']}
+  ]},
+
+  { title:'Current Digital Platform Usage', sub:'What your team uses day to day.', questions:[
+    {id:'q8', n:8, t:'Which digital workplace platform(s) does your team primarily use?', type:'multi', req:true,
+      options:['Microsoft 365','Google Workspace','Both','Other']},
+    {id:'q9', n:9, t:'How frequently do you use your main digital workplace tools?', type:'matrix', req:true,
+      scale:['Daily','Several times a week','Once a week','A few times a month','Rarely','Never'], rows:['Daily usage']},
+    {id:'q10', n:10, t:'Which specific tools do you use regularly?', type:'multi', req:false,
+      options:['Email','Calendar','Document creation','Spreadsheets','Presentations','Team chat','Video meetings','Cloud storage','Forms/Surveys','Task management','Note-taking','Other']}
+  ]},
+
+  { title:'Core Digital Workplace Skills Assessment', sub:'Rate confidence and frequency across five core areas.', questions:[
+    {id:'q11', n:11, t:'Collaboration & Communication — Confidence', type:'matrix', req:true, scale:S.conf,
+      rows:['Real-time co-authoring','Sharing & permissions','Meeting scheduling','Team channels vs email']},
+    {id:'q12', n:12, t:'Collaboration & Communication — Frequency', type:'matrix', req:true, scale:S.freq,
+      rows:['Commenting & suggestions','Advanced video meeting features']},
+    {id:'q13', n:13, t:'Information & Document Management — Confidence', type:'matrix', req:true, scale:S.conf,
+      rows:['Folder structure design','Version history','Metadata & tagging']},
+    {id:'q14', n:14, t:'Information & Document Management — Frequency', type:'matrix', req:true, scale:S.freq,
+      rows:['Advanced search','Templates usage']},
+    {id:'q15', n:15, t:'Productivity & Automation — Confidence', type:'matrix', req:true, scale:S.conf,
+      rows:['Forms & surveys creation','Simple automations/workflows']},
+    {id:'q16', n:16, t:'Productivity & Automation — Frequency', type:'matrix', req:true, scale:S.freq,
+      rows:['Keyboard shortcuts','Cross-tool integration']},
+    {id:'q17', n:17, t:'Data Management & Analysis — Confidence', type:'matrix', req:true, scale:S.conf,
+      rows:['Spreadsheet formulas & functions','Charts & data visualisation','Data validation & quality']},
+    {id:'q18', n:18, t:'Data Management & Analysis — Frequency', type:'matrix', req:true, scale:S.freq,
+      rows:['Pivot tables & summaries']},
+    {id:'q19', n:19, t:'MFA usage', type:'yesno', req:true},
+    {id:'q20', n:20, t:'Security & Compliance — Confidence', type:'matrix', req:true, scale:S.conf,
+      rows:['Phishing awareness','Handling sensitive data']},
+    {id:'q21', n:21, t:'Security & Compliance — Frequency', type:'matrix', req:true, scale:S.freq,
+      rows:['Reviewing external access']}
+  ]},
+
+  { title:'AI Tools Usage & Literacy', sub:'Your current relationship with AI tools.', questions:[
+    {id:'q22', n:22, t:'AI tools aware of', type:'multi', req:true,
+      options:['Microsoft Copilot','Google Gemini','Claude','ChatGPT','None']},
+    {id:'q23', n:23, t:'AI tools used for work', type:'multi', req:false,
+      options:['Microsoft Copilot','Google Gemini','Claude','ChatGPT','None']},
+    {id:'q24', n:24, t:'Frequency of AI use', type:'single', req:true,
+      options:['Daily','Weekly','Monthly','Rarely','Never']},
+    {id:'q25', n:25, t:'Organisational stance on AI', type:'single', req:true,
+      options:['Encouraged','Neutral','Discouraged']},
+    {id:'q26', n:26, t:'AI Application Confidence', type:'matrix', req:true, scale:S.confNA,
+      rows:['Drafting emails','Summarising documents','Brainstorming ideas','Writing reports','Data analysis','Formulas & functions','Translation','Research','Meeting summaries','Images/diagrams','Code or technical problem-solving']},
+    {id:'q27', n:27, t:'Prompt Engineering', type:'matrix', req:true, scale:S.conf,
+      rows:['Confidence writing prompts','Iterating prompts']},
+    {id:'q28', n:28, t:'Prior AI training', type:'single', req:true,
+      options:['Yes','No','Informal only']},
+    {id:'q29', n:29, t:'Responsible AI', type:'matrix', req:true, scale:S.imp,
+      rows:['Identifying inaccurate/bias AI output','Reviewing AI output before use','Knowing what NOT to enter into AI tools','Importance of responsible AI training']}
+  ]},
+
+  { title:'Skills Gap & Priority Identification', sub:'Where you want to focus.', questions:[
+    {id:'q30', n:30, t:'Digital skills to improve in next 6–12 months', type:'multi', req:true,
+      options:['Collaboration & communication','Information & document management','Productivity & automation','Data management & analysis','Security & compliance','AI literacy','Other']},
+    {id:'q31', n:31, t:'Priority AI skills', type:'multi', req:true,
+      options:['Prompt engineering','AI tool usage','Data analysis with AI','Responsible AI practices','Other']},
+    {id:'q32', n:32, t:'Biggest barrier to improvement', type:'single', req:true,
+      options:['Lack of time','Lack of resources','Lack of management support','Lack of awareness','Other']},
+    {id:'q33', n:33, t:'Urgency of training', type:'single', req:true,
+      options:['Immediately','Within 3 months','Within 6 months','Within 12 months','No immediate need']}
+  ]},
+
+  { title:'Learning Preferences & Constraints', sub:'How your team likes to learn.', questions:[
+    {id:'q34', n:34, t:'Preferred training formats', type:'multi', req:true,
+      options:['In-person workshop','Live online session','Self-paced e-learning','Blended learning','Microlearning','Other']},
+    {id:'q35', n:35, t:'Maximum session length', type:'single', req:true,
+      options:['30 minutes','1 hour','2 hours','Half day','Full day']},
+    {id:'q36', n:36, t:'Best training time', type:'multi', req:true,
+      options:['Morning','Afternoon','Evening','Weekend','Other']}
+  ]},
+
+  { title:'Team-Level Insights', sub:'A view across your wider team.', questions:[
+    {id:'q37', n:37, t:'Do you have a managerial or leadership role?', type:'yesno', req:true},
+    {id:'q38', n:38, t:'% of team proficient in core digital skills', type:'single', req:true,
+      options:['0-20%','21-40%','41-60%','61-80%','81-100%']},
+    {id:'q39', n:39, t:'% of team using AI tools', type:'single', req:true,
+      options:['0-20%','21-40%','41-60%','61-80%','81-100%']},
+    {id:'q40', n:40, t:'Critical skills for next 6–12 months', type:'multi', req:true,
+      options:['Collaboration & communication','Information & document management','Productivity & automation','Data management & analysis','Security & compliance','AI literacy','Other']},
+    {id:'q41', n:41, t:'What are the impact on work processes you would like to see when you are using AI for work?', type:'longtext', req:true},
+    {id:'q42', n:42, t:'Number of team members to nominate to reskill and upskill their digital skills and AI literacy skills?', type:'single', req:true,
+      options:['1-5','6-10','11-20','21-50','50+']}
+  ]}
+];
+
+/* ==========================================================================
+   STATE
+   ========================================================================== */
+const answers = {};      // id -> value (string | array | {row:index})
+let step = 0;            // 0 = intro, 1..7 sections, 8 = results
+const TOTAL_SECTIONS = FORM.length;
+const app = document.getElementById('app');
+
+/* ==========================================================================
+   RENDER HELPERS
+   ========================================================================== */
+function el(html){ const d=document.createElement('div'); d.innerHTML=html.trim(); return d.firstElementChild; }
+function esc(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function renderQuestion(q){
+  const reqStar = q.req ? '<span class="req">*</span>' : '';
+  let body='';
+  if(q.type==='text'||q.type==='email'||q.type==='tel'){
+    const it = q.type==='email'?'email':(q.type==='tel'?'tel':'text');
+    body = `<input type="${it}" data-q="${q.id}" value="${esc(answers[q.id]||'')}" placeholder="Enter your answer" autocomplete="${q.type==='email'?'email':(q.type==='tel'?'tel':'on')}">`;
+  } else if(q.type==='longtext'){
+    body = `<textarea data-q="${q.id}" placeholder="Enter your answer">${esc(answers[q.id]||'')}</textarea>`;
+  } else if(q.type==='yesno'){
+    body = ['Yes','No'].map(o=>optRow(q.id,o,'radio',answers[q.id]===o)).join('');
+  } else if(q.type==='single'){
+    body = q.options.map(o=>optRow(q.id,o,'radio',answers[q.id]===o)).join('');
+  } else if(q.type==='multi'){
+    const cur = answers[q.id]||[];
+    body = q.options.map(o=>optRow(q.id,o,'checkbox',cur.includes(o))).join('');
+  } else if(q.type==='matrix'){
+    body = renderMatrix(q);
+  }
+  return `<div class="q" id="wrap_${q.id}">
+    <label class="q-label"><span class="q-num">${q.n}.</span>${esc(q.t)}${reqStar}</label>
+    ${body}
+  </div>`;
+}
+
+function optRow(qid,val,kind,checked){
+  return `<label class="opt${checked?' sel':''}" data-opt="${qid}">
+    <input type="${kind}" name="${qid}" value="${esc(val)}" ${checked?'checked':''}>
+    <span>${esc(val)}</span></label>`;
+}
+
+function renderMatrix(q){
+  const cur = answers[q.id]||{};
+  let head = '<tr><th class="rowhead"></th>'+q.scale.map(s=>`<th>${esc(s)}</th>`).join('')+'</tr>';
+  let rows = q.rows.map((r)=>{
+    let cells = q.scale.map((s,ci)=>{
+      const on = cur[r]===ci;
+      return `<td><label class="cellbtn"><input type="radio" name="${q.id}__${esc(r)}" value="${ci}" ${on?'checked':''} data-mx="${q.id}" data-row="${esc(r)}"></label></td>`;
+    }).join('');
+    return `<tr><td class="rowhead">${esc(r)}</td>${cells}</tr>`;
+  }).join('');
+  return `<div class="matrix-scroll"><table class="matrix"><thead>${head}</thead><tbody>${rows}</tbody></table></div>`;
+}
+
+/* ==========================================================================
+   SCREENS
+   ========================================================================== */
+function renderIntro(){
+  document.getElementById('progressShell').style.display='none';
+  app.innerHTML = `<div class="card">
+    <h2 class="section-title">Discover your team's digital &amp; AI skill gaps</h2>
+    <p class="section-sub">A short training needs analysis for team leaders, HR and business owners. Answer honestly — you'll get an instant, personalised gap report you can download as a PDF.</p>
+    <ul class="intro-list">
+      <li><span class="ic">1</span><div><b>42 quick questions</b> across 7 short sections — takes about 5–7 minutes.</div></li>
+      <li><span class="ic">2</span><div><b>Instant scoring</b> of 5 core digital areas plus AI readiness — no waiting, no manual analysis.</div></li>
+      <li><span class="ic">3</span><div><b>Prioritised recommendations</b> mapped to your goals, urgency and preferred learning formats.</div></li>
+    </ul>
+    <div class="chips">
+      <span class="chip">Collaboration</span><span class="chip">Documents</span><span class="chip">Productivity</span>
+      <span class="chip">Data</span><span class="chip">Security</span><span class="chip">AI literacy</span>
+    </div>
+    <div class="form-nav"><span></span><button class="btn-primary" onclick="go(1)">Start assessment →</button></div>
+  </div>`;
+}
+
+function renderSection(i){
+  const sec = FORM[i-1];
+  document.getElementById('progressShell').style.display='block';
+  updateProgress(i);
+  const qhtml = sec.questions.map(renderQuestion).join('');
+  const last = i===TOTAL_SECTIONS;
+  app.innerHTML = `<div class="card">
+    <h2 class="section-title">${esc(sec.title)}</h2>
+    <p class="section-sub">${esc(sec.sub)} <span style="color:#9aa4b5">· Section ${i} of ${TOTAL_SECTIONS}</span></p>
+    ${qhtml}
+    <div class="err" id="err">Please answer all required (<span class="req">*</span>) questions before continuing.</div>
+    <div class="form-nav">
+      <button class="btn-ghost" onclick="go(${i-1})">← Back</button>
+      <button class="btn-primary" onclick="next(${i})">${last?'See my results →':'Continue →'}</button>
+    </div>
+  </div>`;
+  wireInputs();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function wireInputs(){
+  app.querySelectorAll('input[data-q],textarea[data-q]').forEach(inp=>{
+    inp.addEventListener('input',e=>{ answers[e.target.dataset.q]=e.target.value.trim(); });
+  });
+  app.querySelectorAll('.opt input').forEach(inp=>{
+    inp.addEventListener('change',e=>{
+      const qid=e.target.name;
+      if(e.target.type==='radio'){
+        answers[qid]=e.target.value;
+        app.querySelectorAll('.opt[data-opt="'+qid+'"]').forEach(l=>l.classList.remove('sel'));
+        e.target.closest('.opt').classList.add('sel');
+      } else {
+        const set=new Set(answers[qid]||[]);
+        e.target.checked?set.add(e.target.value):set.delete(e.target.value);
+        answers[qid]=[...set];
+        e.target.closest('.opt').classList.toggle('sel',e.target.checked);
+      }
+    });
+  });
+  app.querySelectorAll('input[data-mx]').forEach(inp=>{
+    inp.addEventListener('change',e=>{
+      const qid=e.target.dataset.mx, row=e.target.dataset.row;
+      answers[qid]=answers[qid]||{};
+      answers[qid][row]=parseInt(e.target.value,10);
+    });
+  });
+}
+
+function validate(i){
+  const sec=FORM[i-1]; let ok=true; let firstBad=null;
+  sec.questions.forEach(q=>{
+    const wrap=document.getElementById('wrap_'+q.id);
+    if(wrap) wrap.style.background='';
+    if(!q.req) return;
+    let filled=false;
+    const v=answers[q.id];
+    if(q.type==='matrix'){ filled = v && q.rows.every(r=>v[r]!=null); }
+    else if(q.type==='multi'){ filled = Array.isArray(v)&&v.length>0; }
+    else if(q.type==='email'){ filled = v && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+    else { filled = v!=null && v!==''; }
+    if(!filled){ ok=false; if(wrap){wrap.style.background='#fff6f6';} if(!firstBad)firstBad=wrap; }
+  });
+  const err=document.getElementById('err');
+  if(!ok){
+    // tailor message for bad email
+    const em=answers['q2'];
+    if(i===1 && em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ err.textContent='Please enter a valid email address so we can send your follow-up.'; }
+    else { err.textContent='Please answer all required (*) questions before continuing.'; }
+    err.classList.add('show');
+    if(firstBad) firstBad.scrollIntoView({behavior:'smooth',block:'center'});
+  } else { err.classList.remove('show'); }
+  return ok;
+}
+
+function next(i){ if(validate(i)) go(i+1); }
+
+function go(target){
+  step=target;
+  if(target<=0){ step=0; renderIntro(); return; }
+  if(target>TOTAL_SECTIONS){ renderResults(); return; }
+  renderSection(target);
+}
+
+function updateProgress(i){
+  const pct=Math.round((i-1)/TOTAL_SECTIONS*100);
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progLabel').textContent='Section '+i+' of '+TOTAL_SECTIONS+' · '+FORM[i-1].title;
+  document.getElementById('progPct').textContent=pct+'%';
+}
+
+/* ==========================================================================
+   SCORING ENGINE
+   ========================================================================== */
+function matrixVals(qid,hasNA){
+  const a=answers[qid]||{}; const out=[];
+  for(const k in a){ const idx=a[k]; if(idx==null)continue; if(hasNA&&idx===5)continue; out.push(idx+1); }
+  return out;
+}
+function pct(avg){ return Math.round((avg-1)/4*100); }
+function avg(arr){ return arr.length? arr.reduce((a,b)=>a+b,0)/arr.length : null; }
+
+const CORE = [
+  {id:'collab', name:'Collaboration & Communication', qs:[['q11',false],['q12',false]]},
+  {id:'docs',   name:'Information & Document Management', qs:[['q13',false],['q14',false]]},
+  {id:'prod',   name:'Productivity & Automation', qs:[['q15',false],['q16',false]]},
+  {id:'data',   name:'Data Management & Analysis', qs:[['q17',false],['q18',false]]},
+  {id:'sec',    name:'Security & Compliance', qs:[['q20',false],['q21',false]], mfa:true}
+];
+
+function scoreCore(d){
+  let vals=[];
+  d.qs.forEach(([q,na])=>vals=vals.concat(matrixVals(q,na)));
+  if(d.mfa){ vals.push(answers['q19']==='Yes'?5:1); }
+  const a=avg(vals);
+  return a==null?null:pct(a);
+}
+
+function scoreAI(){
+  const applyVals=matrixVals('q26',true);
+  const promptVals=matrixVals('q27',false);
+  const respVals=matrixVals('q29',false);
+  const freqMap={'Daily':5,'Weekly':4,'Monthly':3,'Rarely':2,'Never':1};
+  const adoptV=freqMap[answers['q24']]||1;
+  const sub={
+    apply: applyVals.length?pct(avg(applyVals)):null,
+    prompt: promptVals.length?pct(avg(promptVals)):null,
+    responsible: respVals.length?pct(avg(respVals)):null,
+    adoption: pct(adoptV)
+  };
+  const nums=Object.values(sub).filter(v=>v!=null);
+  const overall= nums.length? Math.round(nums.reduce((a,b)=>a+b,0)/nums.length):null;
+  return {sub,overall};
+}
+
+function band(score){
+  if(score==null) return {label:'—',color:'#999'};
+  if(score<=25) return {label:'Emerging',color:'#d9534f'};
+  if(score<=50) return {label:'Developing',color:'#e0932f'};
+  if(score<=75) return {label:'Proficient',color:'#3a97d4'};
+  return {label:'Advanced',color:'#1a9e6a'};
+}
+function barColor(s){ if(s<40)return'#d9534f'; if(s<70)return'#e0932f'; return'#1a9e6a'; }
+
+/* Recommendation library: level buckets per area */
+const RECS = {
+  collab:{
+    low:['Run a foundations workshop on real-time co-authoring, sharing links vs attachments, and permission basics.','Introduce team channels to cut internal email and centralise conversations.'],
+    mid:['Level up meeting productivity: agendas, recordings, transcripts and follow-up actions.','Standardise commenting & @mentions for async review instead of long email threads.'],
+    high:['Maintain strength — appoint internal champions to coach newer staff and set collaboration norms.']},
+  docs:{
+    low:['Establish a simple, consistent folder & naming structure and move shared files to cloud storage.','Teach version history so no one emails "final_v3" documents again.'],
+    mid:['Roll out document templates and metadata/tagging to speed up retrieval.','Train advanced search to find content across the whole workspace.'],
+    high:['Formalise an information governance / retention model and document ownership.']},
+  prod:{
+    low:['Introduce forms & surveys for structured data capture instead of ad-hoc emails.','Cover essential keyboard shortcuts to reclaim time daily.'],
+    mid:['Build simple no-code automations (approvals, notifications, routing) to remove repetitive work.','Connect tools together (e.g. forms → sheets → notifications) for smoother flows.'],
+    high:['Develop a citizen-developer program so power users build and share workflows safely.']},
+  data:{
+    low:['Spreadsheet foundations: core formulas, referencing, and clean data-entry habits.','Introduce data validation to reduce errors at the source.'],
+    mid:['Pivot tables, summaries and charts to turn raw data into decisions.','Data visualisation best practice for clear, honest reporting.'],
+    high:['Advance toward dashboards and light BI; establish a single source of truth.']},
+  sec:{
+    low:['Phishing-awareness training and enable MFA everywhere — highest-impact quick win.','Basic rules for handling sensitive data and safe sharing.'],
+    mid:['Routine review of external access & sharing links; least-privilege habits.','Data classification so staff know what can/can\'t be shared.'],
+    high:['Maintain a security-champion culture and periodic access audits.']},
+  ai_apply:{
+    low:['Hands-on "AI for everyday work" sessions: drafting, summarising, and rewriting with your approved AI tool.','Build a starter prompt library for the team\'s most common tasks.'],
+    mid:['Task-specific AI workflows for reports, research and meeting summaries.','Integrate AI into existing document and data workflows.'],
+    high:['Advanced use-cases and internal AI playbooks; measure time saved.']},
+  ai_prompt:{
+    low:['Prompt-writing fundamentals: role, context, format and examples.','Practice iterating prompts to improve output quality.'],
+    mid:['Structured prompting patterns and reusable prompt templates per role.'],
+    high:['Advanced prompting (chaining, evaluation) and prompt governance.']},
+  ai_responsible:{
+    low:['Responsible-AI essentials: spotting hallucinations/bias and always reviewing output before use.','Clear guidance on what must NEVER be entered into public AI tools.'],
+    mid:['Team AI usage policy and human-in-the-loop review checkpoints.'],
+    high:['Governance, audit trails and periodic responsible-AI refreshers.']},
+  ai_adoption:{
+    low:['Low barrier to adoption — start with a guided pilot and quick wins to build confidence.','Clarify the organisation\'s stance and provide an approved, safe AI tool.'],
+    mid:['Scale successful use-cases across more of the team; share wins.'],
+    high:['Embed AI into standard operating procedures across roles.']}
+};
+function recLevel(s){ return s<40?'low':(s<70?'mid':'high'); }
+
+/* ==========================================================================
+   RESULTS
+   ========================================================================== */
+function renderResults(){
+  document.getElementById('progressShell').style.display='none';
+  document.getElementById('progFill').style.width='100%';
+
+  const coreScores = CORE.map(d=>({id:d.id,name:d.name,score:scoreCore(d)}));
+  const ai = scoreAI();
+  const digitalOverall = Math.round(avg(coreScores.map(c=>c.score).filter(v=>v!=null)));
+  const aiOverall = ai.overall;
+
+  // Build a ranked gap list across everything scored
+  const aiAreas = [
+    {id:'ai_adoption', name:'AI Adoption', score:ai.sub.adoption},
+    {id:'ai_apply', name:'AI Application', score:ai.sub.apply},
+    {id:'ai_prompt', name:'Prompt Engineering', score:ai.sub.prompt},
+    {id:'ai_responsible', name:'Responsible AI Awareness', score:ai.sub.responsible}
+  ].filter(a=>a.score!=null);
+  const allAreas = coreScores.concat(aiAreas).filter(a=>a.score!=null);
+  const gaps = [...allAreas].sort((a,b)=>a.score-b.score);
+  const topGaps = gaps.slice(0,4);
+
+  // Self-declared context
+  const urgency = answers['q33']||'—';
+  const barrier = answers['q32']||'—';
+  const priorities = (answers['q30']||[]).concat(answers['q31']||[]);
+  const formats = (answers['q34']||[]).join(', ')||'—';
+  const nominate = answers['q42']||'—';
+  const awareCount=(answers['q22']||[]).filter(x=>x!=='None').length;
+  const usedCount=(answers['q23']||[]).filter(x=>x!=='None').length;
+
+  const dBand=band(digitalOverall), aBand=band(aiOverall);
+
+  // ---- HERO ----
+  let html = `<div class="res-hero">
+    <h2>${esc(answers['qCompany']||'Your')} — Digital &amp; AI Readiness</h2>
+    <p>Prepared for ${esc(answers['q1']||'')} · ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}</p>
+    <div class="score-row">
+      <div class="score-big"><div class="lbl">Digital Skills Readiness</div><div class="val">${digitalOverall}<span style="font-size:18px">/100</span></div><div class="band">${dBand.label}</div></div>
+      <div class="score-big"><div class="lbl">AI Readiness</div><div class="val">${aiOverall==null?'—':aiOverall}<span style="font-size:18px">/100</span></div><div class="band">${aBand.label}</div></div>
+      <div class="score-big"><div class="lbl">Top priority gap</div><div class="val" style="font-size:22px;line-height:1.25;margin-top:8px">${esc(topGaps[0]?topGaps[0].name:'—')}</div><div class="band">${topGaps[0]?topGaps[0].score+'/100':''}</div></div>
+    </div>
+  </div>`;
+
+  // ---- RADAR + BARS ----
+  html += `<div class="panel"><h3>Skills profile at a glance</h3>
+    <p class="psub">Higher = stronger. Red bars are your biggest gaps.</p>
+    <div class="two-col">
+      <div class="radar-wrap">${radarSVG(coreScores.concat([{name:'AI',score:aiOverall||0}]))}</div>
+      <div>${allAreas.map(a=>barItem(a.name,a.score)).join('')}</div>
+    </div></div>`;
+
+  // ---- PRIORITY GAPS + RECOMMENDATIONS ----
+  html += `<div class="panel"><h3>Your priority training gaps</h3>
+    <p class="psub">Ranked by lowest readiness. These are where training will have the most impact.</p>`;
+  topGaps.forEach((g,idx)=>{
+    const lvl=recLevel(g.score);
+    const recs=(RECS[g.id]&&RECS[g.id][lvl])||[];
+    const b=band(g.score);
+    const isPriority = priorities.some(p=>matchArea(p,g.name));
+    html += `<div class="gap-card" style="border-left-color:${barColor(g.score)}">
+      <h4>${idx+1}. ${esc(g.name)} <span class="tagband" style="background:${b.color}22;color:${b.color}">${b.label} · ${g.score}/100</span></h4>
+      <div class="meta">${g.score<40?'High-impact gap':(g.score<70?'Room to grow':'Maintain & extend')}${isPriority?' · <b style="color:var(--accent)">you flagged this as a priority</b>':''}</div>
+      <ul>${recs.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // ---- AI READINESS DETAIL ----
+  html += `<div class="panel"><h3>AI readiness breakdown</h3>
+    <p class="psub">Awareness vs. actual use, plus your AI capability sub-scores.</p>
+    <div class="two-col">
+      <div>${aiAreas.map(a=>barItem(a.name,a.score)).join('')}</div>
+      <div class="kv">
+        <div class="k">AI tools aware of</div><div class="v">${awareCount}</div>
+        <div class="k">AI tools used at work</div><div class="v">${usedCount}</div>
+        <div class="k">Frequency of AI use</div><div class="v">${esc(answers['q24']||'—')}</div>
+        <div class="k">Prior AI training</div><div class="v">${esc(answers['q28']||'—')}</div>
+        <div class="k">Org stance on AI</div><div class="v">${esc(answers['q25']||'—')}</div>
+      </div>
+    </div>
+    ${awareCount>usedCount?`<div class="callout"><b>Awareness–adoption gap:</b> your team knows of ${awareCount} AI tool(s) but only actively uses ${usedCount}. Guided enablement would convert that awareness into real productivity gains.</div>`:''}
+  </div>`;
+
+  // ---- TEAM & PLAN ----
+  html += `<div class="panel"><h3>Team snapshot &amp; recommended plan</h3>
+    <div class="two-col">
+      <div class="kv">
+        <div class="k">Team proficient in core digital skills</div><div class="v">${esc(answers['q38']||'—')}</div>
+        <div class="k">Team using AI tools</div><div class="v">${esc(answers['q39']||'—')}</div>
+        <div class="k">Members to nominate for upskilling</div><div class="v">${esc(nominate)}</div>
+        <div class="k">Leadership/managerial role</div><div class="v">${esc(answers['q37']||'—')}</div>
+      </div>
+      <div class="kv">
+        <div class="k">Training urgency</div><div class="v">${esc(urgency)}</div>
+        <div class="k">Biggest barrier</div><div class="v">${esc(barrier)}</div>
+        <div class="k">Preferred formats</div><div class="v">${esc(formats)}</div>
+        <div class="k">Max session length</div><div class="v">${esc(answers['q35']||'—')}</div>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:16px"><b>Suggested next step:</b> A focused programme on <b>${esc(topGaps.slice(0,2).map(g=>g.name).join(' &amp; '))}</b>, delivered as <b>${esc((answers['q34']||['blended learning'])[0].toLowerCase())}</b> in <b>${esc(answers['q35']||'short')}</b> sessions${barrier==='Lack of time'?', kept bite-sized to respect time constraints':''}. ${urgency==='Immediately'||urgency==='Within 3 months'?'Given your urgency, we recommend starting within the next few weeks.':''}</div>
+    ${answers['q41']?`<div style="margin-top:14px"><div class="k" style="color:#6b7688;font-size:13px">What you want AI to change about your work:</div><div style="font-style:italic;margin-top:4px">"${esc(answers['q41'])}"</div></div>`:''}
+  </div>`;
+
+  // ---- ACTIONS ----
+  html += `<div class="panel no-print" style="text-align:center">
+    <h3>Get your report &amp; a follow-up</h3>
+    <p class="psub">Download a PDF of these results. We've received your details and a specialist will be in touch about your priority gaps.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="btn-primary" onclick="window.print()">⬇ Download PDF</button>
+      <button class="btn-ghost" onclick="restart()">Start over</button>
+    </div>
+    <p class="footnote" id="leadStatus"></p>
+  </div>
+  <p class="footnote">Training Needs Analysis · ${esc(CONFIG.brandName)} · Generated ${new Date().toLocaleString('en-GB')}</p>`;
+
+  app.innerHTML=html;
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  // animate bars
+  requestAnimationFrame(()=>app.querySelectorAll('.bar-fill').forEach(b=>b.style.width=b.dataset.w+'%'));
+
+  // send the lead
+  sendLead({coreScores,ai,digitalOverall,aiOverall,topGaps});
+}
+
+function matchArea(priorityLabel,areaName){
+  const p=priorityLabel.toLowerCase();
+  const a=areaName.toLowerCase();
+  if(a.includes('collab')&&p.includes('collab'))return true;
+  if(a.includes('document')&&p.includes('document'))return true;
+  if(a.includes('productivity')&&p.includes('productivity'))return true;
+  if(a.includes('data')&&p.includes('data'))return true;
+  if(a.includes('security')&&p.includes('security'))return true;
+  if((a.includes('ai')||a.includes('prompt'))&&(p.includes('ai')||p.includes('prompt')||p.includes('responsible')))return true;
+  return false;
+}
+
+function barItem(name,score){
+  return `<div class="bar-item">
+    <div class="bar-head"><span class="name">${esc(name)}</span><span class="pct" style="color:${barColor(score)}">${score}</span></div>
+    <div class="bar-track"><div class="bar-fill" data-w="${score}" style="width:0;background:${barColor(score)}"></div></div>
+  </div>`;
+}
+
+function radarSVG(areas){
+  const size=260,cx=size/2,cy=size/2,R=95,n=areas.length;
+  const ang=i=>(-Math.PI/2)+i*2*Math.PI/n;
+  const pt=(i,r)=>[cx+r*Math.cos(ang(i)),cy+r*Math.sin(ang(i))];
+  let grid='';
+  [0.25,0.5,0.75,1].forEach(f=>{
+    const p=areas.map((_,i)=>pt(i,R*f).join(',')).join(' ');
+    grid+=`<polygon points="${p}" fill="none" stroke="#e4e8ef" stroke-width="1"/>`;
+  });
+  let axes='',labels='';
+  areas.forEach((a,i)=>{
+    const [x,y]=pt(i,R);
+    axes+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#e4e8ef"/>`;
+    const [lx,ly]=pt(i,R+20);
+    const anchor=Math.abs(lx-cx)<10?'middle':(lx>cx?'start':'end');
+    const short=a.name.split(' ')[0];
+    labels+=`<text x="${lx}" y="${ly}" font-size="10.5" fill="#6b7688" text-anchor="${anchor}" dominant-baseline="middle">${esc(short)}</text>`;
+  });
+  const poly=areas.map((a,i)=>pt(i,R*(a.score/100)).join(',')).join(' ');
+  return `<svg viewBox="0 0 ${size} ${size}" width="260" height="260" role="img" aria-label="Skills radar chart">
+    ${grid}${axes}
+    <polygon points="${poly}" fill="rgba(255,90,31,.20)" stroke="#ff5a1f" stroke-width="2"/>
+    ${areas.map((a,i)=>{const[x,y]=pt(i,R*(a.score/100));return `<circle cx="${x}" cy="${y}" r="3" fill="#ff5a1f"/>`}).join('')}
+    ${labels}
+  </svg>`;
+}
+
+function restart(){ for(const k in answers)delete answers[k]; step=0; renderIntro(); window.scrollTo({top:0}); }
+
+/* ==========================================================================
+   LEAD DELIVERY
+   ========================================================================== */
+function sendLead(scores){
+  // Flat, readable fields so the Formspree email is easy to scan.
+  const company = answers['qCompany']||'(no company)';
+  const payload = {
+    _subject: 'New TNA lead: '+company+' — Digital '+scores.digitalOverall+'/100, AI '+(scores.aiOverall==null?'—':scores.aiOverall)+'/100',
+    'Submitted at': new Date().toLocaleString('en-GB'),
+    'Name': answers['q1']||'',
+    'Email': answers['q2']||'',
+    'Company': answers['qCompany']||'',
+    'Phone': answers['qPhone']||'',
+    'Role': answers['q3']||'',
+    'Team size': answers['q5']||'',
+    'Digital readiness (/100)': scores.digitalOverall,
+    'AI readiness (/100)': scores.aiOverall,
+    'Top priority gaps': scores.topGaps.map(g=>g.name+' ('+g.score+')').join('; '),
+    'Training urgency': answers['q33']||'',
+    'Biggest barrier': answers['q32']||'',
+    'Members to nominate': answers['q42']||'',
+    'Preferred formats': (answers['q34']||[]).join(', '),
+    'What they want AI to change': answers['q41']||''
+  };
+  // Readable per-area scores
+  scores.coreScores.forEach(c=>{ payload['Score · '+c.name] = c.score; });
+  Object.entries(scores.ai.sub).forEach(([k,v])=>{ if(v!=null) payload['AI · '+k] = v; });
+  // Full raw responses kept in one collapsible field for your records
+  payload['Full responses (JSON)'] = JSON.stringify(answers);
+  const statusEl=()=>document.getElementById('leadStatus');
+  if(!CONFIG.leadsEndpoint){
+    if(statusEl()) statusEl().textContent='(Lead delivery not configured — set CONFIG.leadsEndpoint to receive submissions.)';
+    return;
+  }
+  let opts;
+  if(CONFIG.leadsFormat==='form'){
+    const fd=new FormData();
+    Object.entries(payload).forEach(([k,v])=>fd.append(k, typeof v==='object'?JSON.stringify(v):v));
+    opts={method:'POST',body:fd};
+  } else {
+    opts={method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)};
+  }
+  fetch(CONFIG.leadsEndpoint,opts)
+    .then(r=>{ if(statusEl()) statusEl().textContent = r.ok?'✓ Your details have been received.':'Saved locally — we\'ll still follow up.'; })
+    .catch(()=>{ if(statusEl()) statusEl().textContent='Saved locally — we\'ll still follow up.'; });
+}
+
+/* ==========================================================================
+   INIT
+   ========================================================================== */
+renderIntro();
+</script>
+</body>
+</html>
