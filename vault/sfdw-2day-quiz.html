@@ -1,155 +1,771 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<link rel="icon" type="image/png" href="../assets/favicon.png">
-<link rel="apple-touch-icon" href="../assets/logo.png">
-<title>2-Day SFDW Mock-Up Quiz · Secret Vault · Tic Tech Toe Labs</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@300;400;700&family=Gloock&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css">
-<script>
-  // gate — send back to login if not signed in
-  if (!sessionStorage.getItem("ttt-vault-user")) {
-    window.location.replace("../vault.html");
-  }
-</script>
-<style>
-  .vault-subpage .back-row{
-    display:flex;justify-content:space-between;align-items:center;gap:14px;
-    margin:0 0 18px;flex-wrap:wrap;
-  }
-  .vault-subpage .back-row .crumbs{
-    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;
-    color:var(--ink-3);text-transform:uppercase;
-  }
-  .vault-subpage .back-row .crumbs a{color:var(--ink-3);text-decoration:underline}
-  .vault-subpage .back-row .crumbs a:hover{color:var(--accent)}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  /* user-content paste zone */
-  .paste-zone{
-    margin-top:28px;padding:28px;
-    border:2px dashed var(--ink-3);border-radius:var(--radius);
-    background:#fff;
-  }
-  .paste-zone .paste-empty{
-    font-family:'Caveat',cursive;color:var(--ink-3);font-size:20px;
-    text-align:center;padding:40px 10px;
-  }
-  .paste-zone .paste-empty small{
-    display:block;font-family:'JetBrains Mono',monospace;
-    font-size:11px;letter-spacing:1.5px;margin-top:8px;text-transform:uppercase;
-  }
-  /* when the paste zone has real content, drop the dashed chrome */
-  .paste-zone:has(> :not(.paste-empty)){
-    border:none;padding:0;background:transparent;
-  }
+        html, body {
+            background: transparent;
+        }
 
-  .back-to-vault{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:12px 20px;border:2px solid var(--ink);border-radius:999px;
-    background:var(--ink);color:#fff;text-decoration:none;font-weight:600;
-    box-shadow:var(--shadow-sm);transition:transform .15s ease;
-  }
-  .back-to-vault:hover{transform:translate(-2px,-2px);box-shadow:var(--shadow)}
-  .back-to-vault .arrow{font-family:'JetBrains Mono',monospace}
-  .bottom-row{margin:56px 0 20px;display:flex;justify-content:center}
-</style>
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 16px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 780px;
+            width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.15);
+            padding: 32px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 28px;
+            font-size: 1em;
+        }
+
+        .question-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf5 100%);
+            border-radius: 14px;
+            padding: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(102, 126, 234, 0.15);
+        }
+
+        .question-text {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #2d2d2d;
+            margin-bottom: 14px;
+            line-height: 1.4;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            background: white;
+            padding: 13px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            transform: translateX(4px);
+        }
+
+        .option input[type="radio"] {
+            margin-right: 12px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: #667eea;
+            flex-shrink: 0;
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            font-size: 0.95em;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 24px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.35);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .results {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .score-card {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            border-radius: 14px;
+            padding: 26px;
+            text-align: center;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .score-text {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #2d2d2d;
+            margin-bottom: 6px;
+        }
+
+        .score-details {
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .review-heading {
+            margin-bottom: 16px;
+            color: #333;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        .answer-review {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 14px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .answer-review.correct {
+            border-left: 5px solid #10b981;
+        }
+
+        .answer-review.incorrect {
+            border-left: 5px solid #ef4444;
+        }
+
+        .answer-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.85em;
+        }
+
+        .answer-status.correct {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .answer-status.incorrect {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .review-question {
+            font-size: 1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .review-answer {
+            margin: 6px 0;
+            font-size: 0.95em;
+        }
+
+        .your-answer {
+            color: #666;
+        }
+
+        .correct-answer {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .retry-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.05em;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.3);
+        }
+
+        .retry-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(245, 87, 108, 0.45);
+        }
+
+        /* Tablet */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            .container {
+                padding: 22px;
+                border-radius: 16px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            .question-text {
+                font-size: 1em;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+            .container {
+                padding: 18px;
+                border-radius: 14px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            .subtitle {
+                font-size: 0.9em;
+            }
+            .question-card {
+                padding: 16px;
+            }
+            .option {
+                padding: 11px 13px;
+            }
+            .option label {
+                font-size: 0.9em;
+            }
+        }
+    </style>
 </head>
-<body data-page="vault-sfdw-2day-quiz">
+<body>
+    <div class="container">
+        <h1>📚 Interactive Quiz</h1>
+        <p class="subtitle">Test your knowledge and see how well you do!</p>
 
-<header class="nav">
-  <div class="nav-inner">
-    <a href="../index.html" class="logo"><span class="dot"></span> Tic Tech Toe <small>Labs</small></a>
-    <button class="nav-toggle" aria-label="menu">☰ Menu</button>
-    <nav class="nav-links">
-      <a href="../index.html">Home</a>
-      <a href="../about.html">About</a>
-      <a href="../training.html">Training</a>
-      <a href="../testimonials.html">Testimonials</a>
-      <a href="../contact.html">Contact</a>
-      <a href="../vault.html" class="active">Secret Vault</a>
-      <a href="../needs-analysis.html" class="btn primary sm nav-cta desktop">Free training needs analysis →</a>
-    </nav>
-  </div>
-</header>
+        <form id="quizForm">
+            <!-- Question 1 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">Q1</span>
+                    What do you see increasing in the future of work?
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1a" value="traditional">
+                        <label for="q1a">Traditional 9-5 Jobs</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1b" value="correct">
+                        <label for="q1b">Gig Economy</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1c" value="factory">
+                        <label for="q1c">Factory Work</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1d" value="landline">
+                        <label for="q1d">Landline Usage</label>
+                    </div>
+                </div>
+            </div>
 
-<section class="page-hero vault-subpage">
-  <div class="container">
-    <div class="back-row">
-      <span class="crumbs"><a href="index.html">Secret Vault</a> &nbsp;/&nbsp; 2-DAY SFDW MOCK-UP QUIZ</span>
-      <a href="index.html" class="btn sm ghost">← Back to vault</a>
+            <!-- Question 2 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">Q2</span>
+                    What is one of the latest trends for new marketplace?
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2a" value="fax">
+                        <label for="q2a">Fax Orders</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2b" value="correct">
+                        <label for="q2b">IG Live Shopping</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2c" value="newspaper">
+                        <label for="q2c">Newspaper Classifieds</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2d" value="telephone">
+                        <label for="q2d">Telephone Shopping</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">Q3</span>
+                    What is Artificial Intelligence?
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3a" value="correct">
+                        <label for="q3a">Creation of intelligent machines that work and react like human</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3b" value="virus">
+                        <label for="q3b">A type of computer virus</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3c" value="manual">
+                        <label for="q3c">Manual data entry system</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3d" value="language">
+                        <label for="q3d">Traditional programming language</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">Q4</span>
+                    What can Augmented Reality be used for?
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4a" value="gaming">
+                        <label for="q4a">Only for gaming purposes</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4b" value="correct">
+                        <label for="q4b">It can be employed to simulate real-world scenarios</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4c" value="replacing">
+                        <label for="q4c">Replacing physical reality entirely</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4d" value="documents">
+                        <label for="q4d">Creating paper documents</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">Q5</span>
+                    Which isn't a good example of Additive Manufacturing?
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5a" value="correct">
+                        <label for="q5a">It is used to patrol and monitor large areas to detect potential threats</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5b" value="prosthetics">
+                        <label for="q5b">3D printing of prosthetics</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5c" value="prototype">
+                        <label for="q5c">Creating prototype models</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5d" value="custom">
+                        <label for="q5d">Manufacturing custom parts</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">Q6</span>
+                    Which of these isn't part of analytics functions of Big Data?
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6a" value="descriptive">
+                        <label for="q6a">Descriptive Analytics</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6b" value="correct">
+                        <label for="q6b">Primitive Analytics</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6c" value="predictive">
+                        <label for="q6c">Predictive Analytics</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6d" value="prescriptive">
+                        <label for="q6d">Prescriptive Analytics</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">Q7</span>
+                    Open up Google Photos App on your phone. How many tabs do you see at the bottom?
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7a" value="three">
+                        <label for="q7a">Three</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7b" value="correct">
+                        <label for="q7b">Four</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7c" value="five">
+                        <label for="q7c">Five</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7d" value="six">
+                        <label for="q7d">Six</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">Q8</span>
+                    What does S in S.U.R.E stand for?
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8a" value="search">
+                        <label for="q8a">Search</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8b" value="correct">
+                        <label for="q8b">Source</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8c" value="study">
+                        <label for="q8c">Study</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8d" value="scan">
+                        <label for="q8d">Scan</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">Q9</span>
+                    What does U in S.U.R.E stand for?
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9a" value="unveil">
+                        <label for="q9a">Unveil</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9b" value="update">
+                        <label for="q9b">Update</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9c" value="correct">
+                        <label for="q9c">Understand</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9d" value="upload">
+                        <label for="q9d">Upload</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">Q10</span>
+                    What does R in S.U.R.E stand for?
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10a" value="review">
+                        <label for="q10a">Review</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10b" value="correct">
+                        <label for="q10b">Research</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10c" value="read">
+                        <label for="q10c">Read</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10d" value="reveal">
+                        <label for="q10d">Reveal</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">Q11</span>
+                    What does E in S.U.R.E stand for?
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11a" value="examine">
+                        <label for="q11a">Examine</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11b" value="execute">
+                        <label for="q11b">Execute</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11c" value="correct">
+                        <label for="q11c">Evaluate</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11d" value="engage">
+                        <label for="q11d">Engage</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">Q12</span>
+                    Which file format below cannot be opened as an email attachment?
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q12" id="q12a" value="doc">
+                        <label for="q12a">.doc</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q12" id="q12b" value="xlsx">
+                        <label for="q12b">.xlsx</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q12" id="q12c" value="pdf">
+                        <label for="q12c">.pdf</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q12" id="q12d" value="correct">
+                        <label for="q12d">.exe</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">Q13</span>
+                    Which of the following is considered NOT a safe online practice?
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q13" id="q13a" value="sure">
+                        <label for="q13a">Using the SURE method</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q13" id="q13b" value="password">
+                        <label for="q13b">Password creation must be strong</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q13" id="q13c" value="correct">
+                        <label for="q13c">Purchasing the latest iPhone at 95% discount</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q13" id="q13d" value="wifi">
+                        <label for="q13d">Be careful of free public WiFi</label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Quiz 🚀</button>
+        </form>
+
+        <div class="results" id="results">
+            <div class="score-card">
+                <div class="score-text" id="scoreText">Your Score: 0/13</div>
+                <div class="score-details" id="scoreDetails">0% Correct</div>
+            </div>
+
+            <h2 class="review-heading">📋 Answer Review</h2>
+            <div id="answerReview"></div>
+
+            <button class="retry-btn" id="retryBtn" type="button">🔄 Retry Quiz</button>
+        </div>
     </div>
-    <p class="mono">▸ Quiz</p>
-    <h1>2-Day SFDW Mock-Up Quiz</h1>
-    <p class="sub">Try this quiz as practice.</p>
-  </div>
-</section>
 
-<section>
-  <div class="container vault-subpage">
+    <script>
+        const correctAnswers = {
+            q1: { answer: 'correct', text: 'Gig Economy' },
+            q2: { answer: 'correct', text: 'IG Live Shopping' },
+            q3: { answer: 'correct', text: 'Creation of intelligent machines that work and react like human' },
+            q4: { answer: 'correct', text: 'It can be employed to simulate real-world scenarios' },
+            q5: { answer: 'correct', text: 'It is used to patrol and monitor large areas to detect potential threats' },
+            q6: { answer: 'correct', text: 'Primitive Analytics' },
+            q7: { answer: 'correct', text: 'Four' },
+            q8: { answer: 'correct', text: 'Source' },
+            q9: { answer: 'correct', text: 'Understand' },
+            q10: { answer: 'correct', text: 'Research' },
+            q11: { answer: 'correct', text: 'Evaluate' },
+            q12: { answer: 'correct', text: '.exe' },
+            q13: { answer: 'correct', text: 'Purchasing the latest iPhone at 95% discount' }
+        };
 
-    <!-- ======================================================
-         PASTE YOUR GOOGLE SITES HTML BELOW THIS LINE
-         Everything between the dashed block below is safe to
-         replace with your exported HTML. Keep the <div class="paste-zone">
-         wrapper so styling stays tidy.
-         ====================================================== -->
-    <div class="paste-zone">
+        const questions = [
+            'What do you see increasing in the future of work?',
+            'What is one of the latest trends for new marketplace?',
+            'What is Artificial Intelligence?',
+            'What can Augmented Reality be used for?',
+            'Which isn\'t a good example of Additive Manufacturing?',
+            'Which of these isn\'t part of analytics functions of Big Data?',
+            'Open up Google Photos App on your phone. How many tabs do you see at the bottom?',
+            'What does S in S.U.R.E stand for?',
+            'What does U in S.U.R.E stand for?',
+            'What does R in S.U.R.E stand for?',
+            'What does E in S.U.R.E stand for?',
+            'Which file format below cannot be opened as an email attachment?',
+            'Which of the following is considered NOT a safe online practice?'
+        ];
 
-      <!-- ===== BEGIN PASTED CONTENT ===== -->
+        // Signal height changes to parent (Google Sites) for iframe auto-resize
+        function notifyHeight() {
+            try {
+                const h = document.body.scrollHeight;
+                if (window.parent && window.parent !== window) {
+                    window.parent.postMessage({ type: 'embed-size', height: h }, '*');
+                }
+            } catch (e) { /* sandbox may block */ }
+        }
+        window.addEventListener('load', notifyHeight);
+        window.addEventListener('resize', notifyHeight);
 
-      <div class="paste-empty">
-        Content for "2-Day SFDW Mock-Up Quiz" goes here.
-        <small>Paste the HTML from Google Sites in this spot.</small>
-      </div>
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-      <!-- ===== END PASTED CONTENT ===== -->
+            let score = 0;
+            const totalQuestions = 13;
+            let reviewHTML = '';
 
-    </div>
-    <!-- ====================================================== -->
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionName = 'q' + i;
+                const userAnswer = document.querySelector('input[name="' + questionName + '"]:checked');
+                const userAnswerValue = userAnswer ? userAnswer.value : null;
+                const userAnswerText = userAnswer ? userAnswer.nextElementSibling.textContent : 'Not answered';
 
-    <div class="bottom-row">
-      <a href="index.html" class="back-to-vault"><span class="arrow">←</span> Back to the Secret Vault</a>
-    </div>
+                const isCorrect = userAnswerValue === correctAnswers[questionName].answer;
+                if (isCorrect) score++;
 
-  </div>
-</section>
+                reviewHTML +=
+                    '<div class="answer-review ' + (isCorrect ? 'correct' : 'incorrect') + '">' +
+                        '<span class="answer-status ' + (isCorrect ? 'correct' : 'incorrect') + '">' +
+                            (isCorrect ? '✓ Correct' : '✗ Incorrect') +
+                        '</span>' +
+                        '<div class="review-question">Q' + i + ': ' + questions[i-1] + '</div>' +
+                        '<div class="review-answer your-answer">' +
+                            '<strong>Your answer:</strong> ' + userAnswerText +
+                        '</div>' +
+                        (!isCorrect ?
+                            '<div class="review-answer correct-answer">' +
+                                '<strong>Correct answer:</strong> ' + correctAnswers[questionName].text +
+                            '</div>'
+                        : '') +
+                    '</div>';
+            }
 
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="brand">Tic Tech Toe <span class="hand" style="color:var(--accent);font-size:28px">Labs</span></div>
-        <p style="margin-top:10px;max-width:380px">Corporate AI and digital-skills training, led by Khai &amp; Zayed. Based in Singapore, delivered worldwide.</p>
-      </div>
-      <div><h5>Explore</h5><ul>
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="../about.html">About</a></li>
-        <li><a href="../training.html">Training</a></li>
-        <li><a href="../testimonials.html">Testimonials</a></li>
-        <li><a href="../contact.html">Contact</a></li>
-        <li><a href="../vault.html">Secret Vault</a></li>
-      </ul></div>
-      <div><h5>Get in touch</h5><ul>
-        <li><a href="mailto:khai@tictechtoelabs.com">khai@tictechtoelabs.com</a></li>
-        <li><a href="https://wa.me/6587449872">WhatsApp · +65 8744 9872</a></li>
-        <li><a href="../needs-analysis.html">Free training needs analysis</a></li>
-      </ul></div>
-      <div><h5>Follow</h5><ul>
-        <li><a href="https://www.linkedin.com/in/khairun-kamaruzaini-49b35a159/" target="_blank" rel="noopener">LinkedIn · Khai</a></li>
-      </ul></div>
-    </div>
-    <div class="legal">
-      <span>© 2026 Tic Tech Toe Labs · SG</span>
-      <span>Built with care, coffee, and opinions</span>
-    </div>
-  </div>
-</footer>
+            const percentage = Math.round((score / totalQuestions) * 100);
 
-<script src="../script.js?v=3"></script>
+            document.getElementById('scoreText').textContent = 'Your Score: ' + score + '/' + totalQuestions;
+            document.getElementById('scoreDetails').textContent = percentage + '% Correct';
+            document.getElementById('answerReview').innerHTML = reviewHTML;
+
+            document.getElementById('quizForm').style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+
+            // Scroll the container into view inside the iframe
+            document.querySelector('.container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Re-notify parent now that height has changed
+            setTimeout(notifyHeight, 100);
+        });
+
+        // Retry without full reload (location.reload may not behave well inside Google Sites iframe)
+        document.getElementById('retryBtn').addEventListener('click', function() {
+            document.getElementById('quizForm').reset();
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('quizForm').style.display = 'block';
+            document.querySelector('.container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(notifyHeight, 100);
+        });
+    </script>
 </body>
 </html>
