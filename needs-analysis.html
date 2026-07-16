@@ -154,7 +154,33 @@
   .kv .v{font-weight:600;text-align:right}
   .callout{background:var(--accent-soft);border:2px solid var(--ink);border-radius:10px;padding:14px 16px;font-size:15px;margin-top:6px}
   .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-  @media(max-width:640px){.two-col{grid-template-columns:1fr}.wrap{padding:16px 12px 70px}.card,.panel{padding:20px 18px}}
+  .matrix-scroll{position:relative}
+  .matrix-hint{display:none;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.5px;color:var(--muted);text-transform:uppercase;margin:2px 0 6px}
+  @media(max-width:640px){
+    .two-col{grid-template-columns:1fr}
+    .wrap{padding:16px 12px 70px}
+    .card,.panel{padding:20px 16px}
+    h2.section-title{font-size:24px}
+    .res-hero{padding:22px 18px}
+    .res-hero h2{font-size:22px}
+    .score-row{flex-direction:column;gap:12px}
+    .score-big{min-width:0}
+    .score-big .val{font-size:34px}
+    .form-nav{gap:8px}
+    .wrap button{font-size:15px;padding:12px 16px}
+    .matrix-hint{display:block}
+    table.matrix{font-size:12.5px}
+    .site-nav-inner{padding:10px 14px;gap:10px}
+    .site-links{gap:2px}
+    .site-links a{font-size:13px;padding:5px 8px}
+    .site-logo{font-size:18px}
+    .brand h1{font-size:17px}
+    .intro-list li{font-size:14px}
+  }
+  @media(max-width:420px){
+    .site-logo small{display:none}
+    .wrap button{padding:11px 12px}
+  }
 
   .footnote{font-size:12px;color:var(--muted);text-align:center;margin-top:24px}
   .noprint-toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:10px;font-size:13.5px;opacity:0;pointer-events:none;transition:.3s;z-index:60}
@@ -235,7 +261,7 @@
     <p>Corporate AI and digital-skills training, led by Khai &amp; Zayed. Based in Singapore, delivered worldwide.</p>
     <div class="legal">
       <span>© 2026 Tic Tech Toe Labs · SG</span>
-      <span><a href="/cdn-cgi/l/email-protection#553e3d343c15213c362130363d213a30393437267b363a38"><span class="__cf_email__" data-cfemail="abc0c3cac2ebdfc2c8dfcec8c3dfc4cec7cac9d885c8c4c6">[email&#160;protected]</span></a> · <a href="https://wa.me/6587449872">WhatsApp +65 8744 9872</a></span>
+      <span><a href="/cdn-cgi/l/email-protection#4f24272e260f3b262c3b2a2c273b202a232e2d3c612c2022"><span class="__cf_email__" data-cfemail="315a5950587145585245545259455e545d5053421f525e5c">[email&#160;protected]</span></a> · <a href="https://wa.me/6587449872">WhatsApp +65 8744 9872</a></span>
     </div>
   </div>
 </footer>
@@ -429,7 +455,7 @@ function renderMatrix(q){
     }).join('');
     return `<tr><td class="rowhead">${esc(r)}</td>${cells}</tr>`;
   }).join('');
-  return `<div class="matrix-scroll"><table class="matrix"><thead>${head}</thead><tbody>${rows}</tbody></table></div>`;
+  return `<div class="matrix-hint">↔ swipe the table to see all options</div><div class="matrix-scroll"><table class="matrix"><thead>${head}</thead><tbody>${rows}</tbody></table></div>`;
 }
 
 /* ==========================================================================
