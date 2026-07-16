@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HL Building Material · Learning Hub · 13 &amp; 17 July 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #0f172a;
+    background: #f8fafc;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background:
+      radial-gradient(at 10% 20%, rgba(37,99,235,0.28) 0, transparent 50%),
+      radial-gradient(at 90% 80%, rgba(245,158,11,0.18) 0, transparent 50%),
+      linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #fff;
+    padding: 4rem 2rem 3rem;
+  }
+  .hero-inner { max-width: 1100px; margin: 0 auto; }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(37,99,235,0.20);
+    color: #93c5fd;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    border: 1px solid rgba(37,99,235,0.42);
+  }
+  .hero h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.9rem, 4.2vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 span {
+    background: linear-gradient(90deg, #60a5fa, #fbbf24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p { color: #cbd5e1; font-size: 1.05rem; max-width: 720px; margin: 0; }
+
+  /* ===== CONTAINER ===== */
+  .container { max-width: 1100px; margin: 0 auto; padding: 2.5rem 2rem 3.5rem; }
+
+  /* ===== INTRO ===== */
+  .intro-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 4px 20px rgba(15,23,42,0.06);
+    border-left: 4px solid #2563eb;
+  }
+  .intro-card h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    margin: 0 0 0.45rem;
+    color: #0f172a;
+  }
+  .intro-card p { color: #334155; font-size: 0.96rem; margin: 0; }
+
+  /* ===== SECTION HEADING ===== */
+  .section-heading {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.35rem;
+    color: #0f172a;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .section-heading .heading-pill {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: #eff6ff;
+    color: #1d4ed8;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    margin-left: auto;
+  }
+  .topic-section { margin-bottom: 3rem; }
+  .topic-section:last-of-type { margin-bottom: 0; }
+
+  /* ===== CARD GRID ===== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.25rem;
+  }
+
+  /* ===== TOPIC CARD ===== */
+  .topic-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 14px;
+    padding: 1.6rem 1.75rem;
+    box-shadow: 0 2px 14px rgba(15,23,42,0.05);
+    border: 1px solid #e2e8f0;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    min-height: 240px;
+  }
+  .topic-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(15,23,42,0.12);
+    border-color: #2563eb;
+  }
+  .topic-card:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 2px;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .card-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 44px;
+    padding: 0 0.5rem;
+    border-radius: 10px;
+    background: #2563eb;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+  .card-time {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #64748b;
+    background: #f1f5f9;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+  }
+  .card-time.self-paced {
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  .card-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.3;
+    margin: 0 0 0.6rem;
+  }
+  .card-desc {
+    color: #475569;
+    font-size: 0.94rem;
+    line-height: 1.6;
+    margin: 0 0 1.25rem;
+    flex-grow: 1;
+  }
+  .card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #1d4ed8;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: auto;
+  }
+  .card-cta .arrow {
+    transition: transform 0.2s ease;
+    font-size: 1.05rem;
+  }
+  .topic-card:hover .card-cta .arrow {
+    transform: translateX(4px);
+  }
+
+  /* ===== ACCENT VARIANTS ===== */
+  .topic-card.accent-teal .card-badge { background: #0d9488; }
+  .topic-card.accent-purple .card-badge { background: #7c3aed; }
+  .topic-card.accent-amber .card-badge { background: #d97706; }
+  .topic-card.accent-rose .card-badge { background: #be123c; }
+  .topic-card.accent-sky .card-badge { background: #0284c7; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #0f172a;
+    color: #cbd5e1;
+    padding: 2rem 2rem;
+    text-align: center;
+    font-size: 0.85rem;
+  }
+  footer p { margin: 0; max-width: 720px; margin-left: auto; margin-right: auto; }
+  footer p + p { margin-top: 0.5rem; color: #94a3b8; font-size: 0.78rem; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 720px) {
+    .hero { padding: 3rem 1.25rem 2.5rem; }
+    .container { padding: 2rem 1.25rem 2.5rem; }
+    .card-grid { grid-template-columns: 1fr; }
+    .topic-card { padding: 1.4rem 1.5rem; min-height: 220px; }
+    .section-heading { font-size: 1.2rem; }
+    .section-heading .heading-pill { display: none; }
+  }
+</style>
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_ApprovalStatus msdt:dt="string">0</mso:_ApprovalStatus>
+<mso:_ApprovalAssignedTo msdt:dt="string"></mso:_ApprovalAssignedTo>
+<mso:_ApprovalRespondedBy msdt:dt="string"></mso:_ApprovalRespondedBy>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="hero-inner">
+    <span class="hero-tag">HL Building Material · 13 &amp; 17 July 2026</span>
+    <h1>Your <span>Learning Hub</span></h1>
+    <p>Click any topic card below to open the full lesson page. Each lesson opens in a new tab so you don't lose your place here. Live lessons are trainer-led across the two class days — the reference guides are yours to revisit anytime.</p>
+  </div>
+</header>
+
+<!-- ===== MAIN ===== -->
+<main class="container">
+
+  <section class="intro-card">
+    <h2>📚 How to use this hub</h2>
+    <p>The cards below are organised in the order we'll cover them. Tap a card to jump straight to its lesson page — guides, prompts, screenshots, and downloads are all in there. Bookmark this page so you can come back to any lesson after the workshop.</p>
+  </section>
+
+  <!-- ============ LIVE LESSONS ============ -->
+  <section class="topic-section">
+    <h2 class="section-heading">
+      Live Lessons
+      <span class="heading-pill">Trainer-led</span>
+    </h2>
+
+    <div class="card-grid">
+
+      <a class="topic-card" href="https://sites.google.com/view/tictechtoedigitalskillscourse/uel-mgr-grp-1-topic-1" target="_blank" rel="noopener">
+        <div class="card-meta">
+          <span class="card-badge">1</span>
+          <span class="card-time">⏱ 45 min</span>
+        </div>
+        <h3 class="card-title">CODE &amp; PARA Method — Digital Note-Taking</h3>
+        <p class="card-desc">Learn two complementary methods for capturing and organising digital notes: <strong>CODE</strong> (Capture · Organise · Distill · Express) and <strong>PARA</strong> (Projects · Areas · Resources · Archives). Walk away with a clear system for managing every note, file, and idea.</p>
+        <span class="card-cta">Open lesson <span class="arrow">→</span></span>
+      </a>
+
+      <a class="topic-card accent-purple" href="https://sites.google.com/view/tictechtoedigitalskillscourse/uel-mgr-grp-1-topic-3" target="_blank" rel="noopener">
+        <div class="card-meta">
+          <span class="card-badge">2</span>
+          <span class="card-time">⏱ 1 hr</span>
+        </div>
+        <h3 class="card-title">Data Analysis &amp; Projection with Excel + Copilot</h3>
+        <p class="card-desc">Use <strong>Microsoft Copilot inside Excel</strong> to explore data, surface insights, and project trends forward. Includes a fully-built sample dashboard you can replicate — download the sample data, paste the prompt into Copilot, and see how it works end-to-end.</p>
+        <span class="card-cta">Open lesson <span class="arrow">→</span></span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ REFERENCE GUIDES ============ -->
+  <section class="topic-section">
+    <h2 class="section-heading">
+      Reference Guides &amp; Self-Paced
+      <span class="heading-pill">Anytime</span>
+    </h2>
+
+    <div class="card-grid">
+
+      <a class="topic-card accent-rose" href="https://sites.google.com/view/tictechtoedigitalskillscourse/uel-mgr-grp-1-topic-5" target="_blank" rel="noopener">
+        <div class="card-meta">
+          <span class="card-badge">3A</span>
+          <span class="card-time self-paced">⏱ 15 min</span>
+        </div>
+        <h3 class="card-title">Shadow AI Report</h3>
+        <p class="card-desc">The <strong>2025 data security crisis</strong> driven by unauthorised AI tool adoption — what employees admit, what IT sees, the financial impact, and the four-part strategic response. Charts, case studies, and a six-stage Problem Loop walkthrough.</p>
+        <span class="card-cta">Open lesson <span class="arrow">→</span></span>
+      </a>
+
+      <a class="topic-card accent-sky" href="https://sites.google.com/view/tictechtoedigitalskillscourse/uel-mgr-grp-1-topic-5b" target="_blank" rel="noopener">
+        <div class="card-meta">
+          <span class="card-badge">3B</span>
+          <span class="card-time self-paced">⏱ 15 min</span>
+        </div>
+        <h3 class="card-title">Microsoft Edge Copilot Setup</h3>
+        <p class="card-desc">Step-by-step setup guide for enabling <strong>Copilot inside the Microsoft Edge browser</strong> — the easiest entry point for everyday use. Get up and running in under 5 minutes.</p>
+        <span class="card-cta">Open lesson <span class="arrow">→</span></span>
+      </a>
+
+      <a class="topic-card" href="https://sites.google.com/view/tictechtoedigitalskillscourse/uel-mgr-grp-1-topic-6" target="_blank" rel="noopener">
+        <div class="card-meta">
+          <span class="card-badge">4</span>
+          <span class="card-time self-paced">⏱ 15 min</span>
+        </div>
+        <h3 class="card-title">Copilot 101</h3>
+        <p class="card-desc">The complete starter guide: the <strong>Copilot interface</strong>, image and itinerary generation, web research, document and PDF intelligence, Excel data analysis, and email productivity essentials. Everything you need to feel confident on day one.</p>
+        <span class="card-cta">Open lesson <span class="arrow">→</span></span>
+      </a>
+
+      <a class="topic-card accent-teal" href="https://sites.google.com/view/tictechtoedigitalskillscourse/uel-mgr-grp-1-topic-7a?read_current=1" target="_blank" rel="noopener">
+        <div class="card-meta">
+          <span class="card-badge">5A</span>
+          <span class="card-time self-paced">⏱ 30 min</span>
+        </div>
+        <h3 class="card-title">Transcribing Meeting Audio — Word + Copilot</h3>
+        <p class="card-desc">Drop a <strong>meeting recording into Word</strong>, get an accurate transcript, then summarise and extract action items with Copilot. Perfect for managers who need clean meeting notes without the manual write-up.</p>
+        <span class="card-cta">Open lesson <span class="arrow">→</span></span>
+      </a>
+
+      <a class="topic-card accent-purple" href="https://sites.google.com/view/tictechtoedigitalskillscourse/uel-mgr-grp-1-topic-7b" target="_blank" rel="noopener">
+        <div class="card-meta">
+          <span class="card-badge">5B</span>
+          <span class="card-time self-paced">⏱ 30 min</span>
+        </div>
+        <h3 class="card-title">Turning On Mini Apps in the Sidebar</h3>
+        <p class="card-desc">Enable the <strong>sidebar mini-apps</strong> so Copilot can read, draft, and assist on whatever you're working on — without switching tabs. A small setup tweak with a big productivity payoff.</p>
+        <span class="card-cta">Open lesson <span class="arrow">→</span></span>
+      </a>
+
+      <a class="topic-card accent-sky" href="https://www.tictechtoelabs.com/learninghub/job_role_library/HL%20BUILDING%20MATERIAL%20JOB%20ROLE%20PROMPT%2013&17%20JULY%202026.html" target="_blank" rel="noopener">
+        <div class="card-meta">
+          <span class="card-badge">6</span>
+          <span class="card-time self-paced">⏱ 30 min</span>
+        </div>
+        <h3 class="card-title">Useful Prompts for Different Job Roles</h3>
+        <p class="card-desc">A curated <strong>prompt library tailored to each job role</strong> in this class — Admin Executive, Senior Purchasing Assistant, Operations Executive, General Manager, General Manager (Sales), Sales Administrator, Senior Key Accounts Executive, Assistant Sales Manager, Sales Manager, Sales Coordinator, Delivery Coordinator, and Chemist. Find your role, copy a build prompt, and paste it into Copilot to generate a working webpage for your daily work.</p>
+        <span class="card-cta">Open lesson <span class="arrow">→</span></span>
+      </a>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>HL Building Material · 2-Day SFDW · 13 &amp; 17 July 2026</p>
+  <p>Tic Tech Toe Labs · Workplace Digital Skills Training</p>
+</footer>
+
+</body>
+</html>
