@@ -1,1 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D Print Cost Calculator — Bambu Lab P2S</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  :root {
+    --grad-start: #6366f1;
+    --grad-end: #8b5cf6;
+    --accent: #ec4899;
+    --ink: #1e1b2e;
+    --muted: #6b7280;
+    --line: #e8e6f0;
+    --bg-soft: #f7f6fb;
+    --good: #10b981;
+    --card-radius: 18px;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--bg-soft);
+    line-height: 1.55;
+    padding: 1.25rem;
+  }
+
+  .wrap { max-width: 980px; margin: 0 auto; }
+
+  /* Header */
+  .hero {
+    background: linear-gradient(135deg, var(--grad-start) 0%, var(--grad-end) 55%, var(--accent) 130%);
+    color: #fff;
+    border-radius: var(--card-radius);
+    padding: 2rem 1.75rem;
+    box-shadow: 0 16px 40px rgba(99,102,241,0.25);
+  }
+  .hero h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.35rem;
+  }
+  .hero p { opacity: 0.92; font-size: 0.95rem; max-width: 60ch; }
+  .hero .pill {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-top: 0.9rem;
+  }
+
+  /* Layout */
+  .grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 1.1rem;
+    margin-top: 1.1rem;
+    align-items: start;
+  }
+  @media (max-width: 820px) { .grid { grid-template-columns: 1fr; } }
+
+  .card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--card-radius);
+    padding: 1.4rem;
+    box-shadow: 0 4px 18px rgba(30,27,46,0.04);
+  }
+
+  .section-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--grad-start);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-title .num {
+    background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+    color: #fff;
+    width: 1.4rem; height: 1.4rem;
+    border-radius: 7px;
+    display: grid; place-items: center;
+    font-size: 0.75rem;
+  }
+  .section-title + .section-title { margin-top: 1.6rem; }
+
+  /* Inputs */
+  .field { margin-bottom: 0.9rem; }
+  .field label {
+    display: block;
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+  .field label .hint { font-weight: 400; opacity: 0.75; }
+  .input-row { display: flex; gap: 0.6rem; }
+  .input-row .field { flex: 1; margin-bottom: 0.9rem; }
+
+  .ifield { position: relative; }
+  .ifield .unit {
+    position: absolute;
+    right: 0.75rem; top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    color: var(--muted);
+    pointer-events: none;
+  }
+  input[type="number"] {
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    padding: 0.6rem 2.6rem 0.6rem 0.75rem;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    background: #fcfcff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    -moz-appearance: textfield;
+  }
+  input[type="number"]:focus {
+    outline: none;
+    border-color: var(--grad-start);
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+  }
+
+  select {
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    padding: 0.6rem 2.2rem 0.6rem 0.75rem;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    background-color: #fcfcff;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  select:focus {
+    outline: none;
+    border-color: var(--grad-start);
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+  }
+
+  input[readonly] {
+    background-color: #f3f2f8;
+    color: var(--muted);
+    cursor: not-allowed;
+  }
+
+  /* Presets */
+  .presets { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.2rem; }
+  .presets button {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--grad-start);
+    background: #fff;
+    border: 1.5px solid var(--line);
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .presets button:hover {
+    border-color: var(--grad-start);
+    background: rgba(99,102,241,0.06);
+    transform: translateY(-1px);
+  }
+
+  details {
+    border-top: 1px solid var(--line);
+    margin-top: 0.5rem;
+    padding-top: 0.9rem;
+  }
+  details summary {
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    list-style: none;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::after { content: '＋'; font-size: 1rem; }
+  details[open] summary::after { content: '－'; }
+  details .body { margin-top: 1rem; }
+
+  /* Results panel */
+  .results { position: sticky; top: 1rem; }
+  .res-head {
+    background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+    color: #fff;
+    border-radius: var(--card-radius) var(--card-radius) 0 0;
+    padding: 1.4rem;
+  }
+  .res-head .lab { font-size: 0.8rem; opacity: 0.85; font-weight: 500; }
+  .res-head .big {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2.4rem;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0.15rem 0;
+  }
+  .res-head .sub { font-size: 0.82rem; opacity: 0.85; }
+
+  .res-body {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-top: none;
+    border-radius: 0 0 var(--card-radius) var(--card-radius);
+    padding: 1.2rem 1.4rem 1.4rem;
+  }
+  .line {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    border-bottom: 1px dashed var(--line);
+  }
+  .line:last-of-type { border-bottom: none; }
+  .line .k { color: var(--muted); }
+  .line .v { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .line.total {
+    margin-top: 0.4rem;
+    padding-top: 0.7rem;
+    border-top: 2px solid var(--ink);
+    border-bottom: none;
+    font-size: 1rem;
+  }
+  .line.total .k { color: var(--ink); font-weight: 700; font-family: 'Poppins', sans-serif; }
+  .line.total .v { color: var(--grad-start); font-size: 1.15rem; }
+
+  .sell-box {
+    margin-top: 1.1rem;
+    background: var(--bg-soft);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+  }
+  .sell-box .line.total .v { color: var(--good); }
+
+  .perunit {
+    display: flex; gap: 0.6rem; margin-top: 1rem;
+  }
+  .chip {
+    flex: 1;
+    background: var(--bg-soft);
+    border-radius: 10px;
+    padding: 0.65rem 0.5rem;
+    text-align: center;
+  }
+  .chip .cv { font-family:'Poppins',sans-serif; font-weight: 700; font-size: 1rem; color: var(--ink); }
+  .chip .cl { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 0.1rem; }
+
+  .footer {
+    text-align: center;
+    margin-top: 1.4rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .footer strong { color: var(--grad-start); }
+  .note {
+    font-size: 0.76rem;
+    color: var(--muted);
+    margin-top: 0.8rem;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>3D Print Cost Calculator</h1>
+    <p>Operational cost &amp; pricing for the Bambu Lab P2S. Slice your model, drop in the grams and time, and get your true cost to run — plus a suggested sell price.</p>
+    <span class="pill">⚡ Singapore tariff &amp; P2S defaults pre-loaded</span>
+  </div>
+
+  <div class="grid">
+
+    <!-- INPUTS -->
+    <div class="card">
+      <div class="presets">
+        <button data-w="100" data-t="6"   data-pt="15">✏️ Pencil case</button>
+        <button data-w="30"  data-t="1.5" data-pt="3">🗂️ Gridfinity bin</button>
+        <button data-w="55"  data-t="5"   data-pt="20">🧍 Figurine</button>
+        <button data-w="200" data-t="9"   data-pt="10">📦 Large box</button>
+      </div>
+
+      <div class="section-title"><span class="num">1</span> Print details</div>
+
+      <div class="field">
+        <label>Filament weight <span class="hint">(from Bambu Studio after slicing)</span></label>
+        <div class="ifield">
+          <input type="number" id="weight" value="100" min="0" step="1">
+          <span class="unit">grams</span>
+        </div>
+      </div>
+
+      <div class="input-row">
+        <div class="field">
+          <label>Print time — hours</label>
+          <div class="ifield">
+            <input type="number" id="hours" value="6" min="0" step="1">
+            <span class="unit">h</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>minutes</label>
+          <div class="ifield">
+            <input type="number" id="mins" value="0" min="0" max="59" step="1">
+            <span class="unit">m</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title"><span class="num">2</span> Cost settings</div>
+
+      <div class="field">
+        <label>Filament type <span class="hint">(Bambu Lab SG · per 1kg spool)</span></label>
+        <select id="filType">
+          <optgroup label="PLA">
+            <option value="19.90" selected>PLA Basic — S$19.90</option>
+            <option value="19.90">PLA Matte — S$19.90</option>
+            <option value="31.90">PLA Specialty · Silk / Galaxy / Metal — S$31.90</option>
+          </optgroup>
+          <optgroup label="PETG">
+            <option value="22.90">PETG Basic / HF — S$22.90</option>
+            <option value="26.90">PETG Translucent — S$26.90</option>
+          </optgroup>
+          <optgroup label="Engineering">
+            <option value="23.90">ABS — S$23.90</option>
+            <option value="28.90">ASA — S$28.90</option>
+            <option value="33.90">TPU 95A — S$33.90</option>
+            <option value="39.90">PC — S$39.90</option>
+            <option value="54.90">Fibre-reinforced · CF / GF — S$54.90</option>
+          </optgroup>
+          <optgroup label="Support">
+            <option value="28.90">Support (PLA/PETG) — S$28.90</option>
+          </optgroup>
+          <option value="custom">Custom price…</option>
+        </select>
+      </div>
+
+      <div class="field" id="customWrap" style="display:none;">
+        <label>Custom price <span class="hint">(per kg spool)</span></label>
+        <div class="ifield">
+          <input type="number" id="spool" value="19.90" min="0" step="0.5">
+          <span class="unit">S$/kg</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Printer <span class="hint">(sets power draw · PLA-print avg, official Bambu wiki)</span></label>
+        <select id="printer">
+          <option value="105" selected>Bambu Lab P2S — 105W</option>
+          <option value="105">Bambu Lab P1S — 105W</option>
+          <option value="110">Bambu Lab P1P — 110W</option>
+          <option value="105">Bambu Lab X1 / X1C — 105W</option>
+          <option value="185">Bambu Lab X1E — 185W</option>
+          <option value="95">Bambu Lab A1 — 95W</option>
+          <option value="80">Bambu Lab A1 mini — 80W</option>
+          <option value="197">Bambu Lab H2D — 197W</option>
+        </select>
+      </div>
+
+      <div class="input-row">
+        <div class="field">
+          <label>Power draw <span class="hint">(fixed by printer)</span></label>
+          <div class="ifield">
+            <input type="number" id="watts" value="105" readonly>
+            <span class="unit">W</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>Electricity rate <span class="hint">(SG regulated)</span></label>
+          <div class="ifield">
+            <input type="number" id="kwh" value="0.2972" min="0" step="0.01">
+            <span class="unit">S$/kWh</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Machine wear &amp; maintenance <span class="hint">(nozzle, belts, rods)</span></label>
+        <div class="ifield">
+          <input type="number" id="wear" value="0.15" min="0" step="0.05">
+          <span class="unit">S$/hour</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Failure buffer <span class="hint">(absorbs failed prints)</span></label>
+        <div class="ifield">
+          <input type="number" id="fail" value="8" min="0" step="1">
+          <span class="unit">%</span>
+        </div>
+      </div>
+
+      <details>
+        <summary>Selling &amp; extras (optional)</summary>
+        <div class="body">
+          <div class="input-row">
+            <div class="field">
+              <label>Post-processing time</label>
+              <div class="ifield">
+                <input type="number" id="labtime" value="15" min="0" step="5">
+                <span class="unit">min</span>
+              </div>
+            </div>
+            <div class="field">
+              <label>Your labour rate</label>
+              <div class="ifield">
+                <input type="number" id="labrate" value="0" min="0" step="5">
+                <span class="unit">S$/h</span>
+              </div>
+            </div>
+          </div>
+          <div class="input-row">
+            <div class="field">
+              <label>Extras <span class="hint">(packaging, hardware)</span></label>
+              <div class="ifield">
+                <input type="number" id="extras" value="0" min="0" step="0.5">
+                <span class="unit">S$</span>
+              </div>
+            </div>
+            <div class="field">
+              <label>Markup</label>
+              <div class="ifield">
+                <input type="number" id="margin" value="480" min="0" step="10">
+                <span class="unit">%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results">
+      <div class="res-head">
+        <div class="lab">True operational cost</div>
+        <div class="big" id="opCost">S$4.45</div>
+        <div class="sub" id="opSub">What it actually costs to run this print</div>
+      </div>
+      <div class="res-body">
+        <div class="line"><span class="k">Filament</span><span class="v" id="rFil">S$3.00</span></div>
+        <div class="line"><span class="k">Electricity</span><span class="v" id="rElec">S$0.21</span></div>
+        <div class="line"><span class="k">Machine wear</span><span class="v" id="rWear">S$0.90</span></div>
+        <div class="line"><span class="k">Failure buffer</span><span class="v" id="rFail">S$0.33</span></div>
+        <div class="line total"><span class="k">Operational cost</span><span class="v" id="rOp">S$4.45</span></div>
+
+        <div class="perunit">
+          <div class="chip"><div class="cv" id="cPerG">S$0.04</div><div class="cl">per gram</div></div>
+          <div class="chip"><div class="cv" id="cPerH">S$0.74</div><div class="cl">per hour</div></div>
+        </div>
+
+        <div class="sell-box">
+          <div class="line"><span class="k">Operational cost</span><span class="v" id="sOp">S$4.45</span></div>
+          <div class="line"><span class="k">Labour</span><span class="v" id="sLab">S$0.00</span></div>
+          <div class="line"><span class="k">Extras</span><span class="v" id="sExtra">S$0.00</span></div>
+          <div class="line"><span class="k">Markup</span><span class="v" id="sMargin">S$2.23</span></div>
+          <div class="line total"><span class="k">Suggested sell price</span><span class="v" id="sellPrice">S$6.68</span></div>
+        </div>
+
+        <p class="note">Power draw is fixed per printer using PLA-print averages from Bambu Lab's official power-consumption wiki (the P2S isn't published yet, so it uses the P1S's 105W as the closest match). PETG and ABS draw more — roughly 140W and 135W on a P1S-class machine — so bump it if you print those a lot. Filament prices follow Bambu Lab's Singapore store by category (anchored on PLA Basic at S$19.90); electricity is Singapore's current regulated tariff (29.72¢/kWh incl. GST, Apr–Jun 2026), expected to rise from July 2026.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Built for the Bambu Lab P2S · <strong>Tic Tech Toe Labs</strong>
+  </div>
+
+</div>
+
+<script>
+  var ids = ['weight','hours','mins','spool','watts','kwh','wear','fail','labtime','labrate','extras','margin'];
+  var el = {};
+  ids.forEach(function(id){ el[id] = document.getElementById(id); });
+
+  function num(id){ var v = parseFloat(el[id].value); return isNaN(v) ? 0 : v; }
+  function money(n){ return 'S$' + n.toFixed(2); }
+
+  var filType = document.getElementById('filType');
+  var customWrap = document.getElementById('customWrap');
+
+  function getSpoolPrice(){
+    if (filType.value === 'custom') return num('spool');
+    var p = parseFloat(filType.value);
+    return isNaN(p) ? 0 : p;
+  }
+
+  filType.addEventListener('change', function(){
+    customWrap.style.display = (filType.value === 'custom') ? 'block' : 'none';
+    calc();
+  });
+
+  var printer = document.getElementById('printer');
+  printer.addEventListener('change', function(){
+    el['watts'].value = printer.value;
+    calc();
+  });
+
+  function calc(){
+    var weight = num('weight');
+    var time   = num('hours') + num('mins')/60;       // hours
+    var spool  = getSpoolPrice();
+    var watts  = num('watts');
+    var kwh    = num('kwh');
+    var wear   = num('wear');
+    var failPct= num('fail');
+
+    var filament = (weight/1000) * spool;
+    var elec     = (watts/1000) * time * kwh;
+    var machine  = wear * time;
+
+    var subtotal = filament + elec + machine;
+    var failBuf  = subtotal * (failPct/100);
+    var opCost   = subtotal + failBuf;
+
+    // Selling
+    var labour = (num('labtime')/60) * num('labrate');
+    var extras = num('extras');
+    var base   = opCost + labour + extras;
+    var margin = base * (num('margin')/100);
+    var sell   = base + margin;
+
+    // Operational breakdown
+    document.getElementById('rFil').textContent  = money(filament);
+    document.getElementById('rElec').textContent = money(elec);
+    document.getElementById('rWear').textContent = money(machine);
+    document.getElementById('rFail').textContent = money(failBuf);
+    document.getElementById('rOp').textContent   = money(opCost);
+
+    document.getElementById('opCost').textContent = money(opCost);
+
+    // Per-unit
+    document.getElementById('cPerG').textContent = weight > 0 ? money(opCost/weight) : 'S$0.00';
+    document.getElementById('cPerH').textContent = time   > 0 ? money(opCost/time)   : 'S$0.00';
+
+    // Sell
+    document.getElementById('sOp').textContent     = money(opCost);
+    document.getElementById('sLab').textContent    = money(labour);
+    document.getElementById('sExtra').textContent  = money(extras);
+    document.getElementById('sMargin').textContent = money(margin);
+    document.getElementById('sellPrice').textContent = money(sell);
+  }
+
+  ids.forEach(function(id){ el[id].addEventListener('input', calc); });
+
+  // Presets
+  document.querySelectorAll('.presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      el['weight'].value = btn.getAttribute('data-w');
+      el['hours'].value  = btn.getAttribute('data-t');
+      el['mins'].value   = 0;
+      el['labtime'].value= btn.getAttribute('data-pt');
+      calc();
+    });
+  });
+
+  calc();
+</script>
+</body>
+</html>
