@@ -1,1 +1,1322 @@
 
+<!DOCTYPE html>
+<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kim Ann Engineering — Role-Based Webpage Build Prompts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --navy-900: #0f172a;
+        --navy-800: #1e293b;
+        --navy-700: #334155;
+        --slate-500: #64748b;
+        --slate-300: #cbd5e1;
+        --slate-100: #f1f5f9;
+        --slate-50:  #f8fafc;
+        --amber-500: #f59e0b;
+        --amber-400: #fbbf24;
+        --amber-100: #fef3c7;
+        --teal-500:  #0d9488;
+        --teal-100:  #ccfbf1;
+        --white: #ffffff;
+
+        /* Audience accent colours */
+        --finance: #2563eb;
+        --finance-soft: #dbeafe;
+        --it: #7c3aed;
+        --it-soft: #ede9fe;
+        --ops: #ea580c;
+        --ops-soft: #ffedd5;
+        --mgmt: #be123c;
+        --mgmt-soft: #ffe4e6;
+        --hr: #db2777;
+        --hr-soft: #fce7f3;
+        --purch: #059669;
+        --purch-soft: #d1fae5;
+
+        /* Quality/Lab, Administration, EHS */
+        --quality: #06b6d4;
+        --quality-soft: #cffafe;
+        --admin: #475569;
+        --admin-soft: #e2e8f0;
+        --ehs: #b91c1c;
+        --ehs-soft: #fee2e2;
+
+        /* Kim Ann additions — Sales, Marketing, Customer Service */
+        --sales: #0d9488;
+        --sales-soft: #ccfbf1;
+        --marketing: #c026d3;
+        --marketing-soft: #fae8ff;
+        --service: #4f46e5;
+        --service-soft: #e0e7ff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--navy-900);
+        background: var(--slate-50);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+        background:
+            radial-gradient(at 10% 20%, rgba(245, 158, 11, 0.18) 0, transparent 50%),
+            radial-gradient(at 90% 80%, rgba(13, 148, 136, 0.22) 0, transparent 50%),
+            linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 100%);
+        color: var(--white);
+        padding: 4rem 2rem 3.5rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-tag {
+        display: inline-block;
+        background: rgba(245, 158, 11, 0.15);
+        color: var(--amber-400);
+        padding: 0.4rem 1rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 1.25rem;
+        border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .hero h1 {
+        font-family: 'Poppins', sans-serif;
+        font-size: clamp(2rem, 4.5vw, 3.2rem);
+        font-weight: 800;
+        line-height: 1.15;
+        margin-bottom: 1rem;
+        letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+        background: linear-gradient(90deg, var(--amber-400), var(--teal-500));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+        color: var(--slate-300);
+        max-width: 720px;
+        margin-bottom: 2rem;
+    }
+
+    .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.9rem;
+        color: var(--slate-300);
+    }
+
+    .meta-item strong {
+        color: var(--white);
+        font-weight: 600;
+    }
+
+    /* ---------- CONTAINER ---------- */
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+    }
+
+    /* ---------- INTRO ---------- */
+    .intro-card {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+        border-left: 4px solid var(--amber-500);
+    }
+
+    .intro-card h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.4rem;
+        margin-bottom: 0.75rem;
+        color: var(--navy-900);
+    }
+
+    .intro-card p {
+        color: var(--navy-700);
+    }
+
+    /* ---------- TABLE OF CONTENTS ---------- */
+    .toc {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    .toc h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.3rem;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    .toc-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .toc a {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.7rem 1rem;
+        background: var(--slate-50);
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--navy-800);
+        font-size: 0.92rem;
+        font-weight: 500;
+        border: 1px solid transparent;
+        transition: all 0.2s ease;
+    }
+
+    .toc a:hover {
+        background: var(--navy-900);
+        color: var(--white);
+        transform: translateX(4px);
+    }
+
+    .toc a .num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        background: var(--amber-500);
+        color: var(--white);
+        border-radius: 50%;
+        font-size: 0.7rem;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    /* ---------- AUDIENCE SECTIONS ---------- */
+    .audience-section {
+        margin-bottom: 3rem;
+    }
+
+    .audience-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--slate-300);
+    }
+
+    .audience-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+    }
+
+    .audience-header h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.7rem;
+        color: var(--navy-900);
+    }
+
+    .audience-header .subtitle {
+        font-size: 0.9rem;
+        color: var(--slate-500);
+        font-weight: 500;
+    }
+
+    /* ---------- WEBPAGE CARDS ---------- */
+    .webpage-card {
+        background: var(--white);
+        border-radius: 16px;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid var(--slate-100);
+        transition: all 0.3s ease;
+    }
+
+    .webpage-card:hover {
+        box-shadow: 0 10px 32px rgba(15, 23, 42, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .card-header {
+        padding: 1.5rem 1.75rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        border-bottom: 1px solid var(--slate-100);
+    }
+
+    .card-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        height: 36px;
+        padding: 0 0.5rem;
+        border-radius: 8px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--white);
+        flex-shrink: 0;
+    }
+
+    .card-title-wrap {
+        flex: 1;
+    }
+
+    .card-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--navy-900);
+        margin-bottom: 0.3rem;
+    }
+
+    .card-role {
+        display: inline-block;
+        margin-bottom: 0.4rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--slate-500);
+    }
+
+    .card-why {
+        color: var(--navy-700);
+        font-size: 0.98rem;
+    }
+
+    .card-body {
+        padding: 1.5rem 1.75rem 1.75rem;
+        background: var(--slate-50);
+    }
+
+    .prompt-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.75rem;
+    }
+
+    .prompt-label-text {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--slate-500);
+    }
+
+    .prompt-label-text::before {
+        content: "⚡";
+        font-size: 0.9rem;
+    }
+
+    .prompt-box {
+        background: var(--navy-900);
+        color: #e2e8f0;
+        padding: 1.25rem 1.5rem;
+        border-radius: 10px;
+        font-family: 'Inter', monospace;
+        font-size: 0.9rem;
+        line-height: 1.7;
+        border: 1px solid var(--navy-700);
+        position: relative;
+    }
+
+    .prompt-box strong {
+        color: var(--amber-400);
+        font-weight: 600;
+    }
+
+    .prompt-box em {
+        color: var(--teal-100);
+        font-style: normal;
+    }
+
+    .prompt-box .show-code {
+        color: var(--amber-400);
+        font-weight: 600;
+    }
+
+    /* ---------- COPY BUTTON ---------- */
+    .copy-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.9rem;
+        padding: 0.6rem 1.1rem;
+        background: var(--white);
+        color: var(--navy-900);
+        border: 1.5px solid var(--navy-900);
+        border-radius: 8px;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-family: inherit;
+    }
+
+    .copy-btn:hover {
+        background: var(--navy-900);
+        color: var(--white);
+        transform: translateY(-1px);
+    }
+
+    .copy-btn.copied {
+        background: var(--teal-500);
+        color: var(--white);
+        border-color: var(--teal-500);
+    }
+
+    .copy-btn .copy-icon {
+        font-size: 0.95rem;
+    }
+
+    /* Audience-specific accent colours */
+    .audience-section.ops .audience-badge { background: var(--ops-soft); color: var(--ops); }
+    .audience-section.ops .card-number { background: var(--ops); }
+
+    .audience-section.purch .audience-badge { background: var(--purch-soft); color: var(--purch); }
+    .audience-section.purch .card-number { background: var(--purch); }
+
+    .audience-section.mgmt .audience-badge { background: var(--mgmt-soft); color: var(--mgmt); }
+    .audience-section.mgmt .card-number { background: var(--mgmt); }
+
+    .audience-section.it .audience-badge { background: var(--it-soft); color: var(--it); }
+    .audience-section.it .card-number { background: var(--it); }
+
+    .audience-section.quality .audience-badge { background: var(--quality-soft); color: var(--quality); }
+    .audience-section.quality .card-number { background: var(--quality); }
+
+    .audience-section.hr .audience-badge { background: var(--hr-soft); color: var(--hr); }
+    .audience-section.hr .card-number { background: var(--hr); }
+
+    .audience-section.finance .audience-badge { background: var(--finance-soft); color: var(--finance); }
+    .audience-section.finance .card-number { background: var(--finance); }
+
+    .audience-section.admin .audience-badge { background: var(--admin-soft); color: var(--admin); }
+    .audience-section.admin .card-number { background: var(--admin); }
+
+    .audience-section.ehs .audience-badge { background: var(--ehs-soft); color: var(--ehs); }
+    .audience-section.ehs .card-number { background: var(--ehs); }
+
+    .audience-section.sales .audience-badge { background: var(--sales-soft); color: var(--sales); }
+    .audience-section.sales .card-number { background: var(--sales); }
+
+    .audience-section.marketing .audience-badge { background: var(--marketing-soft); color: var(--marketing); }
+    .audience-section.marketing .card-number { background: var(--marketing); }
+
+    .audience-section.service .audience-badge { background: var(--service-soft); color: var(--service); }
+    .audience-section.service .card-number { background: var(--service); }
+
+    /* ---------- TIP BOX ---------- */
+    .tip-box {
+        background: linear-gradient(135deg, var(--amber-100) 0%, #fff 100%);
+        border-left: 4px solid var(--amber-500);
+        padding: 1.5rem 1.75rem;
+        border-radius: 12px;
+        margin: 3rem 0;
+    }
+
+    .tip-box h3 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.15rem;
+        margin-bottom: 0.5rem;
+        color: var(--navy-900);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .tip-box p {
+        color: var(--navy-700);
+    }
+
+    .tip-box ul {
+        margin-top: 0.75rem;
+        padding-left: 1.5rem;
+        color: var(--navy-700);
+    }
+
+    .tip-box ul li {
+        margin-bottom: 0.4rem;
+    }
+
+    /* ---------- BACK TO TOP BUTTON ---------- */
+    .back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 100%);
+        color: var(--white);
+        border: 2px solid var(--amber-500);
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        line-height: 1;
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.3);
+        transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        z-index: 9999;
+        font-family: inherit;
+        font-weight: 700;
+    }
+
+    .back-to-top .arrow {
+        font-size: 1.3rem;
+        line-height: 1;
+    }
+
+    .back-to-top .label {
+        font-size: 0.55rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-top: 2px;
+        font-weight: 700;
+    }
+
+    .back-to-top:hover {
+        background: linear-gradient(135deg, var(--amber-500) 0%, var(--amber-400) 100%);
+        border-color: var(--navy-900);
+        color: var(--navy-900);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 28px rgba(245, 158, 11, 0.45);
+    }
+
+    .back-to-top:active {
+        transform: translateY(-1px);
+    }
+
+    @media (max-width: 768px) {
+        .back-to-top {
+            bottom: 1.25rem;
+            right: 1.25rem;
+            width: 50px;
+            height: 50px;
+        }
+        .back-to-top .arrow { font-size: 1.15rem; }
+        .back-to-top .label { font-size: 0.5rem; }
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+        background: var(--navy-900);
+        color: var(--slate-300);
+        padding: 2.5rem 2rem;
+        text-align: center;
+    }
+
+    footer p {
+        font-size: 0.9rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    footer p + p {
+        margin-top: 0.75rem;
+        color: var(--slate-500);
+        font-size: 0.82rem;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+        .hero { padding: 3rem 1.25rem 2.5rem; }
+        .container { padding: 2rem 1.25rem; }
+        .intro-card, .toc { padding: 1.5rem; }
+        .card-header { padding: 1.25rem; flex-wrap: wrap; }
+        .card-body { padding: 1.25rem; }
+        .prompt-box { font-size: 0.85rem; padding: 1rem 1.1rem; }
+        .audience-header { gap: 0.75rem; }
+        .audience-header h2 { font-size: 1.35rem; }
+        .hero-meta { gap: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+        .toc-grid { grid-template-columns: 1fr; }
+        .card-title { font-size: 1.1rem; }
+    }
+</style>
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_ApprovalStatus msdt:dt="string">0</mso:_ApprovalStatus>
+<mso:_ApprovalAssignedTo msdt:dt="string"></mso:_ApprovalAssignedTo>
+<mso:_ApprovalRespondedBy msdt:dt="string"></mso:_ApprovalRespondedBy>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+<body>
+
+<!-- ====== HERO ====== -->
+<header class="hero">
+    <div class="hero-inner">
+        <span class="hero-tag">Kim Ann Engineering · 1st Batch · AI Productivity</span>
+        <h1>Role-Based Webpages <span>+ Build Prompts</span></h1>
+        <p>A curated set of webpage concepts aligned to the 22 participant roles in the Kim Ann Engineering 1st Batch — each role gets a copy-paste prompt that produces a working internal tool replacing 3 Excel files and 2 recurring emails in their daily job across industrial, electronics and oil-&-gas trading operations.</p>
+        <div class="hero-meta">
+            <div class="meta-item">🎯 <span><strong>12</strong> audiences</span></div>
+            <div class="meta-item">👥 <span><strong>22</strong> participant roles</span></div>
+            <div class="meta-item">⚡ <span><strong>22</strong> build prompts</span></div>
+        </div>
+    </div>
+</header>
+
+<!-- ====== MAIN ====== -->
+<main class="container">
+
+    <!-- Intro -->
+    <section class="intro-card">
+        <h2>How to use this guide</h2>
+        <p>Find the card matching your role, then copy its <strong>build prompt</strong> straight into any AI tool — Microsoft Copilot, ChatGPT, Claude, or Gemini. Each prompt is self-contained and produces a single HTML page with embedded CSS and vanilla JavaScript that you can preview in any browser and adapt to your team's actual data. Every prompt ends with an instruction to <strong>show the full HTML source code in the code console</strong> so you can copy it directly. The framing throughout is the same: <em>"Build a browser-based, personal productivity cockpit that replaces 3 common Excel files and 2 recurring emails in your job."</em></p>
+    </section>
+
+    <!-- TOC -->
+    <nav class="toc">
+        <h2>📑 Table of Contents</h2>
+        <div class="toc-grid">
+            <a href="#ops" data-target="ops"><span class="num">O</span> Production &amp; Operations</a>
+            <a href="#sales" data-target="sales"><span class="num">S</span> Electronics Sales</a>
+            <a href="#product" data-target="product"><span class="num">P</span> Product Management</a>
+            <a href="#marketing" data-target="marketing"><span class="num">M</span> Marketing</a>
+            <a href="#finance" data-target="finance"><span class="num">F</span> Finance &amp; Accounts</a>
+            <a href="#it" data-target="it"><span class="num">I</span> IT / Systems (MIS)</a>
+            <a href="#quality" data-target="quality"><span class="num">Q</span> Quality</a>
+            <a href="#hr" data-target="hr"><span class="num">H</span> Human Resources</a>
+            <a href="#service" data-target="service"><span class="num">C</span> Customer Service</a>
+            <a href="#tech" data-target="tech"><span class="num">T</span> Technical Service</a>
+            <a href="#admin" data-target="admin"><span class="num">A</span> Administration</a>
+            <a href="#mgmt" data-target="mgmt"><span class="num">G</span> Management</a>
+        </div>
+    </nav>
+
+    <!-- ===== PRODUCTION & OPERATIONS ===== -->
+    <section id="ops" class="audience-section ops">
+        <div class="audience-header">
+            <div class="audience-badge">🏭</div>
+            <div>
+                <h2>Production &amp; Operations</h2>
+                <div class="subtitle">Work orders, plant efficiency, and daily fulfilment</div>
+            </div>
+        </div>
+
+        <!-- Card 01 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">01</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Production Administrator</span>
+                    <h3 class="card-title">Production Work-Order &amp; WIP Control Panel</h3>
+                    <p class="card-why">Replaces the morning "jobs of the day" Excel, the material-requisition sheet, and the WhatsApp status pings — one place to track work orders, log material requests, and see WIP at a glance.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Production Work-Order &amp; WIP Control Panel</strong> for a production administrator at Kim Ann Engineering, a Singapore-based industrial, electronics and oil-&amp;-gas equipment distributor. Top section: today's work-order summary table with columns for <em>WO number</em>, <em>customer / job</em>, <em>product / assembly</em>, <em>quantity</em>, <em>scheduled date</em>, and a traffic-light status badge (Not Started / In Progress / Done). Below: a material requisition form with fields for <em>date</em>, <em>item code</em>, <em>description</em>, <em>quantity needed</em>, <em>required-by date</em>, and <em>requested by</em>, writing each entry into a visible HTML table. Add a <em>turnaround-time calculator</em> with start/end date-time fields and JS that computes cycle time in hours and flags overruns in red. Include start-of-day and end-of-day operating checklists with checkboxes and an "Export to text" button that copies the checklist state to the clipboard. Seed with 6 sample work orders. Use a clean operations-cockpit aesthetic — navy with amber accents and clear status colours. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p1"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 02 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">02</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Production Manager</span>
+                    <h3 class="card-title">Production Line OEE &amp; Downtime Dashboard</h3>
+                    <p class="card-why">Captures shift output and downtime in one form, auto-calculates OEE so it's not computed by hand each shift, and surfaces the downtime Pareto without a full MES.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page <strong>Production Line OEE &amp; Downtime Dashboard</strong> for a production manager at Kim Ann Engineering, a Singapore industrial and electronics equipment distributor. Provide a shift log form with fields for <em>shift date</em>, <em>line / cell</em>, <em>start time</em>, <em>end time</em>, <em>planned production time (minutes)</em>, <em>quantity produced (units)</em>, <em>defect count</em>, and <em>downtime reason</em> (Setup / Breakdown / Material shortage / Manpower / Quality issue / Other). On submit, auto-calculate and display per-shift OEE (Availability × Performance × Quality) plus a rolling 7-shift trend table for each metric. Add a downtime Pareto — a simple horizontal bar list ranking downtime reasons by total minutes, computed in JS from the logged shifts. Include a manpower deployment mini-board with operators assigned to lines and a daily standup agenda textarea with a "Copy agenda" button. Seed with 3 sample shifts. Use an industrial aesthetic — slate, amber, and traffic-light status colours. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p2"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 03 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">03</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Division Manager (Operation)</span>
+                    <h3 class="card-title">Operations Division KPI Cockpit</h3>
+                    <p class="card-why">One weekly view of the division's KPIs, resource allocation, and risk register — replaces the Monday spreadsheet scramble and the round-robin status emails.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build an <strong>Operations Division KPI Cockpit</strong> for a Division Manager (Operations) at Kim Ann Engineering, a Singapore industrial and electronics equipment distributor. Top: 6 KPI cards with RAG (Red/Amber/Green) colour coding — <em>On-Time Delivery %</em>, <em>Output vs Plan %</em>, <em>Capacity Utilisation %</em>, <em>Operating Cost vs Budget</em>, <em>Overtime Hours</em>, and <em>Open Issues</em>, each showing current value, target, and a variance indicator. Middle: a <em>Resource Allocation Planner</em> table listing teams / sections with headcount, current project, and a load meter (Under / Balanced / Over). Below: a <em>Risk Register</em> with an "Add risk" form (risk, likelihood 1–5, impact 1–5, owner, mitigation) that auto-computes a risk score and colour-codes high scores red. Add a weekly ops review agenda area with wins / issues / decisions textareas and a "Generate agenda" button that concatenates them into a copy-paste block. Seed with realistic sample data. Polished executive aesthetic — navy with amber accents, generous whitespace. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p3"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== ELECTRONICS SALES ===== -->
+    <section id="sales" class="audience-section sales">
+        <div class="audience-header">
+            <div class="audience-badge">💼</div>
+            <div>
+                <h2>Electronics Sales</h2>
+                <div class="subtitle">Pipeline, quotations, and revenue targets</div>
+            </div>
+        </div>
+
+        <!-- Card 04 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">04</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Asst Mgr (Electronics Sales)</span>
+                    <h3 class="card-title">Electronics Sales Pipeline &amp; Quotation Desk</h3>
+                    <p class="card-why">Replaces the pipeline Excel, the quote-tracker sheet, and the follow-up reminder emails — a Kanban of deals plus a quick quotation builder with a live margin calculator.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Create an <strong>Electronics Sales Pipeline &amp; Quotation Desk</strong> for an Assistant Manager (Electronics Sales) at Kim Ann Engineering, a Singapore electronics and industrial components distributor. Layout: a Kanban-style pipeline with columns <em>Lead</em>, <em>Quoted</em>, <em>Negotiation</em>, <em>Won</em>, <em>Lost</em>. Each deal is a card showing customer, product/component, quantity, value (SGD), and expected close date, movable between columns with click-to-advance buttons (no drag library). Below: a <em>Quotation Builder</em> where the user adds line items (component, unit cost, markup %, quantity) and JS live-computes line totals, subtotal, GST 9%, grand total, and blended gross margin %, with a "Copy quote as text" button. Add a <em>Follow-Up Board</em> table of open customers with last-contact and next-follow-up dates and a "Mark contacted today" button per row. Include a quota progress meter (target vs won). Seed with 8 sample deals. Use a sales aesthetic — teal accents on white, monospace for figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p4"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 05 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">05</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Division Manager (Electronics Sales)</span>
+                    <h3 class="card-title">Sales Division Performance Cockpit</h3>
+                    <p class="card-why">A single view of revenue vs target, rep scorecards, and product mix — replaces the consolidated month-end sales workbook and the QBR deck prep.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a <strong>Sales Division Performance Cockpit</strong> for a Division Manager (Electronics Sales) at Kim Ann Engineering, a Singapore electronics and industrial distributor. Top: 6 KPI cards with RAG coding — <em>Revenue vs Target</em>, <em>Gross Margin %</em>, <em>Win Rate %</em>, <em>Average Deal Size</em>, <em>Pipeline Coverage (x)</em>, and <em>Overdue Follow-ups</em>. Middle: a <em>Sales Rep Scorecard</em> table — rep name, quota, achieved, achievement %, deals won, and a RAG badge, sortable by achievement. Below: a <em>Product Mix Analyser</em> — a list of product categories with revenue share bars computed in JS, and a discount/margin approval log form (deal, requested discount %, resulting margin %, decision) that flags margins below a threshold in red. Add a <em>Quarterly Business Review</em> textarea set (highlights / risks / actions) with a "Compile QBR summary" button producing a copy-paste block. Seed with realistic sample reps and figures. Executive sales aesthetic — teal and navy, large readable numbers. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p5"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== PRODUCT MANAGEMENT ===== -->
+    <section id="product" class="audience-section purch">
+        <div class="audience-header">
+            <div class="audience-badge">📦</div>
+            <div>
+                <h2>Product Management</h2>
+                <div class="subtitle">Roadmaps, principals, margins, and enquiries</div>
+            </div>
+        </div>
+
+        <!-- Card 06 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">06</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Product Manager</span>
+                    <h3 class="card-title">Product Roadmap &amp; Margin Command Centre</h3>
+                    <p class="card-why">Consolidates the roadmap Excel, the principal comparison sheet, and the margin workbook — roadmap timeline, product P&amp;L, and a launch checklist in one page.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a <strong>Product Roadmap &amp; Margin Command Centre</strong> for a Product Manager at Kim Ann Engineering, a Singapore industrial and electronics equipment distributor. Use a tabbed three-page layout. Page 1: a <em>Product Roadmap</em> timeline of 6–8 initiatives (new principal onboarding, product launch, price revision, EOL phase-out), each with <em>start date</em>, <em>target date</em>, <em>status</em> (Planned / In Progress / At Risk / Delivered), and <em>expected benefit</em>. Page 2: a <em>Product Margin Analyser</em> — a table of products with buy price, sell price, monthly volume, and JS-computed unit margin, margin %, and monthly gross profit, with red highlighting below a target margin. Page 3: a <em>Principal / Supplier Comparison</em> matrix (lead time, MOQ, price index, reliability score) and a <em>New Product Proposal</em> form (product, principal, target segment, expected margin, rationale) with a "Copy proposal" button. Seed with realistic sample products. Product-management aesthetic — green accents on white, clean tables. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p6"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 07 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">07</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Snr Product Executive</span>
+                    <h3 class="card-title">Product Enquiry &amp; Quotation Support Desk</h3>
+                    <p class="card-why">Turns the enquiry log, the RFQ chase sheet, and the datasheet folder into one desk — track enquiries, build quotes, and find specs without hunting through email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Create a <strong>Product Enquiry &amp; Quotation Support Desk</strong> for a Senior Product Executive at Kim Ann Engineering, a Singapore industrial and electronics distributor. Use a tabbed three-page layout. Page 1: a <em>Product Enquiry Tracker</em> — table with columns <em>date</em>, <em>customer</em>, <em>product / part number</em>, <em>quantity</em>, <em>status</em> (New / Quoted / Awaiting Stock / Closed), and <em>owner</em>, plus an "Add enquiry" form and a search/filter box in vanilla JS. Page 2: a <em>Quotation Builder</em> where line items (part, unit price, quantity, markup %) live-compute subtotal, GST 9%, and total, with a "Copy quote" button. Page 3: a <em>Datasheet &amp; Spec Library</em> — expandable cards each with product name, key specs, stock/lead-time note, and a [link] placeholder to the datasheet, plus a <em>Supplier RFQ Log</em> mini-table (supplier, part, RFQ date, quoted price, lead time). Seed with 8 enquiries and 6 products. Clean support-desk aesthetic — green accents on white, monospace for part numbers. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p7"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 08 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">08</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Asst Product Mgr (OG)</span>
+                    <h3 class="card-title">Oil &amp; Gas Product &amp; Tender Tracker</h3>
+                    <p class="card-why">Purpose-built for OG project work — catalogue with certifications, a tender-submission checklist, and lead-time tracking replace three separate spreadsheets and constant email chasing.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build an <strong>Oil &amp; Gas Product &amp; Tender Tracker</strong> for an Assistant Product Manager (Oil &amp; Gas) at Kim Ann Engineering, a Singapore industrial equipment distributor serving the marine and oil-&amp;-gas sector. Use a tabbed three-page layout. Page 1: an <em>OG Product Catalogue</em> table — <em>product</em>, <em>principal / brand</em>, <em>certification</em> (API / ISO / ATEX / Class), <em>stock status</em>, <em>lead time (weeks)</em>, and a [link] placeholder to the datasheet, with a search filter. Page 2: a <em>Tender / Project Tracker</em> — table of live tenders with <em>tender ref</em>, <em>client</em>, <em>scope</em>, <em>submission deadline</em>, <em>value (SGD)</em>, and <em>status</em> (Preparing / Submitted / Shortlisted / Won / Lost), plus a reusable <em>tender submission checklist</em> (technical spec, commercial quote, certifications, compliance sheet, delivery schedule) with checkboxes that show a completion %. Page 3: a <em>Quotation &amp; Margin</em> helper (line items with cost, markup %, live margin) and a <em>Competitor Bid Log</em>. Seed with realistic sample data. Industrial-OG aesthetic — green and slate, monospace for refs. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p8"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== MARKETING ===== -->
+    <section id="marketing" class="audience-section marketing">
+        <div class="audience-header">
+            <div class="audience-badge">📣</div>
+            <div>
+                <h2>Marketing</h2>
+                <div class="subtitle">Campaigns, events, and regional demand</div>
+            </div>
+        </div>
+
+        <!-- Card 09 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">09</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Regional Marketing Manager</span>
+                    <h3 class="card-title">Regional Marketing Campaign &amp; ROI Hub</h3>
+                    <p class="card-why">Replaces the campaign planner Excel, the trade-show tracker, and the budget sheet — plan campaigns, track events, and compute ROI in one place.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Create a <strong>Regional Marketing Campaign &amp; ROI Hub</strong> for a Regional Marketing Manager at Kim Ann Engineering, a Singapore industrial and electronics distributor operating across Southeast Asia. Use a tabbed three-page layout. Page 1: a <em>Campaign Planner</em> — table of campaigns with <em>name</em>, <em>region</em>, <em>channel</em> (Email / Trade show / Web / Distributor co-op / Social), <em>start</em>, <em>end</em>, <em>budget (SGD)</em>, <em>status</em>, and a filter box. Page 2: a visual <em>Marketing Calendar</em> list-view of key events and trade shows for the year, each with date, region, owner, and a countdown-to-event computed in JS. Page 3: an <em>ROI Calculator</em> — inputs for <em>spend</em>, <em>leads generated</em>, <em>deals closed</em>, and <em>revenue (SGD)</em>, live-computing cost per lead, conversion %, and ROI %, plus a regional demand heat-list ranking regions by leads. Add a <em>Competitor Watch</em> mini-board. Seed with realistic sample campaigns. Marketing aesthetic — fuchsia/magenta accents on white, friendly and modern. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p9"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== FINANCE & ACCOUNTS ===== -->
+    <section id="finance" class="audience-section finance">
+        <div class="audience-header">
+            <div class="audience-badge">💰</div>
+            <div>
+                <h2>Finance &amp; Accounts</h2>
+                <div class="subtitle">Month-end close, controls, and management ratios</div>
+            </div>
+        </div>
+
+        <!-- Card 10 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">10</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Senior Accountant</span>
+                    <h3 class="card-title">Month-End Close &amp; Reconciliation Helper</h3>
+                    <p class="card-why">A sequential close checklist that turns red when overdue, a fast reconciliation calculator, and the management ratios — so the team stops hunting for templates each month-end.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Create a <strong>Month-End Close &amp; Reconciliation Helper</strong> for a senior accountant at Kim Ann Engineering, a Singapore industrial and electronics trading company. Top: a sequential month-end close checklist with checkboxes for each task (Bank reconciliations, AR ageing review, AP cutoff, Inventory adjustment, Depreciation entries, FX revaluation, GST return prep, Accruals, Management reports), each with <em>due date</em> (working day +1, +2, etc.), <em>owner</em>, and a colour shift to red if the simulated current date is past due. Middle: a <em>Reconciliation Helper</em> — fields for <em>GL balance (SGD)</em> and <em>statement balance (SGD)</em>, with JS showing the absolute difference, % variance, and a status (Balanced / Minor variance / Investigate). Below: a <em>Quick Ratios Calculator</em> — inputs for <em>Revenue</em>, <em>COGS</em>, <em>Receivables</em>, <em>Payables</em>, <em>Inventory</em>, <em>Current assets</em>, <em>Current liabilities</em>, live-displaying gross margin %, net margin %, current ratio, quick ratio, DSO, and DPO. Clean finance aesthetic — blue accents on white, monospace for figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p10"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 11 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">11</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Financial Controller</span>
+                    <h3 class="card-title">Financial Controller's Consolidated Dashboard</h3>
+                    <p class="card-why">One board-ready view of P&amp;L, cash flow, and variances with a close calendar and capex log — replaces the consolidation workbook and the manual board pack.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a <strong>Financial Controller's Consolidated Dashboard</strong> for the Financial Controller of Kim Ann Engineering, a Singapore industrial and electronics distributor. Top: 7 KPI cards with RAG coding — <em>Revenue vs Budget</em>, <em>Gross Margin %</em>, <em>Net Profit %</em>, <em>Cash Position (SGD)</em>, <em>AR Days (DSO)</em>, <em>AP Days (DPO)</em>, and <em>Current Ratio</em>. Middle: a <em>Budget vs Actual Variance</em> table by cost centre (budget, actual, variance, variance %) with red/green highlighting, and a <em>Cash Flow Forecast</em> mini-table (opening, inflows, outflows, closing) for the next 6 weeks computed in JS. Below: a <em>Financial Close Calendar</em> with working-day milestones and owners, a <em>Capex Approval Log</em> (item, amount, ROI %, status), and a <em>Forex Exposure</em> note (currency, exposure, hedged?). Add a "Compile board summary" button that assembles headline numbers and a commentary textarea into a copy-paste board note. Seed with realistic figures. Boardroom finance aesthetic — blue and navy, large readable numbers, monospace for figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p11"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 12 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">12</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Manager (Acct/Admin)</span>
+                    <h3 class="card-title">Accounts &amp; Admin Command Board</h3>
+                    <p class="card-why">Bridges finance and office admin — invoice approvals, AR/AP ageing, vendor payments, and a compliance-deadline tracker in one board instead of four spreadsheets.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Create an <strong>Accounts &amp; Admin Command Board</strong> for a Manager (Accounts / Admin) at Kim Ann Engineering, a Singapore industrial and electronics trading company. Use a tabbed three-page layout. Page 1: an <em>AR/AP Ageing</em> view — two tables (customers owing, suppliers owed) with amount, days outstanding, and ageing buckets (Current / 30 / 60 / 90+) colour-coded, plus totals. Page 2: an <em>Invoice &amp; Payment Board</em> — an invoice approval log (invoice no, vendor, amount SGD, status New / Approved / Paid) and a vendor payment scheduler (vendor, due date, amount, "Mark paid" button). Page 3: an <em>Admin &amp; Compliance Tracker</em> — a task board for admin duties and a compliance-deadline list (GST filing, ACRA annual return, insurance renewal, licence renewal) each with a due date and a countdown in JS that turns red when near. Add a monthly reporting checklist. Seed with realistic sample data. Clean accounts-admin aesthetic — blue and slate, monospace for figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p12"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== IT / SYSTEMS (MIS) ===== -->
+    <section id="it" class="audience-section it">
+        <div class="audience-header">
+            <div class="audience-badge">💻</div>
+            <div>
+                <h2>IT / Systems (MIS)</h2>
+                <div class="subtitle">Uptime, tickets, rollouts, and runbooks</div>
+            </div>
+        </div>
+
+        <!-- Card 13 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">13</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Snr System (MIS) Engr</span>
+                    <h3 class="card-title">MIS Systems Ops &amp; Monitoring Hub</h3>
+                    <p class="card-why">A runbook index, change calendar, and incident-triage helper in one — replaces the scattered OneNote runbooks nobody can find when a system is down.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build an <strong>MIS Systems Ops &amp; Monitoring Hub</strong> for a Senior System (MIS) Engineer at Kim Ann Engineering, a Singapore industrial and electronics distributor running an ERP and warehouse systems. Use a tabbed three-page layout. Page 1: a searchable <em>runbook index</em> — SOPs (e.g. "Reset ERP user", "Restore DB from backup", "Provision new mailbox", "Failover ERP node", "Clear stuck print queue") with tags (Network / Database / ERP / Identity / Endpoint) and a filter input; clicking an item expands step-by-step instructions with monospace code blocks and [link] placeholders. Page 2: a <em>Change Calendar</em> — a simple HTML calendar grid of upcoming changes with risk level (Low / Medium / High), backout plan [link], and approver. Page 3: an <em>Incident Triage Helper</em> — dropdowns for <em>system</em>, <em>impact</em>, and <em>urgency</em> that output a recommended priority (P1–P4) and a templated stakeholder update in a textarea ready to copy. Add a side panel of links (monitoring, ticketing, docs, backups). IT-portal aesthetic — cool blue/grey, monospace for IDs and code. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p13"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 14 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">14</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Asst Mgr (Systems)</span>
+                    <h3 class="card-title">Systems Project &amp; Rollout Board</h3>
+                    <p class="card-why">Tracks system projects, UAT, and user training in one board — replaces the project Excel, the test log, and the go-live checklist email thread.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Create a <strong>Systems Project &amp; Rollout Board</strong> for an Assistant Manager (Systems) at Kim Ann Engineering, a Singapore industrial and electronics distributor. Use a tabbed three-page layout. Page 1: a <em>Project Task Board</em> — Kanban columns <em>Backlog</em>, <em>In Progress</em>, <em>UAT</em>, <em>Ready</em>, <em>Done</em>, each task a card with title, owner, due date, and priority, movable with click-to-advance buttons. Page 2: a <em>Rollout / Go-Live Checklist</em> library — reusable checklists (System upgrade, New module, User onboarding, Data migration) each with a "Clone for new rollout" button and a completion %, plus a <em>UAT Test Log</em> table (test case, expected, actual, Pass/Fail, tester). Page 3: a <em>User Training &amp; Access</em> tracker — a training-status table (user, module, status) and an access-request log with an approval toggle. Add an IT budget mini-tracker (item, cost, status) and a downtime-notification generator textarea with a "Copy notice" button. Seed with realistic data. IT-project aesthetic — purple accents on white, monospace for IDs. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p14"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== QUALITY ===== -->
+    <section id="quality" class="audience-section quality">
+        <div class="audience-header">
+            <div class="audience-badge">✅</div>
+            <div>
+                <h2>Quality</h2>
+                <div class="subtitle">Inspection, non-conformance, and supplier quality</div>
+            </div>
+        </div>
+
+        <!-- Card 15 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">15</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">QA Engineer</span>
+                    <h3 class="card-title">QA Inspection &amp; Non-Conformance Tracker</h3>
+                    <p class="card-why">A pattern-spotting defect log, weighted inspection checklists, and a CAPA tracker in one tool — mirrors QMS software without the licence and the scattered Excel logs.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Create a <strong>QA Inspection &amp; Non-Conformance Tracker</strong> for a QA Engineer at Kim Ann Engineering, a Singapore industrial and electronics equipment distributor with incoming and outgoing inspection. Use a tabbed three-page layout. Page 1: an <em>NCR (Non-Conformance) Log</em> — sortable/filterable table with columns <em>date</em>, <em>source</em> (Incoming / In-Process / Final / Customer Return / Supplier), <em>product / part</em>, <em>defect type</em>, <em>severity</em> (1–5), <em>root cause category</em> (Material / Workmanship / Handling / Documentation / Supplier), <em>corrective action</em>, and <em>status</em> (Open / In Progress / Closed), with an "Add NCR" form. Page 2: <em>Inspection Checklists</em> for each stage (Incoming, In-Process, Final) with weighted scoring 0–5 per item, auto-calculating the section and overall score, red-flagging any section below 70%. Page 3: a <em>Supplier Quality Scorecard</em> (supplier, PPM defects, on-time %, rating) and a <em>CAPA Tracker</em> (issue, action, owner, due date, status) with a due-date countdown. Seed with realistic sample data. Serious QA aesthetic — cyan accents on white, monospace for part numbers. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p15"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== HUMAN RESOURCES ===== -->
+    <section id="hr" class="audience-section hr">
+        <div class="audience-header">
+            <div class="audience-badge">👥</div>
+            <div>
+                <h2>Human Resources</h2>
+                <div class="subtitle">Recruitment, leave, appraisals, and training</div>
+            </div>
+        </div>
+
+        <!-- Card 16 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">16</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Section Head (HR)</span>
+                    <h3 class="card-title">HR Operations &amp; People Dashboard</h3>
+                    <p class="card-why">Recruitment pipeline, leave/attendance, and a training matrix in one place — answers the "where's this hire?" and "who's due for training?" questions without three separate sheets.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build an <strong>HR Operations &amp; People Dashboard</strong> for a Section Head (HR) at Kim Ann Engineering, a Singapore-based industrial and electronics distributor. Use a tabbed three-page layout. Page 1: a <em>Recruitment Pipeline</em> — Kanban columns <em>Applied</em>, <em>Screening</em>, <em>Interview</em>, <em>Offer</em>, <em>Hired</em>, each candidate a card with name, role, and days-in-stage, movable with click-to-advance buttons, plus an interview scorecard form (criteria scored 1–5, auto total). Page 2: a <em>Leave &amp; Attendance</em> view — a headcount summary, a leave-balance table (employee, entitled, taken, balance), and a simple monthly attendance grid with status cells (Present / Leave / MC / Off). Page 3: a <em>Training Needs Matrix</em> — employees down the rows and mandatory trainings across the top (Safety Induction, PDPA, Product Knowledge, Fire Safety, First Aid, ISO Awareness) with colour-coded cells (Green = current, Amber = due within 30 days, Red = overdue), plus an onboarding checklist for new hires. Seed with 8 employees and realistic dates. Friendly HR aesthetic — pink/rose accents on white. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p16"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== CUSTOMER SERVICE ===== -->
+    <section id="service" class="audience-section service">
+        <div class="audience-header">
+            <div class="audience-badge">☎️</div>
+            <div>
+                <h2>Customer Service</h2>
+                <div class="subtitle">Tickets, orders, SLAs, and satisfaction</div>
+            </div>
+        </div>
+
+        <!-- Card 17 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">17</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Snr Customer Service Exec</span>
+                    <h3 class="card-title">Customer Service Ticket &amp; Order Desk</h3>
+                    <p class="card-why">A ticket queue, order-status tracker, and reusable reply templates in one desk — replaces the enquiry Excel, the order-chasing sheet, and the copy-paste email snippets.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Create a <strong>Customer Service Ticket &amp; Order Desk</strong> for a Senior Customer Service Executive at Kim Ann Engineering, a Singapore industrial and electronics distributor. Use a tabbed three-page layout. Page 1: a <em>Ticket Queue</em> — table with <em>ticket ID</em>, <em>customer</em>, <em>type</em> (Enquiry / Order / Complaint / Return / Delivery), <em>priority</em>, <em>status</em> (New / In Progress / Waiting / Resolved), and an SLA countdown timer per row computed in JS (turns red when overdue), plus an "Add ticket" form. Page 2: an <em>Order Status Tracker</em> — table of orders (order no, customer, items, ETA, status) with a "Mark shipped" button, and a return/exchange mini-log. Page 3: a <em>Quick Response Templates</em> library — collapsible cards (Order confirmation, Delivery delay, Stock availability, Complaint acknowledgement, Return instructions) each with an editable textarea and a "Copy template" button, plus a customer profile card and a call log. Seed with realistic sample tickets and orders. Clean service-desk aesthetic — indigo accents on white, monospace for IDs. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p17"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 18 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">18</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Customer Service Manager</span>
+                    <h3 class="card-title">CS Team Performance &amp; SLA Cockpit</h3>
+                    <p class="card-why">Team-level view of SLA performance, agent scorecards, and complaint root-cause — replaces the manual monthly CS report and the satisfaction tally sheet.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a <strong>CS Team Performance &amp; SLA Cockpit</strong> for a Customer Service Manager at Kim Ann Engineering, a Singapore industrial and electronics distributor. Top: 6 KPI cards with RAG coding — <em>SLA Compliance %</em>, <em>Avg First-Response Time</em>, <em>Avg Resolution Time</em>, <em>Open Tickets</em>, <em>CSAT Score</em>, and <em>Escalations</em>. Middle: an <em>Agent Scorecard</em> table (agent, tickets handled, avg resolution time, CSAT, SLA %), sortable, with RAG badges. Below: a <em>Complaint Resolution Log</em> with a root-cause category field and a small bar summary ranking causes, plus an <em>Escalation Matrix</em> (issue type → who to escalate to → response time). Add a <em>CSAT meter</em> (average of logged ratings) and a "Compile monthly CS report" button that assembles the KPIs and a commentary textarea into a copy-paste report. Include a staff roster mini-planner. Seed with realistic sample agents and figures. Service-management aesthetic — indigo and navy, large readable numbers. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p18"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== TECHNICAL SERVICE ===== -->
+    <section id="tech" class="audience-section ehs">
+        <div class="audience-header">
+            <div class="audience-badge">🔧</div>
+            <div>
+                <h2>Technical Service</h2>
+                <div class="subtitle">Service jobs, warranty, and spare parts</div>
+            </div>
+        </div>
+
+        <!-- Card 19 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">19</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Technical Service Manager</span>
+                    <h3 class="card-title">Technical Service &amp; Warranty Command Centre</h3>
+                    <p class="card-why">Service tickets, engineer scheduling, warranty/RMA, and spare-parts stock in one centre — replaces the service log, the job-assignment sheet, and the warranty-claim email chain.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Create a <strong>Technical Service &amp; Warranty Command Centre</strong> for a Technical Service Manager at Kim Ann Engineering, a Singapore industrial and electronics equipment distributor providing after-sales service. Use a tabbed three-page layout. Page 1: a <em>Service Ticket Dashboard</em> — table with <em>ticket ID</em>, <em>customer / site</em>, <em>equipment</em>, <em>issue</em>, <em>assigned engineer</em>, <em>priority</em>, <em>SLA due</em> (countdown in JS, red when overdue), and <em>status</em> (Open / Scheduled / On-Site / Resolved), plus a simple field-engineer scheduler assigning engineers to jobs by date. Page 2: a <em>Warranty &amp; RMA Tracker</em> — table of claims/returns (RMA no, product, serial, fault, in-warranty? , status, resolution) with an "Add RMA" form. Page 3: a <em>Spare Parts Inventory</em> — table (part, description, on-hand, reorder point) that flags items at/below reorder in red, plus a <em>Repair Cost Estimator</em> (parts + labour hours × rate = total) and an <em>Engineer Skill Matrix</em>. Seed with realistic sample data. Technical-service aesthetic — slate with safety-red accents, monospace for IDs. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p19"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== ADMINISTRATION ===== -->
+    <section id="admin" class="audience-section admin">
+        <div class="audience-header">
+            <div class="audience-badge">📋</div>
+            <div>
+                <h2>Administration</h2>
+                <div class="subtitle">Executive support, office operations, and requests</div>
+            </div>
+        </div>
+
+        <!-- Card 20 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">20</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Personal Assistant</span>
+                    <h3 class="card-title">Executive Assistant Command Centre</h3>
+                    <p class="card-why">Calendar prep, travel itineraries, action-item tracking, and meeting-minutes formatting in one centre — replaces the diary Excel, the itinerary doc, and the follow-up email list.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build an <strong>Executive Assistant Command Centre</strong> for a Personal Assistant supporting senior management at Kim Ann Engineering, a Singapore industrial and electronics distributor. Use a tabbed three-page layout. Page 1: a <em>Day Planner &amp; Priority Board</em> — today's schedule table (time, item, location, notes) and a priority to-do list with checkboxes and High/Medium/Low tags. Page 2: a <em>Travel Itinerary Builder</em> — a form (date, flight/transport, time, from, to, reference) that builds a clean itinerary table, plus a "Copy itinerary as text" button, and a meeting agenda generator textarea. Page 3: an <em>Action Item Tracker</em> (task, owner, due date, status with countdown) and a <em>Meeting Minutes Formatter</em> — paste rough notes and structure them into Summary / Decisions / Action Items sections with a "Copy minutes" button. Add a contact directory and a reminder/renewal list. Seed with realistic sample data. Polished executive-support aesthetic — slate-grey accents on white, well-organised typography. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p20"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 21 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">21</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Office Manager</span>
+                    <h3 class="card-title">Office Operations &amp; Facilities Portal</h3>
+                    <p class="card-why">Supplies inventory, facilities maintenance, room bookings, and renewals in one portal — replaces the stock sheet, the maintenance log, and the "who booked the room?" emails.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Create an <strong>Office Operations &amp; Facilities Portal</strong> for an Office Manager at Kim Ann Engineering, a Singapore industrial and electronics distributor. Use a tabbed three-page layout. Page 1: an <em>Office Supplies Inventory</em> — table (item, category, on-hand, reorder point, supplier) that flags items at/below reorder in red, with an "Add / adjust stock" form, plus a petty cash register (date, description, in, out, running balance computed in JS). Page 2: a <em>Facilities &amp; Bookings</em> view — a facilities maintenance log (asset, issue, reported date, status) and a simple meeting-room booking table (room, date, time, booked by) with a clash warning if two bookings overlap. Page 3: a <em>Renewals &amp; Vendors</em> tracker — a renewal/licence list (item, due date, countdown in JS turning red when near) and a vendor contact directory, plus an event-planning checklist library with a "Clone" button. Seed with realistic sample data. Clean office-admin aesthetic — slate-grey accents on white. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p21"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== MANAGEMENT ===== -->
+    <section id="mgmt" class="audience-section mgmt">
+        <div class="audience-header">
+            <div class="audience-badge">📊</div>
+            <div>
+                <h2>Management</h2>
+                <div class="subtitle">Company-wide visibility and strategy</div>
+            </div>
+        </div>
+
+        <!-- Card 22 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">22</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">General Manager</span>
+                    <h3 class="card-title">General Manager's Executive Cockpit</h3>
+                    <p class="card-why">Replaces the Monday-morning Excel scramble with one company-wide view of the KPIs that matter, plus a wins / risks / decisions area that compiles itself into a meeting agenda.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a <strong>General Manager's Executive Cockpit</strong> for the General Manager of Kim Ann Engineering, a Singapore industrial, electronics and oil-&amp;-gas equipment distributor. Top section: 8 KPI cards displayed as large readable numbers with RAG (Red/Amber/Green) colour coding — <em>Revenue vs Target</em>, <em>Gross Margin %</em>, <em>On-Time Delivery %</em>, <em>Cash Position (SGD)</em>, <em>Order Backlog (SGD)</em>, <em>Open Complaints</em>, <em>Headcount</em>, and <em>Overdue Receivables</em> — each showing current value, target, and a small variance indicator. Middle: a <em>Departmental Scorecard</em> table (Sales, Operations, Finance, Service, HR) with a RAG status and one headline metric each. Below: a meeting prep area with three text fields — <em>this week's wins</em>, <em>risks</em>, and <em>decisions needed</em> — plus a "Generate agenda" button that concatenates them into a clean agenda text block for Outlook or Teams, and a <em>Decision Log</em> table. Bottom: a links panel with placeholder buttons for Sales, Operations, Finance, and HR dashboards (use [square brackets] for URLs). Polished executive aesthetic — navy with amber accents, generous whitespace, large typography. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p22"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- Tip box -->
+    <div class="tip-box">
+        <h3>💡 Prompt Tips</h3>
+        <p>To get the best results from any of these prompts:</p>
+        <ul>
+            <li>Paste the entire prompt into your AI tool in one go — don't trim it. The last line asks the AI to <strong>show the full HTML code in the console</strong> so you can copy it straight out.</li>
+            <li>After the first build, ask for iterations: <em>"Add a dark mode toggle"</em> or <em>"Replace seed data with my actual customer list."</em></li>
+            <li>If the output feels generic, add context at the end: <em>"Use terminology familiar to Singapore industrial and electronics trading."</em></li>
+            <li>Ask for a second file if needed: <em>"Now give me a simple backend in Node/Express for this page."</em></li>
+            <li>Keep the unified framing in mind: each page should replace 3 common Excel files and 2 recurring emails in your job.</li>
+        </ul>
+    </div>
+
+</main>
+
+<!-- ====== BACK TO TOP BUTTON ====== -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top">
+    <span class="arrow" aria-hidden="true">↑</span>
+    <span class="label">TOP</span>
+</button>
+
+<!-- ====== FOOTER ====== -->
+<footer>
+    <p>Kim Ann Engineering · 1st Batch · AI Productivity Programme</p>
+    <p>Role-based webpage build prompts — designed for training use, adapt freely to your team, tools, and trading context.</p>
+</footer>
+
+<script>
+    // Reliable smooth-scroll for anchor links — works inside Google Sites iframe embeds
+    document.addEventListener('DOMContentLoaded', function() {
+        var links = document.querySelectorAll('.toc a[data-target]');
+        links.forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                var targetId = this.getAttribute('data-target');
+                var targetEl = document.getElementById(targetId);
+                if (targetEl) {
+                    var offset = 20;
+                    var top = targetEl.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: top, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Copy-to-clipboard for prompt buttons
+        var copyButtons = document.querySelectorAll('.copy-btn');
+        copyButtons.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var promptBox = this.previousElementSibling;
+                if (!promptBox) return;
+
+                var text = promptBox.innerText.trim();
+
+                var labelEl = this.querySelector('.copy-label');
+                var iconEl = this.querySelector('.copy-icon');
+                var btn = this;
+
+                var showSuccess = function() {
+                    btn.classList.add('copied');
+                    if (iconEl) iconEl.textContent = '✓';
+                    if (labelEl) labelEl.textContent = 'Copied!';
+                    setTimeout(function() {
+                        btn.classList.remove('copied');
+                        if (iconEl) iconEl.textContent = '📋';
+                        if (labelEl) labelEl.textContent = 'Copy prompt';
+                    }, 2000);
+                };
+
+                var fallbackCopy = function(str) {
+                    var ta = document.createElement('textarea');
+                    ta.value = str;
+                    ta.style.position = 'fixed';
+                    ta.style.top = '0';
+                    ta.style.left = '0';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.focus();
+                    ta.select();
+                    try {
+                        document.execCommand('copy');
+                        showSuccess();
+                    } catch (err) {
+                        // silent fail
+                    }
+                    document.body.removeChild(ta);
+                };
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(showSuccess).catch(function() {
+                        fallbackCopy(text);
+                    });
+                } else {
+                    fallbackCopy(text);
+                }
+            });
+        });
+
+        // Back-to-top floating button — reliable inside Google Sites iframe embeds
+        var backToTopBtn = document.getElementById('backToTop');
+        if (backToTopBtn) {
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                if (document.documentElement) {
+                    document.documentElement.scrollTop = 0;
+                }
+                if (document.body) {
+                    document.body.scrollTop = 0;
+                }
+
+                try {
+                    if (window.parent && window.parent !== window) {
+                        window.parent.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                } catch (e) {
+                    // Cross-origin parent — can't scroll it, but that's fine.
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
