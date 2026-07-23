@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -219,6 +219,38 @@
   footer p { margin: 0; max-width: 720px; margin-left: auto; margin-right: auto; }
   footer p + p { margin-top: 0.5rem; color: #94a3b8; font-size: 0.78rem; }
 
+  /* ===== BACK TO TOP ===== */
+  .back-to-top {
+    position: fixed;
+    bottom: 1.75rem;
+    right: 1.75rem;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease, background 0.2s ease;
+    z-index: 999;
+  }
+  .back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .back-to-top:hover { background: #1d4ed8; transform: translateY(-2px); }
+  .back-to-top:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
+
   /* ===== RESPONSIVE ===== */
   @media (max-width: 720px) {
     .hero { padding: 3rem 1.25rem 2.5rem; }
@@ -227,8 +259,18 @@
     .topic-card { padding: 1.4rem 1.5rem; min-height: 220px; }
     .section-heading { font-size: 1.2rem; }
     .section-heading .heading-pill { display: none; }
+    .back-to-top { bottom: 1.25rem; right: 1.25rem; width: 44px; height: 44px; }
   }
 </style>
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_ApprovalStatus msdt:dt="string">0</mso:_ApprovalStatus>
+<mso:_ApprovalAssignedTo msdt:dt="string"></mso:_ApprovalAssignedTo>
+<mso:_ApprovalRespondedBy msdt:dt="string"></mso:_ApprovalRespondedBy>
+<mso:_ApprovalSentBy msdt:dt="string"></mso:_ApprovalSentBy>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
 </head>
 <body>
 
@@ -363,6 +405,58 @@
     </div>
   </section>
 
+  <!-- ============ MICROSOFT 365 APP GUIDES ============ -->
+  <section class="topic-section">
+    <h2 class="section-heading">
+      Microsoft 365 App Guides
+      <span class="heading-pill">Self-paced</span>
+    </h2>
+
+    <div class="card-grid">
+
+      <a class="topic-card accent-teal" href="https://www.tictechtoelabs.com/topic-2-department-sharepoint-site.html#site" target="_blank" rel="noopener">
+        <div class="card-meta">
+          <span class="card-badge">10</span>
+          <span class="card-time self-paced">⏱ 30 min</span>
+        </div>
+        <h3 class="card-title">Department SharePoint Site</h3>
+        <p class="card-desc">Set up and run a <strong>department SharePoint site</strong> as your team's single source of truth — document libraries, permissions, news posts, and page layout. Stop emailing attachments back and forth and start linking to one shared, always-current location.</p>
+        <span class="card-cta">Open lesson <span class="arrow">→</span></span>
+      </a>
+
+      <a class="topic-card accent-rose" href="https://www.tictechtoelabs.com/resources/MS_Stream.html" target="_blank" rel="noopener">
+        <div class="card-meta">
+          <span class="card-badge">11</span>
+          <span class="card-time self-paced">⏱ 20 min</span>
+        </div>
+        <h3 class="card-title">Microsoft Stream — Video at Work</h3>
+        <p class="card-desc">Record, upload, and share <strong>workplace video with Microsoft Stream</strong> — meeting recordings, training clips, and process walkthroughs. Covers automatic transcripts, sharing permissions, and embedding video straight into SharePoint and Teams.</p>
+        <span class="card-cta">Open lesson <span class="arrow">→</span></span>
+      </a>
+
+      <a class="topic-card accent-purple" href="https://www.tictechtoelabs.com/resources/MS_Teams_Essentials.html" target="_blank" rel="noopener">
+        <div class="card-meta">
+          <span class="card-badge">12</span>
+          <span class="card-time self-paced">⏱ 45 min</span>
+        </div>
+        <h3 class="card-title">Microsoft Teams Essentials</h3>
+        <p class="card-desc">The complete working guide to <strong>Microsoft Teams</strong> — workspace organisation with custom sections and pop-out windows, scheduling and cross-posting messages, threaded channel conversations, file collaboration, and the Planner, Loop, and Whiteboard integrations.</p>
+        <span class="card-cta">Open lesson <span class="arrow">→</span></span>
+      </a>
+
+      <a class="topic-card accent-sky" href="https://www.tictechtoelabs.com/resources/new_ms_outlook.html" target="_blank" rel="noopener">
+        <div class="card-meta">
+          <span class="card-badge">13</span>
+          <span class="card-time self-paced">⏱ 30 min</span>
+        </div>
+        <h3 class="card-title">The New Microsoft Outlook</h3>
+        <p class="card-desc">Get fluent in the <strong>new Microsoft Outlook</strong> — the redesigned interface, pinned and snoozed mail, rules and categories for a tidy inbox, calendar management, and the built-in Copilot features that summarise long threads and draft replies for you.</p>
+        <span class="card-cta">Open lesson <span class="arrow">→</span></span>
+      </a>
+
+    </div>
+  </section>
+
 </main>
 
 <!-- ===== FOOTER ===== -->
@@ -370,6 +464,27 @@
   <p>Asahi Kasei Plastics · 2-Day SFDW</p>
   <p>Tic Tech Toe Labs · Workplace Digital Skills Training</p>
 </footer>
+
+<!-- ===== BACK TO TOP ===== -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top">↑</button>
+
+<script>
+  (function () {
+    var btn = document.getElementById('backToTop');
+    function toggle() {
+      if (window.pageYOffset > 400) {
+        btn.classList.add('visible');
+      } else {
+        btn.classList.remove('visible');
+      }
+    }
+    window.addEventListener('scroll', toggle, { passive: true });
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    toggle();
+  })();
+</script>
 
 </body>
 </html>
