@@ -615,17 +615,20 @@
             text-decoration: none;
             cursor: pointer;
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(12px);
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
             transition: all 0.3s ease;
             z-index: 999;
         }
 
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
+        /* JS only enhances: hides the button when already near the top.
+           If scripts are stripped or the page is embedded in an iframe,
+           the button simply stays visible and still works as a plain anchor. */
+        .back-to-top.is-hidden {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(12px);
         }
 
         .back-to-top:hover {
@@ -1090,9 +1093,15 @@
     <script>
         (function () {
             var btn = document.getElementById('backToTop');
+            if (!btn) { return; }
+            // Only apply scroll-based hiding when this page controls its own
+            // scrolling (i.e. not embedded in a fixed-height iframe).
+            var embedded = false;
+            try { embedded = window.self !== window.top; } catch (e) { embedded = true; }
+            if (embedded) { return; }
             function toggle() {
-                if (window.pageYOffset > 500) { btn.classList.add('visible'); }
-                else { btn.classList.remove('visible'); }
+                if (window.pageYOffset > 500) { btn.classList.remove('is-hidden'); }
+                else { btn.classList.add('is-hidden'); }
             }
             window.addEventListener('scroll', toggle, { passive: true });
             toggle();
