@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Stream: Interactive Mastery Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Microsoft Modern (Core Blue, Navy, Neutral Greys, White background) -->
+    <!-- Application Structure Plan: The application uses a "Dashboard / Learning Hub" structure. It begins with a high-level overview and data visualizations (to establish the 'Why' of Stream) before moving into a task-oriented interactive explorer. This structure was chosen because learners first need to understand the value of the tool (internal YouTube) before diving into the specific 'How-to' steps. The interactive explorer allows non-linear navigation of the 5 core topics, preventing information overload. -->
+    <!-- Visualization & Content Choices: 
+         1. Report Info: Use Cases & Value -> Goal: Inform/Organize -> Viz: Donut Chart -> Interaction: Hover tooltips -> Justification: Shows distribution of Stream's value across business functions quickly -> Library: Chart.js. 
+         2. Report Info: Learning Topics -> Goal: Inform/Change -> Viz: Radar Chart -> Interaction: Hover tooltips -> Justification: Visually maps the skills the user will acquire -> Library: Chart.js.
+         3. Report Info: Step-by-step instructions -> Goal: Organize/Action -> Viz: Interactive Tabbed Interface -> Interaction: Click navigation -> Justification: Keeps the UI clean and lets users focus on one specific workflow at a time -> Library: Vanilla JS. 
+         Confirming NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F3F2F1; /* Light grey Microsoft neutral */
+            color: #242424;
+        }
+        
+        /* Strict Chart Container Styling */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; 
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        /* Custom Scrollbar for neatness */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+
+        /* Animation Classes */
+        .fade-in { animation: fadeIn 0.4s ease-in-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .topic-btn.active {
+            background-color: #0078D4;
+            color: white;
+            border-left: 4px solid #002050;
+        }
+        .topic-btn {
+            border-left: 4px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .topic-btn:hover:not(.active) {
+            background-color: #E1DFDD;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header Navigation -->
+    <header class="bg-[#0078D4] text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="text-2xl font-bold tracking-tight">
+                    <span class="text-white">&#9654;</span> Microsoft Stream
+                </div>
+                <div class="hidden md:block text-sm font-light text-blue-100 border-l border-blue-400 pl-3 ml-2">
+                    Your Business's Internal YouTube
+                </div>
+            </div>
+            <!-- Navigation removed as requested -->
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Section 1: Overview & Value Proposition -->
+        <section id="overview" class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-[#002050] mb-3">The Power of Video in Your Organization</h2>
+                <p class="text-gray-600 text-lg leading-relaxed max-w-3xl">
+                    This section provides a high-level look at why Microsoft Stream is essential for modern business. As hybrid and remote work become standard, Stream acts as a centralized, secure video hosting platform within your M365 subscription. The charts below illustrate the primary use cases and the core competencies you will build.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <!-- Use Cases Chart -->
+                <div class="bg-gray-50 rounded-xl p-6 border border-gray-100 flex flex-col items-center">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Common Business Use Cases</h3>
+                    <p class="text-sm text-gray-500 mb-4 text-center">How organizations utilize Stream to improve communication.</p>
+                    <div class="chart-container">
+                        <canvas id="useCaseChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Skills Radar Chart -->
+                <div class="bg-gray-50 rounded-xl p-6 border border-gray-100 flex flex-col items-center">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Stream Mastery Path</h3>
+                    <p class="text-sm text-gray-500 mb-4 text-center">The core skills required to fully leverage the platform.</p>
+                    <div class="chart-container">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Interactive Learning Guide -->
+        <section id="interactive-guide" class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="p-8 pb-4 border-b border-gray-100 bg-[#002050] text-white">
+                <h2 class="text-3xl font-bold mb-3">Interactive Step-by-Step Guide</h2>
+                <p class="text-blue-100 text-lg leading-relaxed max-w-3xl">
+                    Select a topic from the menu below to explore specific, actionable guides. This module is designed for quick reference. Each section contains clear learning objectives, real-world work scenarios, and concise steps to help you master content creation, editing, and sharing.
+                </p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row min-h-[600px]">
+                <!-- Sidebar Navigation -->
+                <div class="w-full lg:w-1/3 bg-gray-50 border-r border-gray-200 p-4" id="topic-nav-container">
+                    <!-- Buttons injected via JS -->
+                </div>
+
+                <!-- Content Display Area -->
+                <div class="w-full lg:w-2/3 p-6 lg:p-10 bg-white" id="topic-content-area">
+                    <!-- Content injected via JS -->
+                    <div class="h-full flex items-center justify-center text-gray-400">
+                        <p>Select a topic from the menu to begin learning.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8 text-center">
+        <p class="text-sm text-gray-400">Interactive Learning Module based on Microsoft Stream Guidance.</p>
+    </footer>
+
+    <!-- JavaScript Logic & Data -->
+    <script>
+        // --- 1. Data Storage: Source Report Content ---
+        const streamTopics = [
+            {
+                id: 'topic1',
+                icon: '&#127968;', // House
+                title: 'Getting Started & Navigating',
+                desc: 'Learn how to find the Microsoft Stream app and locate your video content. Stream automatically gathers videos saved across M365 (OneDrive, Teams, SharePoint) into one place.',
+                objectives: [
+                    'Access Microsoft Stream from your M365 portal.',
+                    'Understand the Stream landing page and locate existing video files.'
+                ],
+                useCase: 'You missed the monthly "All Hands" Teams meeting because you were on annual leave. You need to log into Stream to quickly search for and watch the recording.',
+                steps: [
+                    'Open your web browser and log into your Microsoft 365 portal (or go directly to stream.office.com).',
+                    'On the left windows pane, look for Apps and then More Apps. Click on All Apps in the App List and choose Stream.',
+                    'Select <strong>Stream</strong> from the list of applications. <em>(Note: Click "Explore all your Apps" if not immediately visible).</em>',
+                    'On the Stream landing page, use the <strong>category buttons</strong>, <strong>filters</strong>, or the <strong>search bar</strong> at the top to find specific videos.',
+                    'Click on any video thumbnail to open it in the Stream viewer.'
+                ],
+                screenshotLabel: 'MS 365 portal now shows a list of all of the apps that is accessible to your Microsoft License.'
+            },
+            {
+                id: 'topic2',
+                icon: '&#128194;', // Folder
+                title: 'Uploading & Playlists',
+                desc: 'Learn how to add existing video files to your system and organize them into curated lists. Playlists are powered by Microsoft Lists.',
+                objectives: [
+                    'Upload a video from your computer.',
+                    'Create a playlist and add videos to it.'
+                ],
+                useCase: 'You work in HR and want to create a structured "New Starter Onboarding" package. Instead of sending 10 different video links, you group them into a single, easy-to-share playlist.',
+                steps: [
+                    'To upload, click the <strong>Upload</strong> button at the top of the Stream landing page and select a video (saves directly to OneDrive).',
+                    'To create a playlist, click the <strong>Playlist</strong> button at the top of the Stream landing page.',
+                    'Give your new playlist a name (e.g., "New Starter Training") and click <strong>Create</strong>.',
+                    'To add a video, open any video in the Stream viewer.',
+                    'Click the <strong>Add to playlist</strong> button at the top of the screen.',
+                    'Select the playlist you just created from the dropdown menu.'
+                ],
+                screenshotLabel: 'A video open in the viewer with the "Add to playlist" button highlighted, showing a dropdown menu of playlists.'
+            },
+            {
+                id: 'topic3',
+                icon: '&#127909;', // Camera
+                title: 'Recording Screen & Webcam',
+                desc: 'Use the powerful built-in browser recorder (up to 15 mins) to capture your screen, webcam, or both, and utilize screen annotation.',
+                objectives: [
+                    'Record a webcam intro and screen capture with computer audio.',
+                    'Utilize the pause function for smooth transitions.',
+                    'Use the whiteboard and annotation effects.'
+                ],
+                useCase: 'You receive repetitive questions about submitting expense reports. You record a quick video of your screen showing the exact clicks, narrated by you, instead of typing a manual.',
+                steps: [
+                    'On the Stream landing page, click <strong>Camera recording</strong> or <strong>Screen recording</strong>.',
+                    'If sharing screen + audio, select <strong>Tab</strong> or <strong>Screen</strong>, and toggle <strong>Share audio</strong>.',
+                    'Click <strong>Start Recording</strong> (3-second countdown begins).',
+                    '<strong>Pro-Tip (Pause Trick):</strong> Click <strong>Pause</strong> while opening new tabs/documents to prevent awkward fumbling, then click <strong>Resume</strong>.',
+                    'To use effects, pause and click the <strong>Effects</strong> menu. Select <strong>Board</strong> (e.g., graph paper style), and use the <strong>Draw tool</strong> to annotate.',
+                    'Click <strong>Finish</strong> to publish. Saved as WebM in your OneDrive "My files" folder.'
+                ],
+                screenshotLabel: 'The Stream Recorder interface showing Pause, Screen/Tab sharing, and the Effects menu.'
+            },
+            {
+                id: 'topic4',
+                icon: '&#9986;&#65039;', // Scissors
+                title: 'Simple Video Editing',
+                desc: 'Make videos professional right in the browser. Trim mistakes, cut middle sections, and add background music without complex software.',
+                objectives: [
+                    'Trim the start or end of a video.',
+                    'Cut out a section in the middle.',
+                    'Split, rearrange, and add background music.'
+                ],
+                useCase: 'You recorded a meeting, but the first 5 minutes are informal chatter ("Can you hear me?"). You trim that out before sharing the link.',
+                steps: [
+                    'Open video and click the <strong>Trim</strong> button from the left-hand menu.',
+                    '<strong>Trim start/end:</strong> Drag the white arrow handles on the bottom timeline, click the checkmark.',
+                    '<strong>Cut middle:</strong> Place cursor at unwanted section start, click <strong>New cut</strong>, enter start/end times, click checkmark.',
+                    '<strong>Split & Move:</strong> Place playhead, click <strong>Split</strong>, drag and drop clips to rearrange.',
+                    '<strong>Add music:</strong> Click <strong>Music</strong>, preview tracks, click <strong>+</strong> to add. Adjust volume via slider.',
+                    '<em>Note: For >4 complex cuts, Stream prompts you to use Clipchamp for better performance.</em>'
+                ],
+                screenshotLabel: 'The Stream video timeline with trim handles, "New cut", and "Split" buttons visible.'
+            },
+            {
+                id: 'topic5',
+                icon: '&#128279;', // Link
+                title: 'Enhancing & Sharing',
+                desc: 'Make content digestible and accessible using chapters, transcripts, and secure sharing settings.',
+                objectives: [
+                    'Add chapters to organize long videos.',
+                    'Generate a transcript and comments section.',
+                    'Share the video and manage access permissions.'
+                ],
+                useCase: 'Sharing a 45-minute company update. By adding chapters, teams can jump straight to their relevant timecodes without watching everything.',
+                steps: [
+                    'Open your video and look at the <strong>Video Settings</strong> panel on the right.',
+                    '<strong>Enable Chapters:</strong> Toggle "Chapters" on. Manually type in timecodes and titles (e.g., "05:00 - Q1 Financials").',
+                    '<strong>Enable Transcripts:</strong> Toggle "Transcripts and captions" to auto-generate searchable text.',
+                    '<strong>Enable Comments:</strong> Toggle "Comments" so colleagues can leave feedback.',
+                    '<strong>To Share:</strong> Click the <strong>Share</strong> button (top right). Choose <strong>Copy link</strong> or <strong>Manage access</strong> to restrict viewing permissions.'
+                ],
+                screenshotLabel: 'Right-hand Video Settings panel showing toggles for Transcripts, Chapters, and Comments.'
+            }
+        ];
+
+        // --- 2. Application State ---
+        let currentTopicId = null;
+
+        // --- 3. UI Rendering Logic ---
+        
+        // Render the Navigation Sidebar
+        function renderNavigation() {
+            const navContainer = document.getElementById('topic-nav-container');
+            navContainer.innerHTML = ''; // Clear
+
+            streamTopics.forEach(topic => {
+                const btn = document.createElement('button');
+                btn.className = `topic-btn w-full text-left px-5 py-4 rounded-lg mb-2 flex items-center gap-3 text-gray-700 font-medium`;
+                btn.onclick = () => selectTopic(topic.id);
+                btn.id = `btn-${topic.id}`;
+                
+                btn.innerHTML = `
+                    <span class="text-xl bg-white p-2 rounded shadow-sm border border-gray-100">${topic.icon}</span>
+                    <span>${topic.title}</span>
+                `;
+                navContainer.appendChild(btn);
+            });
+        }
+
+        // Handle Topic Selection
+        function selectTopic(id) {
+            currentTopicId = id;
+            const topic = streamTopics.find(t => t.id === id);
+            
+            // Update button styles
+            document.querySelectorAll('.topic-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${id}`).classList.add('active');
+
+            // Render Content Area
+            const contentArea = document.getElementById('topic-content-area');
+            
+            // Format Objectives list
+            const objectivesHtml = topic.objectives.map(obj => `<li class="flex items-start gap-2"><span class="text-green-500 mt-1">&#10003;</span> <span>${obj}</span></li>`).join('');
+            
+            // Format Steps list
+            const stepsHtml = topic.steps.map((step, index) => `
+                <li class="flex gap-4">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-[#0078D4] flex items-center justify-center font-bold text-sm">
+                        ${index + 1}
+                    </div>
+                    <div class="mt-1 text-gray-700 leading-relaxed">${step}</div>
+                </li>
+            `).join('');
+
+            contentArea.innerHTML = `
+                <div class="fade-in">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-4xl">${topic.icon}</span>
+                        <h3 class="text-3xl font-bold text-[#002050]">${topic.title}</h3>
+                    </div>
+                    
+                    <p class="text-lg text-gray-600 mb-8 pb-6 border-b border-gray-100">${topic.desc}</p>
+                    
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-8">
+                        <div class="bg-blue-50 rounded-xl p-6 border border-blue-100">
+                            <h4 class="font-bold text-[#0078D4] mb-3 uppercase tracking-wider text-sm flex items-center gap-2">
+                                &#127919; Learning Objectives
+                            </h4>
+                            <ul class="space-y-2 text-gray-700">${objectivesHtml}</ul>
+                        </div>
+                        
+                        <div class="bg-amber-50 rounded-xl p-6 border border-amber-100">
+                            <h4 class="font-bold text-amber-700 mb-3 uppercase tracking-wider text-sm flex items-center gap-2">
+                                &#128188; Work Use Case
+                            </h4>
+                            <p class="text-gray-700 italic">"${topic.useCase}"</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-8">
+                        <h4 class="text-xl font-bold text-gray-800 mb-6 border-b pb-2">Step-by-Step Instructions</h4>
+                        <ul class="space-y-5">
+                            ${stepsHtml}
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-100 rounded-lg p-4 border border-gray-200 text-sm text-gray-500 flex items-center gap-3 shadow-inner">
+                        <span class="text-2xl">&#128248;</span>
+                        <div>
+                            <strong>UI Reference:</strong> <br/>
+                            ${topic.screenshotLabel}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- 4. Chart Visualizations (Chart.js) ---
+        function initializeCharts() {
+            // Chart 1: Business Use Cases (Donut)
+            const ctxUse = document.getElementById('useCaseChart').getContext('2d');
+            new Chart(ctxUse, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Meetings/All Hands', 'Training/Onboarding', 'Announcements', 'Screen Tutorials'],
+                    datasets: [{
+                        data: [40, 30, 15, 15],
+                        backgroundColor: [
+                            '#0078D4', // Brand Blue
+                            '#2B88D8', // Lighter blue
+                            '#002050', // Navy
+                            '#71AEEB'  // Lightest blue
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // Essential for strict container sizing
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, padding: 15, font: { family: 'Inter' } } },
+                        tooltip: { 
+                            callbacks: { label: (context) => ` ${context.label}: ${context.parsed}%` }
+                        }
+                    },
+                    cutout: '65%'
+                }
+            });
+
+            // Chart 2: Skills Radar
+            const ctxSkills = document.getElementById('skillsChart').getContext('2d');
+            new Chart(ctxSkills, {
+                type: 'radar',
+                data: {
+                    labels: ['Navigation', 'Uploading', 'Recording', 'Video Editing', 'Sharing & Securing'],
+                    datasets: [{
+                        label: 'Target Proficiency',
+                        data: [100, 100, 90, 85, 95],
+                        fill: true,
+                        backgroundColor: 'rgba(0, 120, 212, 0.2)',
+                        borderColor: '#0078D4',
+                        pointBackgroundColor: '#002050',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#0078D4'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // Essential for strict container sizing
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(0,0,0,0.1)' },
+                            grid: { color: 'rgba(0,0,0,0.1)' },
+                            pointLabels: {
+                                font: { family: 'Inter', size: 11 },
+                                color: '#4a4a4a',
+                                callback: function(value) {
+                                    // 16-char logic wrapper for labels
+                                    return value.length > 16 ? value.substring(0, 16) + '...' : value;
+                                }
+                            },
+                            ticks: { display: false, min: 0, max: 100 }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: true }
+                    }
+                }
+            });
+        }
+
+        // --- 5. Initialization ---
+        window.addEventListener('DOMContentLoaded', () => {
+            renderNavigation();
+            initializeCharts();
+            // Select the first topic by default
+            selectTopic(streamTopics[0].id);
+        });
+
+    </script>
+</body>
+</html>
