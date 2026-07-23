@@ -531,6 +531,116 @@
                 border-bottom: 1px solid #e2e8f0;
             }
         }
+
+        /* Table of Contents cards */
+        html { scroll-behavior: smooth; }
+
+        #tiers, #comparison, #analogy, #usecases {
+            scroll-margin-top: 1.25rem;
+        }
+
+        .toc-nav { margin-bottom: 3rem; }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+        }
+
+        .toc-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.4rem 1.3rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .toc-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .toc-ic {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+        }
+
+        .toc-card h4 {
+            font-size: 1rem;
+            color: var(--text-dark);
+        }
+
+        .toc-card p {
+            font-size: 0.82rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .toc-card .toc-go {
+            margin-top: auto;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Floating Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 1.75rem;
+            right: 1.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.7rem 1.1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(12px);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 26px rgba(102, 126, 234, 0.5);
+        }
+
+        @media (max-width: 992px) {
+            .toc-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 560px) {
+            .toc-grid { grid-template-columns: 1fr; }
+            .back-to-top { bottom: 1.25rem; right: 1.25rem; padding: 0.6rem 0.9rem; }
+        }
     </style>
 </head>
 <body>
@@ -541,7 +651,41 @@
     </header>
 
     <div class="container">
-        <div class="section-header">
+        <!-- Table of Contents -->
+        <nav class="toc-nav" id="toc">
+            <div class="section-header">
+                <h2>What's Inside</h2>
+                <p>Jump straight to any section</p>
+            </div>
+            <div class="toc-grid">
+                <a class="toc-card" href="#tiers">
+                    <span class="toc-ic">🧩</span>
+                    <h4>License Tiers</h4>
+                    <p>The four tiers, from free Windows features to full enterprise integration.</p>
+                    <span class="toc-go">View tiers →</span>
+                </a>
+                <a class="toc-card" href="#comparison">
+                    <span class="toc-ic">📊</span>
+                    <h4>Feature Comparison</h4>
+                    <p>Side-by-side matrix of data source, privacy, integration &amp; limits.</p>
+                    <span class="toc-go">Compare features →</span>
+                </a>
+                <a class="toc-card" href="#analogy">
+                    <span class="toc-ic">💡</span>
+                    <h4>Understanding the Difference</h4>
+                    <p>The research-assistant analogy for Business vs Copilot licences.</p>
+                    <span class="toc-go">Read analogy →</span>
+                </a>
+                <a class="toc-card" href="#usecases">
+                    <span class="toc-ic">🏭</span>
+                    <h4>Use Cases by Department</h4>
+                    <p>Basic vs Premium in practice, role by role, for plastics manufacturing.</p>
+                    <span class="toc-go">See use cases →</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="section-header" id="tiers">
             <h2>License Tiers Explained</h2>
             <p>From free Windows features to full enterprise integration</p>
         </div>
@@ -612,7 +756,7 @@
         </div>
 
         <!-- Comparison Table -->
-        <div class="table-wrapper">
+        <div class="table-wrapper" id="comparison">
             <div class="table-header">
                 <h3>📊 Feature Comparison Matrix</h3>
             </div>
@@ -675,7 +819,7 @@
         </div>
 
         <!-- Analogy Section -->
-        <div class="analogy-box">
+        <div class="analogy-box" id="analogy">
             <h3>💡 Understanding the Difference</h3>
             <p style="margin-bottom: 1rem; color: var(--text-light);">Think of hiring a research assistant to understand the key difference between Business and Copilot licenses:</p>
             
@@ -691,7 +835,7 @@
         </div>
 
         <!-- Use Cases by Department: Basic vs Premium -->
-        <div class="usecase-section">
+        <div class="usecase-section" id="usecases">
             <div class="section-header">
                 <h2>In Practice: Basic vs Premium, Department by Department</h2>
                 <p>What each licence actually unlocks on the shop floor and in the office</p>
@@ -939,5 +1083,20 @@
             </div>
         </div>
     </div>
+
+    <!-- Floating Back to Top -->
+    <a href="#toc" class="back-to-top" id="backToTop" aria-label="Back to table of contents" title="Back to top">↑ Top</a>
+
+    <script>
+        (function () {
+            var btn = document.getElementById('backToTop');
+            function toggle() {
+                if (window.pageYOffset > 500) { btn.classList.add('visible'); }
+                else { btn.classList.remove('visible'); }
+            }
+            window.addEventListener('scroll', toggle, { passive: true });
+            toggle();
+        })();
+    </script>
 </body>
 </html>
