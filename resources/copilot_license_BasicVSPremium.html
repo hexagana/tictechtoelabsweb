@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft 365 Copilot License Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #11998e;
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --bg-light: #f7fafc;
+            --white: #ffffff;
+            --shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+            --shadow-hover: 0 8px 30px rgba(102, 126, 234, 0.25);
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.7;
+            background: var(--bg-light);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3.5rem 2rem;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .header h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.75rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        /* License Tier Cards */
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .tier-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.75rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .tier-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .tier-card.featured {
+            border: 2px solid var(--primary);
+            position: relative;
+        }
+
+        .tier-card.featured::before {
+            content: '⭐ Full Integration';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .tier-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .tier-card h3 {
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .tier-subtitle {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .tier-card ul {
+            list-style: none;
+        }
+
+        .tier-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.75rem;
+            position: relative;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+
+        .tier-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .tier-card .limitation {
+            color: var(--text-light);
+        }
+
+        .tier-card .limitation::before {
+            content: '○';
+            color: var(--text-light);
+        }
+
+        /* Feature Tags */
+        .feature-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        /* Comparison Table */
+        .table-wrapper {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .table-header h3 {
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .table-scroll {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        thead {
+            background: #f8fafc;
+        }
+
+        th {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-align: left;
+            padding: 1rem;
+            color: var(--text-dark);
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        th:first-child {
+            min-width: 140px;
+        }
+
+        td {
+            padding: 0.9rem 1rem;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .highlight-cell {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            font-weight: 500;
+        }
+
+        .cell-tag {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .tag-basic { background: #e2e8f0; color: #4a5568; }
+        .tag-standard { background: #bee3f8; color: #2b6cb0; }
+        .tag-premium { background: #c6f6d5; color: #276749; }
+        .tag-enterprise { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+
+        /* Analogy Box */
+        .analogy-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .analogy-box h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .analogy-item {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .analogy-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .analogy-item h4 {
+            font-size: 1rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .analogy-item p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .tier-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .tier-card {
+                padding: 1.5rem;
+            }
+
+            .analogy-box {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .tier-card h3 {
+                font-size: 1.1rem;
+            }
+
+            th, td {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Use Cases by Department (Basic vs Premium) */
+        .usecase-section {
+            margin-top: 3.5rem;
+        }
+
+        .context-note {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 2rem;
+            font-size: 0.92rem;
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        .context-note strong { color: var(--primary); }
+
+        .dept-card {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .dept-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .dept-head {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 1.1rem 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .dept-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .dept-head h3 {
+            font-size: 1.15rem;
+            color: var(--text-dark);
+        }
+
+        .dept-head .dept-sub {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .dept-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .uc-col {
+            padding: 1.25rem 1.5rem 1.4rem;
+        }
+
+        .uc-col.basic {
+            border-right: 1px solid #e2e8f0;
+            background: #fbfcfe;
+        }
+
+        .uc-col.premium {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        }
+
+        .uc-label {
+            display: inline-block;
+            padding: 0.28rem 0.85rem;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            margin-bottom: 0.9rem;
+        }
+
+        .uc-label.basic { background: #e2e8f0; color: #4a5568; }
+        .uc-label.premium { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; }
+
+        .uc-col ul { list-style: none; }
+
+        .uc-col li {
+            position: relative;
+            padding: 0.4rem 0 0.4rem 1.65rem;
+            font-size: 0.9rem;
+            line-height: 1.55;
+            color: var(--text-dark);
+        }
+
+        .uc-col.basic li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #2b6cb0;
+            font-weight: 700;
+        }
+
+        .uc-col.premium li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .dept-cols {
+                grid-template-columns: 1fr;
+            }
+
+            .uc-col.basic {
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="badge">📘 License Guide</div>
+        <h1>Microsoft 365 Copilot License Breakdown</h1>
+        <p>Understanding AI integration and data access across different M365 license tiers</p>
+    </header>
+
+    <div class="container">
+        <div class="section-header">
+            <h2>License Tiers Explained</h2>
+            <p>From free Windows features to full enterprise integration</p>
+        </div>
+
+        <div class="tier-grid">
+            <!-- Tier 1: Free Version -->
+            <div class="tier-card">
+                <div class="tier-number">1</div>
+                <h3>Free Version</h3>
+                <div class="tier-subtitle">All Windows Users</div>
+                <ul>
+                    <li>Utilizes web data and user prompts</li>
+                    <li>Access via Windows taskbar, Edge, or copilot.microsoft.com</li>
+                    <li>Search for files, apps, and settings via text or voice</li>
+                    <li class="limitation">No access to private work data</li>
+                    <li class="limitation">No advanced M365 app integrations</li>
+                </ul>
+                <span class="feature-tag">Basic Search & Chat</span>
+            </div>
+
+            <!-- Tier 2: Consumer M365 -->
+            <div class="tier-card">
+                <div class="tier-number">2</div>
+                <h3>Consumer M365</h3>
+                <div class="tier-subtitle">Personal, Family & Premium</div>
+                <ul>
+                    <li>Draft and summarize documents</li>
+                    <li>Analyze data within Excel</li>
+                    <li>File Explorer integration for document Q&A</li>
+                    <li>Notification Center integration</li>
+                    <li><strong>Personal/Family:</strong> Limited AI credits</li>
+                    <li><strong>Premium:</strong> Extensive usage + Researcher Agent</li>
+                </ul>
+                <span class="feature-tag">Document Drafting</span>
+            </div>
+
+            <!-- Tier 3: M365 Business -->
+            <div class="tier-card">
+                <div class="tier-number">3</div>
+                <h3>M365 Business</h3>
+                <div class="tier-subtitle">Enterprise Security + Web Chat</div>
+                <ul>
+                    <li><strong>Enterprise Data Protection</strong> — queries not used for AI training</li>
+                    <li>AI answers grounded in web data</li>
+                    <li>Image generation capabilities</li>
+                    <li>Create shareable Copilot Pages</li>
+                    <li><strong>Coming Soon:</strong> Agent mode in Word, Excel, PowerPoint</li>
+                    <li><strong>Coming Soon:</strong> Full inbox & calendar understanding in Outlook</li>
+                </ul>
+                <span class="feature-tag">Secure Chat & Pages</span>
+            </div>
+
+            <!-- Tier 4: M365 Copilot License -->
+            <div class="tier-card featured">
+                <div class="tier-number">4</div>
+                <h3>Microsoft 365 Copilot License</h3>
+                <div class="tier-subtitle">The Advanced Add-on</div>
+                <ul>
+                    <li><strong>Work IQ</strong> — builds context from Microsoft Graph</li>
+                    <li>Combines corporate data with memory and inference</li>
+                    <li>Personalized results based on company policies</li>
+                    <li>Access to calendars, emails, and Teams chats</li>
+                    <li>Choose between "web data" or "work data" modes</li>
+                    <li>Deep organizational context across all apps</li>
+                </ul>
+                <span class="feature-tag">Full Work Context</span>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="table-wrapper">
+            <div class="table-header">
+                <h3>📊 Feature Comparison Matrix</h3>
+            </div>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Free / Windows</th>
+                            <th>Consumer (Personal/Family)</th>
+                            <th>Consumer (Premium)</th>
+                            <th>M365 Business</th>
+                            <th>M365 Copilot License</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Data Source</strong></td>
+                            <td><span class="cell-tag tag-basic">Web Data</span></td>
+                            <td><span class="cell-tag tag-standard">Web + App Data</span></td>
+                            <td><span class="cell-tag tag-standard">Web + App Data</span></td>
+                            <td><span class="cell-tag tag-premium">Web (Protected)</span></td>
+                            <td class="highlight-cell"><span class="cell-tag tag-enterprise">Web + Corporate Graph</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Privacy</strong></td>
+                            <td>Standard Consumer</td>
+                            <td>Standard Consumer</td>
+                            <td>Standard Consumer</td>
+                            <td><strong>Enterprise Data Protection</strong></td>
+                            <td class="highlight-cell">Enterprise Data Protection</td>
+                        </tr>
+                        <tr>
+                            <td><strong>App Integration</strong></td>
+                            <td>None</td>
+                            <td>Word, Excel (Draft/Summarize)</td>
+                            <td>Word, Excel + Agents</td>
+                            <td>Word, Excel, PowerPoint, Outlook</td>
+                            <td class="highlight-cell">Full "Work IQ" Context</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Usage Limits</strong></td>
+                            <td>N/A</td>
+                            <td>Limited Credits</td>
+                            <td>Extensive Usage</td>
+                            <td>IT Admin Controlled</td>
+                            <td class="highlight-cell">Enterprise Level</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Key Capability</strong></td>
+                            <td>Basic Search/Chat</td>
+                            <td>Document Drafting</td>
+                            <td>"Researcher" Agent</td>
+                            <td>Secure Chat & Pages</td>
+                            <td class="highlight-cell"><strong>Deep Org Context</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Analogy Section -->
+        <div class="analogy-box">
+            <h3>💡 Understanding the Difference</h3>
+            <p style="margin-bottom: 1rem; color: var(--text-light);">Think of hiring a research assistant to understand the key difference between Business and Copilot licenses:</p>
+            
+            <div class="analogy-item">
+                <h4>📚 M365 Business License</h4>
+                <p>Like hiring a smart assistant who has access to the <strong>public library</strong> (the Web) and a shredder to keep your requests private — but they don't know anything about your personal filing cabinet.</p>
+            </div>
+            
+            <div class="analogy-item">
+                <h4>🔑 M365 Copilot License</h4>
+                <p>Gives that assistant the <strong>key to your office filing cabinet</strong> (Microsoft Graph), allowing them to connect your public research with your private emails, calendar, and company history.</p>
+            </div>
+        </div>
+
+        <!-- Use Cases by Department: Basic vs Premium -->
+        <div class="usecase-section">
+            <div class="section-header">
+                <h2>In Practice: Basic vs Premium, Department by Department</h2>
+                <p>What each licence actually unlocks on the shop floor and in the office</p>
+            </div>
+
+            <div class="context-note">
+                <strong>Basic</strong> = Copilot Chat included with M365 Business (Tier 3) — a secure, tenant-safe assistant grounded in the web and files you paste in.&nbsp;&nbsp;
+                <strong>Premium</strong> = the M365 Copilot licence add-on (Tier 4) — grounded in your live company data across Outlook, Teams, Excel &amp; SharePoint. Examples below are framed for a plastics-manufacturing business.
+            </div>
+
+            <!-- Production & Operations -->
+            <div class="dept-card">
+                <div class="dept-head">
+                    <span class="dept-icon">🏭</span>
+                    <div>
+                        <h3>Production &amp; Operations</h3>
+                        <span class="dept-sub">Keep lines running and shifts coordinated</span>
+                    </div>
+                </div>
+                <div class="dept-cols">
+                    <div class="uc-col basic">
+                        <span class="uc-label basic">Basic · Copilot Chat</span>
+                        <ul>
+                            <li>Explain injection-moulding cycle vs. cooling time, or draft a shift-handover template.</li>
+                            <li>Summarise a machine-guarding SOP or safety PDF you paste into the chat.</li>
+                            <li>Turn a supervisor's rough notes into a clean daily production report.</li>
+                        </ul>
+                    </div>
+                    <div class="uc-col premium">
+                        <span class="uc-label premium">Premium · M365 Copilot</span>
+                        <ul>
+                            <li>Summarise last week's downtime reports from the Production Teams channel and rank the top 3 causes.</li>
+                            <li>In Excel, analyse the live scrap-rate sheet and flag every mould trending over 4%.</li>
+                            <li>Draft the shift handover straight from your actual Outlook emails and meeting recap.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quality Control & Assurance -->
+            <div class="dept-card">
+                <div class="dept-head">
+                    <span class="dept-icon">🔬</span>
+                    <div>
+                        <h3>Quality Control &amp; Assurance</h3>
+                        <span class="dept-sub">Catch defects, close the loop, prove compliance</span>
+                    </div>
+                </div>
+                <div class="dept-cols">
+                    <div class="uc-col basic">
+                        <span class="uc-label basic">Basic · Copilot Chat</span>
+                        <ul>
+                            <li>Draft a generic SPC explainer or a blank CAPA / 8D template.</li>
+                            <li>Summarise a single SDS or spec sheet you paste in.</li>
+                            <li>Rewrite an inspector's findings into clear, customer-ready language.</li>
+                        </ul>
+                    </div>
+                    <div class="uc-col premium">
+                        <span class="uc-label premium">Premium · M365 Copilot</span>
+                        <ul>
+                            <li>Draft a CAPA directly from the customer complaint email thread about warped ABS parts.</li>
+                            <li>Compare a batch's dimensional data against the spec file in SharePoint and flag out-of-tolerance results.</li>
+                            <li>Trend every non-conformance report this quarter and surface the repeat offenders.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Supply Chain & Procurement -->
+            <div class="dept-card">
+                <div class="dept-head">
+                    <span class="dept-icon">🚚</span>
+                    <div>
+                        <h3>Supply Chain &amp; Procurement</h3>
+                        <span class="dept-sub">Buy resin smarter, react to price moves faster</span>
+                    </div>
+                </div>
+                <div class="dept-cols">
+                    <div class="uc-col basic">
+                        <span class="uc-label basic">Basic · Copilot Chat</span>
+                        <ul>
+                            <li>Research typical resin lead times or draft a supplier RFQ template.</li>
+                            <li>Turn three quotes you paste in into a clean comparison table.</li>
+                            <li>Draft a chaser email to a late supplier.</li>
+                        </ul>
+                    </div>
+                    <div class="uc-col premium">
+                        <span class="uc-label premium">Premium · M365 Copilot</span>
+                        <ul>
+                            <li>Find every resin-supplier email this month mentioning price increases and summarise the cost impact.</li>
+                            <li>Build a supplier comparison from the quotes already sitting in your inbox — no copy-paste.</li>
+                            <li>Recap the procurement review meeting and list who owns each follow-up.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maintenance & Engineering -->
+            <div class="dept-card">
+                <div class="dept-head">
+                    <span class="dept-icon">🔧</span>
+                    <div>
+                        <h3>Maintenance &amp; Engineering</h3>
+                        <span class="dept-sub">Cut unplanned downtime, keep assets serviced</span>
+                    </div>
+                </div>
+                <div class="dept-cols">
+                    <div class="uc-col basic">
+                        <span class="uc-label basic">Basic · Copilot Chat</span>
+                        <ul>
+                            <li>Explain a preventive-maintenance schedule or interpret a pasted error-code list.</li>
+                            <li>Summarise an uploaded machine manual into a one-page PM checklist.</li>
+                            <li>Draft a work-order description from a technician's notes.</li>
+                        </ul>
+                    </div>
+                    <div class="uc-col premium">
+                        <span class="uc-label premium">Premium · M365 Copilot</span>
+                        <ul>
+                            <li>Query the maintenance-log SharePoint list: which extruders are overdue for service?</li>
+                            <li>Cross-reference breakdown history from Teams to spot the most failure-prone assets.</li>
+                            <li>Turn the OEM manual in the Engineering site into a tailored PM checklist automatically.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EHS, Safety & Compliance -->
+            <div class="dept-card">
+                <div class="dept-head">
+                    <span class="dept-icon">🦺</span>
+                    <div>
+                        <h3>EHS, Safety &amp; Compliance</h3>
+                        <span class="dept-sub">Manage hazardous materials and stay audit-ready</span>
+                    </div>
+                </div>
+                <div class="dept-cols">
+                    <div class="uc-col basic">
+                        <span class="uc-label basic">Basic · Copilot Chat</span>
+                        <ul>
+                            <li>Draft a lockout/tagout toolbox talk or summarise one SDS at a time.</li>
+                            <li>Explain OSHA or local regulatory requirements in plain language.</li>
+                            <li>Rewrite an incident note into a formal report structure.</li>
+                        </ul>
+                    </div>
+                    <div class="uc-col premium">
+                        <span class="uc-label premium">Premium · M365 Copilot</span>
+                        <ul>
+                            <li>Pull key hazards from every SDS file in the Safety library for the chemicals on Line 2.</li>
+                            <li>Summarise this quarter's incident reports from Teams and draft the safety-committee agenda.</li>
+                            <li>Check a proposed procedure against the policies stored in SharePoint.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Finance & Cost Control -->
+            <div class="dept-card">
+                <div class="dept-head">
+                    <span class="dept-icon">💰</span>
+                    <div>
+                        <h3>Finance &amp; Cost Control</h3>
+                        <span class="dept-sub">Understand cost drivers and variances quickly</span>
+                    </div>
+                </div>
+                <div class="dept-cols">
+                    <div class="uc-col basic">
+                        <span class="uc-label basic">Basic · Copilot Chat</span>
+                        <ul>
+                            <li>Explain contribution margin or build a formula from a table you paste in.</li>
+                            <li>Draft a budget-narrative or variance-commentary template.</li>
+                            <li>Summarise a market report on resin pricing you paste in.</li>
+                        </ul>
+                    </div>
+                    <div class="uc-col premium">
+                        <span class="uc-label premium">Premium · M365 Copilot</span>
+                        <ul>
+                            <li>In Excel, analyse the monthly production-cost workbook and explain the energy-cost-per-kg variance.</li>
+                            <li>Recap the budget review meeting and assign each cost-reduction action to an owner.</li>
+                            <li>Pull actuals from the finance workbook and draft the month-end commentary.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sales & Customer Service -->
+            <div class="dept-card">
+                <div class="dept-head">
+                    <span class="dept-icon">📞</span>
+                    <div>
+                        <h3>Sales &amp; Customer Service</h3>
+                        <span class="dept-sub">Respond faster, never lose the thread</span>
+                    </div>
+                </div>
+                <div class="dept-cols">
+                    <div class="uc-col basic">
+                        <span class="uc-label basic">Basic · Copilot Chat</span>
+                        <ul>
+                            <li>Draft cold outreach, polish tone, or translate a customer email.</li>
+                            <li>Write a product FAQ from material you paste in.</li>
+                            <li>Summarise a long RFQ document you upload.</li>
+                        </ul>
+                    </div>
+                    <div class="uc-col premium">
+                        <span class="uc-label premium">Premium · M365 Copilot</span>
+                        <ul>
+                            <li>Catch up on the full email thread about the tooling delay and draft the reply for you.</li>
+                            <li>Recap yesterday's customer call and log the action items automatically.</li>
+                            <li>Pull order history from Outlook and draft a proactive status update.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Human Resources -->
+            <div class="dept-card">
+                <div class="dept-head">
+                    <span class="dept-icon">👥</span>
+                    <div>
+                        <h3>Human Resources</h3>
+                        <span class="dept-sub">Handle policy, hiring and people questions</span>
+                    </div>
+                </div>
+                <div class="dept-cols">
+                    <div class="uc-col basic">
+                        <span class="uc-label basic">Basic · Copilot Chat</span>
+                        <ul>
+                            <li>Draft a process-technician job description or summarise a policy you paste in.</li>
+                            <li>Rewrite a manager's feedback into balanced review language.</li>
+                            <li>Explain leave-entitlement concepts in plain terms.</li>
+                        </ul>
+                    </div>
+                    <div class="uc-col premium">
+                        <span class="uc-label premium">Premium · M365 Copilot</span>
+                        <ul>
+                            <li>Find the latest overtime policy in SharePoint and answer whether weekend shifts qualify.</li>
+                            <li>Summarise candidate interview notes from the Teams hiring channel.</li>
+                            <li>Draft a return-to-work letter grounded in the employee's case emails.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="context-note" style="margin-top: 0.5rem;">
+                <strong>Rule of thumb:</strong> the more of someone's day is spent inside Outlook, Teams and Excel with real company data, the faster a Premium seat pays for itself. Give <strong>Basic</strong> to everyone; target <strong>Premium</strong> at planners, QA leads, procurement, engineering, finance, EHS and plant leadership.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
