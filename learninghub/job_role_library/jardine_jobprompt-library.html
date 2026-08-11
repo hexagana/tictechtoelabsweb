@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jardine Engineering — Role-Based Webpage Build Prompts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --navy-900: #0f172a;
+        --navy-800: #1e293b;
+        --navy-700: #334155;
+        --slate-500: #64748b;
+        --slate-300: #cbd5e1;
+        --slate-100: #f1f5f9;
+        --slate-50:  #f8fafc;
+        --amber-500: #f59e0b;
+        --amber-400: #fbbf24;
+        --amber-100: #fef3c7;
+        --teal-500:  #0d9488;
+        --teal-100:  #ccfbf1;
+        --white: #ffffff;
+
+        /* Audience accent colours */
+        --mgmt: #be123c;          /* Finance               */
+        --mgmt-soft: #ffe4e6;
+        --strat: #4f46e5;         /* People & Culture      */
+        --strat-soft: #e0e7ff;
+        --ops: #ea580c;           /* Safety & EHS          */
+        --ops-soft: #ffedd5;
+        --dept: #0d9488;          /* Facilities Management */
+        --dept-soft: #ccfbf1;
+        --marketing: #c026d3;     /* Projects Engineering  */
+        --marketing-soft: #fae8ff;
+        --quality: #0891b2;       /* Technical Service     */
+        --quality-soft: #cffafe;
+        --admin: #7c3aed;         /* Administration        */
+        --admin-soft: #ede9fe;
+        --purch: #059669;         /* Project Finance & Proc*/
+        --purch-soft: #d1fae5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--navy-900);
+        background: var(--slate-50);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+        background:
+            radial-gradient(at 10% 20%, rgba(245, 158, 11, 0.18) 0, transparent 50%),
+            radial-gradient(at 90% 80%, rgba(13, 148, 136, 0.22) 0, transparent 50%),
+            linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 100%);
+        color: var(--white);
+        padding: 4rem 2rem 3.5rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-tag {
+        display: inline-block;
+        background: rgba(245, 158, 11, 0.15);
+        color: var(--amber-400);
+        padding: 0.4rem 1rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 1.25rem;
+        border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .hero h1 {
+        font-family: 'Poppins', sans-serif;
+        font-size: clamp(2rem, 4.5vw, 3.2rem);
+        font-weight: 800;
+        line-height: 1.15;
+        margin-bottom: 1rem;
+        letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+        background: linear-gradient(90deg, var(--amber-400), var(--teal-500));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+        color: var(--slate-300);
+        max-width: 720px;
+        margin-bottom: 2rem;
+    }
+
+    .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.9rem;
+        color: var(--slate-300);
+    }
+
+    .meta-item strong {
+        color: var(--white);
+        font-weight: 600;
+    }
+
+    /* ---------- CONTAINER ---------- */
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+    }
+
+    /* ---------- INTRO ---------- */
+    .intro-card {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+        border-left: 4px solid var(--amber-500);
+    }
+
+    .intro-card h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.4rem;
+        margin-bottom: 0.75rem;
+        color: var(--navy-900);
+    }
+
+    .intro-card p {
+        color: var(--navy-700);
+    }
+
+    /* ---------- TABLE OF CONTENTS ---------- */
+    .toc {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    .toc h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.3rem;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    .toc-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .toc a {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.7rem 1rem;
+        background: var(--slate-50);
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--navy-800);
+        font-size: 0.92rem;
+        font-weight: 500;
+        border: 1px solid transparent;
+        transition: all 0.2s ease;
+    }
+
+    .toc a:hover {
+        background: var(--navy-900);
+        color: var(--white);
+        transform: translateX(4px);
+    }
+
+    .toc a .num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        background: var(--amber-500);
+        color: var(--white);
+        border-radius: 50%;
+        font-size: 0.7rem;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    /* ---------- AUDIENCE SECTIONS ---------- */
+    .audience-section {
+        margin-bottom: 3rem;
+    }
+
+    .audience-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--slate-300);
+    }
+
+    .audience-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+    }
+
+    .audience-header h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.7rem;
+        color: var(--navy-900);
+    }
+
+    .audience-header .subtitle {
+        font-size: 0.9rem;
+        color: var(--slate-500);
+        font-weight: 500;
+    }
+
+    /* ---------- WEBPAGE CARDS ---------- */
+    .webpage-card {
+        background: var(--white);
+        border-radius: 16px;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid var(--slate-100);
+        transition: all 0.3s ease;
+    }
+
+    .webpage-card:hover {
+        box-shadow: 0 10px 32px rgba(15, 23, 42, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .card-header {
+        padding: 1.5rem 1.75rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        border-bottom: 1px solid var(--slate-100);
+    }
+
+    .card-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        height: 36px;
+        padding: 0 0.5rem;
+        border-radius: 8px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--white);
+        flex-shrink: 0;
+    }
+
+    .card-title-wrap {
+        flex: 1;
+    }
+
+    .card-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--navy-900);
+        margin-bottom: 0.3rem;
+    }
+
+    .card-role {
+        display: inline-block;
+        margin-bottom: 0.4rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--slate-500);
+    }
+
+    .card-why {
+        color: var(--navy-700);
+        font-size: 0.98rem;
+    }
+
+    .card-body {
+        padding: 1.5rem 1.75rem 1.75rem;
+        background: var(--slate-50);
+    }
+
+    .prompt-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.75rem;
+    }
+
+    .prompt-label-text {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--slate-500);
+    }
+
+    .prompt-label-text::before {
+        content: "⚡";
+        font-size: 0.9rem;
+    }
+
+    .prompt-box {
+        background: var(--navy-900);
+        color: #e2e8f0;
+        padding: 1.25rem 1.5rem;
+        border-radius: 10px;
+        font-family: 'Inter', monospace;
+        font-size: 0.9rem;
+        line-height: 1.7;
+        border: 1px solid var(--navy-700);
+        position: relative;
+    }
+
+    .prompt-box strong {
+        color: var(--amber-400);
+        font-weight: 600;
+    }
+
+    .prompt-box em {
+        color: var(--teal-100);
+        font-style: normal;
+    }
+
+    .prompt-box .show-code {
+        color: var(--amber-400);
+        font-weight: 600;
+    }
+
+    /* ---------- COPY BUTTON ---------- */
+    .copy-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.9rem;
+        padding: 0.6rem 1.1rem;
+        background: var(--white);
+        color: var(--navy-900);
+        border: 1.5px solid var(--navy-900);
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-family: inherit;
+    }
+
+    .copy-btn:hover {
+        background: var(--navy-900);
+        color: var(--white);
+        transform: translateY(-1px);
+    }
+
+    .copy-btn.copied {
+        background: var(--teal-500);
+        color: var(--white);
+        border-color: var(--teal-500);
+    }
+
+    .copy-btn .copy-icon {
+        font-size: 0.95rem;
+    }
+
+    /* Audience-specific accent colours */
+    .audience-section.mgmt .audience-badge { background: var(--mgmt-soft); color: var(--mgmt); }
+    .audience-section.mgmt .card-number { background: var(--mgmt); }
+
+    .audience-section.strat .audience-badge { background: var(--strat-soft); color: var(--strat); }
+    .audience-section.strat .card-number { background: var(--strat); }
+
+    .audience-section.ops .audience-badge { background: var(--ops-soft); color: var(--ops); }
+    .audience-section.ops .card-number { background: var(--ops); }
+
+    .audience-section.dept .audience-badge { background: var(--dept-soft); color: var(--dept); }
+    .audience-section.dept .card-number { background: var(--dept); }
+
+    .audience-section.marketing .audience-badge { background: var(--marketing-soft); color: var(--marketing); }
+    .audience-section.marketing .card-number { background: var(--marketing); }
+
+    .audience-section.quality .audience-badge { background: var(--quality-soft); color: var(--quality); }
+    .audience-section.quality .card-number { background: var(--quality); }
+
+    .audience-section.admin .audience-badge { background: var(--admin-soft); color: var(--admin); }
+    .audience-section.admin .card-number { background: var(--admin); }
+
+    .audience-section.purch .audience-badge { background: var(--purch-soft); color: var(--purch); }
+    .audience-section.purch .card-number { background: var(--purch); }
+
+    /* ---------- TIP BOX ---------- */
+    .tip-box {
+        background: linear-gradient(135deg, var(--amber-100) 0%, #fff 100%);
+        border-left: 4px solid var(--amber-500);
+        padding: 1.5rem 1.75rem;
+        border-radius: 12px;
+        margin: 3rem 0;
+    }
+
+    .tip-box h3 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.15rem;
+        margin-bottom: 0.5rem;
+        color: var(--navy-900);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .tip-box p {
+        color: var(--navy-700);
+    }
+
+    .tip-box ul {
+        margin-top: 0.75rem;
+        padding-left: 1.5rem;
+        color: var(--navy-700);
+    }
+
+    .tip-box ul li {
+        margin-bottom: 0.4rem;
+    }
+
+    /* ---------- BACK TO TOP BUTTON ---------- */
+    .back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 100%);
+        color: var(--white);
+        border: 2px solid var(--amber-500);
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        line-height: 1;
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.3);
+        transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        z-index: 9999;
+        font-family: inherit;
+        font-weight: 700;
+    }
+
+    .back-to-top .arrow {
+        font-size: 1.3rem;
+        line-height: 1;
+    }
+
+    .back-to-top .label {
+        font-size: 0.55rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-top: 2px;
+        font-weight: 700;
+    }
+
+    .back-to-top:hover {
+        background: linear-gradient(135deg, var(--amber-500) 0%, var(--amber-400) 100%);
+        border-color: var(--navy-900);
+        color: var(--navy-900);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 28px rgba(245, 158, 11, 0.45);
+    }
+
+    .back-to-top:active {
+        transform: translateY(-1px);
+    }
+
+    @media (max-width: 768px) {
+        .back-to-top {
+            bottom: 1.25rem;
+            right: 1.25rem;
+            width: 50px;
+            height: 50px;
+        }
+        .back-to-top .arrow { font-size: 1.15rem; }
+        .back-to-top .label { font-size: 0.5rem; }
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+        background: var(--navy-900);
+        color: var(--slate-300);
+        padding: 2.5rem 2rem;
+        text-align: center;
+    }
+
+    footer p {
+        font-size: 0.9rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    footer p + p {
+        margin-top: 0.75rem;
+        color: var(--slate-500);
+        font-size: 0.82rem;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+        .hero { padding: 3rem 1.25rem 2.5rem; }
+        .container { padding: 2rem 1.25rem; }
+        .intro-card, .toc { padding: 1.5rem; }
+        .card-header { padding: 1.25rem; flex-wrap: wrap; }
+        .card-body { padding: 1.25rem; }
+        .prompt-box { font-size: 0.85rem; padding: 1rem 1.1rem; }
+        .audience-header { gap: 0.75rem; }
+        .audience-header h2 { font-size: 1.35rem; }
+        .hero-meta { gap: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+        .toc-grid { grid-template-columns: 1fr; }
+        .card-title { font-size: 1.1rem; }
+    }
+</style>
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_ApprovalStatus msdt:dt="string">0</mso:_ApprovalStatus>
+<mso:_ApprovalAssignedTo msdt:dt="string"></mso:_ApprovalAssignedTo>
+<mso:_ApprovalRespondedBy msdt:dt="string"></mso:_ApprovalRespondedBy>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+<body>
+
+<!-- ====== HERO ====== -->
+<header class="hero">
+    <div class="hero-inner">
+        <span class="hero-tag">Jardine Engineering · 2-Day SFDW 2.0 (General) · 13 &amp; 14 Aug 2026</span>
+        <h1>Role-Based Webpages <span>+ Build Prompts</span></h1>
+        <p>A curated set of webpage concepts aligned to the participant roles in the Jardine Engineering (Singapore) 2-Day SFDW programme — each role gets copy-paste prompts that produce working internal tools, each one replacing 3 common Excel files and 2 recurring emails in the daily job across an engineering-services, facilities, and projects operation.</p>
+        <div class="hero-meta">
+            <div class="meta-item">🎯 <span><strong>8</strong> job functions</span></div>
+            <div class="meta-item">👥 <span><strong>13</strong> participant roles</span></div>
+            <div class="meta-item">⚡ <span><strong>21</strong> build prompts</span></div>
+        </div>
+    </div>
+</header>
+
+<!-- ====== MAIN ====== -->
+<main class="container">
+
+    <!-- Intro -->
+    <section class="intro-card">
+        <h2>How to use this guide</h2>
+        <p>Find the section matching your job function, then copy any <strong>build prompt</strong> straight into an AI tool — Microsoft Copilot, ChatGPT, Claude, or Gemini. Each function offers <strong>two or three tools</strong> — pick the one that speeds up the job you care about most. Every prompt is self-contained and produces a single HTML page with embedded CSS and vanilla JavaScript that you can preview in any browser and adapt to your team's actual data, and every prompt ends with an instruction to <strong>show the full HTML source code in the code console</strong> so you can copy it directly. Several roles are shared by more than one participant (two People &amp; Culture Executives, two Safety Officers) or sit in the same function (Finance is shared by the Executive and Senior Executive; Administration by the Admin Assistant and Admin Executive; Technical Service by the Manager and the Engineer) — you all draw from the same section. The framing throughout is the same: <em>"Build a browser-based, personal productivity cockpit that replaces 3 common Excel files and 2 recurring emails in your job."</em></p>
+    </section>
+
+    <!-- TOC -->
+    <nav class="toc">
+        <h2>📑 Table of Contents</h2>
+        <div class="toc-grid">
+            <a href="#people" data-target="people"><span class="num">H</span> People &amp; Culture (HR)</a>
+            <a href="#finance" data-target="finance"><span class="num">F</span> Finance</a>
+            <a href="#procurement" data-target="procurement"><span class="num">P</span> Project Finance &amp; Procurement</a>
+            <a href="#admin" data-target="admin"><span class="num">A</span> Administration</a>
+            <a href="#facilities" data-target="facilities"><span class="num">M</span> Facilities Management</a>
+            <a href="#safety" data-target="safety"><span class="num">S</span> Safety &amp; EHS</a>
+            <a href="#techservice" data-target="techservice"><span class="num">T</span> Technical Service</a>
+            <a href="#projects" data-target="projects"><span class="num">E</span> Projects Engineering</a>
+        </div>
+    </nav>
+
+    <!-- ===== PEOPLE & CULTURE ===== -->
+    <section id="people" class="audience-section strat">
+        <div class="audience-header">
+            <div class="audience-badge">🧑‍🤝‍🧑</div>
+            <div>
+                <h2>People &amp; Culture (HR)</h2>
+                <div class="subtitle">Onboarding, leave, headcount, and competency tracking · Executive, People &amp; Culture × 2</div>
+            </div>
+        </div>
+
+        <!-- Card 01 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">01</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Executive, People &amp; Culture &nbsp;·&nbsp; 2 participants</span>
+                    <h3 class="card-title">Employee Lifecycle &amp; Onboarding Tracker</h3>
+                    <p class="card-why">One page that follows every new joiner from offer to confirmation and flags who still needs an IT account, access card, or orientation — replacing the joiner spreadsheet, the onboarding checklist file, and the "is so-and-so set up yet?" email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Employee Lifecycle &amp; Onboarding Tracker</strong> for an Executive, People &amp; Culture at an engineering-services and facilities company. Top: a summary strip of 4 metrics — <em>new joiners this month</em>, <em>onboarding tasks pending</em>, <em>confirmations due (probation ending in 30 days)</em>, and <em>exits this month</em>. Middle: an employee register — a form with <em>name</em>, <em>employee ID</em>, <em>department</em> (HR / Finance / Facilities / Technical Service / Projects / Safety / Admin), <em>role</em>, <em>join date</em>, <em>employment type</em> (Permanent / Contract / Intern), and <em>probation end date</em>, appending to a searchable table with a status badge (Onboarding / Confirmed / On Notice / Exited) and rows turning amber when the probation end date is within 30 days (simulate today's date). Below: a per-joiner onboarding checklist with standard items (<em>IT account</em>, <em>email set up</em>, <em>access card issued</em>, <em>orientation done</em>, <em>buddy assigned</em>, <em>e-forms submitted</em>, <em>PPE issued</em>) shown as tickable checkboxes with an auto-calculated completion %, and a "Copy onboarding status" button that produces a formatted note listing each new joiner and their outstanding items for pasting into Outlook or Teams. Seed with 12 realistic employees at different lifecycle stages. HR aesthetic — indigo accents on white, generous whitespace, clear status badges. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p1"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 02 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">02</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Executive, People &amp; Culture</span>
+                    <h3 class="card-title">Leave, Attendance &amp; Headcount Dashboard</h3>
+                    <p class="card-why">Shows who's off today, what's waiting for approval, and each person's remaining balance at a glance — replacing the leave tracker sheet, the balance workbook, and the approval email chain.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Leave, Attendance &amp; Headcount Dashboard</strong> for an Executive, People &amp; Culture at an engineering-services and facilities company. Top: 5 summary cards — <em>total headcount</em>, <em>on leave today</em>, <em>pending leave approvals</em>, <em>average leave balance (days)</em>, and <em>absenteeism % this month</em>. Middle: a leave request register — a form with <em>employee</em>, <em>leave type</em> (Annual / Medical / Childcare / Compassionate / Unpaid), <em>start date</em>, <em>end date</em>, auto-calculated <em>number of days</em>, and <em>status</em> (Pending / Approved / Rejected), appending to a table with click-to-approve / reject controls and a filter by type and status. Below: a leave balance table per employee (<em>entitlement</em>, <em>taken</em>, <em>pending</em>, auto-calculated <em>remaining</em>) with negative or over-limit balances highlighted red, plus a headcount-by-department view shown as a pure-CSS horizontal bar chart, and a "Copy leave summary" button producing a formatted note of who is off this week and what is pending approval. Seed with 15 employees and a mix of leave records. HR aesthetic — indigo accents on white, monospace for day counts. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p2"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 03 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">03</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Executive, People &amp; Culture</span>
+                    <h3 class="card-title">Training &amp; Competency Matrix</h3>
+                    <p class="card-why">Makes skill gaps and expiring certifications visible across the team, and keeps the training plan (including SkillsFuture-funded courses) in one place — replacing the competency spreadsheet, the certificate register, and the renewal reminder emails.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Training &amp; Competency Matrix</strong> for an Executive, People &amp; Culture at an engineering-services and facilities company. Top: 4 headline cards — <em>staff trained YTD</em>, <em>certifications expiring within 60 days</em>, <em>competency compliance %</em>, and <em>training spend YTD (SGD)</em>. Middle: a competency matrix — required skills and certifications down the rows (e.g. <em>Work-at-Height</em>, <em>First Aid</em>, <em>WSQ safety</em>, <em>Building &amp; Construction Authority permits</em>, <em>software / digital skills</em>) and staff across the columns, with each cell set to Certified / In-progress / Expired / None, automatically flagging any required cell that is None or Expired in red (simulate today's date for expiry). Below: a training plan log (<em>staff</em>, <em>course</em>, <em>provider</em>, <em>funding</em>: SkillsFuture / Company / Self / Grant, <em>scheduled date</em>, <em>status</em>: Planned / Booked / Completed) and a certification register (<em>staff</em>, <em>certificate</em>, <em>issued date</em>, <em>expiry date</em>, auto-calculated <em>days to expiry</em>) with the soonest expiries listed first and overdue renewals in red, plus a "Copy training-gap summary" button. Seed with 10 staff, 8 skills, and realistic certificates. HR aesthetic — indigo accents on white, clear matrix cells. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p3"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== FINANCE ===== -->
+    <section id="finance" class="audience-section mgmt">
+        <div class="audience-header">
+            <div class="audience-badge">💰</div>
+            <div>
+                <h2>Finance</h2>
+                <div class="subtitle">Receivables, cash flow, claims, and project cost control · Executive, Finance &amp; Senior Executive, Finance</div>
+            </div>
+        </div>
+
+        <!-- Card 04 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">04</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Executive, Finance &nbsp;·&nbsp; Senior Executive, Finance</span>
+                    <h3 class="card-title">AR / AP Aging &amp; Collections Board</h3>
+                    <p class="card-why">Puts every unpaid invoice into aging buckets so overdue money surfaces automatically, with a chase-up list ready to send — replacing the receivables workbook, the payables sheet, and the collections reminder email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>AR / AP Aging &amp; Collections Board</strong> for a Finance Executive at an engineering-services and facilities company. Top: a summary strip — <em>total receivables (SGD)</em>, <em>overdue receivables</em>, <em>total payables</em>, <em>due this week</em>, and <em>days sales outstanding (DSO)</em>. Middle: an invoice register — a form with <em>type</em> (Receivable / Payable), <em>party</em> (customer or supplier), <em>invoice no.</em>, <em>invoice date</em>, <em>due date</em>, <em>amount</em>, and <em>status</em> (Open / Part-paid / Paid), appending to a searchable table that auto-assigns each open invoice to an aging bucket (Current, 1–30, 31–60, 61–90, 90+ days) based on the due date and today's date, colour-graded from green to red, with a filter by type. Below: an aging summary shown as a pure-CSS bar chart by bucket for receivables and payables side by side, plus a collections follow-up log (<em>customer</em>, <em>invoice</em>, <em>amount</em>, <em>promised date</em>, <em>note</em>) and a "Copy chase-up list" button producing a per-customer reminder note ready to paste into Outlook. Seed with 20 invoices across customers and suppliers. Finance aesthetic — navy with crimson accents, monospace for all figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p4"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 05 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">05</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Executive, Finance</span>
+                    <h3 class="card-title">Cash Flow Forecast &amp; Expense Claim Tracker</h3>
+                    <p class="card-why">Runs the cash position forward week by week and keeps every staff claim moving through approval — replacing the cash forecast sheet, the claims log, and the "where's my reimbursement?" email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Cash Flow Forecast &amp; Expense Claim Tracker</strong> for a Finance Executive at an engineering-services and facilities company. Top: 5 cards — <em>current cash position (SGD)</em>, <em>expected inflows MTD</em>, <em>expected outflows MTD</em>, <em>pending claims (count)</em>, and <em>pending claims value</em>. Middle: an 8-week rolling cash forecast table — weeks across the columns showing <em>opening balance</em>, editable <em>expected inflows</em>, editable <em>expected outflows</em>, and an auto-calculated <em>closing balance</em> that carries into the next week, with any week whose closing balance goes negative highlighted red. Below: a staff expense claim register — a form with <em>claimant</em>, <em>date</em>, <em>category</em> (Travel / Site expense / Entertainment / Office / Others), <em>amount</em>, <em>receipt attached</em> (Yes / No), and <em>status</em> (Submitted / Approved / Reimbursed), appending to a table with click-to-advance status and totals by category shown as a small bar chart, plus a "Copy cash summary" button and a "Copy claims report" button. Seed with 8 weeks of forecast figures and 15 claims. Finance aesthetic — navy with crimson accents, monospace for figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p5"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 06 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">06</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Senior Executive, Finance</span>
+                    <h3 class="card-title">Project Cost &amp; Budget Variance Dashboard</h3>
+                    <p class="card-why">Shows every project's budget against committed and actual spend so overruns show up before they land — replacing the project budget workbook, the commitment tracker, and the monthly cost-review email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Project Cost &amp; Budget Variance Dashboard</strong> for a Senior Executive, Finance at an engineering-services and facilities company. Top: 5 cards — <em>total project budget (SGD)</em>, <em>committed (PO raised)</em>, <em>actual spent</em>, <em>forecast at completion</em>, and <em>overall variance %</em> with a RAG colour band. Middle: a project cost table with columns <em>project</em>, <em>budget</em>, <em>committed</em>, <em>invoiced</em>, <em>paid</em>, <em>forecast final cost</em>, auto-calculated <em>variance (SGD)</em> and <em>variance %</em>, sortable by variance so the worst overruns surface first, with over-budget rows highlighted red. Below: a cost-category breakdown for a selected project (<em>labour</em>, <em>materials</em>, <em>subcontractor</em>, <em>equipment / plant</em>, <em>overhead</em>) shown as a pure-CSS bar chart with % of total, plus a monthly burn-rate mini table (budget spent per month vs planned) and a "Copy variance summary" button producing a note flagging every project over 90% of budget. Seed with 8 realistic engineering / facilities projects. Finance aesthetic — navy with crimson accents, monospace for figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p6"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== PROJECT FINANCE & PROCUREMENT ===== -->
+    <section id="procurement" class="audience-section purch">
+        <div class="audience-header">
+            <div class="audience-badge">🧾</div>
+            <div>
+                <h2>Project Finance &amp; Procurement</h2>
+                <div class="subtitle">Purchase orders, approvals, and supplier performance · Asst Exec, Project Finance &amp; Procurement</div>
+            </div>
+        </div>
+
+        <!-- Card 07 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">07</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Asst Exec, Project Finance &amp; Procurement</span>
+                    <h3 class="card-title">Purchase Order &amp; Approval Tracker</h3>
+                    <p class="card-why">Keeps every PO visible from draft through approval to delivery, and matches PO against delivery and invoice so nothing slips — replacing the PO log, the approval sheet, and the delivery follow-up email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Purchase Order &amp; Approval Tracker</strong> for an Assistant Executive, Project Finance &amp; Procurement at an engineering-services and facilities company. Top: a summary strip — <em>open POs</em>, <em>pending approval</em>, <em>value pending approval (SGD)</em>, <em>delivered but not invoiced</em>, and <em>overdue deliveries</em>. Middle: a PO register — a form with <em>PO no.</em>, <em>project</em>, <em>supplier</em>, <em>description</em>, <em>quantity</em>, <em>amount</em>, <em>raised date</em>, <em>required-by date</em>, <em>approval status</em> (Draft / Pending / Approved / Rejected), and <em>delivery status</em> (Not started / Partial / Delivered), appending to a searchable table with filters by project and status, and rows turning red when the required-by date has passed and delivery is not complete (simulate today's date). Below: an approval queue listing every Pending PO with click-to-approve / reject, and a three-way match panel where you tick PO raised, goods received, and invoice received per PO, auto-flagging any PO missing one of the three, plus a "Copy expediting list" button producing a per-supplier chase-up note. Seed with 15 POs across several projects and suppliers. Procurement aesthetic — emerald green accents on white, monospace for figures, overdue items visually loud. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p7"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 08 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">08</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Asst Exec, Project Finance &amp; Procurement</span>
+                    <h3 class="card-title">Supplier &amp; Subcontractor Performance Register</h3>
+                    <p class="card-why">Scores suppliers and subcontractors on delivery, quality, and responsiveness so you know who to trust with the next job — replacing the approved-vendor list, the performance sheet, and the "how did this supplier do?" email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Supplier &amp; Subcontractor Performance Register</strong> for an Assistant Executive, Project Finance &amp; Procurement at an engineering-services and facilities company. Top: 5 cards — <em>active suppliers</em>, <em>average on-time delivery %</em>, <em>average quality pass %</em>, <em>open supplier issues</em>, and <em>spend YTD (SGD)</em>. Middle: a supplier register — a form with <em>supplier name</em>, <em>category</em> (M&amp;E / Civil / Materials / Equipment / Services), <em>contact person</em>, <em>phone / email</em>, and <em>status</em> (Approved / Probation / Suspended), appending to a searchable table. Below: a performance scorecard where each supplier is rated on <em>on-time delivery %</em>, <em>quality pass %</em>, <em>responsiveness (1–5)</em>, and <em>price competitiveness (1–5)</em>, producing an auto-calculated weighted score and a band (Preferred / Acceptable / Review), plus an issue / non-conformance log (<em>date</em>, <em>supplier</em>, <em>PO / project</em>, <em>issue</em>, <em>action</em>, <em>status</em>) and a "Copy supplier scorecard" button. Seed with 10 suppliers and a mix of scores and issues. Procurement aesthetic — emerald green accents on white, clear score bands. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p8"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== ADMINISTRATION ===== -->
+    <section id="admin" class="audience-section admin">
+        <div class="audience-header">
+            <div class="audience-badge">🗂️</div>
+            <div>
+                <h2>Administration</h2>
+                <div class="subtitle">Document control, bookings, and office inventory · Admin Assistant &amp; Admin Executive</div>
+            </div>
+        </div>
+
+        <!-- Card 09 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">09</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Admin Assistant &nbsp;·&nbsp; Admin Executive</span>
+                    <h3 class="card-title">Office Admin &amp; Document Control Hub</h3>
+                    <p class="card-why">Keeps every controlled document, contract, and licence with its review or expiry date, and clears the daily request queue — replacing the document register, the renewal reminder sheet, and the "which version is current?" email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Office Admin &amp; Document Control Hub</strong> for an Admin Assistant / Admin Executive at an engineering-services and facilities company. Top: a summary strip — <em>pending admin requests</em>, <em>documents due for review this month</em>, <em>items expiring within 30 days</em> (licences / contracts / certificates), and <em>couriers / mail to send today</em>. Middle: a document register — a form with <em>document name</em>, <em>type</em> (Policy / Contract / Certificate / Licence / SOP / Form), <em>owner</em>, <em>issue date</em>, <em>review or expiry date</em>, <em>version</em>, and <em>status</em> (Current / Under review / Expired), appending to a searchable table that auto-flags anything within 30 days of its review / expiry date in amber and anything past it in red (simulate today's date). Below: an admin request queue (<em>requester</em>, <em>request type</em>, <em>date raised</em>, <em>status</em>: New / In progress / Done) with click-to-advance status, and a "Copy pending-tasks list" button producing a formatted end-of-day handover note. Seed with 15 documents and 8 requests. Admin aesthetic — violet accents on white, clean tables, clear status badges. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p9"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 10 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">10</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Admin Assistant</span>
+                    <h3 class="card-title">Meeting, Travel &amp; Facility Booking Coordinator</h3>
+                    <p class="card-why">Books meeting rooms without clashes and keeps travel and visitor arrangements in one view — replacing the room booking sheet, the travel arrangement file, and the back-and-forth scheduling email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Meeting, Travel &amp; Facility Booking Coordinator</strong> for an Admin Assistant at an engineering-services and facilities company. Top: a summary strip — <em>meetings today</em>, <em>room booking conflicts</em>, <em>pending travel arrangements</em>, and <em>visitors expected today</em>. Middle: a room / facility booking grid for a selected day — meeting rooms and shared facilities down the rows, hourly time slots (8am–6pm) across the columns, where clicking a cell books it (capturing <em>booked by</em>, <em>purpose</em>) and the tool prevents and highlights any double-booking of the same room and slot. Below: a travel arrangement log (<em>traveller</em>, <em>purpose</em>, <em>destination</em>, <em>depart date</em>, <em>return date</em>, <em>transport</em>, <em>accommodation</em>, <em>status</em>: Requested / Booked / Completed) and a visitor log (<em>visitor</em>, <em>company</em>, <em>host</em>, <em>time</em>, <em>purpose</em>), plus a "Copy today's schedule" button producing a formatted daily note. Seed with a half-day of bookings, 6 travel records, and 4 visitors. Admin aesthetic — violet accents on white, clear booking grid. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p10"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 11 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">11</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Admin Executive</span>
+                    <h3 class="card-title">Asset &amp; Stationery Inventory Tracker</h3>
+                    <p class="card-why">Tracks office assets, PPE, and consumables with reorder levels and who has what on loan — replacing the inventory sheet, the asset-assignment log, and the "we've run out of…" email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Asset &amp; Stationery Inventory Tracker</strong> for an Admin Executive at an engineering-services and facilities company. Top: 4 cards — <em>total tracked items</em>, <em>items below reorder level</em>, <em>assets on loan</em>, and <em>reorders needed</em>. Middle: an inventory register — a form with <em>item</em>, <em>category</em> (IT equipment / Stationery / PPE / Furniture / Tools), <em>quantity on hand</em>, <em>reorder level</em>, <em>unit</em>, and <em>storage location</em>, appending to a searchable table where any item at or below its reorder level is highlighted red, filterable by category. Below: an asset loan / assignment log (<em>asset</em>, <em>tag no.</em>, <em>assigned to</em>, <em>date out</em>, <em>due back</em>, <em>status</em>: On loan / Returned / Overdue) with overdue returns in red (simulate today's date), and a "Generate reorder list" button that produces a formatted purchase-request note listing every below-reorder item and the suggested order quantity. Seed with 20 inventory items and 8 loan records. Admin aesthetic — violet accents on white, monospace for quantities. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p11"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== FACILITIES MANAGEMENT ===== -->
+    <section id="facilities" class="audience-section dept">
+        <div class="audience-header">
+            <div class="audience-badge">🏢</div>
+            <div>
+                <h2>Facilities Management</h2>
+                <div class="subtitle">Maintenance work orders, statutory compliance, and contractors · Manager, Facilities Management</div>
+            </div>
+        </div>
+
+        <!-- Card 12 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">12</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Manager, Facilities Management</span>
+                    <h3 class="card-title">Planned &amp; Reactive Maintenance Board</h3>
+                    <p class="card-why">Runs planned maintenance schedules and reactive breakdowns from one board so nothing overdue hides — replacing the PPM schedule sheet, the work-order log, and the "did we fix that?" email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Planned &amp; Reactive Maintenance Board</strong> for a Manager, Facilities Management at an engineering-services and facilities company. Top: a summary strip — <em>open work orders</em>, <em>overdue planned maintenance</em>, <em>reactive jobs today</em>, and <em>average days to close</em>. Middle: a work order register — a form with <em>WO no.</em>, <em>asset / location</em>, <em>type</em> (Planned / Reactive / Inspection), <em>priority</em> (Critical / High / Medium / Low), <em>raised date</em>, <em>due date</em>, <em>assigned to</em>, and <em>status</em> (Open / In progress / On hold / Closed), appending to a table with click-to-advance status, filters by type and priority, and rows turning red when the due date has passed and the job is not closed (simulate today's date). Below: a PPM (planned preventive maintenance) schedule table (<em>asset</em>, <em>task</em>, <em>frequency</em>: Weekly / Monthly / Quarterly / Yearly, <em>last done</em>, auto-calculated <em>next due</em>) with statutory items visually marked and overdue next-due dates in red, plus a "Copy job list" button producing a per-technician assignment note. Seed with 15 work orders and 10 PPM items across building services (aircon, lifts, fire systems, electrical, plumbing). Facilities aesthetic — teal accents on white, clear priority colours. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p12"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 13 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">13</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Manager, Facilities Management</span>
+                    <h3 class="card-title">Facilities Compliance &amp; Contractor Management Panel</h3>
+                    <p class="card-why">Keeps statutory certificates valid and controls who is on site under what permit — replacing the certificate expiry sheet, the contractor list, and the permit-to-work paperwork trail.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Facilities Compliance &amp; Contractor Management Panel</strong> for a Manager, Facilities Management at an engineering-services and facilities company. Top: 4 cards — <em>statutory certificates valid</em>, <em>certificates expiring within 30 days</em>, <em>contractors on site today</em>, and <em>open permits-to-work</em>. Middle: a statutory compliance register — a form with <em>item</em> (Fire Safety Certificate / Lift permit / Electrical LEW inspection / Aircon &amp; cooling tower / Water tank cleaning / Pressure vessel), <em>authority</em>, <em>last inspection date</em>, <em>expiry date</em>, and <em>status</em> (Valid / Due soon / Expired), appending to a table that auto-flags anything within 30 days of expiry in amber and past expiry in red (simulate today's date). Below: a contractor register (<em>company</em>, <em>trade</em>, <em>contact</em>, <em>insurance valid to</em>, <em>status</em>: Approved / Expired) and a permit-to-work log (<em>permit no.</em>, <em>contractor</em>, <em>work</em>, <em>location</em>, <em>valid from</em>, <em>valid to</em>, <em>status</em>: Active / Closed / Expired) with expired permits highlighted, plus a "Copy compliance summary" button. Seed with 10 compliance items, 6 contractors, and 6 permits. Facilities aesthetic — teal accents on white, clear expiry colours. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p13"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== SAFETY & EHS ===== -->
+    <section id="safety" class="audience-section ops">
+        <div class="audience-header">
+            <div class="audience-badge">🦺</div>
+            <div>
+                <h2>Safety &amp; EHS</h2>
+                <div class="subtitle">Incidents, risk assessments, permits, and inspections · Safety Officer × 2</div>
+            </div>
+        </div>
+
+        <!-- Card 14 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">14</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Safety Officer &nbsp;·&nbsp; 2 participants</span>
+                    <h3 class="card-title">Incident, Hazard &amp; Near-Miss Register</h3>
+                    <p class="card-why">Logs every incident, near-miss, and hazard with its corrective action and tracks days since the last lost-time injury — replacing the incident logbook, the corrective-action sheet, and the monthly safety-stats email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Incident, Hazard &amp; Near-Miss Register</strong> for a Safety Officer at an engineering-services and facilities company. Top: a summary strip — <em>incidents this month</em>, <em>near-misses this month</em>, <em>open corrective actions</em>, and <em>days since last lost-time injury</em>. Middle: a report register — a form with <em>reference no.</em>, <em>date</em>, <em>type</em> (Incident / Near-miss / Hazard / Unsafe act), <em>location / site</em>, <em>description</em>, <em>severity</em> (Low / Medium / High / Critical), <em>reported by</em>, and <em>status</em> (Open / Investigating / Closed), appending to a searchable table filterable by type and severity, with High and Critical rows highlighted red. Below: a corrective action tracker (<em>linked reference</em>, <em>action</em>, <em>owner</em>, <em>due date</em>, <em>status</em>: Open / In progress / Done) with overdue actions in red (simulate today's date), plus an incident-trend view showing counts by month as a pure-CSS bar chart, and a "Copy safety report" button producing a formatted monthly summary. Seed with 15 reports and a set of corrective actions. Safety aesthetic — orange accents on white, urgent / high-severity items visually loud. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p14"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 15 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">15</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Safety Officer</span>
+                    <h3 class="card-title">Risk Assessment &amp; Permit-to-Work Control</h3>
+                    <p class="card-why">Holds risk assessments with before/after risk ratings and controls every high-risk permit in force — replacing the RA register, the permit file, and the "is that permit still valid?" email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Risk Assessment &amp; Permit-to-Work Control</strong> for a Safety Officer at an engineering-services and facilities company. Top: a summary strip — <em>active permits</em>, <em>high-risk activities today</em>, <em>risk assessments due for review</em>, and <em>expired permits</em>. Middle: a risk assessment register — a form with <em>activity</em>, <em>hazard</em>, <em>likelihood (1–5)</em>, <em>severity (1–5)</em> producing an auto-calculated <em>risk rating</em> (likelihood × severity) with a colour band (Low / Medium / High / Critical), <em>control measures</em>, a <em>residual rating</em> after controls, and a <em>review date</em>, appending to a table sorted by residual risk with High and Critical highlighted. Below: a permit-to-work log — a form with <em>permit no.</em>, <em>work type</em> (Hot work / Confined space / Work at height / Electrical / Lifting operation), <em>location</em>, <em>issued to</em>, <em>valid from</em>, <em>valid to</em>, and <em>status</em> (Active / Closed / Expired), appending to a table that auto-marks a permit Expired once its valid-to time has passed (simulate today's date) and highlights it, plus a "Copy permit summary" button listing all active permits. Seed with 8 risk assessments and 6 permits. Safety aesthetic — orange accents on white, risk bands clearly coloured. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p15"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 16 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">16</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Safety Officer</span>
+                    <h3 class="card-title">Safety Inspection &amp; Toolbox Meeting Tracker</h3>
+                    <p class="card-why">Records site inspections with their findings and logs every toolbox talk and attendance — replacing the inspection checklist file, the findings sheet, and the toolbox-attendance email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Safety Inspection &amp; Toolbox Meeting Tracker</strong> for a Safety Officer at an engineering-services and facilities company. Top: a summary strip — <em>inspections this month</em>, <em>open findings</em>, <em>toolbox talks conducted this month</em>, and <em>average toolbox attendance %</em>. Middle: an inspection register — a form with <em>area / site</em>, <em>date</em>, <em>inspector</em>, <em>score %</em>, <em>findings count</em>, and <em>status</em> (Open / Closed), appending to a table, and a linked findings log (<em>finding</em>, <em>risk level</em>, <em>corrective action</em>, <em>owner</em>, <em>due date</em>, <em>status</em>) with overdue findings in red (simulate today's date). Below: a toolbox meeting log (<em>date</em>, <em>topic</em>, <em>conducted by</em>, <em>site</em>, <em>attendees present</em>, <em>total crew</em>, auto-calculated <em>attendance %</em>) with a small bar chart of talks per month, plus a "Copy inspection summary" button producing a formatted note of open findings by owner. Seed with 8 inspections, a set of findings, and 6 toolbox talks. Safety aesthetic — orange accents on white, overdue items visually loud. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p16"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== TECHNICAL SERVICE ===== -->
+    <section id="techservice" class="audience-section quality">
+        <div class="audience-header">
+            <div class="audience-badge">🔧</div>
+            <div>
+                <h2>Technical Service</h2>
+                <div class="subtitle">Service jobs, SLAs, maintenance history, and spares · Manager &amp; Engineer, Technical Service</div>
+            </div>
+        </div>
+
+        <!-- Card 17 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">17</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Manager, Technical Service &nbsp;·&nbsp; Engineer, Technical Service</span>
+                    <h3 class="card-title">Service Job &amp; SLA Tracker</h3>
+                    <p class="card-why">Tracks every service call against its SLA and shows who's overloaded — replacing the job log, the SLA sheet, and the "where are we on that fault?" email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Service Job &amp; SLA Tracker</strong> for a Technical Service team at an engineering-services and facilities company. Top: a summary strip — <em>open jobs</em>, <em>jobs breaching SLA</em>, <em>completed this week</em>, and <em>first-time-fix %</em>. Middle: a service job register — a form with <em>job no.</em>, <em>client / site</em>, <em>equipment</em>, <em>fault description</em>, <em>priority</em> (Critical / High / Medium / Low), <em>logged date</em>, <em>SLA due date</em>, <em>assigned engineer</em>, and <em>status</em> (Logged / Assigned / On-site / Awaiting parts / Completed), appending to a table showing an auto-calculated <em>time to SLA</em> and highlighting any job past its SLA due date in red (simulate today's date), filterable by engineer and status. Below: an engineer workload view showing the count of open jobs per engineer as a pure-CSS bar chart so overload is visible, a job-aging list (oldest open jobs first), and a "Copy job assignment list" button producing a per-engineer job note. Seed with 15 service jobs across several clients and 4 engineers. Technical-service aesthetic — cyan accents on white, SLA breaches visually loud, monospace for figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p17"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 18 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">18</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Engineer, Technical Service</span>
+                    <h3 class="card-title">Preventive Maintenance &amp; Equipment History Log</h3>
+                    <p class="card-why">Schedules preventive maintenance per contract and keeps the full service history of each machine — replacing the PM planner, the equipment logbook, and the "when was this last serviced?" email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Preventive Maintenance &amp; Equipment History Log</strong> for an Engineer, Technical Service at an engineering-services and facilities company. Top: 4 cards — <em>assets under contract</em>, <em>PM due this month</em>, <em>overdue PM</em>, and <em>breakdowns this month</em>. Middle: a PM schedule table — a form with <em>equipment</em>, <em>client / site</em>, <em>frequency</em> (Monthly / Quarterly / Half-yearly / Yearly), <em>last service date</em>, auto-calculated <em>next due date</em>, and <em>assigned engineer</em>, appending to a table with overdue next-due dates in red and due-this-month in amber (simulate today's date), filterable by client. Below: an equipment service history log (<em>equipment</em>, <em>date</em>, <em>work done</em>, <em>parts replaced</em>, <em>engineer</em>, <em>downtime (hrs)</em>) searchable by equipment so you can pull one machine's full history, plus a "Copy PM plan" button producing this month's due-and-overdue list by engineer. Seed with 12 assets under contract and a set of history records. Technical-service aesthetic — cyan accents on white, monospace for dates and figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p18"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 19 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">19</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Manager, Technical Service</span>
+                    <h3 class="card-title">Spare Parts &amp; Service Report Manager</h3>
+                    <p class="card-why">Keeps spare-parts stock above reorder level and chases every unsigned or uninvoiced service report — replacing the parts inventory sheet, the report log, and the "has that report been signed off?" email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Spare Parts &amp; Service Report Manager</strong> for a Manager, Technical Service at an engineering-services and facilities company. Top: 4 cards — <em>parts in stock value (SGD)</em>, <em>low-stock items</em>, <em>parts on order</em>, and <em>pending service reports</em>. Middle: a spare-parts inventory register — a form with <em>part no.</em>, <em>description</em>, <em>equipment / system</em>, <em>quantity on hand</em>, <em>reorder level</em>, <em>location</em>, and <em>unit cost</em>, appending to a searchable table with any item at or below reorder level highlighted red and an auto-calculated stock value column. Below: a service report register (<em>report no.</em>, <em>client</em>, <em>job / equipment</em>, <em>date</em>, <em>engineer</em>, <em>report status</em>: Draft / Submitted / Client-signed, <em>invoiced</em>: Yes / No) with unsigned or uninvoiced reports flagged, plus a "Copy reorder list" button and a "Copy outstanding-reports list" button. Seed with 20 parts and 12 service reports. Technical-service aesthetic — cyan accents on white, monospace for figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p19"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== PROJECTS ENGINEERING ===== -->
+    <section id="projects" class="audience-section marketing">
+        <div class="audience-header">
+            <div class="audience-badge">📐</div>
+            <div>
+                <h2>Projects Engineering</h2>
+                <div class="subtitle">Milestones, site progress, RFIs, and snag lists · Engineer, Projects</div>
+            </div>
+        </div>
+
+        <!-- Card 20 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">20</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Engineer, Projects</span>
+                    <h3 class="card-title">Project Milestone &amp; Progress Tracker</h3>
+                    <p class="card-why">Tracks each project's milestones and flags what's slipping before it hits the critical path — replacing the programme spreadsheet, the progress sheet, and the weekly project-update email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Project Milestone &amp; Progress Tracker</strong> for an Engineer, Projects at an engineering-services and facilities company. Top: 4 cards — <em>active projects</em>, <em>milestones due this month</em>, <em>delayed milestones</em>, and <em>overall portfolio progress %</em>. Middle: a milestone register — a form with <em>project</em>, <em>milestone</em>, <em>planned date</em>, <em>forecast / actual date</em>, <em>% complete</em>, <em>status</em> (On track / At risk / Delayed / Done), and <em>dependency</em>, appending to a table sorted by planned date, with Delayed rows highlighted red and At-risk in amber, filterable by project. Below: a project progress overview showing, per project, a pure-CSS progress bar of overall % complete alongside planned vs actual, and a "Copy progress report" button producing a formatted weekly update listing each project, its % complete, and any delayed milestones. Seed with 4 projects and a set of milestones at different stages. Projects aesthetic — fuchsia and indigo accents on white, clear status colours. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p20"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 21 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">21</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Engineer, Projects</span>
+                    <h3 class="card-title">Site Progress, RFI &amp; Snag List Manager</h3>
+                    <p class="card-why">Keeps RFIs, the snag list, and the daily site diary in one place so nothing stalls waiting for an answer — replacing the RFI log, the defects spreadsheet, and the site-report email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Site Progress, RFI &amp; Snag List Manager</strong> for an Engineer, Projects at an engineering-services and facilities company. Top: a summary strip — <em>open RFIs</em>, <em>overdue RFIs</em>, <em>open snags</em>, and <em>snags closed this week</em>. Middle: an RFI (request for information) register — a form with <em>RFI no.</em>, <em>project</em>, <em>subject</em>, <em>raised to</em> (Consultant / Client / Sub-contractor), <em>raised date</em>, <em>needed-by date</em>, and <em>status</em> (Open / Answered / Closed), appending to a table with overdue open RFIs highlighted red (simulate today's date). Below: a snag / defect list (<em>location</em>, <em>description</em>, <em>trade</em>, <em>raised date</em>, <em>target close date</em>, <em>status</em>: Open / In progress / Closed, <em>photo ref</em>) with overdue snags flagged, and a daily site progress log (<em>date</em>, <em>activity</em>, <em>manpower on site</em>, <em>weather</em>, <em>remarks</em>), plus a "Copy RFI chase-up" button and a "Copy snag list" button producing formatted notes. Seed with 10 RFIs, 12 snags, and a week of site log entries. Projects aesthetic — fuchsia and indigo accents on white, overdue items visually loud. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it — don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p21"><span class="copy-icon">📋</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- Tip box -->
+    <div class="tip-box">
+        <h3>💡 Prompt Tips</h3>
+        <p>To get the best results from any of these prompts:</p>
+        <ul>
+            <li>Paste the entire prompt into your AI tool in one go — don't trim it. The last line asks the AI to <strong>show the full HTML code in the console</strong> so you can copy it straight out.</li>
+            <li>Pick more than one — your function has two or three tools; build the one that saves you the most time first, then come back for the others.</li>
+            <li>After the first build, ask for iterations: <em>"Add a dark mode toggle"</em> or <em>"Replace the seed data with my actual project / client / supplier list."</em></li>
+            <li>If the output feels generic, add context at the end: <em>"Use terminology familiar to an engineering-services, facilities, and projects company."</em></li>
+            <li>Keep the unified framing in mind: each page should replace 3 common Excel files and 2 recurring emails in your job.</li>
+        </ul>
+    </div>
+
+</main>
+
+<!-- ====== BACK TO TOP BUTTON ====== -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top">
+    <span class="arrow" aria-hidden="true">↑</span>
+    <span class="label">TOP</span>
+</button>
+
+<!-- ====== FOOTER ====== -->
+<footer>
+    <p>Jardine Engineering (Singapore) Pte Ltd · 2-Day SFDW 2.0 (General) · 13 &amp; 14 August 2026</p>
+    <p>Role-based webpage build prompts — designed for training use, adapt freely to your team, tools, and engineering-services context.</p>
+</footer>
+
+<script>
+    // Reliable smooth-scroll for anchor links — works inside Google Sites iframe embeds
+    document.addEventListener('DOMContentLoaded', function() {
+        var links = document.querySelectorAll('.toc a[data-target]');
+        links.forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                var targetId = this.getAttribute('data-target');
+                var targetEl = document.getElementById(targetId);
+                if (targetEl) {
+                    var offset = 20;
+                    var top = targetEl.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: top, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Copy-to-clipboard for prompt buttons
+        var copyButtons = document.querySelectorAll('.copy-btn');
+        copyButtons.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var promptBox = this.previousElementSibling;
+                if (!promptBox) return;
+
+                var text = promptBox.innerText.trim();
+
+                var labelEl = this.querySelector('.copy-label');
+                var iconEl = this.querySelector('.copy-icon');
+                var btn = this;
+
+                var showSuccess = function() {
+                    btn.classList.add('copied');
+                    if (iconEl) iconEl.textContent = '✓';
+                    if (labelEl) labelEl.textContent = 'Copied!';
+                    setTimeout(function() {
+                        btn.classList.remove('copied');
+                        if (iconEl) iconEl.textContent = '📋';
+                        if (labelEl) labelEl.textContent = 'Copy prompt';
+                    }, 2000);
+                };
+
+                var fallbackCopy = function(str) {
+                    var ta = document.createElement('textarea');
+                    ta.value = str;
+                    ta.style.position = 'fixed';
+                    ta.style.top = '0';
+                    ta.style.left = '0';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.focus();
+                    ta.select();
+                    try {
+                        document.execCommand('copy');
+                        showSuccess();
+                    } catch (err) {
+                        // silent fail
+                    }
+                    document.body.removeChild(ta);
+                };
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(showSuccess).catch(function() {
+                        fallbackCopy(text);
+                    });
+                } else {
+                    fallbackCopy(text);
+                }
+            });
+        });
+
+        // Back-to-top floating button — reliable inside Google Sites iframe embeds
+        var backToTopBtn = document.getElementById('backToTop');
+        if (backToTopBtn) {
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                if (document.documentElement) {
+                    document.documentElement.scrollTop = 0;
+                }
+                if (document.body) {
+                    document.body.scrollTop = 0;
+                }
+
+                try {
+                    if (window.parent && window.parent !== window) {
+                        window.parent.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                } catch (e) {
+                    // Cross-origin parent — can't scroll it, but that's fine.
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
