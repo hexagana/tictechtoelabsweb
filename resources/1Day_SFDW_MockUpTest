@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Skills Assessment Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-accent: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --text-dark: #1a1a2e;
+            --text-light: #ffffff;
+            --correct: #10b981;
+            --incorrect: #ef4444;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: drift 60s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes drift {
+            from { transform: rotate(0deg) translateX(0); }
+            to { transform: rotate(360deg) translateX(50px); }
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 1;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+
+        .header p {
+            color: #64748b;
+            font-size: 1.1rem;
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .progress-container {
+            margin-bottom: 2rem;
+            animation: fadeIn 0.8s ease-out 0.6s both;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-1);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-text {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #64748b;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .question-card {
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            border-radius: 16px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            animation: slideIn 0.5s ease-out both;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .question-card:nth-child(2) { animation-delay: 0.1s; }
+        .question-card:nth-child(3) { animation-delay: 0.2s; }
+        .question-card:nth-child(4) { animation-delay: 0.3s; }
+        .question-card:nth-child(5) { animation-delay: 0.4s; }
+
+        .question-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option {
+            position: relative;
+        }
+
+        .option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .option-label {
+            display: block;
+            padding: 1rem 1.25rem;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            color: var(--text-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-label::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--gradient-1);
+            opacity: 0.1;
+            transition: width 0.3s ease;
+        }
+
+        .option input[type="radio"]:checked + .option-label {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+            font-weight: 600;
+        }
+
+        .option input[type="radio"]:checked + .option-label::before {
+            width: 100%;
+        }
+
+        .option-label:hover {
+            border-color: #667eea;
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+
+        .option-label.correct {
+            border-color: var(--correct);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .option-label.incorrect {
+            border-color: var(--incorrect);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .option-label .status-icon {
+            display: none;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .option-label.correct .status-icon,
+        .option-label.incorrect .status-icon {
+            display: inline;
+        }
+
+        .option-label.correct .status-icon {
+            color: var(--correct);
+        }
+
+        .option-label.incorrect .status-icon {
+            color: var(--incorrect);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.25rem;
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            font-family: 'Outfit', sans-serif;
+            margin-top: 2rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results {
+            display: none;
+            text-align: center;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        .score-display {
+            font-size: 5rem;
+            font-weight: 700;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 2rem 0;
+            animation: scaleIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .score-label {
+            font-size: 1.5rem;
+            color: #64748b;
+            margin-bottom: 1rem;
+        }
+
+        .score-message {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+        }
+
+        .results-summary {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .stat-value.correct { color: var(--correct); }
+        .stat-value.incorrect { color: var(--incorrect); }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-top: 0.5rem;
+        }
+
+        .retry-btn {
+            padding: 1rem 2rem;
+            background: var(--gradient-2);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(240, 147, 251, 0.3);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .retry-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(240, 147, 251, 0.4);
+        }
+
+        .review-section {
+            margin-top: 3rem;
+            text-align: left;
+        }
+
+        .review-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .review-item {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid #e2e8f0;
+            animation: slideIn 0.5s ease-out both;
+        }
+
+        .review-item:nth-child(1) { animation-delay: 0.1s; }
+        .review-item:nth-child(2) { animation-delay: 0.15s; }
+        .review-item:nth-child(3) { animation-delay: 0.2s; }
+        .review-item:nth-child(4) { animation-delay: 0.25s; }
+        .review-item:nth-child(5) { animation-delay: 0.3s; }
+
+        .review-item.correct-answer {
+            border-color: var(--correct);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .review-item.wrong-answer {
+            border-color: var(--incorrect);
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .review-question-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .review-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .review-status.correct {
+            color: var(--correct);
+        }
+
+        .review-status.incorrect {
+            color: var(--incorrect);
+        }
+
+        .review-status-icon {
+            font-size: 1.2rem;
+        }
+
+        .review-question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .review-answer {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .review-answer-label {
+            font-weight: 600;
+            margin-right: 0.5rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .review-answer.your-answer {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .review-answer.your-answer.correct {
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid var(--correct);
+        }
+
+        .review-answer.your-answer.incorrect {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid var(--incorrect);
+        }
+
+        .review-answer.correct-answer-display {
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid var(--correct);
+        }
+
+        .review-answer-label.correct {
+            color: var(--correct);
+        }
+
+        .review-answer-label.incorrect {
+            color: var(--incorrect);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .score-display {
+                font-size: 3.5rem;
+            }
+
+            .summary-stats {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Digital Skills Assessment</h1>
+            <p>Test your knowledge of workplace digital skills</p>
+        </div>
+
+        <div id="quizSection">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">Question 1 of 10</div>
+            </div>
+
+            <form id="quizForm">
+                <!-- Question 1 -->
+                <div class="question-card">
+                    <div class="question-number">QUESTION 01</div>
+                    <div class="question-text">Which is a current trend shaping the future of work?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q1a" name="q1" value="Remote work only">
+                            <label class="option-label" for="q1a">
+                                Remote work only
+                                <span class="status-icon">✓</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q1b" name="q1" value="Automation and AI">
+                            <label class="option-label" for="q1b">
+                                Automation and AI
+                                <span class="status-icon">✓</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q1c" name="q1" value="Paper-based workflows">
+                            <label class="option-label" for="q1c">
+                                Paper-based workflows
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q1d" name="q1" value="Traditional office spaces">
+                            <label class="option-label" for="q1d">
+                                Traditional office spaces
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-card">
+                    <div class="question-number">QUESTION 02</div>
+                    <div class="question-text">If your industry is adopting AI tools, which skill would help you stay relevant?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q2a" name="q2" value="Learning prompt writing">
+                            <label class="option-label" for="q2a">
+                                Learning prompt writing
+                                <span class="status-icon">✓</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q2b" name="q2" value="Avoiding all technology">
+                            <label class="option-label" for="q2b">
+                                Avoiding all technology
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q2c" name="q2" value="Memorizing facts">
+                            <label class="option-label" for="q2c">
+                                Memorizing facts
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q2d" name="q2" value="Using only manual processes">
+                            <label class="option-label" for="q2d">
+                                Using only manual processes
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-card">
+                    <div class="question-number">QUESTION 03</div>
+                    <div class="question-text">Which framework has the categories Projects, Areas, Resources, Archives?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q3a" name="q3" value="GTD">
+                            <label class="option-label" for="q3a">
+                                GTD (Getting Things Done)
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q3b" name="q3" value="PARA">
+                            <label class="option-label" for="q3b">
+                                PARA
+                                <span class="status-icon">✓</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q3c" name="q3" value="SMART Goals">
+                            <label class="option-label" for="q3c">
+                                SMART Goals
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q3d" name="q3" value="Eisenhower Matrix">
+                            <label class="option-label" for="q3d">
+                                Eisenhower Matrix
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question-card">
+                    <div class="question-number">QUESTION 04</div>
+                    <div class="question-text">You want to organise all notes for one ongoing project — which method is best?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q4a" name="q4" value="PARA – Projects">
+                            <label class="option-label" for="q4a">
+                                PARA – Projects
+                                <span class="status-icon">✓</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q4b" name="q4" value="PARA – Areas">
+                            <label class="option-label" for="q4b">
+                                PARA – Areas
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q4c" name="q4" value="PARA – Resources">
+                            <label class="option-label" for="q4c">
+                                PARA – Resources
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q4d" name="q4" value="PARA – Archives">
+                            <label class="option-label" for="q4d">
+                                PARA – Archives
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question-card">
+                    <div class="question-number">QUESTION 05</div>
+                    <div class="question-text">Which of these is a phishing red flag?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q5a" name="q5" value="Email from a known colleague">
+                            <label class="option-label" for="q5a">
+                                Email from a known colleague
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q5b" name="q5" value="Sender address doesn't match the company domain">
+                            <label class="option-label" for="q5b">
+                                Sender address doesn't match the company domain
+                                <span class="status-icon">✓</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q5c" name="q5" value="Professional email signature">
+                            <label class="option-label" for="q5c">
+                                Professional email signature
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q5d" name="q5" value="Clear subject line">
+                            <label class="option-label" for="q5d">
+                                Clear subject line
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question-card">
+                    <div class="question-number">QUESTION 06</div>
+                    <div class="question-text">What should you do first after spotting a phishing email?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q6a" name="q6" value="Click the link to investigate">
+                            <label class="option-label" for="q6a">
+                                Click the link to investigate
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q6b" name="q6" value="Delete it immediately">
+                            <label class="option-label" for="q6b">
+                                Delete it immediately
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q6c" name="q6" value="Report it to IT/security">
+                            <label class="option-label" for="q6c">
+                                Report it to IT/security
+                                <span class="status-icon">✓</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q6d" name="q6" value="Reply asking for verification">
+                            <label class="option-label" for="q6d">
+                                Reply asking for verification
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="question-card">
+                    <div class="question-number">QUESTION 07</div>
+                    <div class="question-text">Which one is a good example of automation?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q7a" name="q7" value="Manually copying emails to folders">
+                            <label class="option-label" for="q7a">
+                                Manually copying emails to folders
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q7b" name="q7" value="Trigger: new email → Action: save to OneDrive or Google Drive">
+                            <label class="option-label" for="q7b">
+                                Trigger: new email → Action: save to OneDrive or Google Drive
+                                <span class="status-icon">✓</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q7c" name="q7" value="Writing reports by hand">
+                            <label class="option-label" for="q7c">
+                                Writing reports by hand
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q7d" name="q7" value="Manually updating spreadsheets daily">
+                            <label class="option-label" for="q7d">
+                                Manually updating spreadsheets daily
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="question-card">
+                    <div class="question-number">QUESTION 08</div>
+                    <div class="question-text">Which is the safest way to use AI for a client report?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q8a" name="q8" value="Copy and paste confidential client data">
+                            <label class="option-label" for="q8a">
+                                Copy and paste confidential client data
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q8b" name="q8" value="Ask AI general questions without using private data">
+                            <label class="option-label" for="q8b">
+                                Ask AI general questions without using private data
+                                <span class="status-icon">✓</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q8c" name="q8" value="Upload the entire client database">
+                            <label class="option-label" for="q8c">
+                                Upload the entire client database
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q8d" name="q8" value="Share client passwords with AI">
+                            <label class="option-label" for="q8d">
+                                Share client passwords with AI
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="question-card">
+                    <div class="question-number">QUESTION 09</div>
+                    <div class="question-text">Which of the Analytics below is not part of analytics functions of Big Data?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q9a" name="q9" value="Descriptive Analytics">
+                            <label class="option-label" for="q9a">
+                                Descriptive Analytics
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q9b" name="q9" value="Predictive Analytics">
+                            <label class="option-label" for="q9b">
+                                Predictive Analytics
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q9c" name="q9" value="Prescriptive Analytics">
+                            <label class="option-label" for="q9c">
+                                Prescriptive Analytics
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q9d" name="q9" value="Primitive Analytics">
+                            <label class="option-label" for="q9d">
+                                Primitive Analytics
+                                <span class="status-icon">✓</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="question-card">
+                    <div class="question-number">QUESTION 10</div>
+                    <div class="question-text">Which option is most secure for sharing a draft with one colleague?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q10a" name="q10" value="Anyone with the link – can edit">
+                            <label class="option-label" for="q10a">
+                                Anyone with the link – can edit
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q10b" name="q10" value="Public – anyone can view">
+                            <label class="option-label" for="q10b">
+                                Public – anyone can view
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q10c" name="q10" value="Specific person – view">
+                            <label class="option-label" for="q10c">
+                                Specific person – view
+                                <span class="status-icon">✓</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q10d" name="q10" value="Anyone with the link – can view">
+                            <label class="option-label" for="q10d">
+                                Anyone with the link – can view
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">Submit Quiz</button>
+            </form>
+        </div>
+
+        <div id="resultsSection" class="results">
+            <div class="results-summary">
+                <div class="score-label">Your Score</div>
+                <div class="score-display" id="scoreDisplay">0/10</div>
+                <div class="score-message" id="scoreMessage"></div>
+                
+                <div class="summary-stats">
+                    <div class="stat">
+                        <div class="stat-value correct" id="correctCount">0</div>
+                        <div class="stat-label">Correct Answers</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value incorrect" id="incorrectCount">0</div>
+                        <div class="stat-label">Incorrect Answers</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-section">
+                <h2 class="review-title">Answer Review</h2>
+                <div id="reviewContainer"></div>
+            </div>
+
+            <button class="retry-btn" onclick="retakeQuiz()">Retake Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            q1: 'Automation and AI',
+            q2: 'Learning prompt writing',
+            q3: 'PARA',
+            q4: 'PARA – Projects',
+            q5: "Sender address doesn't match the company domain",
+            q6: 'Report it to IT/security',
+            q7: 'Trigger: new email → Action: save to OneDrive or Google Drive',
+            q8: 'Ask AI general questions without using private data',
+            q9: 'Primitive Analytics',
+            q10: 'Specific person – view'
+        };
+
+        const questionTexts = {
+            q1: 'Which is a current trend shaping the future of work?',
+            q2: 'If your industry is adopting AI tools, which skill would help you stay relevant?',
+            q3: 'Which framework has the categories Projects, Areas, Resources, Archives?',
+            q4: 'You want to organise all notes for one ongoing project — which method is best?',
+            q5: 'Which of these is a phishing red flag?',
+            q6: 'What should you do first after spotting a phishing email?',
+            q7: 'Which one is a good example of automation?',
+            q8: 'Which is the safest way to use AI for a client report?',
+            q9: 'Which of the Analytics below is not part of analytics functions of Big Data?',
+            q10: 'Which option is most secure for sharing a draft with one colleague?'
+        };
+
+        const form = document.getElementById('quizForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const quizSection = document.getElementById('quizSection');
+        const resultsSection = document.getElementById('resultsSection');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+
+        // Update progress as user answers
+        const radioButtons = document.querySelectorAll('input[type="radio"]');
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', updateProgress);
+        });
+
+        function updateProgress() {
+            let answered = 0;
+            const totalQuestions = 10;
+            
+            for (let i = 1; i <= totalQuestions; i++) {
+                const question = document.querySelector(`input[name="q${i}"]:checked`);
+                if (question) answered++;
+            }
+            
+            const percentage = (answered / totalQuestions) * 100;
+            progressFill.style.width = percentage + '%';
+            progressText.textContent = `Question ${answered} of ${totalQuestions}`;
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Check if all questions are answered
+            let allAnswered = true;
+            for (let i = 1; i <= 10; i++) {
+                const question = document.querySelector(`input[name="q${i}"]:checked`);
+                if (!question) {
+                    allAnswered = false;
+                    break;
+                }
+            }
+
+            if (!allAnswered) {
+                alert('Please answer all questions before submitting.');
+                return;
+            }
+
+            // Calculate score and show results
+            let score = 0;
+            const formData = new FormData(form);
+            const userAnswers = {};
+
+            for (let i = 1; i <= 10; i++) {
+                const userAnswer = formData.get(`q${i}`);
+                userAnswers[`q${i}`] = userAnswer;
+                const correctAnswer = correctAnswers[`q${i}`];
+                const questionCard = document.querySelectorAll('.question-card')[i - 1];
+                const options = questionCard.querySelectorAll('.option-label');
+
+                options.forEach(option => {
+                    const input = option.previousElementSibling;
+                    const value = input.value;
+
+                    if (value === correctAnswer) {
+                        option.classList.add('correct');
+                    } else if (value === userAnswer && value !== correctAnswer) {
+                        option.classList.add('incorrect');
+                    }
+                });
+
+                if (userAnswer === correctAnswer) {
+                    score++;
+                }
+            }
+
+            // Disable form
+            const allInputs = form.querySelectorAll('input');
+            allInputs.forEach(input => input.disabled = true);
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Quiz Completed';
+
+            // Show results after a brief delay
+            setTimeout(() => {
+                displayResults(score, userAnswers);
+            }, 800);
+        });
+
+        function displayResults(score, userAnswers) {
+            const percentage = (score / 10) * 100;
+            let message = '';
+
+            if (percentage >= 90) {
+                message = 'Outstanding! You have excellent digital skills! 🌟';
+            } else if (percentage >= 70) {
+                message = 'Great job! You have a strong understanding! 💪';
+            } else if (percentage >= 50) {
+                message = 'Good effort! Keep learning and improving! 📚';
+            } else {
+                message = 'Keep practicing! Review the materials and try again! 🎯';
+            }
+
+            document.getElementById('scoreDisplay').textContent = `${score}/10`;
+            document.getElementById('scoreMessage').textContent = message;
+            document.getElementById('correctCount').textContent = score;
+            document.getElementById('incorrectCount').textContent = (10 - score);
+
+            // Generate review section
+            generateReview(userAnswers);
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Show results section
+            setTimeout(() => {
+                quizSection.style.display = 'none';
+                resultsSection.classList.add('active');
+            }, 300);
+        }
+
+        function generateReview(userAnswers) {
+            const reviewContainer = document.getElementById('reviewContainer');
+            reviewContainer.innerHTML = '';
+
+            for (let i = 1; i <= 10; i++) {
+                const questionKey = `q${i}`;
+                const userAnswer = userAnswers[questionKey];
+                const correctAnswer = correctAnswers[questionKey];
+                const questionText = questionTexts[questionKey];
+                const isCorrect = userAnswer === correctAnswer;
+
+                const reviewItem = document.createElement('div');
+                reviewItem.className = `review-item ${isCorrect ? 'correct-answer' : 'wrong-answer'}`;
+
+                const statusIcon = isCorrect ? '✓' : '✗';
+                const statusText = isCorrect ? 'Correct' : 'Incorrect';
+                const statusClass = isCorrect ? 'correct' : 'incorrect';
+
+                let answerHTML = '';
+                
+                if (isCorrect) {
+                    // Show only the correct answer
+                    answerHTML = `
+                        <div class="review-answer your-answer correct">
+                            <span class="review-answer-label correct">Your Answer:</span>
+                            <span>${userAnswer}</span>
+                        </div>
+                    `;
+                } else {
+                    // Show both wrong answer and correct answer
+                    answerHTML = `
+                        <div class="review-answer your-answer incorrect">
+                            <span class="review-answer-label incorrect">Your Answer:</span>
+                            <span>${userAnswer}</span>
+                        </div>
+                        <div class="review-answer correct-answer-display">
+                            <span class="review-answer-label correct">Correct Answer:</span>
+                            <span>${correctAnswer}</span>
+                        </div>
+                    `;
+                }
+
+                reviewItem.innerHTML = `
+                    <div class="review-header">
+                        <div class="review-question-number">QUESTION ${String(i).padStart(2, '0')}</div>
+                        <div class="review-status ${statusClass}">
+                            <span>${statusText}</span>
+                            <span class="review-status-icon">${statusIcon}</span>
+                        </div>
+                    </div>
+                    <div class="review-question-text">${questionText}</div>
+                    ${answerHTML}
+                `;
+
+                reviewContainer.appendChild(reviewItem);
+            }
+        }
+
+        function retakeQuiz() {
+            // Reset form
+            form.reset();
+            
+            // Remove all status classes
+            document.querySelectorAll('.option-label').forEach(label => {
+                label.classList.remove('correct', 'incorrect');
+            });
+
+            // Enable all inputs
+            const allInputs = form.querySelectorAll('input');
+            allInputs.forEach(input => input.disabled = false);
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Quiz';
+
+            // Reset progress
+            progressFill.style.width = '0%';
+            progressText.textContent = 'Question 0 of 10';
+
+            // Clear review
+            document.getElementById('reviewContainer').innerHTML = '';
+
+            // Hide results, show quiz
+            resultsSection.classList.remove('active');
+            quizSection.style.display = 'block';
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
