@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Decision Metrics &mdash; Build Prompts &middot; SWTS Asia Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --navy-900: #0f172a;
+        --navy-800: #1e293b;
+        --navy-700: #334155;
+        --slate-500: #64748b;
+        --slate-300: #cbd5e1;
+        --slate-100: #f1f5f9;
+        --slate-50:  #f8fafc;
+        --amber-500: #f59e0b;
+        --amber-400: #fbbf24;
+        --amber-100: #fef3c7;
+        --teal-500:  #0d9488;
+        --teal-100:  #ccfbf1;
+        --white: #ffffff;
+
+        /* Audience accent colours */
+        --lead: #be123c;          /* Executive Leadership            */
+        --lead-soft: #ffe4e6;
+        --sales: #ea580c;           /* Operations & Delivery           */
+        --sales-soft: #ffedd5;
+        --wshop: #0d9488;            /* QA & Laboratory                 */
+        --wshop-soft: #ccfbf1;
+        --proj: #4f46e5;          /* Technical & Engineering         */
+        --proj-soft: #e0e7ff;
+        --autom: #2563eb;          /* Commercial, Contracts & Credit  */
+        --autom-soft: #dbeafe;
+        --elec: #db2777;            /* HR & People                     */
+        --elec-soft: #fce7f3;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--navy-900);
+        background: var(--slate-50);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+        background:
+            radial-gradient(at 10% 20%, rgba(245, 158, 11, 0.18) 0, transparent 50%),
+            radial-gradient(at 90% 80%, rgba(13, 148, 136, 0.22) 0, transparent 50%),
+            linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 100%);
+        color: var(--white);
+        padding: 4rem 2rem 3.5rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-tag {
+        display: inline-block;
+        background: rgba(245, 158, 11, 0.15);
+        color: var(--amber-400);
+        padding: 0.4rem 1rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 1.25rem;
+        border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .hero h1 {
+        font-family: 'Poppins', sans-serif;
+        font-size: clamp(2rem, 4.5vw, 3.2rem);
+        font-weight: 800;
+        line-height: 1.15;
+        margin-bottom: 1rem;
+        letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+        background: linear-gradient(90deg, var(--amber-400), var(--teal-500));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+        color: var(--slate-300);
+        max-width: 720px;
+        margin-bottom: 2rem;
+    }
+
+    .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.9rem;
+        color: var(--slate-300);
+    }
+
+    .meta-item strong {
+        color: var(--white);
+        font-weight: 600;
+    }
+
+    /* ---------- CONTAINER ---------- */
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+    }
+
+    /* ---------- INTRO ---------- */
+    .intro-card {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+        border-left: 4px solid var(--amber-500);
+    }
+
+    .intro-card h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.4rem;
+        margin-bottom: 0.75rem;
+        color: var(--navy-900);
+    }
+
+    .intro-card p {
+        color: var(--navy-700);
+    }
+
+    /* ---------- TABLE OF CONTENTS ---------- */
+    .toc {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    .toc h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.3rem;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    .toc-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .toc a {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.7rem 1rem;
+        background: var(--slate-50);
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--navy-800);
+        font-size: 0.92rem;
+        font-weight: 500;
+        border: 1px solid transparent;
+        transition: all 0.2s ease;
+    }
+
+    .toc a:hover {
+        background: var(--navy-900);
+        color: var(--white);
+        transform: translateX(4px);
+    }
+
+    .toc a .num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        background: var(--amber-500);
+        color: var(--white);
+        border-radius: 50%;
+        font-size: 0.7rem;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    /* ---------- AUDIENCE SECTIONS ---------- */
+    .audience-section {
+        margin-bottom: 3rem;
+    }
+
+    .audience-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--slate-300);
+    }
+
+    .audience-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+    }
+
+    .audience-header h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.7rem;
+        color: var(--navy-900);
+    }
+
+    .audience-header .subtitle {
+        font-size: 0.9rem;
+        color: var(--slate-500);
+        font-weight: 500;
+    }
+
+    /* ---------- WEBPAGE CARDS ---------- */
+    .webpage-card {
+        background: var(--white);
+        border-radius: 16px;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid var(--slate-100);
+        transition: all 0.3s ease;
+    }
+
+    .webpage-card:hover {
+        box-shadow: 0 10px 32px rgba(15, 23, 42, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .card-header {
+        padding: 1.5rem 1.75rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        border-bottom: 1px solid var(--slate-100);
+    }
+
+    .card-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        height: 36px;
+        padding: 0 0.5rem;
+        border-radius: 8px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--white);
+        flex-shrink: 0;
+    }
+
+    .card-title-wrap {
+        flex: 1;
+    }
+
+    .card-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--navy-900);
+        margin-bottom: 0.3rem;
+    }
+
+    .card-role {
+        display: inline-block;
+        margin-bottom: 0.4rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--slate-500);
+    }
+
+    .card-why {
+        color: var(--navy-700);
+        font-size: 0.98rem;
+    }
+
+    .card-body {
+        padding: 1.5rem 1.75rem 1.75rem;
+        background: var(--slate-50);
+    }
+
+    .prompt-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.75rem;
+    }
+
+    .prompt-label-text {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--slate-500);
+    }
+
+    .prompt-label-text::before {
+        content: "\26A1";
+        font-size: 0.9rem;
+    }
+
+    .prompt-box {
+        background: var(--navy-900);
+        color: #e2e8f0;
+        padding: 1.25rem 1.5rem;
+        border-radius: 10px;
+        font-family: 'Inter', monospace;
+        font-size: 0.9rem;
+        line-height: 1.7;
+        border: 1px solid var(--navy-700);
+        position: relative;
+    }
+
+    .prompt-box strong {
+        color: var(--amber-400);
+        font-weight: 600;
+    }
+
+    .prompt-box em {
+        color: var(--teal-100);
+        font-style: normal;
+    }
+
+    .prompt-box .show-code {
+        color: var(--amber-400);
+        font-weight: 600;
+    }
+
+    /* ---------- COPY BUTTON ---------- */
+    .copy-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.9rem;
+        padding: 0.6rem 1.1rem;
+        background: var(--white);
+        color: var(--navy-900);
+        border: 1.5px solid var(--navy-900);
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-family: inherit;
+    }
+
+    .copy-btn:hover {
+        background: var(--navy-900);
+        color: var(--white);
+        transform: translateY(-1px);
+    }
+
+    .copy-btn.copied {
+        background: var(--teal-500);
+        color: var(--white);
+        border-color: var(--teal-500);
+    }
+
+    .copy-btn .copy-icon {
+        font-size: 0.95rem;
+    }
+
+    /* Audience-specific accent colours */
+    .audience-section.lead .audience-badge { background: var(--lead-soft); color: var(--lead); }
+    .audience-section.lead .card-number { background: var(--lead); }
+
+    .audience-section.sales .audience-badge { background: var(--sales-soft); color: var(--sales); }
+    .audience-section.sales .card-number { background: var(--sales); }
+
+    .audience-section.wshop .audience-badge { background: var(--wshop-soft); color: var(--wshop); }
+    .audience-section.wshop .card-number { background: var(--wshop); }
+
+    .audience-section.proj .audience-badge { background: var(--proj-soft); color: var(--proj); }
+    .audience-section.proj .card-number { background: var(--proj); }
+
+    .audience-section.autom .audience-badge { background: var(--autom-soft); color: var(--autom); }
+    .audience-section.autom .card-number { background: var(--autom); }
+
+    .audience-section.elec .audience-badge { background: var(--elec-soft); color: var(--elec); }
+    .audience-section.elec .card-number { background: var(--elec); }
+
+    /* ---------- TIP BOX ---------- */
+    .tip-box {
+        background: linear-gradient(135deg, var(--amber-100) 0%, #fff 100%);
+        border-left: 4px solid var(--amber-500);
+        padding: 1.5rem 1.75rem;
+        border-radius: 12px;
+        margin: 3rem 0;
+    }
+
+    .tip-box h3 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.15rem;
+        margin-bottom: 0.5rem;
+        color: var(--navy-900);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .tip-box p {
+        color: var(--navy-700);
+    }
+
+    .tip-box ul {
+        margin-top: 0.75rem;
+        padding-left: 1.5rem;
+        color: var(--navy-700);
+    }
+
+    .tip-box ul li {
+        margin-bottom: 0.4rem;
+    }
+
+    /* ---------- BACK TO TOP BUTTON ---------- */
+    .back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 100%);
+        color: var(--white);
+        border: 2px solid var(--amber-500);
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        line-height: 1;
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.3);
+        transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        z-index: 9999;
+        font-family: inherit;
+        font-weight: 700;
+    }
+
+    .back-to-top .arrow {
+        font-size: 1.3rem;
+        line-height: 1;
+    }
+
+    .back-to-top .label {
+        font-size: 0.55rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-top: 2px;
+        font-weight: 700;
+    }
+
+    .back-to-top:hover {
+        background: linear-gradient(135deg, var(--amber-500) 0%, var(--amber-400) 100%);
+        border-color: var(--navy-900);
+        color: var(--navy-900);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 28px rgba(245, 158, 11, 0.45);
+    }
+
+    .back-to-top:active {
+        transform: translateY(-1px);
+    }
+
+    @media (max-width: 768px) {
+        .back-to-top {
+            bottom: 1.25rem;
+            right: 1.25rem;
+            width: 50px;
+            height: 50px;
+        }
+        .back-to-top .arrow { font-size: 1.15rem; }
+        .back-to-top .label { font-size: 0.5rem; }
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+        background: var(--navy-900);
+        color: var(--slate-300);
+        padding: 2.5rem 2rem;
+        text-align: center;
+    }
+
+    footer p {
+        font-size: 0.9rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    footer p + p {
+        margin-top: 0.75rem;
+        color: var(--slate-500);
+        font-size: 0.82rem;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+        .hero { padding: 3rem 1.25rem 2.5rem; }
+        .container { padding: 2rem 1.25rem; }
+        .intro-card, .toc { padding: 1.5rem; }
+        .card-header { padding: 1.25rem; flex-wrap: wrap; }
+        .card-body { padding: 1.25rem; }
+        .prompt-box { font-size: 0.85rem; padding: 1rem 1.1rem; }
+        .audience-header { gap: 0.75rem; }
+        .audience-header h2 { font-size: 1.35rem; }
+        .hero-meta { gap: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+        .toc-grid { grid-template-columns: 1fr; }
+        .card-title { font-size: 1.1rem; }
+    }
+</style>
+</head>
+<body>
+
+<!-- ====== HERO ====== -->
+<header class="hero">
+    <div class="hero-inner">
+        <span class="hero-tag">SWTS &middot; SFDW 2.0 &middot; Day 2 &middot; Decision Support</span>
+        <h1>The Decision Metrics <span>&mdash; Build Prompts</span></h1>
+        <p>Twenty-six strategic thinking models from <em>The Decision Book</em> by Mikael Krogerus &amp; Roman Tsch&auml;ppeler, turned into copy-paste prompts. Each one builds you a working tool you can fill in with a real decision you are facing right now &mdash; not a diagram to admire, an instrument to use.</p>
+        <div class="hero-meta">
+            <div class="meta-item">&#127919; <span><strong>4</strong> parts</span></div>
+            <div class="meta-item">&#129504; <span><strong>26</strong> models</span></div>
+            <div class="meta-item">&#9889; <span><strong>26</strong> build prompts</span></div>
+        </div>
+    </div>
+</header>
+
+<!-- ====== MAIN ====== -->
+<main class="container">
+
+    <section class="intro-card">
+        <h2>How to use this guide</h2>
+        <p>Pick a model that matches a decision you are actually carrying, then copy its <strong>build prompt</strong> straight into an AI tool &mdash; Microsoft Copilot, ChatGPT, Claude, or Gemini. Every prompt is self-contained and produces a single HTML page with embedded CSS and vanilla JavaScript that you can open in any browser, fill in with your own situation, and keep. Each one ends with an instruction to <strong>show the full HTML source code in the code console</strong> so you can copy it directly. Do not try to build all twenty-six &mdash; <strong>choose the one that fits the decision in front of you</strong>, build it, and use it today. The models are grouped as the book groups them: improving your own decisions, understanding yourself, understanding others and risk, then leading teams.</p>
+    </section>
+
+    <nav class="toc">
+        <h2>&#128203; Table of Contents</h2>
+        <div class="toc-grid">
+            <a href="#part1" data-target="part1"><span class="num">1</span> Improve Your Decisions</a>
+            <a href="#part2" data-target="part2"><span class="num">2</span> Understand Yourself</a>
+            <a href="#part3" data-target="part3"><span class="num">3</span> Understand Others &amp; Risk</a>
+            <a href="#part4" data-target="part4"><span class="num">4</span> Lead &amp; Improve Others</a>
+        </div>
+    </nav>
+
+    <!-- ============ PART 1 ============ -->
+    <section id="part1" class="audience-section lead">
+        <div class="audience-header">
+            <div class="audience-badge">&#9878;</div>
+            <div>
+                <h2>Part 1 &middot; Improve Your Decisions</h2>
+                <div class="subtitle">Prioritising, evaluating, committing &mdash; the instruments you reach for before a call gets made</div>
+            </div>
+        </div>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">01</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Eisenhower Matrix</span>
+                    <h3 class="card-title">Urgent / Important Task Sorter</h3>
+                    <p class="card-why">Splits your list into do, schedule, delegate and eliminate &mdash; and shows you how little time you actually give the important-but-not-urgent quadrant where strategy lives.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Eisenhower Matrix Task Sorter</strong> for a senior manager at a Singapore engineering services company. Top: an input row to add a task with <em>task</em>, <em>urgent yes/no</em>, <em>important yes/no</em>, <em>owner</em>, and <em>due date</em>, appending to the matrix below. Middle: a 2&times;2 grid with quadrants labelled <em>Do it now</em> (urgent + important), <em>Schedule it</em> (important, not urgent), <em>Delegate it</em> (urgent, not important) and <em>Eliminate it</em> (neither), each quadrant listing its tasks as cards that can be dragged or moved by dropdown between quadrants, colour-coded, with a live count and an auto-calculated percentage of tasks in each. Add a prominent callout that reads how many tasks sit in <em>Schedule it</em> and warns when that quadrant holds less than 20% of the list, with the line "this is the strategic quadrant most people neglect &mdash; when will you deal with these before they become urgent?". Below: a Buffett focus panel that takes the top item from <em>Do it now</em> and displays it alone as today's single task, with a completed tick that reveals the next one only after the first is crossed off. Add a "Copy my matrix" button. Seed with 12 realistic management tasks spread across all four quadrants. Executive aesthetic &mdash; navy with crimson accents, generous whitespace. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">02</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">SWOT Analysis</span>
+                    <h3 class="card-title">SWOT Workbench with Action Questions</h3>
+                    <p class="card-why">Most SWOTs stop at four lists. This one forces the second step the book insists on &mdash; what will you actually do about each entry.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>SWOT Analysis Workbench</strong> for a director evaluating a project or business decision at a Singapore engineering services group. Top: a header for <em>what is being analysed</em> and <em>date</em>. Middle: a 2&times;2 grid of <em>Strengths</em>, <em>Weaknesses</em>, <em>Opportunities</em> and <em>Threats</em>, each an editable list where entries can be added, reordered and deleted, colour-coded, with internal factors (S, W) visually distinguished from external ones (O, T) and a live count per quadrant. Below &mdash; and this is the important part &mdash; an action panel that automatically pulls every entry into a table with the matching action question beside it: strengths ask <em>how can we emphasise this?</em>, weaknesses ask <em>how can we compensate for this?</em>, opportunities ask <em>how can we maximise this?</em>, threats ask <em>how can we protect against this?</em> &mdash; each with an <em>action</em> field, an <em>owner</em> and a <em>by when</em>, and a warning badge on any entry left without an action. Add a completion meter showing what proportion of entries have actions assigned, and a "Copy SWOT and actions" button. Seed with a sample analysis of a bid decision. Executive aesthetic &mdash; navy with crimson accents. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">03</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">BCG Box</span>
+                    <h3 class="card-title">Cash Cows, Stars, Question Marks &amp; Dogs</h3>
+                    <p class="card-why">Plots your service lines or products on market share against growth, and tells you plainly which to milk, which to feed, which to decide about and which to let go.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>BCG Portfolio Box</strong> for the leadership of a Singapore engineering services group assessing its service lines. Top: an entry form with <em>service line or product</em>, <em>relative market share</em> (1&ndash;10), <em>market growth rate</em> (1&ndash;10), <em>revenue (SGD)</em>, and <em>margin %</em>. Middle: a 2&times;2 plot with share on one axis and growth on the other, each item shown as a bubble whose size scales with revenue, positioned by its two scores, colour-coded by quadrant &mdash; <em>Cash cows</em> (high share, low growth), <em>Stars</em> (high share, high growth), <em>Question marks</em> (low share, high growth) and <em>Dogs</em> (low share, low growth) &mdash; with the quadrants labelled and lightly shaded. Below: a recommendation table listing each item with its quadrant and the book's prescription written out &mdash; milk cash cows for low-cost returns, invest in stars because growth devours money but pays off, make a deliberate call on question marks about whether to support them into stars, liquidate dogs unless they carry non-financial value &mdash; each with a <em>decision</em> dropdown (Milk / Invest / Support / Divest / Keep for strategic reasons) and a <em>rationale</em> field. Add a portfolio balance warning if more than half of revenue sits in cash cows or dogs. Add a "Copy portfolio review" button. Seed with 8 service lines. Executive aesthetic &mdash; navy with crimson accents, monospace for figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">04</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Project Portfolio Matrix</span>
+                    <h3 class="card-title">Learning vs Objective Alignment</h3>
+                    <p class="card-why">The book's sharpest variation &mdash; score each project on how much it moves your main objective against how much you learn from it, and the reject / redirect / delegate / prioritise call becomes obvious.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Project Portfolio Matrix</strong> for a senior manager balancing multiple projects at a Singapore engineering group. Top: a field to state <em>my overriding objective this year</em>, held visible at all times, plus an entry form for each project with <em>project</em>, <em>how much this achieves my overriding objective</em> (1&ndash;10), <em>how much I am learning from this</em> (1&ndash;10), <em>time commitment per week (hours)</em>, and <em>status</em>. Middle: a 2&times;2 plot of objective alignment against learning, with each project a labelled dot and the four zones named and prescribed &mdash; low learning and low alignment reads <em>Reject the project</em>, high learning and low alignment reads <em>Interesting but will not help your goal &mdash; try to redirect it</em>, low learning and high alignment reads <em>Delegate it to someone else</em>, and high learning and high alignment reads <em>Jackpot &mdash; prioritise this</em>. Below: a decision table listing each project with its zone, the recommended action, an <em>accepted action</em> dropdown, an <em>owner if delegated</em> field and a <em>note</em>, plus an auto-calculated total of hours per week committed and a warning if hours in the reject or delegate zones exceed 20% of the total. Add a standing reminder that projects should be completed properly even when unsuccessful. Add a "Copy portfolio decisions" button. Seed with 9 projects. Executive aesthetic &mdash; navy with crimson accents. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">05</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Feedback Analysis &middot; Peter Drucker</span>
+                    <h3 class="card-title">Decision Journal &amp; Expectation Tracker</h3>
+                    <p class="card-why">Write down what you expect before you decide, then compare it later. Over time it shows where your judgement is genuinely strong, rather than where you assume it is.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Decision Journal and Expectation Tracker</strong> based on Peter Drucker's feedback analysis, for a senior manager at a Singapore engineering company. Top: 4 KPI cards &mdash; <em>decisions logged</em>, <em>awaiting review</em>, <em>due for review now</em>, and <em>accuracy rate</em> (proportion of reviewed decisions where the outcome matched the expectation). Middle: an entry form to log a decision with <em>date</em>, <em>the decision</em>, <em>category</em> (People / Commercial / Technical / Operational / Strategic), <em>what I expect to happen</em>, <em>confidence</em> (1&ndash;10), <em>what would tell me I was wrong</em>, and <em>review date</em> defaulting to twelve months out, appending to a table where any entry whose review date has passed is highlighted for review (simulate today's date). Below: a review panel that reopens a past entry showing the original expectation with the outcome fields hidden until the user commits their recollection first, then captures <em>what actually happened</em>, <em>match</em> (Better / As expected / Worse), and <em>what this tells me</em>. Add a patterns panel that groups reviewed decisions by category and shows accuracy per category as simple CSS bars, surfacing where the user's judgement is strongest and weakest, with a note that most people are wrong about what they are good at. Add a "Copy decision journal summary" button. Seed with 10 entries, 6 of them reviewed. Executive aesthetic &mdash; navy with crimson accents, clean journal styling. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">06</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">The Yes/No Rule</span>
+                    <h3 class="card-title">Decision Gate Builder</h3>
+                    <p class="card-why">Set your criteria once, then let them decide. Simple rules beat complex analysis when you make the same kind of call over and over.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Yes/No Decision Gate Builder</strong> for a manager at a Singapore engineering services company who repeatedly makes the same class of decision, such as whether to bid a tender, take on a rush job, or extend credit. Top: a gate builder where the user names the <em>decision type</em> and defines between two and five <em>criteria</em>, each phrased as a yes/no question with a short <em>why this matters</em> note, saved as a reusable gate. Middle: a run panel that loads a saved gate and walks a live case through it, presenting one criterion at a time as a large Yes / No choice with the case details entered at the top, and delivering a single unambiguous verdict at the end &mdash; proceed only if every criterion is Yes, otherwise decline &mdash; displayed as a full-width banner in green or red with the failed criteria named. Below: a decision history logging every case run through each gate with <em>date</em>, <em>case</em>, <em>verdict</em>, <em>criteria failed</em>, and an optional <em>overridden yes/no</em> with a mandatory reason if the verdict was overridden, plus an override rate per gate shown prominently, on the basis that a gate overridden often is a gate with the wrong criteria. Add a "Copy gate definition" and a "Copy decision log" button. Seed with two gates and 8 logged cases. Executive aesthetic &mdash; navy with crimson accents, large decisive typography. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">07</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">The Stop Rule</span>
+                    <h3 class="card-title">Pre-Set Stop Rule Register</h3>
+                    <p class="card-why">Decide the exit before you are emotionally committed. The book's point is blunt &mdash; broken stop rules on Everest in 1996 killed eight people.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Stop Rule Register</strong> for a manager at a Singapore engineering services company. Top: an explanatory banner stating that a stop rule is unconditional and set in advance, with the two worked examples from the book &mdash; the investor who sells at a 10% loss without question, and the mountaineers who turn around at 2pm whether or not they have reached the summit. Middle: a register where the user defines a rule with <em>what this applies to</em> (a project, an investment, a client relationship, a recruitment, a repair job), <em>the trigger</em> expressed as a precise measurable condition, <em>the action I will take</em>, <em>date set</em>, and <em>who else knows about this rule</em> &mdash; with a validation warning if the trigger is written vaguely, checking for the presence of a number, a date or a quantity and prompting the user to make it measurable if none is found. Below: a live monitor listing each active rule with a <em>current value</em> field the user updates, an auto status of Safe, Approaching (within 20% of the trigger) or <strong>Triggered</strong> shown as a full-width red banner naming the action that was pre-committed, and a breach log recording every time a triggered rule was followed or overridden, with a mandatory reason on override and a running count of overrides per rule. Add a "Copy my stop rules" button. Seed with 6 rules, one of them triggered. Executive aesthetic &mdash; navy with crimson accents, unambiguous status styling. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">08</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">SCAMPER Checklist</span>
+                    <h3 class="card-title">Structured Creativity Generator</h3>
+                    <p class="card-why">Seven fixed lenses applied to something you already have. Structured creativity beats waiting for inspiration in a workshop.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>SCAMPER Idea Generator</strong> for a management team at a Singapore engineering services company reconfiguring an existing service, process or product. Top: a field naming <em>what we are reconfiguring</em> and a short <em>current description</em>, held visible throughout. Middle: seven stacked panels, one per SCAMPER lens, each with its definition and two or three prompting questions written out &mdash; <em>Substitute</em> (replace people, components, materials), <em>Combine</em> (merge with other functions or things), <em>Adapt</em> (modify function or appearance), <em>Modify</em> (change size, shape, texture, acoustics), <em>Put to other use</em> (find new or combined uses), <em>Eliminate</em> (reduce, simplify, remove the superfluous), and <em>Reverse</em> (invert, use conversely) &mdash; each panel holding an editable list of generated ideas with an <em>idea</em> field and a <em>promise</em> rating of 1&ndash;5, and showing a count so thin lenses are obvious. Add a facilitation mode with a per-lens countdown timer defaulting to three minutes that advances automatically to the next lens, for running this live with a group. Below: a shortlist panel that gathers every idea rated 4 or 5 across all lenses into one ranked list with an <em>owner</em> and a <em>next step</em> field. Add a "Copy all ideas" and a "Copy shortlist" button. Seed with a worked example. Executive aesthetic &mdash; navy with crimson accents. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ============ PART 2 ============ -->
+    <section id="part2" class="audience-section wshop">
+        <div class="audience-header">
+            <div class="audience-badge">&#128269;</div>
+            <div>
+                <h2>Part 2 &middot; Understand Yourself</h2>
+                <div class="subtitle">Self-awareness instruments &mdash; how you are seen, what energises you, and how to face a genuinely hard choice</div>
+            </div>
+        </div>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">09</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">The Johari Window</span>
+                    <h3 class="card-title">Open, Hidden, Blind Spot &amp; Unknown</h3>
+                    <p class="card-why">Maps what you know about yourself against what others see. The blind spot pane is the uncomfortable one, and the reason to run it with your team.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Johari Window Mapper</strong> for a manager at a Singapore engineering services company. Top: a brief explanation of the four panes and a name field for whose window this is. Middle: a 2&times;2 window with panes labelled <em>Open</em> (known to self, known to others), <em>Hidden</em> (known to self, not to others), <em>Blind spot</em> (not known to self, known to others) and <em>Unknown</em> (known to neither), each an editable list of traits or behaviours, colour-coded, with a live count and a proportional visual so a large blind spot or hidden pane is immediately apparent. Add a trait picker offering a standard list of adjectives (for example decisive, patient, blunt, organised, impatient, supportive, detail-focused, big-picture) that can be assigned to a pane in one click, plus free entry. Below: a feedback intake mode where colleagues' observations can be entered as <em>observation</em>, <em>from whom</em>, and <em>date</em>, with a control to move any observation into the <em>Blind spot</em> pane if it was a surprise or into <em>Open</em> if it was already known &mdash; the act of sorting being the exercise. Add guidance text noting that the hidden pane shrinks as trust builds and that blind-spot feedback can be enlightening but hurtful, so it should be sought deliberately rather than stumbled into. Add a "Copy my window" button. Seed with a partially completed example. Reflective aesthetic &mdash; navy with teal accents, calm and legible. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">10</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">The Flow Model &middot; Csíkszentmihályi</span>
+                    <h3 class="card-title">Challenge vs Skill Diagnostic</h3>
+                    <p class="card-why">Plots each part of your week between boreout and burnout. Useful on yourself, more useful on the people reporting to you.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Flow Model Diagnostic</strong> for a manager at a Singapore engineering services company assessing their own work or that of their team. Top: an entry form to add an activity with <em>activity</em>, <em>person</em> (self or a team member), <em>challenge level</em> (1&ndash;10), <em>skill level</em> (1&ndash;10), and <em>hours per week</em>. Middle: a plot of challenge against skill with a diagonal flow channel drawn through the centre, each activity shown as a labelled dot sized by hours, and three zones named and shaded &mdash; above the channel <em>Anxiety and burnout</em> (challenge exceeds skill), below it <em>Boredom and boreout</em> (skill exceeds challenge), and within it <em>Flow</em>. Below: a diagnostic table listing each activity with its zone and a tailored recommendation &mdash; raise the challenge or add responsibility for boredom, add support, training or reduce scope for anxiety, protect and expand for flow &mdash; plus an auto-calculated proportion of each person's week spent in each zone shown as a stacked CSS bar per person, so a team member sitting mostly outside flow is obvious at a glance. Add a checklist of the five conditions of flow (intense focus, own choosing, neither under- nor over-challenging, clear objective, immediate feedback) that can be ticked per activity, with a note on which condition is missing most often. Add a "Copy flow diagnostic" button. Seed with 10 activities across 3 people. Reflective aesthetic &mdash; navy with teal accents. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">11</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">The Personal Performance Model</span>
+                    <h3 class="card-title">Have To / Able To / Want To Tracker</h3>
+                    <p class="card-why">Three scores every evening for three weeks. The shape that emerges tells you whether the problem is the job, the fit, or the appetite.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Personal Performance Tracker</strong> for a manager deciding whether their current role still fits, at a Singapore engineering services company. Top: an explanation that this is a three-week exercise, scored once each evening, and a progress ring showing days completed out of 21. Middle: a daily entry card presenting three questions scored 1&ndash;10 on large tap targets &mdash; <em>Have to</em>: to what extent were tasks imposed on me today? <em>Able to</em>: to what extent did tasks match my abilities? <em>Want to</em>: to what extent did tasks match what I really want? &mdash; plus an optional one-line <em>what drove that</em> note, saved against the date and locked once submitted for that day, with a control to backfill a missed day. Below: an analysis view that unlocks progressively, plotting all three scores over the 21 days as three CSS or inline-SVG lines on one chart, with weekly averages, the gap between <em>want to</em> and <em>have to</em> highlighted as the key signal, and a shape summary in words &mdash; for example consistently high have-to with low want-to indicates imposed work misaligned with motivation, while high able-to with low want-to suggests competence without appetite. Add a prompt at day 21 asking whether the shape ever changed, with a note that a shape that never changes means digging deeper into the gap between what you want, what you can do, and what you are required to do. Add a "Copy my three-week analysis" button. Seed with 14 days of plausible data. Reflective aesthetic &mdash; navy with teal accents. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">12</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">The Hard Choice Model &middot; Ruth Chang</span>
+                    <h3 class="card-title">Comparability vs Consequence</h3>
+                    <p class="card-why">Separates decisions that analysis can settle from genuinely hard choices, where the book says to stop looking for reasons out there and look for reasons in here.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Hard Choice Model</strong> based on Ruth Chang's framework, for a senior manager facing a difficult decision. Top: fields for <em>the decision</em> and the <em>two or more options</em> under consideration. Middle: two scored questions &mdash; <em>how easy is it to compare these options?</em> (1&ndash;10) and <em>how big are the consequences?</em> (1&ndash;10) &mdash; placing the decision as a marker on a 2&times;2 grid with the four zones named and explained: easy to compare with small consequence is an <em>easy decision, just choose</em>; hard to compare with small consequence is <em>annoying but low stakes, decide quickly and move on</em>; easy to compare with big consequence is a <em>big but clear decision, do the analysis properly</em>; and hard to compare with big consequence is a <em>hard choice</em>. Below: the panel that appears only for a hard choice, which deliberately refuses to offer a scoring or weighting tool and instead asks the user to write, for each option, <em>what kind of person choosing this makes me</em>, <em>what I would be committing to</em>, and <em>what I would be giving up</em> &mdash; followed by a single field, <em>the reason I am putting my weight behind this option</em>. Display Ruth Chang's line prominently: there is no best alternative, so instead of looking for reasons out there we should be looking for reasons in here. For the other three zones, offer the appropriate lightweight aid instead &mdash; a simple weighted comparison table for the clear decisions and a timer for the low-stakes one. Add a "Copy my decision" button. Seed with a worked example. Reflective aesthetic &mdash; navy with teal accents, generous whitespace. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">13</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">The Crossroads Model</span>
+                    <h3 class="card-title">Six Roads Ahead</h3>
+                    <p class="card-why">For a leader at a genuine fork. Forces you to name all six roads, including the wild one and the one back to safety, before choosing.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Crossroads Model</strong> for a senior professional at a career or strategic crossroads. Top: a reflection section with five prompted questions, each a textarea &mdash; <em>where have you come from?</em>, <em>what is really important to you?</em>, <em>which people matter?</em>, <em>what is hindering you?</em>, and <em>what are you afraid of?</em> &mdash; which must all carry an answer before the roads section unlocks, so the reflection is not skipped. Middle: six road panels laid out as paths radiating from a central point, each named and described in the book's terms &mdash; <em>the road I have already been down</em>, <em>the road that beckons</em> (what have I always wanted to try), <em>my wildest dream road</em> (regardless of feasibility), <em>the most sensible road others would suggest</em>, <em>the road not travelled</em> (one I have never considered), and <em>the road back to safety</em> &mdash; each with fields for <em>where it leads</em>, <em>what it costs</em>, <em>what it requires of me</em>, and an <em>attraction</em> rating of 1&ndash;10 that adjusts the visual weight of that path. Below: a comparison view ranking the roads by attraction with the reflection answers displayed alongside, and a final commitment field asking <em>which road, and what is the first step I will take within 30 days</em>, with a date. Add a "Copy my crossroads" button. Seed the tool empty but with placeholder guidance in each field. Reflective aesthetic &mdash; navy with teal accents, spacious and unhurried. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ============ PART 3 ============ -->
+    <section id="part3" class="audience-section proj">
+        <div class="audience-header">
+            <div class="audience-badge">&#127760;</div>
+            <div>
+                <h2>Part 3 &middot; Understand Others &amp; Risk</h2>
+                <div class="subtitle">Risk, failure, adoption and conflict &mdash; the models for reading a situation you do not fully control</div>
+            </div>
+        </div>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">14</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">The Rumsfeld Matrix</span>
+                    <h3 class="card-title">Known &amp; Unknown Risk Analysis</h3>
+                    <p class="card-why">Sorts risk into what you know, what you know you do not know, what you sense but cannot articulate, and what you never imagined. The last quadrant is where catastrophes live.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Rumsfeld Risk Matrix</strong> for the leadership of a Singapore engineering services group assessing a project, contract or business risk. Top: a field naming <em>what we are assessing</em>. Middle: a 2&times;2 grid with the four quadrants named and explained &mdash; <em>Known knowns</em> (risks we understand and have countermeasures for), <em>Known unknowns</em> (risks we know exist but cannot predict, such as a market downturn), <em>Unknown knowns</em> (intuition, things we know more about than we admit, where the book notes we forgive gut mistakes more readily than analytical ones), and <em>Unknown unknowns</em> (risks we never imagined) &mdash; each an editable list where a risk is added with <em>risk</em>, <em>potential impact</em> (1&ndash;5), <em>countermeasure or early warning signal</em>, and <em>owner</em>, colour-coded by quadrant with a live count. Below: two working panels. The first converts risks between quadrants, since the value of the exercise is moving items leftward toward the known &mdash; each unknown-known gets a field asking <em>what does my gut say and why can I not evidence it</em>, and each known-unknown gets an <em>early warning indicator</em> to watch. The second is an imagination exercise for the unknown-unknown quadrant, prompting the team with structured provocations such as what would a competitor do to hurt us, what would have to be true for our biggest client to leave tomorrow, and what has gone wrong at a similar company that we assume cannot happen here &mdash; on the book's point that catastrophes reflect a lack of imagination rather than a lack of information. Add a "Copy risk matrix" button. Seed with 12 risks. Analytical aesthetic &mdash; navy with indigo accents. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">15</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">The Swiss Cheese Model &middot; James Reason</span>
+                    <h3 class="card-title">Defence Layer &amp; Failure Analysis</h3>
+                    <p class="card-why">Shows how an incident passes through every defence you thought you had. Built for an engineering group that runs permits, isolations and inspections.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Swiss Cheese Failure Analysis</strong> for a safety or operations leader at a Singapore engineering services company. Top: a field describing <em>the incident or near miss</em> and its <em>date</em>, plus a classification of the mistake type using the book's three categories &mdash; <em>real mistake</em> (wrong process chosen), <em>blackout</em> (a step forgotten), <em>slip-up</em> (right process performed incorrectly) &mdash; and its level: skill-based, rule-based or knowledge-based. Middle: a visual stack of defence layers drawn as slices with holes, where the user defines each layer that should have caught the problem &mdash; for example permit to work, risk assessment, toolbox talk, supervisor check, isolation and lock-off, competency and training, equipment guard or interlock, final inspection &mdash; and marks each as <em>held</em>, <em>partially held</em> or <em>had a hole</em>, with a required <em>why the hole existed</em> note for any failed layer. Render the slices in sequence with an arrow that visibly passes through the aligned holes when every layer failed, so the alignment is the point rather than a single culprit. Below: a strengthening panel that lists each failed layer with a <em>corrective action</em>, <em>owner</em>, <em>due date</em> and <em>how we will verify it held</em>, plus a repeat-hole detector that flags when the same layer has failed in more than one logged incident, and a running incident history. Add a "Copy failure analysis" button. Seed with two incidents. Analytical aesthetic &mdash; navy with indigo accents. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">16</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Double-Loop Learning &middot; Argyris &amp; Schön</span>
+                    <h3 class="card-title">Questioning the Values Behind the Action</h3>
+                    <p class="card-why">Single-loop fixes the action. Double-loop asks why you were doing it that way at all &mdash; which is where behaviour actually changes.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Double-Loop Learning Worksheet</strong> for a manager at a Singapore engineering services company examining a recurring problem. Top: a field for <em>the recurring problem or pattern</em> and <em>how many times this has happened</em>. Middle: two clearly separated loops rendered as distinct visual circuits. The <em>single loop</em> captures <em>what we did</em>, <em>what result we got</em>, and <em>what we adjusted</em>, with a prompt asking whether this adjustment has been made before and a warning banner if the user indicates it has, noting that repeating the same correction is single-loop learning at its worst. The <em>double loop</em> then unlocks and asks the harder questions in sequence &mdash; <em>what objective were we pursuing?</em>, <em>what value or assumption sits behind that objective?</em>, <em>who set it and when?</em>, <em>is it still true?</em>, and <em>what would we do differently if it were not?</em> &mdash; each a required textarea. Below: an espoused theory versus theory in use panel presenting two columns, <em>what we say we do</em> against <em>what we actually do</em>, for the same situation, with a gap note per row, and a closing commitment field for the value or assumption being changed, its owner, and how the change will be visible to others. Add guidance text noting that real change does not come from new guidelines or directives but from reassessing deeply rooted reasons, objectives and values. Add a "Copy learning worksheet" button. Seed with a worked example. Analytical aesthetic &mdash; navy with indigo accents. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">17</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Appreciative Inquiry</span>
+                    <h3 class="card-title">Problem-to-Strength Reframer</h3>
+                    <p class="card-why">Swaps "what is the problem?" for "what is going really well?", and names the four discussion types so a team can spot the fault-finder in the room.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Appreciative Inquiry Reframer</strong> for a management team at a Singapore engineering services company. Top: a side-by-side reframing tool where the user types a problem statement on the left and the tool prompts for its appreciative counterpart on the right, replacing <em>what is the problem?</em> with <em>what is going really well right now?</em> and <em>why is this failing?</em> with <em>when has this worked, and what was different then?</em>, keeping a running list of reframed pairs. Middle: a four-quadrant panel naming the book's four discussion types with their signature phrases &mdash; the <em>fault-finder</em> ("the idea is good, but..."), the <em>dictator</em> ("no!"), the <em>schoolteacher</em> ("no, the idea isn't good because..."), and the <em>AI thinker</em> ("yes, and we could also...") &mdash; each with a tally counter that can be tapped during a live meeting to record how often each type appeared, producing a discussion profile at the end showing the balance and flagging when fault-finding exceeded building. Below: a build-on panel taking any undeveloped idea and running it through three forced rounds of "yes, and...", each round adding one contribution and one contributor's name, on the principle that focusing too strongly on flaws stifles the open approach essential to good work and that undeveloped ideas should be developed further rather than prematurely abandoned. Add a "Copy reframes" and a "Copy discussion profile" button. Seed with three worked reframes. Analytical aesthetic &mdash; navy with indigo accents. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">18</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">The Conflict Resolution Model</span>
+                    <h3 class="card-title">Six Approaches, One Win-Win</h3>
+                    <p class="card-why">Lays out flight, fight, give up, evade, compromise and consensus with their honest outcomes &mdash; and shows that only consensus produces a genuine win-win.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Conflict Resolution Selector</strong> for a manager at a Singapore engineering services company handling a live dispute. Top: fields for <em>the conflict</em>, <em>the parties</em>, <em>what each party says they want</em>, and <em>what each may actually need underneath that</em>. Middle: six approach cards, each named with its mechanism and its honest outcome label &mdash; <em>Flight</em> (avoid the conflict) leading to lose-lose, <em>Fight</em> (dominate) leading to win-lose, <em>Give up</em> (retreat) leading to lose-win, <em>Evade responsibility</em> (delegate to an authority) risking lose-lose, <em>Compromise</em> (an acceptable middle ground) producing a partial win-lose on both sides, and <em>Consensus</em> (develop a third way together) producing a true win-win &mdash; each card carrying <em>when this is appropriate</em>, <em>what it costs</em>, and a selectable state, with the outcome label rendered in a colour matching its quality so the asymmetry between compromise and consensus is visible rather than asserted. Below: a consensus builder that unlocks when consensus is chosen, guiding the user through stating each party's underlying interest, listing options that serve both, and drafting a third way neither party arrived with, ending in an agreement field with <em>what we agreed</em>, <em>who does what</em>, <em>by when</em>, and <em>how we will know it held</em>. Add a note that only consensus creates a true win-win because both parties develop a new solution rather than either backing down. Add a "Copy conflict plan" button. Seed with a worked example. Analytical aesthetic &mdash; navy with indigo accents. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">19</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">The Diffusion Model &middot; Rogers</span>
+                    <h3 class="card-title">Crossing the Chasm Tracker</h3>
+                    <p class="card-why">Maps who has adopted a change and who has not, and locates the chasm between your early adopters and the sceptical majority. Directly useful for an AI rollout.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Diffusion and Chasm Tracker</strong> for a leader rolling out a new tool, process or way of working at a Singapore engineering services group. Top: a field naming <em>the change being adopted</em> and the <em>total population</em> it applies to. Middle: an adoption curve rendered along five segments &mdash; <em>Innovators</em>, <em>Early adopters</em>, then a clearly drawn <strong>CHASM</strong>, then <em>Sceptical masses</em> and <em>Stragglers</em> &mdash; where individuals or teams are added with <em>name or team</em>, <em>current segment</em>, <em>evidence they have adopted</em>, and <em>what is holding them back</em>, shown as chips positioned in their segment with a live count and percentage per segment. Add a prominent chasm indicator computing the proportion of the population that has crossed past the early adopters, with a status reading Pre-chasm, At the chasm, or Crossed, and the note that this is the critical point for any innovation and that crossing it leads to the tipping point and mass adoption. Below: a crossing strategy panel that lists everyone still short of the chasm with a tailored action field, plus a reference-story builder capturing what each early adopter achieved in concrete terms, since the sceptical majority moves on proof from peers rather than on advocacy from enthusiasts, and a champion register naming who will carry the change into each team. Add a "Copy adoption status" button. Seed with 20 people across the segments, positioned just short of the chasm. Analytical aesthetic &mdash; navy with indigo accents. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">20</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">The Pareto Principle</span>
+                    <h3 class="card-title">80/20 Analyser</h3>
+                    <p class="card-why">Feed in clients, products or time spent and see the actual split. The ratio is rarely exactly 80/20, and knowing your real number changes where you put effort.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Pareto 80/20 Analyser</strong> for a manager at a Singapore engineering services company. Top: a selector for what is being analysed &mdash; <em>clients by revenue</em>, <em>products or service lines by margin</em>, <em>tasks by time spent</em>, <em>faults by downtime caused</em>, or a custom label &mdash; and an entry table taking an <em>item</em> and a <em>value</em>, with paste-friendly bulk entry. Middle: a Pareto chart built in pure CSS or inline SVG showing items sorted descending as bars with a cumulative percentage line drawn across them, an 80% reference line marked, and the vital few highlighted in a contrasting colour. Directly beneath, a headline sentence computed from the data stating the real split in plain words, for example "the top 4 of your 25 clients (16%) generate 71% of revenue" &mdash; and a note that the true ratio is rarely exactly 80/20, so the point is knowing your own number. Below: an action panel splitting items into the <em>vital few</em> above the 80% cumulative threshold and the <em>useful many</em> below it, each with a prompted question &mdash; for the vital few, <em>how am I protecting and growing this?</em>, and for the useful many, <em>what would happen if I gave this less attention?</em> &mdash; with an action and owner per entry, plus a concentration risk warning if fewer than three items account for more than half the total. Add a "Copy Pareto analysis" button. Seed with 25 clients by revenue. Analytical aesthetic &mdash; navy with indigo accents, monospace for figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ============ PART 4 ============ -->
+    <section id="part4" class="audience-section elec">
+        <div class="audience-header">
+            <div class="audience-badge">&#128101;</div>
+            <div>
+                <h2>Part 4 &middot; Lead &amp; Improve Others</h2>
+                <div class="subtitle">Leading people and running teams &mdash; the models that turn management instinct into something repeatable</div>
+            </div>
+        </div>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">21</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Situational Leadership &middot; Hersey-Blanchard</span>
+                    <h3 class="card-title">Instruct, Coach, Support, Delegate</h3>
+                    <p class="card-why">Places each of your people at their development stage and tells you which style to use. The stated goal is to lead so that you become superfluous.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Situational Leadership Grid</strong> for a manager leading a team at a Singapore engineering services company. Top: an entry form to add a team member with <em>name</em>, <em>role</em>, <em>the specific task or responsibility being assessed</em> (since the same person sits at different stages for different tasks), <em>expertise</em> (1&ndash;10) and <em>commitment or motivation</em> (1&ndash;10). Middle: a grid placing each person-task pairing into one of the four stages, each named with its prescribed style written out &mdash; <em>Instructing</em> for a new person with high commitment and low expertise, where the guidance is to give clear orders; <em>Coaching</em> for someone settling in whose expertise is rising while motivation dips, where the guidance is to ask questions and let them find answers; <em>Supporting</em> for an experienced person with variable motivation, where the guidance is to encourage independence and their own ideas; and <em>Delegating</em> for someone with high expertise and high motivation, where the guidance is to give them their own projects and teams. Show each person as a card in their stage, colour-coded, with a live count per stage. Below: a per-person action panel with <em>what I will do differently</em>, <em>what I will stop doing</em>, <em>next review date</em>, and a movement history showing how each person has progressed between stages over time. Add a prominent panel computing what proportion of the team sits in Delegating, framed against the principle that you should lead in such a way that you make yourself superfluous. Add a "Copy leadership plan" button. Seed with 8 team members across all four stages. Leadership aesthetic &mdash; navy with magenta accents. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">22</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">De Bono's Six Thinking Hats</span>
+                    <h3 class="card-title">Meeting Facilitator with Timer</h3>
+                    <p class="card-why">Runs a real meeting hat by hat, with everyone wearing the same colour at the same time &mdash; which is the rule most people break and the reason it usually fails.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Six Thinking Hats Facilitator</strong> for a manager running a structured discussion at a Singapore engineering services company. Top: fields for <em>the question or decision being discussed</em>, <em>participants</em>, and a total meeting length that is divided across the hats. Middle: six hat panels, each colour-coded and carrying its definition &mdash; <em>White</em>: analytical and objective, facts and feasibility only; <em>Red</em>: emotional, subjective feelings and opinions with no justification required; <em>Black</em>: critical, risk assessment and problems; <em>Yellow</em>: optimistic, the speculative best case; <em>Green</em>: creative, new ideas and brainstorming; <em>Blue</em>: structured, process overview and the big picture &mdash; with only the active hat expanded at any time and a countdown timer per hat that advances automatically, enforcing the central rule that all members wear the same colour hat at the same moment. Each panel captures contributions as a list with an optional contributor name. Add a facilitator control to reorder the hats before starting and to pause or extend the current hat. Below: a summary assembling every hat's contributions into one structured record, with a balance indicator showing time and contribution count per hat so a discussion dominated by black-hat thinking is visible, and a closing decision field. Add a reference panel listing Belbin's nine team roles grouped as action-oriented (doer, implementer, perfectionist), communication-oriented (coordinator, team player, trailblazer) and knowledge-oriented (innovator, observer, specialist), with the note that homogenous teams do not work as well and real strength lies in differences. Add a "Copy meeting record" button. Seed with a worked example. Leadership aesthetic &mdash; navy with magenta accents, bold hat colours. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">23</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Result Optimization &middot; Triple Loop</span>
+                    <h3 class="card-title">Three-Pass Project Planner</h3>
+                    <p class="card-why">Split the available time into three equal loops and complete the whole thing three times. Better output, and a team that feels achievement three times instead of relief once.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Triple Loop Result Optimiser</strong> for a manager running a deliverable at a Singapore engineering services company. Top: fields for <em>the deliverable</em>, <em>total time available</em> and <em>final deadline</em>, from which the tool automatically divides the time into three equal loops and computes a target completion date for each, displayed as three milestones on a simple timeline. Middle: three loop panels, each containing the same three phases &mdash; <em>gather ideas</em>, <em>consolidate</em>, and <em>implement</em> &mdash; with a task list per phase, an owner and a tick per task, and an auto completion percentage per loop. Enforce the discipline that each loop must produce a complete version of the deliverable rather than a partial one: require a <em>this loop's output</em> field to be filled before the next loop unlocks, and show a warning if a loop is left partially complete. Below: a comparison panel placing the three versions side by side with <em>what improved from the previous loop</em> and <em>what we learned</em> per iteration, plus a satisfaction check after each loop asking the team to rate the output 1&ndash;10, charted across the three loops so the improvement curve is visible. Add a note that this method produces both better quality and greater team satisfaction, because achievement is reinforced three times rather than replaced by relief that the work is finally done. Add a "Copy loop plan" button. Seed with a worked example at the end of loop two. Leadership aesthetic &mdash; navy with magenta accents. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">24</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">The Project Management Triangle</span>
+                    <h3 class="card-title">Good, Fast, Cheap &mdash; Pick Two</h3>
+                    <p class="card-why">Makes the trade-off explicit and forces the client conversation early, rather than discovering the constraint halfway through the job.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Project Triangle Trade-Off Tool</strong> for a project manager at a Singapore engineering services company negotiating scope with a client or an internal sponsor. Top: fields for <em>the project</em>, <em>the client or sponsor</em>, and <em>what they have asked for</em>. Middle: an interactive triangle with the three vertices <em>Good</em> (quality), <em>Fast</em> (schedule) and <em>Cheap</em> (cost), where exactly two may be selected at a time &mdash; selecting a third automatically deselects the earliest choice, making the constraint physically unavoidable rather than merely stated. As two are chosen, display the consequence in a large banner using the book's formulation: good and fast means expensive, fast and cheap means bad, good and cheap means slow. Beneath the banner, capture what that consequence means concretely for this project with fields for <em>what this will cost</em>, <em>what date this lands</em>, and <em>what quality standard applies</em>, so the abstract trade-off becomes a number the sponsor has to accept. Below: a negotiation record logging each conversation with <em>date</em>, <em>who</em>, <em>what they asked to change</em>, <em>which vertex they wanted to move</em>, <em>what they agreed to give up in exchange</em>, and <em>agreed yes/no</em>, with a warning banner if the record shows scope, schedule and budget all being pushed in the same direction without any concession, since that is the failure pattern the model exists to expose. Add a "Copy trade-off agreement" button. Seed with a worked example and three negotiation entries. Leadership aesthetic &mdash; navy with magenta accents, bold decisive typography. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">25</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Drexler/Sibbet Team Performance Model</span>
+                    <h3 class="card-title">Seven Stages to Becoming a Team</h3>
+                    <p class="card-why">Tracks a group through the seven stages and the question each one raises. Skip a stage and the team comes back to it later, usually at the worst moment.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Team Performance Stage Tracker</strong> based on the Drexler/Sibbet model, for a leader forming or reviving a team at a Singapore engineering services company. Top: fields for <em>the team</em>, <em>its purpose</em>, <em>members</em>, and <em>when it formed</em>. Middle: seven sequential stage panels moving from orientation through to renewal, each carrying the core question that emerges at that point &mdash; the early stages ask <em>why am I here?</em>, the middle stages ask <em>how will we do it?</em>, and the final stages ask <em>why continue?</em> &mdash; with each stage holding a <em>resolved</em> or <em>unresolved</em> state, a <em>what tells us this is resolved</em> field, notes, and a date. Render the stages as a path where unresolved stages remain visibly open even when later stages are marked complete, and show a warning whenever a later stage is marked resolved while an earlier one is not, stating the model's rule that a team which skips a stage will return to it later. Below: a diagnostic panel for the team's current position with prompted facilitation questions for the active stage, plus a conflict note capturing unresolved tensions, on the model's guidance that open conflict is better than issues that simmer through later stages and that one should not be afraid of stirring up negative feelings. Add a leader's commitment field, since groups move forward only when someone dares to take the first step and the leader should be prepared to be the first to make mistakes. Include a standing note that the model is a compass, not a pacemaker. Add a "Copy team assessment" button. Seed with a team stalled at a middle stage. Leadership aesthetic &mdash; navy with magenta accents. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">26</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">The Expectations Model</span>
+                    <h3 class="card-title">Expectation Calibration</h3>
+                    <p class="card-why">No expectations breeds indifference, high ones raise satisfaction until a tipping point past which disappointment is guaranteed. Worth running on your team's targets.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Expectation Calibration Model</strong> for a manager at a Singapore engineering services company setting targets for a team or a project. Top: an entry form to add an expectation with <em>what is expected</em>, <em>of whom</em>, <em>set by</em> (self, my manager, the client), <em>how high</em> (1&ndash;10), <em>how confident we are it can be met</em> (1&ndash;10), and <em>what happens if it is missed</em>. Middle: a curve plotting expectation level against satisfaction, drawn so that satisfaction rises with expectation up to a tipping point and then falls away as expectations become unattainable, with each logged expectation placed on the curve as a labelled marker and a zone reading of <em>Indifference</em> (expectations too low to motivate), <em>Motivating</em> (the productive band), or <em>Set up to disappoint</em> (past the tipping point), the last shown in red. Below: a calibration panel for each expectation in the disappointing zone, asking the model's key question &mdash; <em>what would you lose if you lowered this expectation?</em> &mdash; alongside <em>what would a realistic version look like?</em>, <em>who needs to agree to the change?</em>, and <em>when will I have that conversation?</em>. Add a promise-and-deliver tracker recording what was promised against what was delivered for past expectations, computing a personal ratio, with a reference to the book's rule of thumb to promise 80 and deliver 120, and a flag when the pattern shows consistent over-promising. Add a "Copy expectation review" button. Seed with 8 expectations across all three zones. Leadership aesthetic &mdash; navy with magenta accents. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ====== TIPS ====== -->
+    <div class="tip-box">
+        <h3>&#128161; How to get the most from these</h3>
+        <p>These models earn their keep only when pointed at something real:</p>
+        <ul>
+            <li><strong>Bring a live decision.</strong> Do not build a model to admire it &mdash; pick the one that matches a call you are actually carrying this week.</li>
+            <li>Paste the entire prompt into your AI tool in one go &mdash; don't trim it. The last line asks the AI to <strong>show the full HTML code in the console</strong> so you can copy it straight out.</li>
+            <li>After the first build, ask for iterations: <em>"Replace the seed data with my actual team"</em> or <em>"Add a print stylesheet so I can take this into the meeting."</em></li>
+            <li>Several of these are <strong>better run with your team than alone</strong> &mdash; the Johari Window, Six Thinking Hats, Appreciative Inquiry and the Team Performance model are all designed for a room, not a desk.</li>
+            <li>The remaining models in <em>The Decision Book</em> are principles rather than instruments &mdash; Black Swan, cognitive dissonance, choice overload, the prisoner's dilemma. They are worth knowing but there is nothing to fill in, so they are not built here.</li>
+        </ul>
+    </div>
+
+</main>
+
+<!-- ====== BACK TO TOP BUTTON ====== -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top">
+    <span class="arrow" aria-hidden="true">&uarr;</span>
+    <span class="label">TOP</span>
+</button>
+
+<!-- ====== FOOTER ====== -->
+<footer>
+    <p>The Decision Metrics &mdash; adapted from <em>The Decision Book: Fifty Models for Strategic Thinking</em> by Mikael Krogerus &amp; Roman Tsch&auml;ppeler</p>
+    <p>SWTS Asia Group &middot; SkillsFuture for Digital Workplace 2.0 (General) &middot; 24 &amp; 25 August 2026 &mdash; designed for training use, adapt freely to your team and business context.</p>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // Copy-to-clipboard for prompt buttons
+        var copyButtons = document.querySelectorAll('.copy-btn');
+        copyButtons.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var promptBox = this.previousElementSibling;
+                if (!promptBox) return;
+
+                var text = promptBox.innerText.trim();
+
+                var labelEl = this.querySelector('.copy-label');
+                var iconEl = this.querySelector('.copy-icon');
+                var btn = this;
+
+                var showSuccess = function() {
+                    btn.classList.add('copied');
+                    if (iconEl) iconEl.textContent = '✓';
+                    if (labelEl) labelEl.textContent = 'Copied!';
+                    setTimeout(function() {
+                        btn.classList.remove('copied');
+                        if (iconEl) iconEl.textContent = '📋';
+                        if (labelEl) labelEl.textContent = 'Copy prompt';
+                    }, 2000);
+                };
+
+                var fallbackCopy = function(str) {
+                    var ta = document.createElement('textarea');
+                    ta.value = str;
+                    ta.style.position = 'fixed';
+                    ta.style.top = '0';
+                    ta.style.left = '0';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.focus();
+                    ta.select();
+                    try {
+                        document.execCommand('copy');
+                        showSuccess();
+                    } catch (err) {
+                        // silent fail
+                    }
+                    document.body.removeChild(ta);
+                };
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(showSuccess).catch(function() {
+                        fallbackCopy(text);
+                    });
+                } else {
+                    fallbackCopy(text);
+                }
+            });
+        });
+
+        // Back-to-top floating button — reliable inside Google Sites iframe embeds
+        var backToTopBtn = document.getElementById('backToTop');
+        if (backToTopBtn) {
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                if (document.documentElement) {
+                    document.documentElement.scrollTop = 0;
+                }
+                if (document.body) {
+                    document.body.scrollTop = 0;
+                }
+
+                try {
+                    if (window.parent && window.parent !== window) {
+                        window.parent.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                } catch (e) {
+                    // Cross-origin parent — can't scroll it, but that's fine.
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
