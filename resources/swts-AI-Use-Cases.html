@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AI Use-Case Value / Effort Grid &mdash; SWTS Asia Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;}
+  :root{
+    --navy-900:#0f172a; --navy-800:#1e293b; --navy-700:#334155;
+    --slate-500:#64748b; --slate-300:#cbd5e1; --slate-100:#f1f5f9; --slate-50:#f8fafc;
+    --amber-500:#f59e0b; --amber-400:#fbbf24;
+    --white:#fff;
+    --qw:#0d9488;  /* quick wins  */
+    --bb:#4f46e5;  /* big bets    */
+    --fi:#f59e0b;  /* fill-ins    */
+    --av:#be123c;  /* avoid       */
+  }
+  body{margin:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--navy-900);
+       background:var(--slate-50);line-height:1.6;-webkit-font-smoothing:antialiased;
+       -webkit-text-size-adjust:100%;}
+
+  /* ---------- HERO ---------- */
+  .hero{background:radial-gradient(at 12% 20%,rgba(245,158,11,.20) 0,transparent 55%),
+                   radial-gradient(at 88% 80%,rgba(13,148,136,.24) 0,transparent 55%),
+                   linear-gradient(135deg,var(--navy-900) 0%,var(--navy-800) 100%);
+        color:#fff;padding:1.9rem 1.15rem 1.6rem;}
+  .hero-inner{max-width:760px;margin:0 auto;}
+  .hero-tag{display:inline-block;background:rgba(245,158,11,.15);color:var(--amber-400);
+            padding:.32rem .8rem;border-radius:999px;font-size:.66rem;font-weight:700;
+            letter-spacing:.09em;text-transform:uppercase;margin-bottom:.75rem;
+            border:1px solid rgba(245,158,11,.32);}
+  .hero h1{font-family:'Poppins',sans-serif;font-size:clamp(1.4rem,5.6vw,2.1rem);font-weight:800;
+           line-height:1.16;margin:0 0 .5rem;letter-spacing:-.02em;}
+  .hero h1 span{background:linear-gradient(90deg,var(--amber-400),var(--qw));
+                -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .hero p{color:var(--slate-300);font-size:.94rem;margin:0;}
+
+  .wrap{max-width:760px;margin:0 auto;padding:1.15rem 1.15rem 3.5rem;}
+
+  .card{background:#fff;border-radius:15px;padding:1.15rem;margin-bottom:1.15rem;
+        box-shadow:0 3px 18px rgba(15,23,42,.06);border:1px solid var(--slate-100);}
+  .card h2{font-family:'Poppins',sans-serif;font-size:1.02rem;margin:0 0 .2rem;
+           display:flex;align-items:center;gap:.5rem;}
+  .step{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;
+        border-radius:50%;background:var(--navy-900);color:#fff;font-size:.72rem;font-weight:700;flex:0 0 auto;}
+  .hint{color:var(--slate-500);font-size:.84rem;margin:.25rem 0 .9rem;}
+  ul.steps{margin:.45rem 0 1rem;padding-left:1.15rem;color:var(--navy-700);font-size:.9rem;}
+  ul.steps li{margin-bottom:.34rem;}
+  ul.steps li::marker{color:var(--amber-500);}
+  ul.steps strong{color:var(--navy-900);}
+
+  /* ---------- USE CASE ROWS ---------- */
+  .uc{border:1px solid var(--slate-100);border-radius:12px;padding:.85rem;margin-bottom:.8rem;
+      background:var(--slate-50);position:relative;}
+  .uc-top{display:flex;align-items:center;gap:.55rem;margin-bottom:.7rem;}
+  .uc-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+          border-radius:7px;background:var(--navy-800);color:#fff;font-weight:700;font-size:.8rem;flex:0 0 auto;}
+  .uc-top input{flex:1;min-width:0;border:1.5px solid var(--slate-300);border-radius:9px;
+                padding:.62rem .7rem;font-family:inherit;font-size:.95rem;background:#fff;color:var(--navy-900);}
+  .uc-top input:focus{outline:none;border-color:var(--navy-800);}
+  .del{background:none;border:none;color:var(--slate-500);font-size:1.35rem;line-height:1;
+       padding:.2rem .3rem;cursor:pointer;flex:0 0 auto;}
+  .del:hover{color:var(--av);}
+
+  .scale-row{margin-top:.55rem;}
+  .scale-label{font-size:.73rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+               color:var(--slate-500);margin-bottom:.32rem;display:flex;justify-content:space-between;}
+  .scale{display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem;}
+  .scale button{padding:.6rem .2rem;border:1.5px solid var(--slate-300);background:#fff;border-radius:9px;
+                font-family:inherit;font-size:.92rem;font-weight:600;color:var(--navy-700);cursor:pointer;
+                -webkit-tap-highlight-color:transparent;}
+  .scale button.on{background:var(--navy-900);border-color:var(--navy-900);color:#fff;}
+  .scale.eff button.on{background:var(--amber-500);border-color:var(--amber-500);color:var(--navy-900);}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;padding:.72rem 1.05rem;
+       border-radius:10px;font-family:inherit;font-size:.9rem;font-weight:600;cursor:pointer;border:1.5px solid var(--navy-900);
+       background:#fff;color:var(--navy-900);-webkit-tap-highlight-color:transparent;}
+  .btn:hover{background:var(--navy-900);color:#fff;}
+  .btn.primary{background:var(--navy-900);color:#fff;}
+  .btn.primary:hover{background:var(--navy-800);}
+  .btn.ghost{border-color:var(--slate-300);color:var(--slate-500);}
+  .btn.ghost:hover{background:var(--slate-100);color:var(--navy-900);}
+  .btn.done{background:var(--qw);border-color:var(--qw);color:#fff;}
+  .btnrow{display:flex;flex-wrap:wrap;gap:.55rem;}
+
+  /* ---------- GRID ---------- */
+  .plotwrap{position:relative;margin:.4rem auto 0;width:100%;max-width:430px;}
+  .ylab{position:absolute;left:-2px;top:50%;transform:translateY(-50%) rotate(-90deg);
+        transform-origin:center;font-size:.68rem;font-weight:700;letter-spacing:.1em;
+        text-transform:uppercase;color:var(--slate-500);white-space:nowrap;}
+  .plotpad{padding-left:1.35rem;}
+  .plot{position:relative;width:100%;aspect-ratio:1/1;border:2px solid var(--slate-300);border-radius:12px;
+        background:#fff;overflow:hidden;}
+  .quad{position:absolute;width:50%;height:50%;display:flex;align-items:flex-start;justify-content:center;
+        padding-top:.5rem;font-size:.63rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;}
+  .q-qw{left:0;top:0;background:rgba(13,148,136,.09);color:var(--qw);}
+  .q-bb{right:0;top:0;background:rgba(79,70,229,.09);color:var(--bb);}
+  .q-fi{left:0;bottom:0;background:rgba(245,158,11,.11);color:#b45309;}
+  .q-av{right:0;bottom:0;background:rgba(190,18,60,.08);color:var(--av);}
+  .axis{position:absolute;background:var(--slate-300);}
+  .axis.h{left:0;right:0;top:50%;height:2px;}
+  .axis.v{top:0;bottom:0;left:50%;width:2px;}
+  .dot{position:absolute;width:29px;height:29px;border-radius:50%;color:#fff;font-weight:700;
+       font-size:.8rem;display:flex;align-items:center;justify-content:center;
+       transform:translate(-50%,50%);box-shadow:0 2px 7px rgba(15,23,42,.32);border:2px solid #fff;}
+  .xlab{text-align:center;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+        color:var(--slate-500);margin-top:.5rem;}
+  .empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+         color:var(--slate-500);font-size:.86rem;text-align:center;padding:1.5rem;}
+
+  /* ---------- RESULTS ---------- */
+  .qgrid{display:grid;grid-template-columns:1fr;gap:.7rem;margin-top:1rem;}
+  @media(min-width:600px){.qgrid{grid-template-columns:1fr 1fr;}}
+  .qbox{border-radius:11px;padding:.8rem .9rem;border-left:4px solid;background:var(--slate-50);}
+  .qbox h3{font-family:'Poppins',sans-serif;font-size:.85rem;margin:0 0 .1rem;}
+  .qbox .sub{font-size:.73rem;color:var(--slate-500);margin-bottom:.45rem;}
+  .qbox ol{margin:0;padding-left:1.1rem;font-size:.88rem;}
+  .qbox li{margin-bottom:.18rem;}
+  .qbox .none{font-size:.84rem;color:var(--slate-500);font-style:italic;}
+  .b-qw{border-color:var(--qw);} .b-qw h3{color:var(--qw);}
+  .b-bb{border-color:var(--bb);} .b-bb h3{color:var(--bb);}
+  .b-fi{border-color:var(--fi);} .b-fi h3{color:#b45309;}
+  .b-av{border-color:var(--av);} .b-av h3{color:var(--av);}
+
+  .tally{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem;}
+  .pill{font-size:.76rem;font-weight:700;padding:.34rem .7rem;border-radius:999px;background:var(--slate-100);color:var(--navy-700);}
+
+  .note{background:linear-gradient(135deg,#fef3c7 0%,#fff 100%);border-left:4px solid var(--amber-500);
+        border-radius:11px;padding:.9rem 1rem;font-size:.88rem;color:var(--navy-700);}
+  .note strong{color:var(--navy-900);}
+  footer{background:var(--navy-900);color:var(--slate-300);padding:1.5rem 1.15rem;text-align:center;font-size:.8rem;}
+  footer p{margin:0 0 .3rem;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="hero-tag">SWTS &middot; SFDW 2.0 &middot; Day 1 Activity</span>
+    <h1>AI Use-Case <span>Value / Effort Grid</span></h1>
+    <p>List the recurring work in your division, score each one, and see where it lands. Your quick wins are the ones to start with.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="card">
+    <h2><span class="step">1</span> Add your use cases</h2>
+    <ul class="steps">
+      <li>List recurring tasks your team does &mdash; reports, quotations, scheduling, meeting notes, data checking</li>
+      <li>Aim for <strong>4 to 6</strong></li>
+      <li><strong>Value</strong> &mdash; what it is worth if it works</li>
+      <li><strong>Effort</strong> &mdash; how hard it is to put in place</li>
+    </ul>
+    <div id="list"></div>
+    <div class="btnrow">
+      <button class="btn primary" id="add">+ Add use case</button>
+      <button class="btn ghost" id="demo">Show example</button>
+      <button class="btn ghost" id="clear">Clear all</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2><span class="step">2</span> Your grid</h2>
+    <ul class="steps">
+      <li>Scores of <strong>4&ndash;5</strong> count as high</li>
+      <li>Tap a number above to move a dot</li>
+      <li>Tap the same number again to clear it</li>
+    </ul>
+    <div class="plotwrap">
+      <div class="ylab">Value &rarr;</div>
+      <div class="plotpad">
+        <div class="plot" id="plot">
+          <div class="quad q-qw">Quick wins</div>
+          <div class="quad q-bb">Big bets</div>
+          <div class="quad q-fi">Fill-ins</div>
+          <div class="quad q-av">Avoid</div>
+          <div class="axis h"></div>
+          <div class="axis v"></div>
+          <div class="empty" id="empty">Add a use case above and it will appear here</div>
+        </div>
+        <div class="xlab">Effort &rarr;</div>
+      </div>
+    </div>
+    <div class="tally" id="tally"></div>
+  </section>
+
+  <section class="card">
+    <h2><span class="step">3</span> What to do about each</h2>
+    <div class="qgrid">
+      <div class="qbox b-qw"><h3>Quick wins</h3><div class="sub">High value, low effort &mdash; start here this month</div><div id="o-qw"></div></div>
+      <div class="qbox b-bb"><h3>Big bets</h3><div class="sub">High value, high effort &mdash; plan properly, resource them</div><div id="o-bb"></div></div>
+      <div class="qbox b-fi"><h3>Fill-ins</h3><div class="sub">Low value, low effort &mdash; do them if they are free</div><div id="o-fi"></div></div>
+      <div class="qbox b-av"><h3>Avoid</h3><div class="sub">Low value, high effort &mdash; say no, for now</div><div id="o-av"></div></div>
+    </div>
+    <div class="btnrow" style="margin-top:1rem;">
+      <button class="btn primary" id="copy"><span id="copytxt">Copy my summary</span></button>
+    </div>
+  </section>
+
+  <div class="note">
+    <strong>Before you leave today:</strong>
+    <ul class="steps" style="margin-bottom:0;">
+      <li>Screenshot your grid</li>
+      <li>Start your <strong>quick wins</strong> this month</li>
+      <li>Bring your <strong>big bets</strong> to tomorrow's session</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  <p>SWTS Pte Ltd &middot; Exion Asia Pte Ltd &middot; ON Engineers Pte Ltd</p>
+  <p>SkillsFuture for Digital Workplace 2.0 (General) &middot; 24 &amp; 25 August 2026</p>
+</footer>
+
+<script>
+(function(){
+  var KEY='swts_ucgrid_v1';
+  var items=[];
+  var listEl=document.getElementById('list');
+
+  var SAMPLE=[
+    {n:'Consolidating the monthly plant report',v:5,e:2},
+    {n:'Drafting quotations from enquiry emails',v:4,e:2},
+    {n:'Writing up meeting notes and actions',v:2,e:1},
+    {n:'Predictive maintenance on critical machines',v:5,e:5},
+    {n:'Automating the weekly manpower roster',v:3,e:4}
+  ];
+
+  function load(){
+    try{var r=localStorage.getItem(KEY); if(r){items=JSON.parse(r)||[];}}catch(e){items=[];}
+    if(!Array.isArray(items)) items=[];
+    if(items.length===0) items=[{n:'',v:0,e:0}];
+  }
+  function save(){ try{localStorage.setItem(KEY,JSON.stringify(items));}catch(e){} }
+
+  function quad(it){
+    if(it.v===0||it.e===0) return null;
+    var hv=it.v>3, he=it.e>3;
+    if(hv&&!he) return 'qw';
+    if(hv&&he)  return 'bb';
+    if(!hv&&!he)return 'fi';
+    return 'av';
+  }
+  var QCOL={qw:'var(--qw)',bb:'var(--bb)',fi:'var(--fi)',av:'var(--av)'};
+  var QNAME={qw:'Quick win',bb:'Big bet',fi:'Fill-in',av:'Avoid'};
+
+  function scaleHTML(kind,idx,val){
+    var h='<div class="scale'+(kind==='e'?' eff':'')+'">';
+    for(var i=1;i<=5;i++){
+      h+='<button type="button" data-k="'+kind+'" data-i="'+idx+'" data-v="'+i+'"'+
+         (val===i?' class="on"':'')+'>'+i+'</button>';
+    }
+    return h+'</div>';
+  }
+
+  function render(){
+    // rows
+    var h='';
+    items.forEach(function(it,i){
+      h+='<div class="uc">'+
+           '<div class="uc-top">'+
+             '<span class="uc-num">'+(i+1)+'</span>'+
+             '<input type="text" data-i="'+i+'" placeholder="e.g. consolidating the monthly report" value="'+
+                String(it.n||'').replace(/"/g,'&quot;')+'">'+
+             '<button class="del" type="button" data-del="'+i+'" aria-label="Remove">&times;</button>'+
+           '</div>'+
+           '<div class="scale-row"><div class="scale-label"><span>Value</span><span>1 low &middot; 5 high</span></div>'+scaleHTML('v',i,it.v)+'</div>'+
+           '<div class="scale-row"><div class="scale-label"><span>Effort</span><span>1 easy &middot; 5 hard</span></div>'+scaleHTML('e',i,it.e)+'</div>'+
+         '</div>';
+    });
+    listEl.innerHTML=h;
+
+    // plot
+    var plot=document.getElementById('plot');
+    Array.prototype.slice.call(plot.querySelectorAll('.dot')).forEach(function(d){d.remove();});
+    var placed=0;
+    items.forEach(function(it,i){
+      var q=quad(it); if(!q) return;
+      placed++;
+      var d=document.createElement('div');
+      d.className='dot';
+      d.style.background=QCOL[q];
+      d.style.left=(8+((it.e-1)/4)*84)+'%';
+      d.style.bottom=(8+((it.v-1)/4)*84)+'%';
+      d.textContent=(i+1);
+      d.title=it.n||('Use case '+(i+1));
+      plot.appendChild(d);
+    });
+    document.getElementById('empty').style.display= placed? 'none':'flex';
+
+    // quadrant lists
+    var buckets={qw:[],bb:[],fi:[],av:[]};
+    items.forEach(function(it,i){
+      var q=quad(it); if(!q) return;
+      buckets[q].push((i+1)+'. '+(it.n&&it.n.trim()? it.n.trim() : 'Untitled use case'));
+    });
+    ['qw','bb','fi','av'].forEach(function(k){
+      var el=document.getElementById('o-'+k);
+      if(buckets[k].length===0){ el.innerHTML='<div class="none">Nothing here yet</div>'; return; }
+      el.innerHTML='<ol>'+buckets[k].map(function(t){
+        return '<li>'+t.replace(/^\d+\.\s*/,'')+'</li>';}).join('')+'</ol>';
+    });
+
+    // tally
+    var scored=items.filter(function(it){return quad(it);}).length;
+    document.getElementById('tally').innerHTML=
+      '<span class="pill">'+scored+' scored</span>'+
+      '<span class="pill" style="color:var(--qw)">'+buckets.qw.length+' quick wins</span>'+
+      '<span class="pill" style="color:var(--bb)">'+buckets.bb.length+' big bets</span>'+
+      '<span class="pill" style="color:#b45309">'+buckets.fi.length+' fill-ins</span>'+
+      '<span class="pill" style="color:var(--av)">'+buckets.av.length+' avoid</span>';
+
+    save();
+  }
+
+  // delegated events
+  listEl.addEventListener('click',function(ev){
+    var b=ev.target.closest('button'); if(!b) return;
+    if(b.hasAttribute('data-del')){
+      var di=parseInt(b.getAttribute('data-del'),10);
+      items.splice(di,1);
+      if(items.length===0) items=[{n:'',v:0,e:0}];
+      render(); return;
+    }
+    if(b.hasAttribute('data-k')){
+      var k=b.getAttribute('data-k'), i=parseInt(b.getAttribute('data-i'),10), v=parseInt(b.getAttribute('data-v'),10);
+      if(!items[i]) return;
+      items[i][k]= (items[i][k]===v? 0 : v);   // tap again to clear
+      render();
+    }
+  });
+  listEl.addEventListener('input',function(ev){
+    var t=ev.target;
+    if(t.tagName==='INPUT'&&t.hasAttribute('data-i')){
+      var i=parseInt(t.getAttribute('data-i'),10);
+      if(items[i]){ items[i].n=t.value; save(); }
+    }
+  });
+
+  document.getElementById('add').addEventListener('click',function(){
+    items.push({n:'',v:0,e:0}); render();
+    var ins=listEl.querySelectorAll('input[data-i]');
+    if(ins.length){ ins[ins.length-1].focus(); }
+  });
+  document.getElementById('demo').addEventListener('click',function(){
+    items=SAMPLE.map(function(s){return {n:s.n,v:s.v,e:s.e};}); render();
+  });
+  document.getElementById('clear').addEventListener('click',function(){
+    items=[{n:'',v:0,e:0}]; render();
+  });
+
+  document.getElementById('copy').addEventListener('click',function(){
+    var lines=['AI Use-Case Value / Effort Grid',''];
+    var order=[['qw','QUICK WINS - start here'],['bb','BIG BETS - plan and resource'],
+               ['fi','FILL-INS - only if free'],['av','AVOID - say no for now']];
+    order.forEach(function(pair){
+      var got=items.filter(function(it){return quad(it)===pair[0];});
+      lines.push(pair[1]+':');
+      if(got.length===0){ lines.push('  (none)'); }
+      else got.forEach(function(it){
+        lines.push('  - '+(it.n&&it.n.trim()?it.n.trim():'Untitled')+'  [value '+it.v+', effort '+it.e+']');
+      });
+      lines.push('');
+    });
+    var txt=lines.join('\n');
+    var lbl=document.getElementById('copytxt');
+    function ok(){ lbl.textContent='Copied'; document.getElementById('copy').classList.add('done');
+      setTimeout(function(){lbl.textContent='Copy my summary';document.getElementById('copy').classList.remove('done');},2000); }
+    function fallback(){
+      var ta=document.createElement('textarea'); ta.value=txt;
+      ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta);
+      ta.focus(); ta.select();
+      try{ document.execCommand('copy'); ok(); }catch(e){}
+      document.body.removeChild(ta);
+    }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(ok).catch(fallback);
+    } else { fallback(); }
+  });
+
+  load(); render();
+})();
+</script>
+
+</body>
+</html>
