@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excel COPILOT Function &mdash; Oil &amp; Gas Use Cases &middot; SWTS Asia Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --navy-900: #0f172a;
+        --navy-800: #1e293b;
+        --navy-700: #334155;
+        --slate-500: #64748b;
+        --slate-300: #cbd5e1;
+        --slate-100: #f1f5f9;
+        --slate-50:  #f8fafc;
+        --amber-500: #f59e0b;
+        --amber-400: #fbbf24;
+        --amber-100: #fef3c7;
+        --teal-500:  #0d9488;
+        --teal-100:  #ccfbf1;
+        --white: #ffffff;
+
+        /* Audience accent colours */
+        --lead: #be123c;          /* Executive Leadership            */
+        --lead-soft: #ffe4e6;
+        --sales: #ea580c;           /* Operations & Delivery           */
+        --sales-soft: #ffedd5;
+        --wshop: #0d9488;            /* QA & Laboratory                 */
+        --wshop-soft: #ccfbf1;
+        --proj: #4f46e5;          /* Technical & Engineering         */
+        --proj-soft: #e0e7ff;
+        --autom: #2563eb;          /* Commercial, Contracts & Credit  */
+        --autom-soft: #dbeafe;
+        --elec: #db2777;            /* HR & People                     */
+        --elec-soft: #fce7f3;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--navy-900);
+        background: var(--slate-50);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+        background:
+            radial-gradient(at 10% 20%, rgba(245, 158, 11, 0.18) 0, transparent 50%),
+            radial-gradient(at 90% 80%, rgba(13, 148, 136, 0.22) 0, transparent 50%),
+            linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 100%);
+        color: var(--white);
+        padding: 4rem 2rem 3.5rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-tag {
+        display: inline-block;
+        background: rgba(245, 158, 11, 0.15);
+        color: var(--amber-400);
+        padding: 0.4rem 1rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 1.25rem;
+        border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .hero h1 {
+        font-family: 'Poppins', sans-serif;
+        font-size: clamp(2rem, 4.5vw, 3.2rem);
+        font-weight: 800;
+        line-height: 1.15;
+        margin-bottom: 1rem;
+        letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+        background: linear-gradient(90deg, var(--amber-400), var(--teal-500));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+        color: var(--slate-300);
+        max-width: 720px;
+        margin-bottom: 2rem;
+    }
+
+    .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.9rem;
+        color: var(--slate-300);
+    }
+
+    .meta-item strong {
+        color: var(--white);
+        font-weight: 600;
+    }
+
+    /* ---------- CONTAINER ---------- */
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+    }
+
+    /* ---------- INTRO ---------- */
+    .intro-card {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+        border-left: 4px solid var(--amber-500);
+    }
+
+    .intro-card h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.4rem;
+        margin-bottom: 0.75rem;
+        color: var(--navy-900);
+    }
+
+    .intro-card p {
+        color: var(--navy-700);
+    }
+
+    /* ---------- TABLE OF CONTENTS ---------- */
+    .toc {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    .toc h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.3rem;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    .toc-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .toc a {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.7rem 1rem;
+        background: var(--slate-50);
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--navy-800);
+        font-size: 0.92rem;
+        font-weight: 500;
+        border: 1px solid transparent;
+        transition: all 0.2s ease;
+    }
+
+    .toc a:hover {
+        background: var(--navy-900);
+        color: var(--white);
+        transform: translateX(4px);
+    }
+
+    .toc a .num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        background: var(--amber-500);
+        color: var(--white);
+        border-radius: 50%;
+        font-size: 0.7rem;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    /* ---------- AUDIENCE SECTIONS ---------- */
+    .audience-section {
+        margin-bottom: 3rem;
+    }
+
+    .audience-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--slate-300);
+    }
+
+    .audience-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+    }
+
+    .audience-header h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.7rem;
+        color: var(--navy-900);
+    }
+
+    .audience-header .subtitle {
+        font-size: 0.9rem;
+        color: var(--slate-500);
+        font-weight: 500;
+    }
+
+    /* ---------- WEBPAGE CARDS ---------- */
+    .webpage-card {
+        background: var(--white);
+        border-radius: 16px;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid var(--slate-100);
+        transition: all 0.3s ease;
+    }
+
+    .webpage-card:hover {
+        box-shadow: 0 10px 32px rgba(15, 23, 42, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .card-header {
+        padding: 1.5rem 1.75rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        border-bottom: 1px solid var(--slate-100);
+    }
+
+    .card-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        height: 36px;
+        padding: 0 0.5rem;
+        border-radius: 8px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--white);
+        flex-shrink: 0;
+    }
+
+    .card-title-wrap {
+        flex: 1;
+    }
+
+    .card-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--navy-900);
+        margin-bottom: 0.3rem;
+    }
+
+    .card-role {
+        display: inline-block;
+        margin-bottom: 0.4rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--slate-500);
+    }
+
+    .card-why {
+        color: var(--navy-700);
+        font-size: 0.98rem;
+    }
+
+    .card-body {
+        padding: 1.5rem 1.75rem 1.75rem;
+        background: var(--slate-50);
+    }
+
+    .prompt-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.75rem;
+    }
+
+    .prompt-label-text {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--slate-500);
+    }
+
+    .prompt-label-text::before {
+        content: "\26A1";
+        font-size: 0.9rem;
+    }
+
+    .prompt-box {
+        background: var(--navy-900);
+        color: #e2e8f0;
+        padding: 1.25rem 1.5rem;
+        border-radius: 10px;
+        font-family: 'Inter', monospace;
+        font-size: 0.9rem;
+        line-height: 1.7;
+        border: 1px solid var(--navy-700);
+        position: relative;
+    }
+
+    .prompt-box strong {
+        color: var(--amber-400);
+        font-weight: 600;
+    }
+
+    .prompt-box em {
+        color: var(--teal-100);
+        font-style: normal;
+    }
+
+    .prompt-box .show-code {
+        color: var(--amber-400);
+        font-weight: 600;
+    }
+
+    /* ---------- COPY BUTTON ---------- */
+    .copy-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.9rem;
+        padding: 0.6rem 1.1rem;
+        background: var(--white);
+        color: var(--navy-900);
+        border: 1.5px solid var(--navy-900);
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-family: inherit;
+    }
+
+    .copy-btn:hover {
+        background: var(--navy-900);
+        color: var(--white);
+        transform: translateY(-1px);
+    }
+
+    .copy-btn.copied {
+        background: var(--teal-500);
+        color: var(--white);
+        border-color: var(--teal-500);
+    }
+
+    .copy-btn .copy-icon {
+        font-size: 0.95rem;
+    }
+
+    /* Audience-specific accent colours */
+    .audience-section.lead .audience-badge { background: var(--lead-soft); color: var(--lead); }
+    .audience-section.lead .card-number { background: var(--lead); }
+
+    .audience-section.sales .audience-badge { background: var(--sales-soft); color: var(--sales); }
+    .audience-section.sales .card-number { background: var(--sales); }
+
+    .audience-section.wshop .audience-badge { background: var(--wshop-soft); color: var(--wshop); }
+    .audience-section.wshop .card-number { background: var(--wshop); }
+
+    .audience-section.proj .audience-badge { background: var(--proj-soft); color: var(--proj); }
+    .audience-section.proj .card-number { background: var(--proj); }
+
+    .audience-section.autom .audience-badge { background: var(--autom-soft); color: var(--autom); }
+    .audience-section.autom .card-number { background: var(--autom); }
+
+    .audience-section.elec .audience-badge { background: var(--elec-soft); color: var(--elec); }
+    .audience-section.elec .card-number { background: var(--elec); }
+
+    /* ---------- TIP BOX ---------- */
+    .tip-box {
+        background: linear-gradient(135deg, var(--amber-100) 0%, #fff 100%);
+        border-left: 4px solid var(--amber-500);
+        padding: 1.5rem 1.75rem;
+        border-radius: 12px;
+        margin: 3rem 0;
+    }
+
+    .tip-box h3 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.15rem;
+        margin-bottom: 0.5rem;
+        color: var(--navy-900);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .tip-box p {
+        color: var(--navy-700);
+    }
+
+    .tip-box ul {
+        margin-top: 0.75rem;
+        padding-left: 1.5rem;
+        color: var(--navy-700);
+    }
+
+    .tip-box ul li {
+        margin-bottom: 0.4rem;
+    }
+
+    /* ---------- BACK TO TOP BUTTON ---------- */
+    .back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 100%);
+        color: var(--white);
+        border: 2px solid var(--amber-500);
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        line-height: 1;
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.3);
+        transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        z-index: 9999;
+        font-family: inherit;
+        font-weight: 700;
+    }
+
+    .back-to-top .arrow {
+        font-size: 1.3rem;
+        line-height: 1;
+    }
+
+    .back-to-top .label {
+        font-size: 0.55rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-top: 2px;
+        font-weight: 700;
+    }
+
+    .back-to-top:hover {
+        background: linear-gradient(135deg, var(--amber-500) 0%, var(--amber-400) 100%);
+        border-color: var(--navy-900);
+        color: var(--navy-900);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 28px rgba(245, 158, 11, 0.45);
+    }
+
+    .back-to-top:active {
+        transform: translateY(-1px);
+    }
+
+    @media (max-width: 768px) {
+        .back-to-top {
+            bottom: 1.25rem;
+            right: 1.25rem;
+            width: 50px;
+            height: 50px;
+        }
+        .back-to-top .arrow { font-size: 1.15rem; }
+        .back-to-top .label { font-size: 0.5rem; }
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+        background: var(--navy-900);
+        color: var(--slate-300);
+        padding: 2.5rem 2rem;
+        text-align: center;
+    }
+
+    footer p {
+        font-size: 0.9rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    footer p + p {
+        margin-top: 0.75rem;
+        color: var(--slate-500);
+        font-size: 0.82rem;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+        .hero { padding: 3rem 1.25rem 2.5rem; }
+        .container { padding: 2rem 1.25rem; }
+        .intro-card, .toc { padding: 1.5rem; }
+        .card-header { padding: 1.25rem; flex-wrap: wrap; }
+        .card-body { padding: 1.25rem; }
+        .prompt-box { font-size: 0.85rem; padding: 1rem 1.1rem; }
+        .audience-header { gap: 0.75rem; }
+        .audience-header h2 { font-size: 1.35rem; }
+        .hero-meta { gap: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+        .toc-grid { grid-template-columns: 1fr; }
+        .card-title { font-size: 1.1rem; }
+    }
+
+    /* ---------- EXCEL TOPIC PAGE ---------- */
+    ol.howto{margin:.5rem 0 1rem;padding-left:1.3rem;color:var(--navy-700);font-size:.95rem;}
+    ol.howto li{margin-bottom:.4rem;}
+    ol.howto li::marker{color:var(--amber-500);font-weight:700;}
+    .callout{background:linear-gradient(135deg,#fef3c7 0%,#fff 100%);border-left:4px solid var(--amber-500);
+             border-radius:10px;padding:.9rem 1.1rem;font-size:.9rem;color:var(--navy-700);margin-top:.6rem;}
+    .callout code{background:var(--navy-900);color:var(--amber-400);padding:.1rem .4rem;border-radius:4px;
+                  font-size:.85em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;}
+    .blk-label{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;font-size:.78rem;font-weight:700;
+               letter-spacing:.07em;text-transform:uppercase;color:var(--slate-500);margin-bottom:.55rem;}
+    .blk-step{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;
+              background:var(--navy-900);color:#fff;font-size:.7rem;font-weight:700;}
+    .blk-hint,.range-pill{font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:none;
+              background:var(--slate-100);color:var(--navy-700);padding:.2rem .55rem;border-radius:999px;}
+    .range-pill{background:var(--amber-100);color:#92400e;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;}
+    .blk-note{font-size:.85rem;color:var(--slate-500);margin:-.2rem 0 .5rem;}
+    .data-block,.formula-block{background:var(--navy-900);color:#e2e8f0;padding:1rem 1.15rem;border-radius:10px;
+              border:1px solid var(--navy-700);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+              font-size:.83rem;line-height:1.65;white-space:pre;overflow-x:auto;margin:0;tab-size:22;-moz-tab-size:22;}
+    .data-block{max-height:none;}
+    .formula-block{color:var(--amber-400);white-space:pre-wrap;word-break:break-word;}
+    .nextup{margin-top:1.15rem;padding:.75rem .95rem;border-left:3px solid var(--teal-500);background:#fff;
+            border-radius:8px;font-size:.88rem;color:var(--navy-700);}
+    .nextup strong{color:var(--teal-500);}
+    .audience-section .audience-badge{font-size:1rem;}
+    @media(max-width:600px){.data-block,.formula-block{font-size:.76rem;} .blk-label{font-size:.72rem;}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+    <div class="hero-inner">
+        <span class="hero-tag">SWTS &middot; SFDW 2.0 &middot; Excel + Copilot</span>
+        <h1>The COPILOT Function <span>&mdash; Oil &amp; Gas Use Cases</span></h1>
+        <p>Eleven ready-to-run demonstrations of Excel's <strong>=COPILOT()</strong> function on realistic oil, gas and process data. Paste the sample table, paste the formula, and Excel reads the text and reasons about it &mdash; no Power BI, no Python, no advanced Excel skills.</p>
+        <div class="hero-meta">
+            <div class="meta-item">&#128202; <span><strong>11</strong> use cases</span></div>
+            <div class="meta-item">&#128203; <span><strong>22</strong> copy blocks</span></div>
+            <div class="meta-item">&#9889; <span><strong>2</strong> min each</span></div>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="intro-card">
+        <h2>How to run any of these</h2>
+        <ol class="howto">
+            <li>Open a <strong>blank Excel sheet</strong></li>
+            <li>Copy the <strong>sample data</strong> and paste it into cell <strong>A1</strong></li>
+            <li>Copy the <strong>formula</strong> and paste it into an empty cell to the right &mdash; <strong>C1</strong> works well</li>
+            <li>Press Enter and wait a few seconds for Copilot to think</li>
+            <li>Try the <strong>push it further</strong> prompt to take the answer one step deeper</li>
+        </ol>
+        <div class="callout">
+            <strong>Before you start:</strong> the <code>=COPILOT()</code> function needs a Microsoft 365 Copilot licence and a build of Excel where the function is switched on. If Excel returns <code>#NAME?</code>, the function is not available on that account yet &mdash; run the demo from a machine where it is, rather than troubleshooting it live.
+        </div>
+    </section>
+
+    <nav class="toc">
+        <h2>&#128203; The eleven use cases</h2>
+        <div class="toc-grid">
+            <a href="#uc1"><span class="num">1</span> Safety Incident Analysis</a>
+            <a href="#uc2"><span class="num">2</span> Equipment Reliability Review</a>
+            <a href="#uc3"><span class="num">3</span> Production Well Assessment</a>
+            <a href="#uc4"><span class="num">4</span> Daily Operations Log</a>
+            <a href="#uc5"><span class="num">5</span> HSE Observation Data</a>
+            <a href="#uc6"><span class="num">6</span> Contractor Performance Data</a>
+            <a href="#uc7"><span class="num">7</span> Permit-To-Work Assessment</a>
+            <a href="#uc8"><span class="num">8</span> Root Cause Analysis Exercise</a>
+            <a href="#uc9"><span class="num">9</span> Environmental Monitoring</a>
+            <a href="#uc10"><span class="num">10</span> Executive Dashboard Commentary</a>
+            <a href="#uc11"><span class="num">11</span> Employee Sentiment — Bonus Demo</a>
+        </div>
+    </nav>
+
+    <section class="audience-section lead">
+        <div class="audience-header"><div class="audience-badge">&#9679;</div><div><h2>Safety &amp; HSE</h2><div class="subtitle">Use cases in this group are numbered as they appear in the workbook</div></div></div>
+
+        <article class="webpage-card" id="uc1">
+            <div class="card-header"><span class="card-number">01</span><div class="card-title-wrap">
+                <span class="card-role">Safety &amp; HSE</span>
+                <h3 class="card-title">Safety Incident Analysis</h3>
+                <p class="card-why">Turns free-text incident reports into consistent categories — the job a supervisor usually does by hand every Monday.</p>
+            </div></div>
+            <div class="card-body">
+                <div class="blk-label"><span class="blk-step">1</span> Sample data <span class="blk-hint">paste into cell A1</span></div>
+                <pre class="data-block">Incident Description
+Worker slipped on oily platform near Pump P-103
+Minor diesel spill detected during refueling operation
+Gas detector failed during routine inspection
+Employee entered confined space without permit
+Excellent housekeeping observed in compressor area
+Scaffold missing safety tag before use
+Forklift struck storage rack causing minor damage
+Emergency shutdown system tested successfully</pre>
+                <button class="copy-btn" data-kind="data"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the data</span></button>
+                <div class="blk-label" style="margin-top:1.35rem;"><span class="blk-step">2</span> Formula <span class="range-pill">range A2:A9</span></div>
+                <pre class="formula-block">=COPILOT("Classify each incident as Safety, Environmental, Equipment, Compliance, or Positive Observation", A2:A9)</pre>
+                <button class="copy-btn" data-kind="formula"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the formula</span></button>
+                <div class="nextup"><strong>Push it further:</strong> Now add a severity rating of High, Medium or Low to each incident and explain the rating in one line.</div>
+            </div>
+        </article>
+
+    </section>
+
+    <section class="audience-section wshop">
+        <div class="audience-header"><div class="audience-badge">&#9679;</div><div><h2>Equipment &amp; Reliability</h2><div class="subtitle">Use cases in this group are numbered as they appear in the workbook</div></div></div>
+
+        <article class="webpage-card" id="uc2">
+            <div class="card-header"><span class="card-number">02</span><div class="card-title-wrap">
+                <span class="card-role">Equipment &amp; Reliability</span>
+                <h3 class="card-title">Equipment Reliability Review</h3>
+                <p class="card-why">Reads maintenance observations and tells you which machine needs attention first, with the reasoning shown.</p>
+            </div></div>
+            <div class="card-body">
+                <div class="blk-label"><span class="blk-step">1</span> Sample data <span class="blk-hint">paste into cell A1</span></div>
+                <pre class="data-block">Equipment Observation
+Pump vibration increased by 35% this week
+No abnormalities observed on Compressor C-01
+Corrosion detected on offshore riser section
+Temperature exceeding normal operating limit
+Oil leak found around mechanical seal
+Routine maintenance completed successfully
+Repeated motor trips during operation
+Heat exchanger performance declining</pre>
+                <button class="copy-btn" data-kind="data"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the data</span></button>
+                <div class="blk-label" style="margin-top:1.35rem;"><span class="blk-step">2</span> Formula <span class="range-pill">range A2:A9</span></div>
+                <pre class="formula-block">=COPILOT("Identify equipment requiring immediate attention and explain why", A2:A9)</pre>
+                <button class="copy-btn" data-kind="formula"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the formula</span></button>
+                <div class="nextup"><strong>Push it further:</strong> Rank these observations from most to least urgent and suggest the first check for each.</div>
+            </div>
+        </article>
+
+    </section>
+
+    <section class="audience-section proj">
+        <div class="audience-header"><div class="audience-badge">&#9679;</div><div><h2>Production &amp; Operations</h2><div class="subtitle">Use cases in this group are numbered as they appear in the workbook</div></div></div>
+
+        <article class="webpage-card" id="uc3">
+            <div class="card-header"><span class="card-number">03</span><div class="card-title-wrap">
+                <span class="card-role">Production &amp; Operations</span>
+                <h3 class="card-title">Production Well Assessment</h3>
+                <p class="card-why">Gives Copilot a role to play. Same data, but a petroleum engineer reads it differently from a generic assistant.</p>
+            </div></div>
+            <div class="card-body">
+                <div class="blk-label"><span class="blk-step">1</span> Sample data <span class="blk-hint">paste into cell A1</span></div>
+                <p class="blk-note">Two columns — paste into A1 and the Well ID and notes will split correctly.</p>
+                <pre class="data-block">Well ID	Operator Notes
+A-101	Water cut increasing rapidly
+A-102	Stable production
+A-103	Pressure declining steadily
+A-104	Sand production detected
+A-105	Unexpected shutdown due to valve issue
+A-106	Production increased after intervention
+A-107	Gas breakthrough suspected
+A-108	Monitoring only</pre>
+                <button class="copy-btn" data-kind="data"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the data</span></button>
+                <div class="blk-label" style="margin-top:1.35rem;"><span class="blk-step">2</span> Formula <span class="range-pill">range A1:B9</span></div>
+                <pre class="formula-block">=COPILOT("Act as a petroleum engineer and identify high-risk wells", A1:B9)</pre>
+                <button class="copy-btn" data-kind="formula"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the formula</span></button>
+                <div class="nextup"><strong>Push it further:</strong> For each high-risk well, recommend one intervention and state what data you would need to confirm it.</div>
+            </div>
+        </article>
+
+        <article class="webpage-card" id="uc4">
+            <div class="card-header"><span class="card-number">04</span><div class="card-title-wrap">
+                <span class="card-role">Production &amp; Operations</span>
+                <h3 class="card-title">Daily Operations Log</h3>
+                <p class="card-why">Compresses a shift log into something a manager will actually read. The classic end-of-shift task.</p>
+            </div></div>
+            <div class="card-body">
+                <div class="blk-label"><span class="blk-step">1</span> Sample data <span class="blk-hint">paste into cell A1</span></div>
+                <pre class="data-block">Operations Log
+Production maintained at target rate throughout shift
+Pump P-203 stopped twice due to cavitation
+Routine inspection completed successfully
+Operator reported unusual noise from compressor
+Weather conditions caused temporary operational delay
+Separator maintenance completed
+No safety incidents reported
+Well A-105 restarted after repairs</pre>
+                <button class="copy-btn" data-kind="data"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the data</span></button>
+                <div class="blk-label" style="margin-top:1.35rem;"><span class="blk-step">2</span> Formula <span class="range-pill">range A2:A9</span></div>
+                <pre class="formula-block">=COPILOT("Create an executive summary for plant management", A2:A9)</pre>
+                <button class="copy-btn" data-kind="formula"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the formula</span></button>
+                <div class="nextup"><strong>Push it further:</strong> Rewrite that summary in under 60 words, leading with anything management must act on today.</div>
+            </div>
+        </article>
+
+    </section>
+
+    <section class="audience-section lead">
+        <div class="audience-header"><div class="audience-badge">&#9679;</div><div><h2>Safety &amp; HSE</h2><div class="subtitle">Use cases in this group are numbered as they appear in the workbook</div></div></div>
+
+        <article class="webpage-card" id="uc5">
+            <div class="card-header"><span class="card-number">05</span><div class="card-title-wrap">
+                <span class="card-role">Safety &amp; HSE</span>
+                <h3 class="card-title">HSE Observation Data</h3>
+                <p class="card-why">Builds the weekly HSE report and sorts the noise from the priorities.</p>
+            </div></div>
+            <div class="card-body">
+                <div class="blk-label"><span class="blk-step">1</span> Sample data <span class="blk-hint">paste into cell A1</span></div>
+                <pre class="data-block">Observation
+Workers wearing correct PPE
+Two employees observed without safety goggles
+Emergency exit partially blocked
+Good housekeeping maintained throughout warehouse
+Chemical drums incorrectly labelled
+Safety induction completed for new contractor
+Hot work permit expired before job completion
+Near miss reported immediately</pre>
+                <button class="copy-btn" data-kind="data"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the data</span></button>
+                <div class="blk-label" style="margin-top:1.35rem;"><span class="blk-step">2</span> Formula <span class="range-pill">range A2:A9</span></div>
+                <pre class="formula-block">=COPILOT("Generate a weekly HSE report and identify priority concerns", A2:A9)</pre>
+                <button class="copy-btn" data-kind="formula"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the formula</span></button>
+                <div class="nextup"><strong>Push it further:</strong> Separate these into items needing action today and items for the monthly review.</div>
+            </div>
+        </article>
+
+    </section>
+
+    <section class="audience-section autom">
+        <div class="audience-header"><div class="audience-badge">&#9679;</div><div><h2>People &amp; Performance</h2><div class="subtitle">Use cases in this group are numbered as they appear in the workbook</div></div></div>
+
+        <article class="webpage-card" id="uc6">
+            <div class="card-header"><span class="card-number">06</span><div class="card-title-wrap">
+                <span class="card-role">People &amp; Performance</span>
+                <h3 class="card-title">Contractor Performance Data</h3>
+                <p class="card-why">Turns scattered feedback into a defensible rating — useful before a contract renewal conversation.</p>
+            </div></div>
+            <div class="card-body">
+                <div class="blk-label"><span class="blk-step">1</span> Sample data <span class="blk-hint">paste into cell A1</span></div>
+                <pre class="data-block">Feedback
+Completed shutdown work ahead of schedule
+Poor housekeeping after maintenance work
+Safety performance exceeded expectations
+Required rework due to welding defects
+Responded quickly to emergency repair request
+Several permit compliance issues identified
+Excellent communication throughout project
+Job completed within budget</pre>
+                <button class="copy-btn" data-kind="data"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the data</span></button>
+                <div class="blk-label" style="margin-top:1.35rem;"><span class="blk-step">2</span> Formula <span class="range-pill">range A2:A9</span></div>
+                <pre class="formula-block">=COPILOT("Summarize contractor performance and assign an overall rating", A2:A9)</pre>
+                <button class="copy-btn" data-kind="formula"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the formula</span></button>
+                <div class="nextup"><strong>Push it further:</strong> Draft three specific improvement points to raise at the next contractor review meeting.</div>
+            </div>
+        </article>
+
+    </section>
+
+    <section class="audience-section lead">
+        <div class="audience-header"><div class="audience-badge">&#9679;</div><div><h2>Safety &amp; HSE</h2><div class="subtitle">Use cases in this group are numbered as they appear in the workbook</div></div></div>
+
+        <article class="webpage-card" id="uc7">
+            <div class="card-header"><span class="card-number">07</span><div class="card-title-wrap">
+                <span class="card-role">Safety &amp; HSE</span>
+                <h3 class="card-title">Permit-To-Work Assessment</h3>
+                <p class="card-why">Produces hazards and controls for each activity — a genuine time-saver when preparing permits.</p>
+            </div></div>
+            <div class="card-body">
+                <div class="blk-label"><span class="blk-step">1</span> Sample data <span class="blk-hint">paste into cell A1</span></div>
+                <pre class="data-block">Activity
+Confined space entry into storage tank
+Hot work welding on pipeline
+Working at height on flare stack
+Electrical maintenance on switchgear
+Tank cleaning operation
+Excavation near buried utilities
+Crane lifting operation
+Pressure testing of vessel</pre>
+                <button class="copy-btn" data-kind="data"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the data</span></button>
+                <div class="blk-label" style="margin-top:1.35rem;"><span class="blk-step">2</span> Formula <span class="range-pill">range A2:A9</span></div>
+                <pre class="formula-block">=COPILOT("For each activity identify the key safety hazards and controls", A2:A9)</pre>
+                <button class="copy-btn" data-kind="formula"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the formula</span></button>
+                <div class="nextup"><strong>Push it further:</strong> Add the permit type required and the competencies the team must hold for each activity.</div>
+            </div>
+        </article>
+
+    </section>
+
+    <section class="audience-section wshop">
+        <div class="audience-header"><div class="audience-badge">&#9679;</div><div><h2>Equipment &amp; Reliability</h2><div class="subtitle">Use cases in this group are numbered as they appear in the workbook</div></div></div>
+
+        <article class="webpage-card" id="uc8">
+            <div class="card-header"><span class="card-number">08</span><div class="card-title-wrap">
+                <span class="card-role">Equipment &amp; Reliability</span>
+                <h3 class="card-title">Root Cause Analysis Exercise</h3>
+                <p class="card-why">Moves past the symptom to candidate causes, and tells you what to go and check.</p>
+            </div></div>
+            <div class="card-body">
+                <div class="blk-label"><span class="blk-step">1</span> Sample data <span class="blk-hint">paste into cell A1</span></div>
+                <pre class="data-block">Problem Description
+Pump repeatedly tripping during start-up
+High vibration observed on rotating equipment
+Pipeline corrosion discovered unexpectedly
+Frequent compressor shutdowns
+Valve leakage after maintenance work
+Custody transfer meter reading discrepancies</pre>
+                <button class="copy-btn" data-kind="data"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the data</span></button>
+                <div class="blk-label" style="margin-top:1.35rem;"><span class="blk-step">2</span> Formula <span class="range-pill">range A2:A7</span></div>
+                <pre class="formula-block">=COPILOT("Suggest possible root causes and recommended investigations", A2:A7)</pre>
+                <button class="copy-btn" data-kind="formula"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the formula</span></button>
+                <div class="nextup"><strong>Push it further:</strong> For the top problem, run a 5-Why analysis and state the underlying root cause.</div>
+            </div>
+        </article>
+
+    </section>
+
+    <section class="audience-section lead">
+        <div class="audience-header"><div class="audience-badge">&#9679;</div><div><h2>Safety &amp; HSE</h2><div class="subtitle">Use cases in this group are numbered as they appear in the workbook</div></div></div>
+
+        <article class="webpage-card" id="uc9">
+            <div class="card-header"><span class="card-number">09</span><div class="card-title-wrap">
+                <span class="card-role">Safety &amp; HSE</span>
+                <h3 class="card-title">Environmental Monitoring</h3>
+                <p class="card-why">Flags environmental exposure and pairs each risk with a corrective action.</p>
+            </div></div>
+            <div class="card-body">
+                <div class="blk-label"><span class="blk-step">1</span> Sample data <span class="blk-hint">paste into cell A1</span></div>
+                <pre class="data-block">Environmental Observation
+Small diesel spill contained within bund area
+Waste segregation fully compliant
+Flare duration exceeded target by 2 hours
+Dust emissions noticed during excavation
+No environmental incidents reported
+Water discharge sample exceeded limit
+Chemical storage area well maintained</pre>
+                <button class="copy-btn" data-kind="data"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the data</span></button>
+                <div class="blk-label" style="margin-top:1.35rem;"><span class="blk-step">2</span> Formula <span class="range-pill">range A2:A8</span></div>
+                <pre class="formula-block">=COPILOT("Identify environmental risks and recommend corrective actions", A2:A8)</pre>
+                <button class="copy-btn" data-kind="formula"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the formula</span></button>
+                <div class="nextup"><strong>Push it further:</strong> Which of these would be reportable to a regulator, and what evidence should we retain?</div>
+            </div>
+        </article>
+
+    </section>
+
+    <section class="audience-section elec">
+        <div class="audience-header"><div class="audience-badge">&#9679;</div><div><h2>Management Reporting</h2><div class="subtitle">Use cases in this group are numbered as they appear in the workbook</div></div></div>
+
+        <article class="webpage-card" id="uc10">
+            <div class="card-header"><span class="card-number">10</span><div class="card-title-wrap">
+                <span class="card-role">Management Reporting</span>
+                <h3 class="card-title">Executive Dashboard Commentary</h3>
+                <p class="card-why">Numbers in, narrative out. This is the one that saves an hour on every monthly pack.</p>
+            </div></div>
+            <div class="card-body">
+                <div class="blk-label"><span class="blk-step">1</span> Sample data <span class="blk-hint">paste into cell A1</span></div>
+                <p class="blk-note">Two columns — paste into A1 so the KPI names and values land side by side.</p>
+                <pre class="data-block">KPI	Value
+Production Efficiency	97%
+Equipment Availability	95%
+Safety Incidents	2
+Near Miss Reports	15
+Downtime Hours	6
+Maintenance Completion	92%
+Energy Efficiency	89%</pre>
+                <button class="copy-btn" data-kind="data"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the data</span></button>
+                <div class="blk-label" style="margin-top:1.35rem;"><span class="blk-step">2</span> Formula <span class="range-pill">range A1:B8</span></div>
+                <pre class="formula-block">=COPILOT("Write a one-paragraph executive performance summary for senior management", A1:B8)</pre>
+                <button class="copy-btn" data-kind="formula"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the formula</span></button>
+                <div class="nextup"><strong>Push it further:</strong> Rewrite it for the board, leading with the single metric that most needs their decision.</div>
+            </div>
+        </article>
+
+    </section>
+
+    <section class="audience-section autom">
+        <div class="audience-header"><div class="audience-badge">&#9679;</div><div><h2>People &amp; Performance</h2><div class="subtitle">Use cases in this group are numbered as they appear in the workbook</div></div></div>
+
+        <article class="webpage-card" id="uc11">
+            <div class="card-header"><span class="card-number">11</span><div class="card-title-wrap">
+                <span class="card-role">People &amp; Performance</span>
+                <h3 class="card-title">Employee Sentiment — Bonus Demo</h3>
+                <p class="card-why">The one that gets the reaction. Unstructured comments become themes and sentiment with no Power BI, no Python, no advanced Excel.</p>
+            </div></div>
+            <div class="card-body">
+                <div class="blk-label"><span class="blk-step">1</span> Sample data <span class="blk-hint">paste into cell A1</span></div>
+                <pre class="data-block">Employee Comment
+The permit process takes too long during shutdowns
+Equipment availability has improved significantly
+Communication between day and night shifts needs improvement
+The new safety training was very useful
+We experienced delays due to spare part shortages
+Management support during the turnaround was excellent
+Maintenance planning has become more organized</pre>
+                <button class="copy-btn" data-kind="data"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the data</span></button>
+                <div class="blk-label" style="margin-top:1.35rem;"><span class="blk-step">2</span> Formula <span class="range-pill">range A2:A8</span></div>
+                <pre class="formula-block">=COPILOT("Perform sentiment analysis and identify the top themes mentioned by employees", A2:A8)</pre>
+                <button class="copy-btn" data-kind="formula"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy the formula</span></button>
+                <div class="nextup"><strong>Push it further:</strong> Group the negative themes by department and suggest one owner for each.</div>
+            </div>
+        </article>
+
+    </section>
+
+    <div class="tip-box">
+        <h3>&#128161; Running these in a session</h3>
+        <ul>
+            <li><strong>Start with number 11.</strong> Sentiment analysis on plain employee comments gets the strongest reaction, and everything else makes sense afterwards.</li>
+            <li>Change one word in a prompt and re-run it &mdash; swapping <em>summarise</em> for <em>act as a petroleum engineer and summarise</em> shows how much the role instruction matters.</li>
+            <li>The formula reads a <strong>range of cells</strong>, not one cell. If you widen the sample data, widen the range to match.</li>
+            <li>Answers vary slightly between runs. That is worth saying out loud &mdash; it is a reasoning engine, not a lookup table.</li>
+            <li>Ask participants to swap in <strong>their own</strong> incident log or observation list. The demo lands hardest on data they recognise.</li>
+        </ul>
+    </div>
+
+</main>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top">
+    <span class="arrow" aria-hidden="true">&uarr;</span>
+    <span class="label">TOP</span>
+</button>
+
+<footer>
+    <p>SWTS Pte Ltd &middot; Exion Asia Pte Ltd &middot; ON Engineers Pte Ltd</p>
+    <p>SkillsFuture for Digital Workplace 2.0 (General) &middot; 24 &amp; 25 August 2026 &mdash; sample data is fictional, for training use only.</p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    var labelEl = btn.querySelector('.copy-label');
+    var iconEl  = btn.querySelector('.copy-icon');
+    var original = labelEl ? labelEl.textContent : '';
+    btn.addEventListener('click', function () {
+      var block = btn.previousElementSibling;
+      if (!block) return;
+      var text = block.textContent.replace(/\s+$/, '');
+      function ok() {
+        btn.classList.add('copied');
+        if (iconEl) iconEl.textContent = '\u2713';
+        if (labelEl) labelEl.textContent = 'Copied';
+        setTimeout(function () {
+          btn.classList.remove('copied');
+          if (iconEl) iconEl.textContent = '\uD83D\uDCCB';
+          if (labelEl) labelEl.textContent = original;
+        }, 2000);
+      }
+      function fallback() {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.focus(); ta.select();
+        try { document.execCommand('copy'); ok(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(ok).catch(fallback);
+      } else { fallback(); }
+    });
+  });
+  var top = document.getElementById('backToTop');
+  if (top) top.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (document.documentElement) document.documentElement.scrollTop = 0;
+    if (document.body) document.body.scrollTop = 0;
+    try { if (window.parent && window.parent !== window) window.parent.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+  });
+});
+</script>
+
+</body>
+</html>
