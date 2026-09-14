@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qorvo — Role-Based Webpage Build Prompts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --navy-900: #0f172a;
+        --navy-800: #1e293b;
+        --navy-700: #334155;
+        --slate-500: #64748b;
+        --slate-300: #cbd5e1;
+        --slate-100: #f1f5f9;
+        --slate-50:  #f8fafc;
+        --amber-500: #f59e0b;
+        --amber-400: #fbbf24;
+        --amber-100: #fef3c7;
+        --teal-500:  #0d9488;
+        --teal-100:  #ccfbf1;
+        --white: #ffffff;
+
+        /* Audience accent colours */
+        --mgmt: #be123c;          /* Finance               */
+        --mgmt-soft: #ffe4e6;
+        --strat: #4f46e5;         /* People & Culture      */
+        --strat-soft: #e0e7ff;
+        --ops: #ea580c;           /* Safety & EHS          */
+        --ops-soft: #ffedd5;
+        --dept: #0d9488;          /* Facilities Management */
+        --dept-soft: #ccfbf1;
+        --marketing: #c026d3;     /* Projects Engineering  */
+        --marketing-soft: #fae8ff;
+        --quality: #0891b2;       /* Technical Service     */
+        --quality-soft: #cffafe;
+        --admin: #7c3aed;         /* Administration        */
+        --admin-soft: #ede9fe;
+        --purch: #059669;         /* Procurement           */
+        --purch-soft: #d1fae5;
+        --finance: #1d4ed8;       /* Finance & Accounts    */
+        --finance-soft: #dbeafe;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--navy-900);
+        background: var(--slate-50);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+        background:
+            radial-gradient(at 10% 20%, rgba(245, 158, 11, 0.18) 0, transparent 50%),
+            radial-gradient(at 90% 80%, rgba(13, 148, 136, 0.22) 0, transparent 50%),
+            linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 100%);
+        color: var(--white);
+        padding: 4rem 2rem 3.5rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-tag {
+        display: inline-block;
+        background: rgba(245, 158, 11, 0.15);
+        color: var(--amber-400);
+        padding: 0.4rem 1rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 1.25rem;
+        border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .hero h1 {
+        font-family: 'Poppins', sans-serif;
+        font-size: clamp(2rem, 4.5vw, 3.2rem);
+        font-weight: 800;
+        line-height: 1.15;
+        margin-bottom: 1rem;
+        letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+        background: linear-gradient(90deg, var(--amber-400), var(--teal-500));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+        color: var(--slate-300);
+        max-width: 720px;
+        margin-bottom: 2rem;
+    }
+
+    .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.9rem;
+        color: var(--slate-300);
+    }
+
+    .meta-item strong {
+        color: var(--white);
+        font-weight: 600;
+    }
+
+    /* ---------- CONTAINER ---------- */
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+    }
+
+    /* ---------- INTRO ---------- */
+    .intro-card {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+        border-left: 4px solid var(--amber-500);
+    }
+
+    .intro-card h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.4rem;
+        margin-bottom: 0.75rem;
+        color: var(--navy-900);
+    }
+
+    .intro-card p {
+        color: var(--navy-700);
+    }
+
+    /* ---------- TABLE OF CONTENTS ---------- */
+    .toc {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    .toc h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.3rem;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    .toc-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .toc a {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.7rem 1rem;
+        background: var(--slate-50);
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--navy-800);
+        font-size: 0.92rem;
+        font-weight: 500;
+        border: 1px solid transparent;
+        transition: all 0.2s ease;
+    }
+
+    .toc a:hover {
+        background: var(--navy-900);
+        color: var(--white);
+        transform: translateX(4px);
+    }
+
+    .toc a .num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        background: var(--amber-500);
+        color: var(--white);
+        border-radius: 50%;
+        font-size: 0.7rem;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    /* ---------- AUDIENCE SECTIONS ---------- */
+    .audience-section {
+        margin-bottom: 3rem;
+    }
+
+    .audience-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--slate-300);
+    }
+
+    .audience-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+    }
+
+    .audience-header h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.7rem;
+        color: var(--navy-900);
+    }
+
+    .audience-header .subtitle {
+        font-size: 0.9rem;
+        color: var(--slate-500);
+        font-weight: 500;
+    }
+
+    /* ---------- WEBPAGE CARDS ---------- */
+    .webpage-card {
+        background: var(--white);
+        border-radius: 16px;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid var(--slate-100);
+        transition: all 0.3s ease;
+    }
+
+    .webpage-card:hover {
+        box-shadow: 0 10px 32px rgba(15, 23, 42, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .card-header {
+        padding: 1.5rem 1.75rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        border-bottom: 1px solid var(--slate-100);
+    }
+
+    .card-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        height: 36px;
+        padding: 0 0.5rem;
+        border-radius: 8px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--white);
+        flex-shrink: 0;
+    }
+
+    .card-title-wrap {
+        flex: 1;
+    }
+
+    .card-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--navy-900);
+        margin-bottom: 0.3rem;
+    }
+
+    .card-role {
+        display: inline-block;
+        margin-bottom: 0.4rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--slate-500);
+    }
+
+    .card-why {
+        color: var(--navy-700);
+        font-size: 0.98rem;
+    }
+
+    .card-body {
+        padding: 1.5rem 1.75rem 1.75rem;
+        background: var(--slate-50);
+    }
+
+    .prompt-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.75rem;
+    }
+
+    .prompt-label-text {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--slate-500);
+    }
+
+    .prompt-label-text::before {
+        content: "⚡";
+        font-size: 0.9rem;
+    }
+
+    .prompt-box {
+        background: var(--navy-900);
+        color: #e2e8f0;
+        padding: 1.25rem 1.5rem;
+        border-radius: 10px;
+        font-family: 'Inter', monospace;
+        font-size: 0.9rem;
+        line-height: 1.7;
+        border: 1px solid var(--navy-700);
+        position: relative;
+    }
+
+    .prompt-box strong {
+        color: var(--amber-400);
+        font-weight: 600;
+    }
+
+    .prompt-box em {
+        color: var(--teal-100);
+        font-style: normal;
+    }
+
+    .prompt-box .show-code {
+        color: var(--amber-400);
+        font-weight: 600;
+    }
+
+    /* ---------- COPY BUTTON ---------- */
+    .copy-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.9rem;
+        padding: 0.6rem 1.1rem;
+        background: var(--white);
+        color: var(--navy-900);
+        border: 1.5px solid var(--navy-900);
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-family: inherit;
+    }
+
+    .copy-btn:hover {
+        background: var(--navy-900);
+        color: var(--white);
+        transform: translateY(-1px);
+    }
+
+    .copy-btn.copied {
+        background: var(--teal-500);
+        color: var(--white);
+        border-color: var(--teal-500);
+    }
+
+    .copy-btn .copy-icon {
+        font-size: 0.95rem;
+    }
+
+    /* Audience-specific accent colours */
+    .audience-section.mgmt .audience-badge { background: var(--mgmt-soft); color: var(--mgmt); }
+    .audience-section.mgmt .card-number { background: var(--mgmt); }
+
+    .audience-section.strat .audience-badge { background: var(--strat-soft); color: var(--strat); }
+    .audience-section.strat .card-number { background: var(--strat); }
+
+    .audience-section.ops .audience-badge { background: var(--ops-soft); color: var(--ops); }
+    .audience-section.ops .card-number { background: var(--ops); }
+
+    .audience-section.dept .audience-badge { background: var(--dept-soft); color: var(--dept); }
+    .audience-section.dept .card-number { background: var(--dept); }
+
+    .audience-section.marketing .audience-badge { background: var(--marketing-soft); color: var(--marketing); }
+    .audience-section.marketing .card-number { background: var(--marketing); }
+
+    .audience-section.quality .audience-badge { background: var(--quality-soft); color: var(--quality); }
+    .audience-section.quality .card-number { background: var(--quality); }
+
+    .audience-section.admin .audience-badge { background: var(--admin-soft); color: var(--admin); }
+    .audience-section.admin .card-number { background: var(--admin); }
+
+    .audience-section.purch .audience-badge { background: var(--purch-soft); color: var(--purch); }
+    .audience-section.purch .card-number { background: var(--purch); }
+
+    .audience-section.finance .audience-badge { background: var(--finance-soft); color: var(--finance); }
+    .audience-section.finance .card-number { background: var(--finance); }
+
+    /* ---------- TIP BOX ---------- */
+    .tip-box {
+        background: linear-gradient(135deg, var(--amber-100) 0%, #fff 100%);
+        border-left: 4px solid var(--amber-500);
+        padding: 1.5rem 1.75rem;
+        border-radius: 12px;
+        margin: 3rem 0;
+    }
+
+    .tip-box h3 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.15rem;
+        margin-bottom: 0.5rem;
+        color: var(--navy-900);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .tip-box p {
+        color: var(--navy-700);
+    }
+
+    .tip-box ul {
+        margin-top: 0.75rem;
+        padding-left: 1.5rem;
+        color: var(--navy-700);
+    }
+
+    .tip-box ul li {
+        margin-bottom: 0.4rem;
+    }
+
+    /* ---------- BACK TO TOP BUTTON ---------- */
+    .back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 100%);
+        color: var(--white);
+        border: 2px solid var(--amber-500);
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        line-height: 1;
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.3);
+        transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        z-index: 9999;
+        font-family: inherit;
+        font-weight: 700;
+    }
+
+    .back-to-top .arrow {
+        font-size: 1.3rem;
+        line-height: 1;
+    }
+
+    .back-to-top .label {
+        font-size: 0.55rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-top: 2px;
+        font-weight: 700;
+    }
+
+    .back-to-top:hover {
+        background: linear-gradient(135deg, var(--amber-500) 0%, var(--amber-400) 100%);
+        border-color: var(--navy-900);
+        color: var(--navy-900);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 28px rgba(245, 158, 11, 0.45);
+    }
+
+    .back-to-top:active {
+        transform: translateY(-1px);
+    }
+
+    @media (max-width: 768px) {
+        .back-to-top {
+            bottom: 1.25rem;
+            right: 1.25rem;
+            width: 50px;
+            height: 50px;
+        }
+        .back-to-top .arrow { font-size: 1.15rem; }
+        .back-to-top .label { font-size: 0.5rem; }
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+        background: var(--navy-900);
+        color: var(--slate-300);
+        padding: 2.5rem 2rem;
+        text-align: center;
+    }
+
+    footer p {
+        font-size: 0.9rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    footer p + p {
+        margin-top: 0.75rem;
+        color: var(--slate-500);
+        font-size: 0.82rem;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+        .hero { padding: 3rem 1.25rem 2.5rem; }
+        .container { padding: 2rem 1.25rem; }
+        .intro-card, .toc { padding: 1.5rem; }
+        .card-header { padding: 1.25rem; flex-wrap: wrap; }
+        .card-body { padding: 1.25rem; }
+        .prompt-box { font-size: 0.85rem; padding: 1rem 1.1rem; }
+        .audience-header { gap: 0.75rem; }
+        .audience-header h2 { font-size: 1.35rem; }
+        .hero-meta { gap: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+        .toc-grid { grid-template-columns: 1fr; }
+        .card-title { font-size: 1.1rem; }
+    }
+</style>
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_ApprovalStatus msdt:dt="string">0</mso:_ApprovalStatus>
+<mso:_ApprovalAssignedTo msdt:dt="string"></mso:_ApprovalAssignedTo>
+<mso:_ApprovalRespondedBy msdt:dt="string"></mso:_ApprovalRespondedBy>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head><body>
+
+<!-- ====== HERO ====== -->
+<header class="hero">
+    <div class="hero-inner">
+        <span class="hero-tag">Qorvo &middot; RF &amp; Power Solutions &middot; SFDW 2.0</span>
+        <h1>Role-Based Webpages <span>+ Build Prompts</span></h1>
+        <p>A curated set of webpage concepts aligned to the participant roles in the Qorvo SFDW 2.0 programme &mdash; each role gets copy-paste prompts that produce working internal tools, each one replacing 3 common Excel files and 2 recurring emails in the daily job of building RF and power semiconductor products, from foundry wafer starts through bump, assembly and test to tape and reel.</p>
+        <div class="hero-meta">
+            <div class="meta-item">&#127919; <span><strong>9</strong> job functions</span></div>
+            <div class="meta-item">&#128101; <span><strong>23</strong> participant roles</span></div>
+            <div class="meta-item">&#9889; <span><strong>29</strong> build prompts</span></div>
+        </div>
+    </div>
+</header>
+
+<!-- ====== MAIN ====== -->
+<main class="container">
+
+    <!-- Intro -->
+    <section class="intro-card">
+        <h2>How to use this guide</h2>
+        <p>Find the section matching your job function, then copy any <strong>build prompt</strong> straight into an AI tool &mdash; Microsoft Copilot, ChatGPT, Claude, or Gemini. Each function offers <strong>two to four tools</strong> &mdash; pick the one that speeds up the job you care about most. Every prompt is self-contained and produces a single HTML page with embedded CSS and vanilla JavaScript that you can preview in any browser and adapt to your team's actual data, and every prompt ends with an instruction to <strong>show the full HTML source code in the code console</strong> so you can copy it directly. This roster runs the whole product path &mdash; from foundry wafer starts and die bank, through bump, die prep and assembly, into test, tape and reel and out to the customer &mdash; so the Product &amp; Test Engineering and Planning sections carry four tools each, while Sourcing, Packaging, Programs, Sales and Corporate Services carry three. The framing throughout is the same: <em>&ldquo;Build a browser-based, personal productivity cockpit that replaces 3 common Excel files and 2 recurring emails in your job.&rdquo;</em></p>
+    </section>
+
+    <!-- TOC -->
+    <nav class="toc">
+        <h2>&#128209; Table of Contents</h2>
+        <div class="toc-grid">
+            <a href="#leadership" data-target="leadership"><span class="num">E</span> Executive Leadership &amp; Site Operations</a>
+            <a href="#testeng" data-target="testeng"><span class="num">T</span> Product &amp; Test Engineering</a>
+            <a href="#planning" data-target="planning"><span class="num">P</span> Planning &amp; Materials</a>
+            <a href="#sourcing" data-target="sourcing"><span class="num">S</span> Sourcing &amp; Supplier Quality</a>
+            <a href="#packaging" data-target="packaging"><span class="num">K</span> Packaging &amp; Layout Engineering</a>
+            <a href="#pmo" data-target="pmo"><span class="num">R</span> Programs, Risk &amp; Business Process</a>
+            <a href="#sales" data-target="sales"><span class="num">A</span> Sales &amp; Applications</a>
+            <a href="#corporate" data-target="corporate"><span class="num">C</span> Corporate Services &mdash; HR, Legal &amp; IT</a>
+            <a href="#crossfunction" data-target="crossfunction"><span class="num">X</span> Cross-Function &mdash; Everyone</a>
+        </div>
+    </nav>
+
+    <!-- ===== EXECUTIVE LEADERSHIP   SITE OPERATIONS ===== -->
+    <section id="leadership" class="audience-section mgmt">
+        <div class="audience-header">
+            <div class="audience-badge">&#127981;</div>
+            <div>
+                <h2>Executive Leadership &amp; Site Operations</h2>
+                <div class="subtitle">Site-wide performance, line capacity, and the decision record &middot; Sr Director, Product Engineering &amp; Ops &middot; Dir, Bump/DPS &amp; Assembly Ops</div>
+            </div>
+        </div>
+
+        <!-- Card 01 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">01</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Sr Director, Product Engineering &amp; Ops</span>
+                    <h3 class="card-title">Site Operations Command Dashboard</h3>
+                    <p class="card-why">One screen that answers &ldquo;how did the site run yesterday, and what is off track&rdquo; across bump, assembly and test &mdash; replacing the daily output workbook, the KPI roll-up sheet, and the morning status email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Site Operations Command Dashboard</strong> for a Senior Director of Product Engineering and Operations at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a strip of 6 KPI cards &mdash; <em>units out month-to-date vs plan</em>, <em>on-time delivery %</em>, <em>composite test yield %</em>, <em>equipment utilisation %</em>, <em>open quality holds</em>, and <em>backlog (units)</em> &mdash; each with a RAG colour band and an up/down delta against last month. Middle: a live area-status board with one tile per operating area (<em>Bump</em>, <em>Die Prep / DPS</em>, <em>Assembly</em>, <em>Wafer Probe</em>, <em>Final Test</em>, <em>Tape &amp; Reel</em>) showing <em>area</em>, <em>product family running</em>, <em>status</em> (Running / Idle / Changeover / Down / PM), and <em>output today vs plan</em>, where clicking a tile cycles its status and the tile colour follows. Below: a daily performance table (<em>date</em>, <em>planned out</em>, <em>actual out</em>, <em>yield %</em>, <em>downtime minutes</em>) that auto-calculates <em>attainment %</em> and a simple <em>OEE %</em> per row and draws a pure-CSS bar chart of the last 14 days, plus a cross-department escalation log (<em>issue</em>, <em>area</em>, <em>owner</em>, <em>raised date</em>, <em>due date</em>, <em>status</em>) with overdue rows in red, and a &ldquo;Copy management brief&rdquo; button producing a formatted wins / risks / decisions note ready to paste into Outlook or Teams. Seed with 6 operating areas, 5 product families and 14 days of realistic data. Executive aesthetic &mdash; navy with crimson accents, monospace for all figures, dense but calm. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p1"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 02 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">02</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Dir, Bump/DPS &amp; Assembly Ops</span>
+                    <h3 class="card-title">Bump / DPS &amp; Assembly Line Capacity Board</h3>
+                    <p class="card-why">Shows which assembly lines are the constraint this week and what is eating their hours &mdash; replacing the capacity model workbook, the changeover planning sheet, and the downtime summary email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Bump, Die Prep and Assembly Line Capacity Board</strong> for a Director of Bump/DPS and Assembly Operations at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>total available hours this week</em>, <em>committed hours</em>, <em>utilisation %</em>, <em>constraint line</em>, and <em>unplanned downtime hours</em>. Middle: a line register &mdash; a form with <em>line / tool group</em>, <em>process step</em> (Bump plating / Reflow / Wafer thinning / Wafer saw / Die attach / Wire bond / Flip-chip / Mould / Laminate / Singulation), <em>units per hour</em>, <em>available hours</em>, <em>scheduled changeovers</em>, and <em>PM hours</em> &mdash; appending to a sortable table that auto-calculates <em>theoretical capacity</em>, <em>effective capacity after changeover and PM</em>, <em>demand loaded</em> and <em>load %</em>, colours any line above 95% load in red and labels the highest-load line as the constraint. Below: a downtime log (<em>date</em>, <em>line</em>, <em>category</em>: Equipment / Material / Manpower / Changeover / Quality hold, <em>minutes</em>, <em>note</em>) that draws a pure-CSS Pareto chart of downtime minutes by category, and a rolling 7-day changeover and PM calendar strip. Include a &ldquo;Copy shift handover&rdquo; button that writes the constraint line, the top three downtime causes with minutes, and the lines running over 95% load. Seed with 10 lines, 4 weeks of demand and 30 downtime entries. Operations aesthetic &mdash; navy with amber accents, monospace for all figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p2"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 03 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">03</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Sr Director, Product Engineering &amp; Ops &nbsp;&middot;&nbsp; Dir, Bump/DPS &amp; Assembly Ops</span>
+                    <h3 class="card-title">Management Review &amp; Decision Log</h3>
+                    <p class="card-why">Turns the management meeting into a living record where every decision has an owner and a date, and nothing quietly disappears &mdash; replacing the minutes document, the action tracking sheet, and the follow-up email chain.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Management Review &amp; Decision Log</strong> for the operations leadership team at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>open actions</em>, <em>overdue actions</em>, <em>decisions this quarter</em>, and <em>average days to close</em>. Middle: a meeting register &mdash; a form with <em>meeting title</em>, <em>date</em>, <em>type</em> (Management Review / Operations Meeting / Quality Review / Customer Review / Program Review), <em>chair</em>, and <em>attendees</em>, appending to a table where each meeting can be expanded to reveal its agenda items and notes. Below: a decision register (<em>decision</em>, <em>meeting</em>, <em>date</em>, <em>rationale</em>, <em>decided by</em>) and an action log (<em>action</em>, <em>owner</em>, <em>department</em>, <em>raised date</em>, <em>due date</em>, <em>status</em>: Open / In progress / Closed) that auto-calculates <em>days open</em>, sorts overdue items to the top and highlights them red, with filters by owner and by department. Include a standing management-review agenda template (yield and quality performance, customer feedback and complaints, delivery performance, capacity and resource needs, improvement opportunities, follow-up from previous review) that can be cloned into a new meeting in one click, plus a &ldquo;Copy minutes&rdquo; button producing formatted minutes and a &ldquo;Copy overdue actions&rdquo; button producing a per-owner chase-up note. Seed with 6 meetings, 10 decisions and 18 actions. Executive aesthetic &mdash; navy with crimson accents, quiet and document-like. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p3"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== PRODUCT   TEST ENGINEERING ===== -->
+    <section id="testeng" class="audience-section ops">
+        <div class="audience-header">
+            <div class="audience-badge">&#129514;</div>
+            <div>
+                <h2>Product &amp; Test Engineering</h2>
+                <div class="subtitle">Yield, test programs, tester capacity and final-ops process control &middot; Mgr, Product Engineering &middot; Staff Test Development Engineer &middot; Sr Mgr, Test Solutions &amp; Engineering &middot; Sr Mgr, TTR Ops &amp; Process Engineering</div>
+            </div>
+        </div>
+
+        <!-- Card 04 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">04</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Mgr, Product Engineering</span>
+                    <h3 class="card-title">Yield, Bin &amp; Test Escape Analysis Board</h3>
+                    <p class="card-why">Puts lot yield, the bin Pareto and the excursion history in one place so a yield dip is explained the same day it happens &mdash; replacing the yield tracking workbook, the bin summary sheet, and the weekly yield email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Yield, Bin and Test Escape Analysis Board</strong> for a Product Engineering Manager at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>composite yield % month-to-date</em>, <em>yield vs baseline delta</em>, <em>lots below yield limit</em>, <em>open excursions</em>, and <em>top loss bin</em>. Middle: a lot register &mdash; a form with <em>lot ID</em>, <em>device / part number</em>, <em>test stage</em> (Wafer probe / Final test / System-level test), <em>tester</em>, <em>test site</em>, <em>units in</em>, <em>units passed</em>, and <em>date</em>, appending to a sortable table that auto-calculates <em>yield %</em> and the <em>delta against that device's baseline yield</em>, flags any lot more than 3 percentage points below baseline in red, and lets each lot be expanded to enter <em>bin number</em>, <em>bin name</em> and <em>failed units</em> for its failure bins. Below: a pure-CSS Pareto chart of failed units by bin across the filtered set, a yield trend line (rendered as a CSS bar or step chart) by device and separately by test site so site-to-site differences are visible, and a test-escape log (<em>escape</em>, <em>device</em>, <em>detected at</em>: Customer / Outgoing QA / Next operation, <em>units affected</em>, <em>suspected cause</em>, <em>containment</em>, <em>root cause</em>, <em>corrective action</em>, <em>status</em>) with <em>days open</em> auto-calculated. Include filters by device, stage, tester and date range, and a &ldquo;Copy yield commentary&rdquo; button that names the worst-performing devices, the top three loss bins with unit counts, and any open excursions with their owners. Seed with 8 devices, 40 lots with bin detail, and 5 escape records. Engineering aesthetic &mdash; dark slate with amber accents, monospace for all figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p4"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 05 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">05</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Staff Test Development Engineer</span>
+                    <h3 class="card-title">ATE Test Program &amp; Hardware Release Tracker</h3>
+                    <p class="card-why">One controlled record of which test program revision is running where, and whether its hardware and correlation evidence are complete &mdash; replacing the program revision sheet, the load-board asset workbook, and the release notification email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>ATE Test Program and Hardware Release Tracker</strong> for a Staff Test Development Engineer at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>programs in development</em>, <em>pending release</em>, <em>released this quarter</em>, <em>hardware past service interval</em>, and <em>average days from first build to release</em>. Middle: a test program register &mdash; a form with <em>device / part number</em>, <em>program name</em>, <em>revision</em>, <em>tester platform</em>, <em>test stage</em> (Wafer probe / Final test), <em>checksum</em>, <em>author</em>, <em>status</em> (In development / Debug / Correlation / Pending release / Released / Superseded), and <em>target release date</em> &mdash; appending to a table that keeps full revision history per device (expandable rows showing every prior revision with its checksum and release date) and flags any device whose released revision is more than two revisions behind its latest build. Each program carries a release gate checklist (<em>test coverage reviewed</em>, <em>datalog format verified</em>, <em>guardbands set</em>, <em>correlation passed</em>, <em>test time within budget</em>, <em>hardware qualified</em>, <em>documentation updated</em>, <em>peer review signed off</em>) rendered as tickable items driving a <em>readiness %</em> progress bar that must reach 100% before status can be set to Released. Below: a test hardware asset log (<em>asset type</em>: Load board / Probe card / DIB / Contactor / Socket, <em>asset ID</em>, <em>device supported</em>, <em>touchdowns or insertions to date</em>, <em>service interval</em>, <em>location</em>, <em>status</em>) that auto-calculates <em>% of service interval consumed</em> with a progress bar and flags anything above 90%, and a correlation run log (<em>date</em>, <em>program revision</em>, <em>tester A</em>, <em>tester B</em>, <em>units</em>, <em>correlation result</em>, <em>max delta</em>, <em>pass/fail</em>). Include a &ldquo;Copy release note&rdquo; button producing a formatted note with device, revision, checksum, what changed, correlation evidence and hardware used. Seed with 10 devices, 24 program revisions, 14 hardware assets and 8 correlation runs. Engineering aesthetic &mdash; dark slate with amber accents, monospace for all identifiers and figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p5"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 06 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">06</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Sr Mgr, Test Solutions &amp; Engineering</span>
+                    <h3 class="card-title">Tester Fleet Capacity &amp; Correlation Logbook</h3>
+                    <p class="card-why">Answers &ldquo;do we have the tester hours to take this build, and is the fleet still correlated&rdquo; without rebuilding the model each week &mdash; replacing the tester capacity workbook, the calibration tracking sheet, and the capacity request email thread.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Tester Fleet Capacity and Correlation Logbook</strong> for a Senior Manager of Test Solutions and Engineering at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>testers in fleet</em>, <em>fleet utilisation %</em>, <em>available hours this week</em>, <em>testers due for calibration in 30 days</em>, and <em>correlation drift alerts</em>. Middle: a tester asset register &mdash; a form with <em>tester ID</em>, <em>platform</em>, <em>configuration</em>, <em>location / test floor</em>, <em>devices supported</em>, <em>status</em> (Production / Engineering / Down / Idle / Calibration), <em>available hours per week</em>, <em>last calibration date</em>, and <em>calibration interval (days)</em> &mdash; appending to a table that auto-calculates <em>next calibration due</em> and <em>days remaining</em>, colouring anything inside 30 days amber and overdue red. Below: a capacity planner where each row is a committed build (<em>device</em>, <em>units</em>, <em>test time per unit (seconds)</em>, <em>parallelism / sites</em>, <em>tester platform required</em>, <em>week</em>) that auto-calculates <em>tester hours required</em>, rolls the total up per platform per week against the fleet's available hours, and renders a pure-CSS load bar per platform that turns red above 100% with the shortfall in hours stated in words. Include a golden-unit correlation log (<em>date</em>, <em>device</em>, <em>golden unit ID</em>, <em>tester</em>, <em>parameter measured</em>, <em>reading</em>, <em>reference value</em>) that auto-calculates <em>drift %</em> against the reference and flags any tester whose drift exceeds a settable tolerance, plus a per-tester drift summary so a single misbehaving tester is obvious. Add a &ldquo;Copy capacity summary&rdquo; button that writes utilisation by platform, the weeks in shortfall with the hours short, the calibration items due, and any correlation alerts. Seed with 12 testers across 3 platforms, 18 committed builds over 6 weeks, and 30 correlation readings. Engineering aesthetic &mdash; dark slate with amber accents, monospace for all figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p6"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 07 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">07</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Sr Mgr, TTR Ops &amp; Process Engineering</span>
+                    <h3 class="card-title">TTR Process Control &amp; Final-Ops Dashboard</h3>
+                    <p class="card-why">Keeps test, tape-and-reel and the rest of final ops under statistical control and shows where WIP is stuck before it becomes a shipment miss &mdash; replacing the SPC workbook, the reel inventory sheet, and the daily final-ops status email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Test, Tape &amp; Reel Process Control and Final-Operations Dashboard</strong> for a Senior Manager of TTR Operations and Process Engineering at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>units shipped-ready today</em>, <em>WIP units in final ops</em>, <em>stations out of statistical control</em>, <em>open process deviations</em>, and <em>reel stock days of cover</em>. Middle: an SPC entry panel &mdash; a form with <em>station</em> (Final test / Laser mark / Tape &amp; reel / Visual inspection / Dry pack / Label and pack), <em>parameter</em> (e.g. mark contrast, pocket alignment, cover-tape peel force, seal temperature, carrier pitch), <em>measurement</em>, <em>upper spec limit</em>, <em>lower spec limit</em>, <em>operator</em>, and <em>timestamp</em> &mdash; appending to a table and, per station-parameter pair, auto-calculating <em>mean</em>, <em>standard deviation</em>, <em>Cp</em> and <em>Cpk</em>, rendering a pure-CSS run chart with spec limits drawn as lines, and raising an out-of-control flag when a point falls outside spec or when seven consecutive points sit on one side of the mean. Below: a final-ops WIP funnel showing units at each station with a CSS bar per stage, <em>hours held</em> per stage and the longest-held lot called out; a reel, carrier tape and cover tape inventory table (<em>item</em>, <em>pocket size / spec</em>, <em>on hand</em>, <em>weekly usage</em>) that auto-calculates <em>weeks of cover</em> and flags anything under two weeks; and a process deviation log (<em>date</em>, <em>station</em>, <em>description</em>, <em>units affected</em>, <em>disposition</em>: Rework / Scrap / Use-as-is / Hold, <em>owner</em>, <em>status</em>) with <em>days open</em> auto-calculated. Add a &ldquo;Copy shift report&rdquo; button that writes output by station, any out-of-control parameters with their Cpk, the longest-held WIP, and open deviations with owners. Seed with 6 stations, 60 SPC measurements, 12 reel items and 8 deviations. Engineering aesthetic &mdash; dark slate with amber accents, monospace for all figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p7"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== PLANNING   MATERIALS ===== -->
+    <section id="planning" class="audience-section dept">
+        <div class="audience-header">
+            <div class="audience-badge">&#128197;</div>
+            <div>
+                <h2>Planning &amp; Materials</h2>
+                <div class="subtitle">Master schedule, line loading, build commits and the foundry die bank &middot; Sr Manager, Planning &middot; Sr Mgr, Production Planning &middot; Sr Production Planner &middot; Sr Production Planner &ndash; Foundry</div>
+            </div>
+        </div>
+
+        <!-- Card 08 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">08</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Sr Manager, Planning</span>
+                    <h3 class="card-title">Master Production Schedule &amp; Capacity Load Board</h3>
+                    <p class="card-why">A 13-week view of demand against capacity that recalculates the moment a number changes, instead of a workbook that is stale by Tuesday &mdash; replacing the MPS workbook, the capacity model sheet, and the weekly load review email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Master Production Schedule and Capacity Load Board</strong> for a Senior Planning Manager at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>total demand next 13 weeks (units)</em>, <em>total capacity</em>, <em>overall load %</em>, <em>weeks in overload</em>, and <em>constraint work centre</em>. Middle: a work centre register &mdash; a form with <em>work centre</em> (Bump / Wafer thinning and saw / Die attach / Wire bond / Flip-chip / Mould and laminate / Singulation / Wafer probe / Final test / Tape and reel), <em>units per hour</em>, <em>shifts per week</em>, <em>hours per shift</em>, and <em>planned downtime hours</em> &mdash; auto-calculating <em>weekly capacity in units</em>. Below it, a demand grid: one row per device with a cell per week for the next 13 weeks that can be edited inline, with a <em>routing</em> field saying which work centres that device consumes, so the page can roll demand up into <em>loaded units per work centre per week</em>. Render that roll-up as a 13-column heat strip per work centre using pure CSS, colouring each cell green under 85% load, amber to 100% and red above, with the load % shown in the cell. Include a what-if panel with a slider for <em>extra shifts per week</em> and a slider for <em>yield assumption %</em> that recalculates the whole heat strip live without touching the saved data, and a constraint list naming every work centre and week above 100% with the unit shortfall. Add a &ldquo;Copy planning summary&rdquo; button that writes overall load, the constraint work centre, each overloaded week with its shortfall, and what the what-if settings would change. Seed with 10 work centres, 12 devices and 13 weeks of demand. Planning aesthetic &mdash; navy with teal accents, monospace for all figures, dense grid layout. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p8"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 09 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">09</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Sr Mgr, Production Planning</span>
+                    <h3 class="card-title">Assembly &amp; Test WIP and Line-Loading Planner</h3>
+                    <p class="card-why">Shows where WIP is actually sitting and how long it has been there, then lets you load the lines against it in the same screen &mdash; replacing the WIP workbook, the line allocation sheet, and the daily loading instruction email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Assembly and Test WIP and Line-Loading Planner</strong> for a Senior Production Planning Manager at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>total WIP units</em>, <em>lots on hold</em>, <em>average WIP age (days)</em>, <em>hot lots</em>, and <em>lines below 80% loaded</em>. Middle: a WIP register &mdash; a form with <em>lot ID</em>, <em>device</em>, <em>quantity</em>, <em>current stage</em> (Die bank / Die attach / Wire bond / Flip-chip / Mould / Singulation / Wafer probe / Final test / Tape and reel / Shipped-ready), <em>entered stage date</em>, <em>priority</em> (Hot / Standard / Buffer), <em>hold status</em> (None / Quality hold / Material hold / Engineering hold), and <em>customer commit date</em> &mdash; appending to a sortable table that auto-calculates <em>days in current stage</em>, <em>total cycle days since release</em> and <em>days to commit date</em>, colours any lot past its commit date red and any lot held more than 3 days amber, and sorts hot lots to the top. Render the register as a stage funnel with a pure-CSS bar per stage showing unit count and average age, so the bottleneck stage is visually obvious. Below: a line-loading allocator &mdash; a table of lines (<em>line</em>, <em>stage served</em>, <em>units per hour</em>, <em>available hours today</em>) where each WIP lot can be assigned to a line from a dropdown, auto-calculating <em>hours required</em> per lot and <em>total hours loaded</em> and <em>utilisation %</em> per line with a CSS bar that turns red above 100%, and listing any lot left unassigned. Include a hot-lot priority queue panel showing hot lots in commit-date order with their stage and days remaining, and a &ldquo;Copy loading instruction&rdquo; button producing a per-line list of lots to run in sequence with quantities and hours, plus a &ldquo;Copy WIP status&rdquo; button summarising the bottleneck stage, held lots and at-risk commits. Seed with 8 lines and 30 WIP lots across all stages. Planning aesthetic &mdash; navy with teal accents, monospace for all figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p9"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 10 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">10</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Sr Production Planner</span>
+                    <h3 class="card-title">Build Plan Commit vs Actual Tracker</h3>
+                    <p class="card-why">Makes the weekly miss explainable &mdash; every shortfall carries a reason code and rolls into a Pareto, so the same cause stops surprising you &mdash; replacing the commit tracking workbook, the miss reason sheet, and the recovery plan email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Build Plan Commit vs Actual Tracker</strong> for a Senior Production Planner at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>attainment % this week</em>, <em>attainment % 13-week rolling</em>, <em>units short this week</em>, <em>weeks at or above 95%</em>, and <em>top miss reason</em>. Middle: a commit register &mdash; a form with <em>week</em>, <em>device / part number</em>, <em>customer</em>, <em>committed units</em>, <em>actual units</em>, <em>miss reason code</em> (Material shortage / Die bank short / Equipment down / Yield loss / Test capacity / Quality hold / Engineering hold / Manpower / Plan change / None), and <em>note</em> &mdash; appending to a sortable table that auto-calculates <em>variance units</em> and <em>attainment %</em> per row, colours rows below 95% amber and below 80% red, and forces a reason code to be selected whenever actual is below committed. Below: a pure-CSS column chart of weekly attainment % across the last 13 weeks with a 95% target line drawn across it, a Pareto chart of shortfall units by reason code with cumulative % overlaid, and a per-device roll-up showing <em>committed</em>, <em>actual</em>, <em>attainment %</em> and <em>most frequent miss reason</em> so chronic offenders stand out. Include filters by week, device, customer and reason code, a &ldquo;Copy recovery plan&rdquo; button that writes each short device with units short, the reason, the proposed catch-up week and the owner, and a &ldquo;Copy commit update&rdquo; button producing a customer-safe note stating revised quantities and dates without internal reason codes. Seed with 13 weeks, 10 devices, 8 customers and realistic misses spread across reason codes. Planning aesthetic &mdash; navy with teal accents, monospace for all figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p10"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 11 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">11</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Sr Production Planner &ndash; Foundry</span>
+                    <h3 class="card-title">Foundry Wafer Start &amp; Die Bank Planner</h3>
+                    <p class="card-why">Ties wafer starts, foundry cycle time and the die bank into one coverage number, so a die-out is visible weeks before it bites &mdash; replacing the wafer start workbook, the die bank stock sheet, and the foundry expedite email thread.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Foundry Wafer Start and Die Bank Planner</strong> for a Senior Production Planner &ndash; Foundry at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>wafers in flight</em>, <em>wafers due in next 4 weeks</em>, <em>die bank units</em>, <em>devices under 4 weeks of cover</em>, and <em>average foundry cycle time (days)</em>. Middle: a wafer start register &mdash; a form with <em>lot ID</em>, <em>device</em>, <em>technology</em> (GaAs HBT / GaAs pHEMT / GaN / BAW / SOI CMOS / Silicon), <em>foundry</em>, <em>wafers</em>, <em>start date</em>, <em>quoted cycle time (days)</em>, <em>gross die per wafer</em>, <em>assumed probe yield %</em>, and <em>status</em> (Started / In fab / Shipped / Received / Cancelled) &mdash; appending to a table that auto-calculates <em>forecast out date</em> from start date plus cycle time, <em>days remaining</em>, and <em>expected good die</em> from wafers times gross die times yield, flagging any lot whose forecast out date has passed while status is still In fab. Below: a die bank table (<em>device</em>, <em>good die on hand</em>, <em>weekly assembly demand</em>, <em>safety stock weeks</em>) that auto-calculates <em>weeks of cover</em>, projects a 12-week forward balance by adding the expected good die from wafer lots arriving in each week and subtracting weekly demand, renders that projection as a pure-CSS line or bar chart per device, and raises a red die-out alert naming the exact week the balance goes negative. Include a foundry purchase order tracker (<em>PO number</em>, <em>foundry</em>, <em>device</em>, <em>wafers ordered</em>, <em>wafers received</em>, <em>price per wafer</em>, <em>promised date</em>) with <em>wafers outstanding</em> and <em>days late</em> auto-calculated, and a &ldquo;Copy wafer start request&rdquo; button that lists devices needing starts, the wafer quantity required to restore target cover, and the week the start must be placed to arrive in time. Seed with 8 devices across 3 technologies, 20 wafer lots and 10 foundry POs. Planning aesthetic &mdash; navy with teal accents, monospace for all figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p11"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== SOURCING   SUPPLIER QUALITY ===== -->
+    <section id="sourcing" class="audience-section purch">
+        <div class="audience-header">
+            <div class="audience-badge">&#129534;</div>
+            <div>
+                <h2>Sourcing &amp; Supplier Quality</h2>
+                <div class="subtitle">Quotes and awards, supplier scorecards, and corrective action &middot; Sourcing Manager &middot; Mgr, Supplier Quality Engineering</div>
+            </div>
+        </div>
+
+        <!-- Card 12 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">12</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Sourcing Manager</span>
+                    <h3 class="card-title">Supplier Quote, Cost &amp; Award Tracker</h3>
+                    <p class="card-why">Every RFQ, every quote and the reason each award went where it went, in one auditable page &mdash; replacing the quote comparison workbook, the savings tracking sheet, and the award notification email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Supplier Quote, Cost and Award Tracker</strong> for a Sourcing Manager at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>open RFQs</em>, <em>quotes awaiting response</em>, <em>savings year-to-date ($ and %)</em>, <em>awards this quarter</em>, and <em>price agreements expiring in 60 days</em>. Middle: an RFQ register &mdash; a form with <em>RFQ number</em>, <em>category</em> (Substrates / Leadframes / Mould compound / Wire and bump material / Test hardware / Reels and carrier tape / Assembly subcon / Test subcon / Indirect services), <em>item description</em>, <em>annual volume</em>, <em>baseline unit price</em>, <em>issue date</em>, <em>response due date</em>, and <em>status</em> (Draft / Issued / Quotes in / Evaluating / Awarded / Cancelled) &mdash; appending to a table where each RFQ expands to a quote comparison sub-table (<em>supplier</em>, <em>unit price</em>, <em>tooling / NRE</em>, <em>freight per unit</em>, <em>duty %</em>, <em>payment terms (days)</em>, <em>lead time (weeks)</em>, <em>MOQ</em>) that auto-calculates <em>landed unit cost</em>, <em>annual spend</em>, <em>saving vs baseline ($ and %)</em>, highlights the lowest landed cost in green, and shows a pure-CSS bar comparing landed cost across quoting suppliers. Below: an award decision log (<em>RFQ</em>, <em>supplier awarded</em>, <em>award date</em>, <em>award rationale</em>, <em>not-lowest justification if applicable</em>, <em>approver</em>) that requires a written justification whenever the awarded supplier is not the lowest landed cost, a savings tracker rolling awarded savings up by category and by month as a CSS bar chart, and a price agreement table (<em>supplier</em>, <em>item</em>, <em>agreed price</em>, <em>valid from</em>, <em>valid to</em>) that auto-calculates <em>days to expiry</em> and colours anything inside 60 days amber and expired red. Include a &ldquo;Copy award notification&rdquo; button producing a supplier-ready note with item, agreed price, volume, lead time and validity, and a &ldquo;Copy sourcing status&rdquo; button summarising open RFQs, overdue quote responses and savings to date. Seed with 9 categories, 12 RFQs, 30 quotes and 8 price agreements. Procurement aesthetic &mdash; navy with emerald accents, monospace for all figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p12"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 13 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">13</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Mgr, Supplier Quality Engineering</span>
+                    <h3 class="card-title">Subcontractor &amp; Supplier Scorecard + AVL</h3>
+                    <p class="card-why">Turns supplier performance from an opinion into a weighted score with an audit trail, and keeps qualification certificates from quietly expiring &mdash; replacing the AVL workbook, the scorecard sheet, and the quarterly supplier review email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Subcontractor and Supplier Scorecard with Approved Vendor List</strong> for a Supplier Quality Engineering Manager at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>approved suppliers</em>, <em>conditionally approved</em>, <em>certificates expiring in 90 days</em>, <em>audits overdue</em>, and <em>average scorecard grade</em>. Middle: an approved vendor list &mdash; a form with <em>supplier</em>, <em>site / country</em>, <em>commodity</em> (Assembly subcon / Test subcon / Substrate / Leadframe / Mould compound / Bump and plating chemistry / Reels and tape / Calibration services), <em>qualification status</em> (Approved / Conditionally approved / Under qualification / Suspended / Disqualified), <em>ISO 9001 expiry</em>, <em>IATF 16949 expiry</em>, <em>ISO 14001 expiry</em>, <em>last audit date</em>, and <em>audit interval (months)</em> &mdash; appending to a table that auto-calculates <em>days to each certificate expiry</em> and <em>next audit due</em>, colours anything inside 90 days amber and expired or overdue red, and blocks a supplier from showing as Approved if any certificate has expired. Below: a scorecard panel where each supplier is scored per quarter on five weighted criteria &mdash; <em>quality (PPM / lot acceptance)</em> at 30%, <em>delivery (on-time %)</em> at 25%, <em>responsiveness (SCAR closure days)</em> at 15%, <em>cost and commercial</em> at 15%, and <em>technical support and capability</em> at 15% &mdash; each entered 1 to 5, auto-calculating a <em>weighted score out of 100</em>, mapping it to a grade band (A 90+, B 80&ndash;89, C 70&ndash;79, D below 70) with colour, ranking all suppliers in a league table, and drawing a per-supplier trend of the weighted score across quarters as a pure-CSS bar chart. Include a supplier issue log (<em>date</em>, <em>supplier</em>, <em>issue type</em>: Quality / Delivery / Documentation / Capacity / Commercial, <em>description</em>, <em>units affected</em>, <em>status</em>) with <em>days open</em> auto-calculated, and a &ldquo;Copy supplier review summary&rdquo; button producing a per-supplier note with the score, the grade, the movement since last quarter, open issues and required actions. Seed with 14 suppliers across 8 commodities and 4 quarters of scores. Procurement aesthetic &mdash; navy with emerald accents, monospace for all figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p13"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 14 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">14</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Sourcing Manager &nbsp;&middot;&nbsp; Mgr, Supplier Quality Engineering</span>
+                    <h3 class="card-title">SCAR &amp; 8D Corrective Action Casebook</h3>
+                    <p class="card-why">Every supplier corrective action moves through the same eight steps with visible ageing, so nothing stalls at &ldquo;awaiting supplier response&rdquo; for a month &mdash; replacing the SCAR log workbook, the 8D status sheet, and the chase-up email chain.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Supplier Corrective Action and 8D Casebook</strong> shared by Sourcing and Supplier Quality Engineering at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>open SCARs</em>, <em>overdue supplier responses</em>, <em>average days to close</em>, <em>SCARs closed this quarter</em>, and <em>top defect category</em>. Middle: a SCAR register &mdash; a form with <em>SCAR number</em>, <em>supplier</em>, <em>part / material affected</em>, <em>lot or batch</em>, <em>defect category</em> (Dimensional / Contamination / Delamination / Plating defect / Mixed material / Documentation / Late delivery / Packaging damage), <em>description</em>, <em>units affected</em>, <em>severity</em> (Critical / Major / Minor), <em>raised date</em>, <em>response due date</em>, and <em>owner</em> &mdash; appending to a table that auto-calculates <em>days open</em> and <em>days until or past response due</em>, sorts overdue to the top in red, and sorts Critical above Major above Minor within that. Each SCAR expands to an 8D workspace with the eight disciplines as fields &mdash; <em>D1 team</em>, <em>D2 problem description</em>, <em>D3 containment action</em>, <em>D4 root cause</em>, <em>D5 corrective action</em>, <em>D6 implementation and verification</em>, <em>D7 prevention and read-across</em>, <em>D8 closure and recognition</em> &mdash; each with a completed tick and a date, driving a <em>progress bar showing steps complete out of 8</em>, where a SCAR cannot be marked Closed until all eight are ticked and D6 verification has a date. Below: a pure-CSS Pareto chart of SCARs by defect category and a second by supplier, and an ageing panel bucketing open SCARs into 0&ndash;15, 16&ndash;30, 31&ndash;60 and over 60 days. Include a &ldquo;Copy 8D report&rdquo; button that renders one SCAR as a formatted eight-section report, and a &ldquo;Copy chase-up&rdquo; button producing a per-supplier note listing their overdue SCARs with numbers, days overdue and the outstanding discipline. Seed with 10 suppliers and 22 SCARs at varying stages of completion. Quality aesthetic &mdash; navy with emerald accents, monospace for identifiers and figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p14"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== PACKAGING   LAYOUT ENGINEERING ===== -->
+    <section id="packaging" class="audience-section quality">
+        <div class="audience-header">
+            <div class="audience-badge">&#128300;</div>
+            <div>
+                <h2>Packaging &amp; Layout Engineering</h2>
+                <div class="subtitle">Package qualification, module and PCB layout revisions, and design review gates &middot; Principal Packaging Engineer / MTS &middot; Sr Mgr, PCB Layout Engineering</div>
+            </div>
+        </div>
+
+        <!-- Card 15 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">15</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Principal Packaging Engineer / MTS</span>
+                    <h3 class="card-title">Package Development &amp; Qualification Tracker</h3>
+                    <p class="card-why">Shows at a glance how far each package is through its qualification matrix and what is blocking sign-off &mdash; replacing the qual plan workbook, the reliability results sheet, and the qual status email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Package Development and Qualification Tracker</strong> for a Principal Packaging Engineer at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>packages in development</em>, <em>packages in qualification</em>, <em>qualified this year</em>, <em>tests failed awaiting action</em>, and <em>average days from qual start to release</em>. Middle: a package master &mdash; a form with <em>package name</em>, <em>type</em> (Laminate module / QFN / DFN / Flip-chip CSP / Wafer-level CSP / Copper pillar bump / SOT), <em>body size (mm)</em>, <em>ball or lead count</em>, <em>pitch (mm)</em>, <em>substrate type and layer count</em>, <em>die attach material</em>, <em>interconnect</em> (Wire bond / Copper pillar / Solder bump), <em>mould compound</em>, <em>MSL target</em>, <em>assembly site</em>, <em>status</em> (Concept / Design / Prototype / Qualification / Qualified / Released to production), and <em>qual start date</em> &mdash; appending to a card grid where each package tile shows its key construction details and a readiness bar. Below: a qualification test matrix per package with one row per test &mdash; <em>MSL preconditioning</em>, <em>temperature cycling (TC)</em>, <em>high temperature storage life (HTSL)</em>, <em>unbiased HAST (uHAST)</em>, <em>biased HAST</em>, <em>high temperature operating life (HTOL)</em>, <em>board-level temperature cycling</em>, <em>drop test</em>, <em>bend test</em>, <em>solder ball shear</em>, <em>wire pull and ball shear</em>, <em>X-ray and C-SAM inspection</em>, <em>solderability</em> &mdash; each with <em>condition</em>, <em>sample size</em>, <em>duration or cycles</em>, <em>start date</em>, <em>read points completed</em>, <em>failures</em>, and <em>result</em> (Not started / In progress / Pass / Fail / Waived with justification), auto-calculating a <em>qualification readiness %</em> from tests passed over tests required and rendering it as a progress bar, and blocking status Qualified until every non-waived test reads Pass. Include a failure analysis panel linked to failed tests (<em>test</em>, <em>failure mode</em>, <em>analysis performed</em>, <em>root cause</em>, <em>design or process change</em>, <em>retest required</em>, <em>status</em>), a materials and supplier reference table per package, and a &ldquo;Copy qualification report&rdquo; button producing a formatted summary with construction details, the full test matrix with results and sample sizes, failures with their dispositions, and a qualification statement. Seed with 6 packages at different stages and a fully populated test matrix for each. Engineering aesthetic &mdash; navy with cyan accents, monospace for all figures and dimensions. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p15"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 16 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">16</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Sr Mgr, PCB Layout Engineering</span>
+                    <h3 class="card-title">Module &amp; PCB Layout Revision / DFM Checklist Board</h3>
+                    <p class="card-why">One record of every layout job, how many turns it has taken and whether its DFM checks are actually signed off before release &mdash; replacing the layout job workbook, the revision history sheet, and the release-package email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Module and PCB Layout Revision and DFM Checklist Board</strong> for a Senior Manager of PCB Layout Engineering at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>active layout jobs</em>, <em>jobs awaiting release</em>, <em>average turns per job</em>, <em>jobs over turn budget</em>, and <em>designer with highest open workload</em>. Middle: a layout job register &mdash; a form with <em>job number</em>, <em>product / module</em>, <em>board type</em> (RF module laminate / Evaluation board / Test load board / Customer reference design / Production panel), <em>layer count</em>, <em>stack-up note</em>, <em>dielectric material</em>, <em>controlled impedance targets</em>, <em>minimum trace and space (&micro;m)</em>, <em>minimum via and pad</em>, <em>designer</em>, <em>requester</em>, <em>priority</em> (Hot / Standard), <em>start date</em>, <em>target release date</em>, and <em>status</em> (Queued / In layout / In review / Rework / Released / On hold) &mdash; appending to a sortable table that auto-calculates <em>days in progress</em> and <em>days to target</em>, colours overdue jobs red, and keeps a full expandable revision history per job (<em>revision</em>, <em>date</em>, <em>changed by</em>, <em>change summary</em>, <em>reason</em>: Schematic change / DRC fail / DFM feedback / Customer request / Impedance tune) with an auto <em>turn count</em> that flags any job exceeding a settable turn budget. Below: a DFM and DFA checklist per job rendered as tickable items with an initials and date field each &mdash; <em>DRC clean</em>, <em>ERC clean</em>, <em>netlist compared to schematic</em>, <em>impedance stack-up verified</em>, <em>RF trace routing and reference plane continuity reviewed</em>, <em>ground via stitching adequate</em>, <em>thermal vias and copper balance checked</em>, <em>component courtyard and assembly clearances met</em>, <em>silkscreen and polarity marks legible</em>, <em>panelisation and fiducials placed</em>, <em>solder mask and paste layers verified</em>, <em>drill chart and fab notes complete</em>, <em>Gerber and ODB++ output generated and viewed back</em>, <em>BOM cross-checked</em> &mdash; driving a <em>release readiness %</em> progress bar, where status cannot be set to Released until every item is ticked. Add a designer workload panel showing open jobs and total days in progress per designer as a pure-CSS bar chart, and a &ldquo;Copy release package note&rdquo; button producing a formatted note with job number, product, revision, stack-up, what changed, the DFM sign-off list and the output files included. Seed with 12 jobs across the board types, revision histories and partially completed checklists. Engineering aesthetic &mdash; navy with cyan accents, monospace for all identifiers and dimensions. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p16"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 17 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">17</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Principal Packaging Engineer / MTS &nbsp;&middot;&nbsp; Sr Mgr, PCB Layout Engineering</span>
+                    <h3 class="card-title">Design Review Gate &amp; Sign-off Register</h3>
+                    <p class="card-why">Makes it impossible to pass a gate with a reviewer still outstanding or an action unclosed &mdash; replacing the review tracker workbook, the sign-off sheet, and the &ldquo;did everyone approve this?&rdquo; email thread.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Design Review Gate and Sign-off Register</strong> shared by Packaging and Layout Engineering at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>reviews scheduled</em>, <em>gates passed this quarter</em>, <em>sign-offs outstanding</em>, <em>open review actions</em>, and <em>average days from review to gate closure</em>. Middle: a review register &mdash; a form with <em>review ID</em>, <em>project / product</em>, <em>gate</em> (Concept review / Schematic review / Package construction review / Layout review / Pre-tape-out review / Qualification plan review / Production release review), <em>scheduled date</em>, <em>chair</em>, <em>materials link</em> (use a <strong>[square bracket placeholder]</strong> for the document location), and <em>status</em> (Scheduled / Held / Actions open / Gate passed / Gate failed) &mdash; appending to a table that auto-calculates <em>days since held</em>. Each review expands to a sign-off matrix: a row per required reviewer function (<em>Design</em>, <em>Packaging</em>, <em>Layout</em>, <em>Product engineering</em>, <em>Test engineering</em>, <em>Reliability</em>, <em>Manufacturing</em>, <em>Supplier quality</em>, <em>Program management</em>) with <em>reviewer name</em>, <em>decision</em> (Approved / Approved with comments / Not approved / Not required), <em>date</em>, and <em>comment</em>, auto-calculating <em>sign-offs received out of required</em> as a progress bar and listing outstanding reviewers by name, where the gate cannot be set to Passed while any required reviewer is unsigned or any Not approved stands. Below: a review action log (<em>action</em>, <em>review ID</em>, <em>raised by</em>, <em>owner</em>, <em>due date</em>, <em>closure evidence</em>, <em>status</em>) with <em>days open</em> auto-calculated and overdue rows in red, filterable by owner and by review, and a gate readiness panel showing each in-flight project with its current gate, sign-off %, open actions and a RAG verdict. Include a &ldquo;Copy review minutes&rdquo; button producing formatted minutes with attendees, decisions, sign-offs and actions with owners and dates, and a &ldquo;Copy outstanding sign-offs&rdquo; button producing a per-reviewer chase-up note. Seed with 5 projects, 12 reviews and 20 actions. Engineering aesthetic &mdash; navy with cyan accents, quiet and document-like. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p17"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== PROGRAMS, RISK   BUSINESS PROCESS ===== -->
+    <section id="pmo" class="audience-section strat">
+        <div class="audience-header">
+            <div class="audience-badge">&#128202;</div>
+            <div>
+                <h2>Programs, Risk &amp; Business Process</h2>
+                <div class="subtitle">Phase gates, operational risk, and how the work actually flows &middot; PMO / ORM Manager &middot; Staff Business Process Analyst</div>
+            </div>
+        </div>
+
+        <!-- Card 18 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">18</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">PMO / ORM Manager</span>
+                    <h3 class="card-title">NPI Program &amp; Phase-Gate Tracker</h3>
+                    <p class="card-why">Every new product program on one board with its gate readiness and slip history, instead of nine status decks that disagree &mdash; replacing the program tracking workbook, the milestone sheet, and the weekly program status email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>New Product Introduction Program and Phase-Gate Tracker</strong> for a PMO Manager at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>active programs</em>, <em>programs at risk</em>, <em>gates due in 30 days</em>, <em>milestones slipped this quarter</em>, and <em>average days per phase</em>. Middle: a program register &mdash; a form with <em>program name</em>, <em>product family</em> (RF front-end module / Filter / Power amplifier / Power management IC / Connectivity SoC), <em>lead customer</em>, <em>program manager</em>, <em>current phase</em> (Concept / Design / Tape-out / Prototype / Qualification / Pilot build / Production ramp / Sustaining), <em>phase entry date</em>, <em>target production date</em>, <em>budget</em>, <em>spend to date</em>, and <em>RAG status</em> &mdash; appending to a table that auto-calculates <em>days in current phase</em>, <em>days to target production date</em>, <em>budget variance ($ and %)</em>, and flags any program whose target date has passed or whose spend exceeds budget. Render the register as a pure-CSS Gantt strip, one row per program, with a coloured segment per phase across a 12-month timeline and a &ldquo;today&rdquo; marker line. Below: a gate checklist panel per program with the exit criteria for its current phase (for example at Qualification: <em>qual plan approved</em>, <em>reliability testing complete</em>, <em>test program released</em>, <em>package qualified</em>, <em>yield entitlement demonstrated</em>, <em>datasheet drafted</em>, <em>supply chain qualified</em>, <em>pricing approved</em>) as tickable items driving a <em>gate readiness %</em> bar, where a program cannot advance a phase below 100%. Add a milestone log (<em>program</em>, <em>milestone</em>, <em>baseline date</em>, <em>forecast date</em>, <em>actual date</em>, <em>owner</em>) that auto-calculates <em>slip days</em> against baseline, colours slips over 14 days red, and totals slip days per program, and a &ldquo;Copy program status report&rdquo; button producing a per-program RAG note with phase, gate readiness, key milestones with slip, budget variance and top risks. Seed with 8 programs across the phases with milestones and gate checklists partly complete. Program aesthetic &mdash; navy with indigo accents, monospace for all figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p18"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 19 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">19</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">PMO / ORM Manager</span>
+                    <h3 class="card-title">Operational Risk Register &amp; Mitigation Board</h3>
+                    <p class="card-why">Scores every operational risk the same way and shows residual risk moving as mitigations land, so the register drives decisions instead of gathering dust &mdash; replacing the risk register workbook, the mitigation tracking sheet, and the risk review email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Operational Risk Register and Mitigation Board</strong> for an Operational Risk Management Manager at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>open risks</em>, <em>high and extreme risks</em>, <em>risks with overdue mitigations</em>, <em>risks closed this quarter</em>, and <em>average residual score reduction</em>. Middle: a risk register &mdash; a form with <em>risk ID</em>, <em>category</em> (Supply chain / Single-source dependency / Equipment and capacity / Quality and reliability / Regulatory and trade compliance / Cybersecurity and IT / People and key-person / Business continuity / Environmental and safety / Customer concentration), <em>risk description</em>, <em>cause</em>, <em>consequence</em>, <em>inherent likelihood</em> (1&ndash;5), <em>inherent impact</em> (1&ndash;5), <em>owner</em>, <em>department</em>, <em>review date</em>, and <em>status</em> (Open / Mitigating / Monitored / Closed / Accepted) &mdash; appending to a table that auto-calculates <em>inherent score</em> as likelihood times impact, maps it to a band (1&ndash;4 Low, 5&ndash;9 Medium, 10&ndash;15 High, 16&ndash;25 Extreme) with colour, and sorts highest first. Each risk expands to a mitigation panel with multiple mitigation actions (<em>action</em>, <em>owner</em>, <em>due date</em>, <em>status</em>, <em>evidence</em>) plus <em>residual likelihood</em> and <em>residual impact</em> fields that recalculate a <em>residual score</em> and show the reduction from inherent as an arrow and a delta, where residual cannot be set below inherent unless at least one mitigation action is marked Complete. Below: a 5&times;5 risk heat map built in pure CSS grid with each cell coloured by score band and showing the count of risks sitting in it, clickable to filter the register, plotted for inherent and switchable to residual so the effect of mitigation is visible. Include an overdue mitigation panel listing actions past due with owner and days overdue, and a &ldquo;Copy risk review pack&rdquo; button producing a formatted summary of extreme and high risks with scores, owners, mitigations in flight and overdue items. Seed with 24 risks across all categories with mitigations at varying completion. Risk aesthetic &mdash; navy with indigo accents, monospace for all scores. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p19"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 20 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">20</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Staff Business Process Analyst</span>
+                    <h3 class="card-title">Process Map &amp; Improvement Backlog Workbench</h3>
+                    <p class="card-why">Maps a process step by step, calculates where the lead time actually goes, and turns the waste into a prioritised backlog with a business case &mdash; replacing the process documentation workbook, the improvement idea sheet, and the project proposal email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Process Map and Improvement Backlog Workbench</strong> for a Staff Business Process Analyst at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>processes mapped</em>, <em>total lead time mapped (hours)</em>, <em>non-value-add %</em>, <em>improvement items in backlog</em>, and <em>annualised savings identified</em>. Middle: a process inventory &mdash; a form with <em>process name</em>, <em>function</em> (Planning / Assembly ops / Test ops / Sourcing / Quality / Engineering / Finance / HR / IT), <em>process owner</em>, <em>trigger</em>, <em>output</em>, <em>frequency</em> (Per lot / Daily / Weekly / Monthly / Per event), <em>systems used</em>, and <em>pain score</em> (1&ndash;5) &mdash; appending to a table sorted by pain score. Each process expands to a step-level map where steps are added in sequence (<em>step number</em>, <em>step description</em>, <em>role performing</em>, <em>system</em>, <em>processing time (minutes)</em>, <em>wait time before step (minutes)</em>, <em>handoff?</em> yes/no, <em>classification</em>: Value-add / Business-necessary / Non-value-add / Rework loop), rendered as a horizontal pure-CSS swimlane strip with one coloured block per step sized in proportion to its total time and coloured by classification, with handoffs marked. Auto-calculate per process: <em>total processing time</em>, <em>total wait time</em>, <em>total lead time</em>, <em>process cycle efficiency</em> as processing over lead time, <em>handoff count</em>, and <em>non-value-add minutes</em>, and show the three longest steps called out by name. Below: an improvement backlog (<em>improvement</em>, <em>process</em>, <em>step targeted</em>, <em>type</em>: Automate / Eliminate / Simplify / Combine / Standardise, <em>estimated minutes saved per occurrence</em>, <em>occurrences per year</em>, <em>effort</em> 1&ndash;5, <em>impact</em> 1&ndash;5, <em>owner</em>, <em>status</em>) that auto-calculates <em>hours saved per year</em> and <em>annualised value</em> from a settable hourly rate, computes a <em>priority score</em> as impact divided by effort, sorts by it, and plots every item on a pure-CSS effort-versus-impact quadrant grid with quick wins highlighted. Include a &ldquo;Copy business case&rdquo; button that writes one improvement as a short case with the current-state numbers, the proposed change, hours and money saved per year, effort and owner, and a &ldquo;Copy process summary&rdquo; button producing a current-state narrative with lead time, efficiency and the top three time sinks. Seed with 6 processes of 8&ndash;12 steps each and 15 backlog items. Analyst aesthetic &mdash; navy with indigo accents, monospace for all figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p20"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== SALES   APPLICATIONS ===== -->
+    <section id="sales" class="audience-section marketing">
+        <div class="audience-header">
+            <div class="audience-badge">&#128200;</div>
+            <div>
+                <h2>Sales &amp; Applications</h2>
+                <div class="subtitle">The order desk, the design-win funnel, and customer technical support &middot; Sr Mgr, Inside Sales &middot; Sr Application Engineer</div>
+            </div>
+        </div>
+
+        <!-- Card 21 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">21</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Sr Mgr, Inside Sales</span>
+                    <h3 class="card-title">Order Desk, Backlog &amp; Expedite Board</h3>
+                    <p class="card-why">Every order, its commit date and whether it is going to make it, without opening four systems &mdash; replacing the backlog workbook, the expedite tracking sheet, and the customer status-update email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Order Desk, Backlog and Expedite Board</strong> for a Senior Inside Sales Manager at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>total backlog (units and value)</em>, <em>shipping this month</em>, <em>past-due backlog</em>, <em>on-time-to-commit %</em>, and <em>open expedite requests</em>. Middle: an order register &mdash; a form with <em>order number</em>, <em>customer</em>, <em>ship-to region</em>, <em>device / part number</em>, <em>product family</em> (RF front-end module / Filter / Power amplifier / Power management / Connectivity), <em>quantity</em>, <em>unit price</em>, <em>customer requested date</em>, <em>committed date</em>, <em>current forecast ship date</em>, and <em>status</em> (Entered / Confirmed / In production / Ready to ship / Shipped / Past due / On hold) &mdash; appending to a sortable table that auto-calculates <em>order value</em>, <em>days between requested and committed</em>, <em>days early or late against commit</em> from the forecast ship date, and <em>days to commit date</em>, colouring any order forecast to miss its commit red and any order inside 7 days of commit but not yet Ready amber. Below: a backlog roll-up panel showing units and value by customer and separately by product family as pure-CSS horizontal bar charts with each customer's <em>share of total backlog</em>, plus a monthly shipment schedule strip for the next 6 months. Include an expedite queue (<em>order number</em>, <em>customer</em>, <em>requested pull-in date</em>, <em>reason code</em>: Customer line-down / New program build / Competitive risk / Recovery of earlier miss / Forecast increase, <em>requested by</em>, <em>planning response</em>, <em>status</em>: Requested / Under review / Approved / Declined, <em>decision date</em>) with <em>days awaiting response</em> auto-calculated and overdue requests in red, and a Pareto of expedite reasons. Add a &ldquo;Copy customer status update&rdquo; button producing a per-customer note listing their open orders with quantities, committed dates, current forecast dates and a plain-language line on anything at risk, and a &ldquo;Copy internal backlog review&rdquo; button summarising past-due value, at-risk orders and the expedite queue. Seed with 14 customers, 12 devices and 45 orders spread across statuses. Commercial aesthetic &mdash; navy with magenta accents, monospace for all figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p21"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 22 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">22</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Sr Mgr, Inside Sales</span>
+                    <h3 class="card-title">Design-Win &amp; Opportunity Pipeline Board</h3>
+                    <p class="card-why">A design-win funnel that weights by probability and rolls into a quarterly forecast, rather than a pipeline sheet everyone edits differently &mdash; replacing the opportunity workbook, the forecast sheet, and the pipeline review email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Design-Win and Opportunity Pipeline Board</strong> for a Senior Inside Sales Manager at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>open opportunities</em>, <em>total pipeline value</em>, <em>probability-weighted value</em>, <em>design wins this quarter</em>, and <em>win rate %</em>. Middle: a six-stage kanban built in pure CSS &mdash; <em>Lead</em>, <em>Sample request</em>, <em>Design-in / evaluation</em>, <em>Design win</em>, <em>Qualification at customer</em>, <em>Production ramp</em> &mdash; each column showing opportunity cards with <em>customer</em>, <em>end application</em> (Smartphone / Wi-Fi and connectivity / Automotive / Defense and aerospace / Infrastructure / IoT and smart home / Industrial power), <em>device</em>, <em>annual unit potential</em>, <em>annual revenue potential</em>, and <em>expected production start quarter</em>, with a default probability per stage (10 / 25 / 40 / 65 / 85 / 100 percent) that can be overridden per opportunity and drives a <em>weighted value</em>, plus a column total at the head of each column. Moving a card between stages should be possible from a dropdown on the card and should recalculate everything. Below: a rolling forecast table by quarter for the next six quarters showing <em>unweighted pipeline</em>, <em>weighted pipeline</em> and a settable <em>target</em>, with a pure-CSS column chart of weighted value against target and the gap stated in words, and a roll-up of weighted value by end application and by customer. Include a per-opportunity activity log (<em>date</em>, <em>activity type</em>: Sample shipped / Technical call / Evaluation feedback / Quotation issued / Customer visit / Ramp review, <em>note</em>, <em>next action</em>, <em>next action date</em>) with a panel listing every opportunity whose next action is overdue or which has had no activity for 30 days, and a loss log (<em>opportunity</em>, <em>stage lost at</em>, <em>reason</em>: Price / Technical fit / Lead time / Incumbent / Program cancelled, <em>competitor</em>) with a Pareto of loss reasons. Add a &ldquo;Copy pipeline review&rdquo; button producing a formatted note with weighted value by quarter against target, the top ten opportunities with stage and next action, stalled opportunities, and recent losses with reasons. Seed with 30 opportunities across the six stages, 14 customers and 7 end applications. Commercial aesthetic &mdash; navy with magenta accents, monospace for all figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p22"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 23 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">23</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Sr Application Engineer</span>
+                    <h3 class="card-title">Customer Technical Enquiry &amp; Design-In Support Tracker</h3>
+                    <p class="card-why">Keeps every technical question, sample and evaluation board on a response clock, and stops the good answers from being lost in a mailbox &mdash; replacing the enquiry log workbook, the sample dispatch sheet, and the &ldquo;did we ever reply?&rdquo; email search.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Customer Technical Enquiry and Design-In Support Tracker</strong> for a Senior Application Engineer at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>open enquiries</em>, <em>enquiries past response target</em>, <em>samples awaiting feedback</em>, <em>average first-response hours</em>, and <em>design-ins supported this quarter</em>. Middle: an enquiry register &mdash; a form with <em>enquiry ID</em>, <em>customer</em>, <em>contact</em>, <em>region</em>, <em>device / part number</em>, <em>enquiry type</em> (Datasheet clarification / Impedance matching / Thermal and power dissipation / Layout and grounding / ESD and reliability / Harmonics and linearity / Supply and biasing / Failure investigation / Alternative part), <em>question summary</em>, <em>priority</em> (Critical &ndash; customer line down / High / Normal), <em>received date and time</em>, <em>response target hours</em> (default 24 for Critical, 48 for High, 72 for Normal), <em>first response date and time</em>, <em>answer given</em>, and <em>status</em> (Open / Awaiting customer / Answered / Escalated to design / Closed) &mdash; appending to a table that auto-calculates <em>hours to first response</em> and <em>hours remaining or overdue against target</em>, colours breached targets red, and sorts Critical to the top. Below: a sample and evaluation board pipeline (<em>request ID</em>, <em>customer</em>, <em>item</em>: Device samples / Evaluation board / Reference design files / Simulation model, <em>quantity</em>, <em>requested date</em>, <em>approval status</em>, <em>dispatch date</em>, <em>courier tracking</em> using a <strong>[square bracket placeholder]</strong> for the tracking link, <em>delivered date</em>, <em>feedback received</em>, <em>feedback summary</em>) with milestone progress bars per request, and a follow-up panel listing every sample delivered more than 14 days ago with no feedback recorded, with the contact name ready to chase. Include a reusable answer library (<em>topic</em>, <em>device family</em>, <em>question</em>, <em>standard answer</em>, <em>reference document</em> as a <strong>[square bracket placeholder]</strong>, <em>times reused</em>) searchable by keyword with a one-click insert into an enquiry's answer field and an auto-incrementing reuse counter, and a Pareto of enquiry types so recurring questions are obvious candidates for an application note. Add a &ldquo;Copy technical reply&rdquo; button producing a customer-ready email with the question restated, the answer, any recommended part or setting, and next steps, and a &ldquo;Copy follow-up&rdquo; button for the no-feedback list. Seed with 12 customers, 30 enquiries, 15 sample requests and 12 answer library entries. Applications aesthetic &mdash; navy with magenta accents, monospace for part numbers and figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p23"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== CORPORATE SERVICES   HR, LEGAL   IT ===== -->
+    <section id="corporate" class="audience-section finance">
+        <div class="audience-header">
+            <div class="audience-badge">&#127963;</div>
+            <div>
+                <h2>Corporate Services &mdash; HR, Legal &amp; IT</h2>
+                <div class="subtitle">Headcount and onboarding, contracts and matters, assets and access &middot; Manager, Human Resources &middot; Associate General Counsel, APAC &middot; Sr IT Administrator, APAC</div>
+            </div>
+        </div>
+
+        <!-- Card 24 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">24</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Manager, Human Resources</span>
+                    <h3 class="card-title">Headcount, Requisition &amp; Onboarding Tracker</h3>
+                    <p class="card-why">Budgeted versus actual headcount, every open requisition with its days-to-fill, and onboarding that does not depend on memory &mdash; replacing the headcount workbook, the recruitment tracking sheet, and the new-starter checklist email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Headcount, Requisition and Onboarding Tracker</strong> for a Human Resources Manager at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>headcount actual vs budget</em>, <em>open requisitions</em>, <em>average days to fill</em>, <em>starters next 30 days</em>, and <em>rolling 12-month attrition %</em>. Middle: a headcount board &mdash; a form with <em>department</em> (Product engineering / Test engineering / Assembly operations / Planning / Sourcing / Quality / Packaging engineering / Layout engineering / PMO / Finance / HR / IT / Legal), <em>budgeted headcount</em>, <em>actual headcount</em>, and <em>contingent or contract headcount</em> &mdash; auto-calculating <em>vacancies</em> and <em>fill rate %</em> per department and drawing a pure-CSS grouped bar chart of budget against actual so gaps are visible at a glance. Below: a requisition pipeline (<em>requisition number</em>, <em>role title</em>, <em>department</em>, <em>level</em>, <em>hiring manager</em>, <em>approved date</em>, <em>posted date</em>, <em>stage</em>: Approved / Posted / Screening / Interviewing / Offer / Accepted / Onboarded / On hold / Cancelled, <em>candidates in process</em>, <em>offer date</em>, <em>accepted date</em>, <em>agreed start date</em>) that auto-calculates <em>days open since approval</em> and, once filled, <em>days to fill</em>, colours anything open beyond 60 days amber and 90 days red, and shows average days to fill per department as a bar chart. Add an onboarding panel: each accepted candidate gets a checklist rendered as tickable items with an owner and due-date offset from the start date &mdash; <em>offer letter signed</em>, <em>background and reference checks</em>, <em>work pass or visa where applicable</em>, <em>IT account and email created</em>, <em>laptop and access card issued</em>, <em>cleanroom gowning and ESD training</em>, <em>safety induction</em>, <em>quality system and ISO awareness training</em>, <em>code of conduct and trade compliance acknowledgement</em>, <em>buddy assigned</em>, <em>30-day check-in</em>, <em>90-day confirmation review</em> &mdash; driving a <em>readiness %</em> bar per starter, with a panel listing every item due in the next 7 days across all starters and every overdue item in red. Include an attrition log (<em>leaver</em>, <em>department</em>, <em>last day</em>, <em>type</em>: Voluntary / Involuntary, <em>reason category</em>, <em>tenure months</em>) with a 12-month trend chart and a Pareto of leaving reasons, and a &ldquo;Copy hiring status&rdquo; button producing a per-department note with vacancies, requisitions and their stages, days open, upcoming start dates and any onboarding items overdue. Seed with 13 departments, 15 requisitions, 5 starters in onboarding and 12 months of attrition. Corporate aesthetic &mdash; navy with blue accents, monospace for all figures. Keep the seed data clearly fictitious. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p24"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 25 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">25</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Associate General Counsel, APAC</span>
+                    <h3 class="card-title">Contract &amp; Legal Matter Register &mdash; APAC</h3>
+                    <p class="card-why">Renewal dates, auto-renew traps and the obligations buried inside signed agreements, all surfacing before they bite &mdash; replacing the contract register workbook, the matter tracking sheet, and the &ldquo;when does this expire?&rdquo; email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Contract and Legal Matter Register for APAC</strong> for an Associate General Counsel at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>active contracts</em>, <em>expiring in 90 days</em>, <em>auto-renew notice windows closing in 30 days</em>, <em>open matters</em>, and <em>average review turnaround days</em>. Middle: a contract register &mdash; a form with <em>contract reference</em>, <em>counterparty</em>, <em>type</em> (NDA / Master supply agreement / Distribution agreement / Foundry or subcon agreement / Software and SaaS licence / Consulting services / Lease / Employment-related / IP licence / Quality agreement), <em>business owner</em>, <em>jurisdiction and governing law</em>, <em>entity</em>, <em>effective date</em>, <em>expiry date</em>, <em>auto-renew</em> (yes/no), <em>renewal notice period (days)</em>, <em>annual value</em>, <em>signature status</em> (Drafting / In negotiation / Out for signature / Executed / Expired / Terminated), and <em>document location</em> as a <strong>[square bracket placeholder]</strong> &mdash; appending to a sortable table that auto-calculates <em>days to expiry</em> and, for auto-renew contracts, the <em>last date to serve notice</em> and <em>days until that date</em>, colouring expiry inside 90 days amber, inside 30 days red, and flagging any auto-renew contract whose notice window closes within 30 days as the most urgent row regardless of expiry. Below: a matter log (<em>matter reference</em>, <em>type</em>: Contract review / Regulatory and trade compliance / Export control classification / Employment / IP and trademark / Dispute / Corporate and entity / Data privacy, <em>jurisdiction</em>, <em>requesting department</em>, <em>description</em>, <em>received date</em>, <em>target date</em>, <em>external counsel engaged</em>, <em>estimated external spend</em>, <em>status</em>, <em>closed date</em>) that auto-calculates <em>days open</em> and <em>turnaround days</em> once closed, sorts overdue to the top, and charts matters by type and by requesting department as pure-CSS bars plus a monthly turnaround trend. Include an obligation tracker where a contract can carry recurring obligations (<em>obligation</em>, <em>contract</em>, <em>responsible department</em>, <em>owner</em>, <em>frequency</em>: One-off / Monthly / Quarterly / Annual, <em>next due date</em>, <em>status</em>) that auto-rolls the next due date forward when marked complete and lists everything due in the next 60 days, and a &ldquo;Copy legal status report&rdquo; button producing a formatted note with contracts requiring action with their dates, notice windows closing, open matters by department with ageing, and obligations coming due. Seed with 25 contracts across the types and jurisdictions, 18 matters and 12 obligations, all with clearly fictitious counterparty names. Corporate aesthetic &mdash; navy with blue accents, quiet and document-like, monospace for dates and references. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p25"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 26 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">26</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Sr IT Administrator, APAC</span>
+                    <h3 class="card-title">IT Asset, Access &amp; Service Request Desk &mdash; APAC</h3>
+                    <p class="card-why">Assets, licence seats, access approvals and the ticket queue in one place with SLA ageing that is actually visible &mdash; replacing the asset register workbook, the licence tracking sheet, and the ticket status email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>IT Asset, Access and Service Request Desk for APAC</strong> for a Senior IT Administrator at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>assets under management</em>, <em>assets out of warranty</em>, <em>licence seats over entitlement</em>, <em>open tickets</em>, and <em>tickets breaching SLA</em>. Middle: an asset register &mdash; a form with <em>asset tag</em>, <em>type</em> (Laptop / Desktop / Server / Network switch / Test-floor PC / Tablet / Monitor / Printer / Mobile device), <em>make and model</em>, <em>serial number</em>, <em>site</em> (choose from several APAC sites), <em>assigned user</em>, <em>department</em>, <em>purchase date</em>, <em>warranty months</em>, <em>refresh cycle years</em>, <em>operating system and build</em>, <em>encryption enabled</em> (yes/no), and <em>status</em> (In use / In stock / In repair / Retired / Lost) &mdash; appending to a sortable table that auto-calculates <em>warranty expiry</em>, <em>days to warranty expiry</em>, <em>age in months</em> and <em>refresh due date</em>, colours out-of-warranty rows amber, refresh-overdue rows red, and flags any In-use asset with encryption not enabled as a compliance exception. Show asset counts by site and by type as pure-CSS bar charts. Below: a software licence table (<em>product</em>, <em>licence type</em>, <em>entitled seats</em>, <em>assigned seats</em>, <em>annual cost</em>, <em>renewal date</em>) that auto-calculates <em>seats free or over</em>, <em>utilisation %</em> and <em>days to renewal</em>, highlighting over-allocation in red and under-used licences worth reclaiming in amber with the reclaimable annual cost totalled. Add an access request and approval log (<em>request ID</em>, <em>requester</em>, <em>department</em>, <em>system or share requested</em>, <em>access level</em>: Read / Write / Admin, <em>business justification</em>, <em>manager approver</em>, <em>approval status</em>, <em>approved date</em>, <em>provisioned date</em>, <em>review due date</em>, <em>revoked date</em>) that auto-calculates <em>days awaiting approval</em>, flags Admin-level grants for periodic review and lists every access whose review date has passed, and a ticket queue (<em>ticket ID</em>, <em>requester</em>, <em>site</em>, <em>category</em>: Hardware / Software / Account and access / Network / Printing / Test-floor systems / Security, <em>priority</em>: P1 / P2 / P3 / P4, <em>opened date and time</em>, <em>SLA hours</em> defaulting to 4 / 8 / 24 / 72 by priority, <em>assigned to</em>, <em>status</em>, <em>resolved date and time</em>) that auto-calculates <em>hours open</em>, <em>hours to SLA breach</em> and <em>resolution hours</em> once closed, colours breached tickets red, sorts P1 first, and charts tickets by category and a weekly volume trend. Include a &ldquo;Copy weekly IT report&rdquo; button producing a note with ticket volume and SLA attainment by priority, assets due for refresh or out of warranty, licence over-allocation with cost, and access reviews overdue. Seed with 4 APAC sites, 60 assets, 10 licences, 20 access requests and 40 tickets. IT aesthetic &mdash; navy with blue accents, monospace for all tags, serials and figures. Keep all seed user names clearly fictitious. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p26"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== CROSS-FUNCTION   EVERYONE ===== -->
+    <section id="crossfunction" class="audience-section admin">
+        <div class="audience-header">
+            <div class="audience-badge">&#128451;</div>
+            <div>
+                <h2>Cross-Function &mdash; Everyone</h2>
+                <div class="subtitle">Two tools that work in any of the roles above, plus a build-your-own scaffold &middot; all 23 participants</div>
+            </div>
+        </div>
+
+        <!-- Card 27 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">27</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">All participants</span>
+                    <h3 class="card-title">Meeting, Action &amp; Follow-Up Tracker</h3>
+                    <p class="card-why">Separates what you owe other people from what they owe you, so follow-up stops depending on rereading your sent items &mdash; replacing the meeting notes document, the action list workbook, and the follow-up email chain.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Meeting, Action and Follow-Up Tracker</strong> for a manager or engineer at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>actions I owe</em>, <em>actions owed to me</em>, <em>overdue on both sides</em>, and <em>actions closed this month</em>. Middle: a meeting log &mdash; a form with <em>meeting title</em>, <em>date</em>, <em>type</em> (One-to-one / Team meeting / Program review / Customer call / Supplier call / Cross-functional / Management review), <em>attendees</em>, <em>key points</em>, and <em>decisions</em> &mdash; appending to a table where each meeting expands to show its notes and the actions raised in it. Below: an action register &mdash; a form with <em>action</em>, <em>direction</em> (I owe / They owe me), <em>counterpart name</em>, <em>department</em>, <em>linked meeting</em>, <em>raised date</em>, <em>due date</em>, <em>priority</em> (High / Medium / Low), and <em>status</em> (Open / In progress / Waiting / Done) &mdash; rendered as two side-by-side columns split by direction, each sorted by due date with <em>days remaining or overdue</em> auto-calculated, overdue rows in red and due-today rows in amber. Include a &ldquo;This week&rdquo; panel listing everything due in the next 7 days across both directions in a clean printable layout, a per-counterpart roll-up showing how many open items sit with each person and their oldest item's age, a &ldquo;Copy minutes&rdquo; button producing formatted minutes for one meeting with attendees, decisions and actions with owners and dates, and a &ldquo;Copy chase-up&rdquo; button producing a polite per-person note listing the items they owe with dates and days overdue. Seed with 8 meetings and 24 actions split across both directions. Clean and calm aesthetic &mdash; navy with violet accents, generous white space, monospace for dates. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p27"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 28 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">28</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">All participants</span>
+                    <h3 class="card-title">Personal Work Cockpit &amp; Weekly Report Builder</h3>
+                    <p class="card-why">Holds your priorities, your recurring commitments and a log of what you actually finished, then writes the weekly report from it &mdash; replacing the personal to-do workbook, the recurring task sheet, and the Friday status email you rewrite every week.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Personal Work Cockpit and Weekly Report Builder</strong> for a manager or engineer at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Top: a summary strip &mdash; <em>tasks due today</em>, <em>overdue</em>, <em>completed this week</em>, and <em>recurring items due in the next 7 days</em>. Middle: a three-column priority board built in pure CSS &mdash; <em>Do now</em>, <em>Scheduled</em>, <em>Waiting on someone</em> &mdash; where each task card carries <em>task</em>, <em>category</em> (Production issue / Engineering / Planning / Supplier / Customer / Program / Admin / People), <em>linked person or team</em>, <em>due date</em>, <em>estimated hours</em>, and <em>status</em>, can be moved between columns from a dropdown, and shows <em>days remaining or overdue</em> with overdue cards in red. Waiting-on cards should additionally show <em>who</em> and <em>days waiting</em>. Below: a recurring commitment scheduler (<em>commitment</em>, <em>frequency</em>: Daily / Weekly / Fortnightly / Monthly / Quarterly, <em>day or date anchor</em>, <em>last completed</em>) that auto-calculates <em>next due</em>, rolls it forward automatically when marked complete, and lists everything falling due in the next 7 days. Add an accomplishment log that auto-appends every task marked Done with its completion date and category, is filterable by week, and charts completed tasks per week and per category as pure-CSS bars. Include a weekly report builder with fields for <em>headline</em>, <em>lowlights or blockers</em>, <em>help needed</em> and <em>next week's focus</em>, where a &ldquo;Copy weekly report&rdquo; button assembles a formatted report that pulls the week's completed tasks straight out of the accomplishment log grouped by category, then appends the written sections, and a second &ldquo;Copy blockers&rdquo; button producing a short note listing waiting-on items with who and how many days. Seed with 20 tasks across the three columns, 8 recurring commitments and 4 weeks of accomplishment history. Clean and calm aesthetic &mdash; navy with violet accents, generous white space, monospace for dates and figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p28"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 29 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">29</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Role to be confirmed &nbsp;&middot;&nbsp; pending confirmation</span>
+                    <h3 class="card-title">Build-Your-Own Department Cockpit</h3>
+                    <p class="card-why">A fill-in-the-blank scaffold for the seat whose designation is still being confirmed &mdash; complete the four bracketed fields in the first two lines and the prompt produces a cockpit built around your own three Excel files and two recurring emails.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>[Your Department] Work Cockpit</strong> for a <strong>[your job title]</strong> at an RF and power semiconductor company that designs and manufactures RF front-end modules, filters, power amplifiers and power management devices. Replace every bracketed placeholder below before sending this prompt. The page must consolidate the three spreadsheets I currently maintain &mdash; <strong>[Excel file 1 and what it tracks]</strong>, <strong>[Excel file 2 and what it tracks]</strong>, and <strong>[Excel file 3 and what it tracks]</strong> &mdash; and produce the two notes I currently write by hand, <strong>[recurring email 1, e.g. my weekly status update to my manager]</strong> and <strong>[recurring email 2, e.g. my chase-up note to other departments]</strong>. Structure it as follows. Top: a strip of 4 to 6 KPI cards showing the numbers I am judged on &mdash; <strong>[list the figures you report, e.g. output attainment %, open issues, on-time %, cost variance]</strong> &mdash; each with a RAG colour band and a delta against the previous period. Middle: a main register &mdash; a form capturing the columns from my most-used spreadsheet, <strong>[list the columns, including which are dates, which are quantities, and which are statuses with their allowed values]</strong> &mdash; appending to a sortable, filterable table that auto-calculates every field I currently work out by hand, specifically <strong>[list the calculations, e.g. days open, variance, percentage attainment, days to due date]</strong>, colours rows that need attention (overdue in red, approaching due in amber), and lets rows be edited and deleted. Below: a second panel covering my other two spreadsheets, with a pure-CSS chart of <strong>[the trend or breakdown you most often need, e.g. monthly volume, issues by category, spend by supplier]</strong> and a Pareto or roll-up so the biggest contributors are obvious without sorting by hand. Include filters by <strong>[the two or three fields you filter by most]</strong>, a &ldquo;Copy status update&rdquo; button that assembles my recurring email from the live data with the headline numbers, what changed and what is at risk, and a &ldquo;Copy follow-up&rdquo; button that produces a per-person or per-department chase-up note listing outstanding items with dates and days overdue. Seed it with about 30 rows of realistic but clearly fictitious sample data using terminology from <strong>[your department]</strong> so I can see it working before I put my own numbers in. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p29"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <div class="tip-box">
+        <h3>&#128161; Prompt Tips</h3>
+        <p>To get the best results from any of these prompts:</p>
+        <ul>
+            <li>Paste the entire prompt into your AI tool in one go &mdash; don't trim it. The last line asks the AI to <strong>show the full HTML code in the console</strong> so you can copy it straight out.</li>
+            <li>Pick more than one &mdash; your function has two to four tools; build the one that saves you the most time first, then come back for the others.</li>
+            <li>After the first build, ask for iterations: <em>&ldquo;Add a dark mode toggle&rdquo;</em> or <em>&ldquo;Replace the seed data with my actual part numbers, suppliers, or customer list.&rdquo;</em></li>
+            <li>If the output feels generic, add context at the end: <em>&ldquo;Use terminology familiar to an RF and power semiconductor assembly and test operation.&rdquo;</em></li>
+            <li>Product &amp; Test Engineering and Planning each share a section with three colleagues &mdash; build different tools and swap the finished pages between you rather than all building the same one.</li>
+            <li>Keep company data out of the tool while you are learning &mdash; build with the seeded sample data first, then swap in real figures once the page runs locally in your own browser. Treat customer names, part numbers, yields and pricing as confidential.</li>
+            <li>Keep the unified framing in mind: each page should replace 3 common Excel files and 2 recurring emails in your job.</li>
+        </ul>
+    </div>
+
+</main>
+
+<!-- ====== BACK TO TOP BUTTON ====== -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top">
+    <span class="arrow" aria-hidden="true">↑</span>
+    <span class="label">TOP</span>
+</button>
+
+<!-- ====== FOOTER ====== -->
+<footer>
+    <p>Qorvo &middot; RF &amp; Power Solutions &middot; SFDW 2.0</p>
+    <p>Role-based webpage build prompts &mdash; designed for training use, adapt freely to your team, tools, and RF and power semiconductor manufacturing context.</p>
+</footer>
+
+<script>
+    // Reliable smooth-scroll for anchor links — works inside Google Sites iframe embeds
+    document.addEventListener('DOMContentLoaded', function() {
+        var links = document.querySelectorAll('.toc a[data-target]');
+        links.forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                var targetId = this.getAttribute('data-target');
+                var targetEl = document.getElementById(targetId);
+                if (targetEl) {
+                    var offset = 20;
+                    var top = targetEl.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: top, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Copy-to-clipboard for prompt buttons
+        var copyButtons = document.querySelectorAll('.copy-btn');
+        copyButtons.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var promptBox = this.previousElementSibling;
+                if (!promptBox) return;
+
+                var text = promptBox.innerText.trim();
+
+                var labelEl = this.querySelector('.copy-label');
+                var iconEl = this.querySelector('.copy-icon');
+                var btn = this;
+
+                var showSuccess = function() {
+                    btn.classList.add('copied');
+                    if (iconEl) iconEl.textContent = '✓';
+                    if (labelEl) labelEl.textContent = 'Copied!';
+                    setTimeout(function() {
+                        btn.classList.remove('copied');
+                        if (iconEl) iconEl.textContent = '📋';
+                        if (labelEl) labelEl.textContent = 'Copy prompt';
+                    }, 2000);
+                };
+
+                var fallbackCopy = function(str) {
+                    var ta = document.createElement('textarea');
+                    ta.value = str;
+                    ta.style.position = 'fixed';
+                    ta.style.top = '0';
+                    ta.style.left = '0';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.focus();
+                    ta.select();
+                    try {
+                        document.execCommand('copy');
+                        showSuccess();
+                    } catch (err) {
+                        // silent fail
+                    }
+                    document.body.removeChild(ta);
+                };
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(showSuccess).catch(function() {
+                        fallbackCopy(text);
+                    });
+                } else {
+                    fallbackCopy(text);
+                }
+            });
+        });
+
+        // Back-to-top floating button — reliable inside Google Sites iframe embeds
+        var backToTopBtn = document.getElementById('backToTop');
+        if (backToTopBtn) {
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                if (document.documentElement) {
+                    document.documentElement.scrollTop = 0;
+                }
+                if (document.body) {
+                    document.body.scrollTop = 0;
+                }
+
+                try {
+                    if (window.parent && window.parent !== window) {
+                        window.parent.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                } catch (e) {
+                    // Cross-origin parent — can't scroll it, but that's fine.
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
