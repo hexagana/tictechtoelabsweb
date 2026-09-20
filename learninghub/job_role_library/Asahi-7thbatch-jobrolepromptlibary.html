@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asahi Plastic — Role-Based Webpage Build Prompts (21/9/2026 1 Day SFDW)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --navy-900: #0f172a;
+        --navy-800: #1e293b;
+        --navy-700: #334155;
+        --slate-500: #64748b;
+        --slate-300: #cbd5e1;
+        --slate-100: #f1f5f9;
+        --slate-50:  #f8fafc;
+        --amber-500: #f59e0b;
+        --amber-400: #fbbf24;
+        --amber-100: #fef3c7;
+        --teal-500:  #0d9488;
+        --teal-100:  #ccfbf1;
+        --white: #ffffff;
+
+        /* Audience accent colours */
+        --mgmt: #be123c;          /* Finance               */
+        --mgmt-soft: #ffe4e6;
+        --strat: #4f46e5;         /* People & Culture      */
+        --strat-soft: #e0e7ff;
+        --ops: #ea580c;           /* Safety & EHS          */
+        --ops-soft: #ffedd5;
+        --dept: #0d9488;          /* Facilities Management */
+        --dept-soft: #ccfbf1;
+        --marketing: #c026d3;     /* Projects Engineering  */
+        --marketing-soft: #fae8ff;
+        --quality: #0891b2;       /* Technical Service     */
+        --quality-soft: #cffafe;
+        --admin: #7c3aed;         /* Administration        */
+        --admin-soft: #ede9fe;
+        --purch: #059669;         /* Procurement           */
+        --purch-soft: #d1fae5;
+        --finance: #1d4ed8;       /* Finance & Accounts    */
+        --finance-soft: #dbeafe;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--navy-900);
+        background: var(--slate-50);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+        background:
+            radial-gradient(at 10% 20%, rgba(245, 158, 11, 0.18) 0, transparent 50%),
+            radial-gradient(at 90% 80%, rgba(13, 148, 136, 0.22) 0, transparent 50%),
+            linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 100%);
+        color: var(--white);
+        padding: 4rem 2rem 3.5rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-tag {
+        display: inline-block;
+        background: rgba(245, 158, 11, 0.15);
+        color: var(--amber-400);
+        padding: 0.4rem 1rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 1.25rem;
+        border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .hero h1 {
+        font-family: 'Poppins', sans-serif;
+        font-size: clamp(2rem, 4.5vw, 3.2rem);
+        font-weight: 800;
+        line-height: 1.15;
+        margin-bottom: 1rem;
+        letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+        background: linear-gradient(90deg, var(--amber-400), var(--teal-500));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+        color: var(--slate-300);
+        max-width: 720px;
+        margin-bottom: 2rem;
+    }
+
+    .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.9rem;
+        color: var(--slate-300);
+    }
+
+    .meta-item strong {
+        color: var(--white);
+        font-weight: 600;
+    }
+
+    /* ---------- CONTAINER ---------- */
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+    }
+
+    /* ---------- INTRO ---------- */
+    .intro-card {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+        border-left: 4px solid var(--amber-500);
+    }
+
+    .intro-card h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.4rem;
+        margin-bottom: 0.75rem;
+        color: var(--navy-900);
+    }
+
+    .intro-card p {
+        color: var(--navy-700);
+    }
+
+    /* ---------- TABLE OF CONTENTS ---------- */
+    .toc {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    .toc h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.3rem;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    .toc-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .toc a {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.7rem 1rem;
+        background: var(--slate-50);
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--navy-800);
+        font-size: 0.92rem;
+        font-weight: 500;
+        border: 1px solid transparent;
+        transition: all 0.2s ease;
+    }
+
+    .toc a:hover {
+        background: var(--navy-900);
+        color: var(--white);
+        transform: translateX(4px);
+    }
+
+    .toc a .num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        background: var(--amber-500);
+        color: var(--white);
+        border-radius: 50%;
+        font-size: 0.7rem;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    /* ---------- AUDIENCE SECTIONS ---------- */
+    .audience-section {
+        margin-bottom: 3rem;
+    }
+
+    .audience-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--slate-300);
+    }
+
+    .audience-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+    }
+
+    .audience-header h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.7rem;
+        color: var(--navy-900);
+    }
+
+    .audience-header .subtitle {
+        font-size: 0.9rem;
+        color: var(--slate-500);
+        font-weight: 500;
+    }
+
+    /* ---------- WEBPAGE CARDS ---------- */
+    .webpage-card {
+        background: var(--white);
+        border-radius: 16px;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid var(--slate-100);
+        transition: all 0.3s ease;
+    }
+
+    .webpage-card:hover {
+        box-shadow: 0 10px 32px rgba(15, 23, 42, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .card-header {
+        padding: 1.5rem 1.75rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        border-bottom: 1px solid var(--slate-100);
+    }
+
+    .card-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        height: 36px;
+        padding: 0 0.5rem;
+        border-radius: 8px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--white);
+        flex-shrink: 0;
+    }
+
+    .card-title-wrap {
+        flex: 1;
+    }
+
+    .card-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--navy-900);
+        margin-bottom: 0.3rem;
+    }
+
+    .card-role {
+        display: inline-block;
+        margin-bottom: 0.4rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--slate-500);
+    }
+
+    .card-why {
+        color: var(--navy-700);
+        font-size: 0.98rem;
+    }
+
+    .card-body {
+        padding: 1.5rem 1.75rem 1.75rem;
+        background: var(--slate-50);
+    }
+
+    .prompt-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.75rem;
+    }
+
+    .prompt-label-text {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--slate-500);
+    }
+
+    .prompt-label-text::before {
+        content: "⚡";
+        font-size: 0.9rem;
+    }
+
+    .prompt-box {
+        background: var(--navy-900);
+        color: #e2e8f0;
+        padding: 1.25rem 1.5rem;
+        border-radius: 10px;
+        font-family: 'Inter', monospace;
+        font-size: 0.9rem;
+        line-height: 1.7;
+        border: 1px solid var(--navy-700);
+        position: relative;
+    }
+
+    .prompt-box strong {
+        color: var(--amber-400);
+        font-weight: 600;
+    }
+
+    .prompt-box em {
+        color: var(--teal-100);
+        font-style: normal;
+    }
+
+    .prompt-box .show-code {
+        color: var(--amber-400);
+        font-weight: 600;
+    }
+
+    /* ---------- COPY BUTTON ---------- */
+    .copy-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.9rem;
+        padding: 0.6rem 1.1rem;
+        background: var(--white);
+        color: var(--navy-900);
+        border: 1.5px solid var(--navy-900);
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-family: inherit;
+    }
+
+    .copy-btn:hover {
+        background: var(--navy-900);
+        color: var(--white);
+        transform: translateY(-1px);
+    }
+
+    .copy-btn.copied {
+        background: var(--teal-500);
+        color: var(--white);
+        border-color: var(--teal-500);
+    }
+
+    .copy-btn .copy-icon {
+        font-size: 0.95rem;
+    }
+
+    /* Audience-specific accent colours */
+    .audience-section.mgmt .audience-badge { background: var(--mgmt-soft); color: var(--mgmt); }
+    .audience-section.mgmt .card-number { background: var(--mgmt); }
+
+    .audience-section.strat .audience-badge { background: var(--strat-soft); color: var(--strat); }
+    .audience-section.strat .card-number { background: var(--strat); }
+
+    .audience-section.ops .audience-badge { background: var(--ops-soft); color: var(--ops); }
+    .audience-section.ops .card-number { background: var(--ops); }
+
+    .audience-section.dept .audience-badge { background: var(--dept-soft); color: var(--dept); }
+    .audience-section.dept .card-number { background: var(--dept); }
+
+    .audience-section.marketing .audience-badge { background: var(--marketing-soft); color: var(--marketing); }
+    .audience-section.marketing .card-number { background: var(--marketing); }
+
+    .audience-section.quality .audience-badge { background: var(--quality-soft); color: var(--quality); }
+    .audience-section.quality .card-number { background: var(--quality); }
+
+    .audience-section.admin .audience-badge { background: var(--admin-soft); color: var(--admin); }
+    .audience-section.admin .card-number { background: var(--admin); }
+
+    .audience-section.purch .audience-badge { background: var(--purch-soft); color: var(--purch); }
+    .audience-section.purch .card-number { background: var(--purch); }
+
+    .audience-section.finance .audience-badge { background: var(--finance-soft); color: var(--finance); }
+    .audience-section.finance .card-number { background: var(--finance); }
+
+    /* ---------- TIP BOX ---------- */
+    .tip-box {
+        background: linear-gradient(135deg, var(--amber-100) 0%, #fff 100%);
+        border-left: 4px solid var(--amber-500);
+        padding: 1.5rem 1.75rem;
+        border-radius: 12px;
+        margin: 3rem 0;
+    }
+
+    .tip-box h3 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.15rem;
+        margin-bottom: 0.5rem;
+        color: var(--navy-900);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .tip-box p {
+        color: var(--navy-700);
+    }
+
+    .tip-box ul {
+        margin-top: 0.75rem;
+        padding-left: 1.5rem;
+        color: var(--navy-700);
+    }
+
+    .tip-box ul li {
+        margin-bottom: 0.4rem;
+    }
+
+    /* ---------- BACK TO TOP BUTTON ---------- */
+    .back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 100%);
+        color: var(--white);
+        border: 2px solid var(--amber-500);
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        line-height: 1;
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.3);
+        transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        z-index: 9999;
+        font-family: inherit;
+        font-weight: 700;
+    }
+
+    .back-to-top .arrow {
+        font-size: 1.3rem;
+        line-height: 1;
+    }
+
+    .back-to-top .label {
+        font-size: 0.55rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-top: 2px;
+        font-weight: 700;
+    }
+
+    .back-to-top:hover {
+        background: linear-gradient(135deg, var(--amber-500) 0%, var(--amber-400) 100%);
+        border-color: var(--navy-900);
+        color: var(--navy-900);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 28px rgba(245, 158, 11, 0.45);
+    }
+
+    .back-to-top:active {
+        transform: translateY(-1px);
+    }
+
+    @media (max-width: 768px) {
+        .back-to-top {
+            bottom: 1.25rem;
+            right: 1.25rem;
+            width: 50px;
+            height: 50px;
+        }
+        .back-to-top .arrow { font-size: 1.15rem; }
+        .back-to-top .label { font-size: 0.5rem; }
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+        background: var(--navy-900);
+        color: var(--slate-300);
+        padding: 2.5rem 2rem;
+        text-align: center;
+    }
+
+    footer p {
+        font-size: 0.9rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    footer p + p {
+        margin-top: 0.75rem;
+        color: var(--slate-500);
+        font-size: 0.82rem;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+        .hero { padding: 3rem 1.25rem 2.5rem; }
+        .container { padding: 2rem 1.25rem; }
+        .intro-card, .toc { padding: 1.5rem; }
+        .card-header { padding: 1.25rem; flex-wrap: wrap; }
+        .card-body { padding: 1.25rem; }
+        .prompt-box { font-size: 0.85rem; padding: 1rem 1.1rem; }
+        .audience-header { gap: 0.75rem; }
+        .audience-header h2 { font-size: 1.35rem; }
+        .hero-meta { gap: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+        .toc-grid { grid-template-columns: 1fr; }
+        .card-title { font-size: 1.1rem; }
+    }
+</style>
+</head>
+<body>
+
+<!-- ====== HERO ====== -->
+<header class="hero">
+    <div class="hero-inner">
+        <span class="hero-tag">Asahi Plastic &middot; 21/9/2026 &middot; 1 Day SFDW</span>
+        <h1>Role-Based Webpages <span>+ Build Prompts</span></h1>
+        <p>A curated set of webpage concepts aligned to the participant roles in the Asahi Kasei Plastics 1-day SFDW class on 21 September 2026 &mdash; each role gets copy-paste prompts that produce working internal tools, each one replacing the forms, logbooks and recurring messages that fill the day in an engineering-plastics plant.</p>
+        <div class="hero-meta">
+            <div class="meta-item">&#127919; <span><strong>7</strong> job functions</span></div>
+            <div class="meta-item">&#128101; <span><strong>10</strong> participant roles</span></div>
+            <div class="meta-item">&#9889; <span><strong>21</strong> build prompts</span></div>
+        </div>
+    </div>
+</header>
+
+<!-- ====== MAIN ====== -->
+<main class="container">
+
+    <!-- Intro -->
+    <section class="intro-card">
+        <h2>How to use this guide</h2>
+        <p>Find the section matching your job function, then copy any <strong>build prompt</strong> straight into an AI tool &mdash; Microsoft Copilot, ChatGPT, Claude, or Gemini. Each function offers <strong>two to four tools</strong> &mdash; pick the one that speeds up the job you care about most. Every prompt is self-contained and produces a single HTML page with embedded CSS and vanilla JavaScript that you can preview in any browser and adapt to your own machines, grades and customers, and every prompt ends with an instruction to <strong>show the full HTML source code in the code console</strong> so you can copy it directly. This class is a shop-floor group &mdash; nine Senior Technicians, seven Technicians and a Day Technician make up seventeen of the twenty-four seats &mdash; so the Technicians section carries the most tools and those pages are built for a tablet or phone at the machine rather than a desk. The framing throughout is the same: <em>&ldquo;Build a browser-based tool that replaces three forms or files and two recurring messages in your job.&rdquo;</em></p>
+    </section>
+
+    <!-- TOC -->
+    <nav class="toc">
+        <h2>&#128209; Table of Contents</h2>
+        <div class="toc-grid">
+            <a href="#technicians" data-target="technicians"><span class="num">T</span> Technicians &mdash; Machines, Maintenance &amp; Handover</a>
+            <a href="#shiftlead" data-target="shiftlead"><span class="num">S</span> Shift Leadership</a>
+            <a href="#planning" data-target="planning"><span class="num">P</span> Production Planning</a>
+            <a href="#quality" data-target="quality"><span class="num">Q</span> Quality Control</a>
+            <a href="#logistics" data-target="logistics"><span class="num">L</span> Warehouse, Delivery &amp; Driving</a>
+            <a href="#admin" data-target="admin"><span class="num">A</span> Administration</a>
+            <a href="#everyone" data-target="everyone"><span class="num">E</span> Cross-Function &mdash; Everyone</a>
+        </div>
+    </nav>
+
+    <!-- ===== TECHNICIANS   MACHINES, MAINTENANCE   HANDOVER ===== -->
+    <section id="technicians" class="audience-section ops">
+        <div class="audience-header">
+            <div class="audience-badge">&#128736;&#65039;</div>
+            <div>
+                <h2>Technicians &mdash; Machines, Maintenance &amp; Handover</h2>
+                <div class="subtitle">The shop floor: handover, breakdowns, PM rounds and changeovers &middot; Senior Technician &times; 9 &middot; Technician &times; 7 &middot; Day Technician</div>
+            </div>
+        </div>
+
+        <!-- Card 01 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">01</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Senior Technician &nbsp;&middot;&nbsp; Technician &nbsp;&middot;&nbsp; Day Technician &nbsp;&middot;&nbsp; 17 participants</span>
+                    <h3 class="card-title">Shift Handover &amp; Machine Status Board</h3>
+                    <p class="card-why">The one screen the next shift opens to see what is running, what broke and what still needs watching &mdash; replacing the handover notebook, the machine status whiteboard, and the end-of-shift WhatsApp message.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Shift Handover &amp; Machine Status Board</strong> for a technician at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Top: a shift header where I pick <em>date</em>, <em>shift</em> (Morning / Afternoon / Night), <em>my name</em> and <em>handing over to</em>, plus a strip showing <em>machines running</em>, <em>machines down</em>, <em>open issues</em> and <em>items needing next-shift attention</em>. Middle: a machine tile board with one tile per machine (injection moulding machines, extruders, compounding lines, blenders, dryers and granulators) showing <em>machine number</em>, <em>product or grade running</em>, <em>status</em> (Running / Idle / Changeover / Down / Under maintenance), <em>output this shift</em>, and <em>operator</em>, where clicking a tile cycles the status and the tile colour follows (green running, amber changeover or idle, red down, grey maintenance). Below: a handover notes log with entries typed as <em>Issue</em>, <em>Watch this</em>, <em>Done this shift</em>, or <em>Pending for next shift</em>, each carrying <em>machine</em>, <em>note</em>, <em>raised by</em>, <em>time</em>, and a <em>carried over</em> flag that keeps an unresolved note visible on the next shift&rsquo;s board until someone closes it, with carried-over items pinned to the top in red. Include a &ldquo;Copy handover summary&rdquo; button producing a clean text handover listing machines down, work completed, and what the next shift must watch, ready to paste into WhatsApp, Teams or email. Seed with 10 machines and 12 handover notes. Shop-floor aesthetic &mdash; navy with orange accents, large touch-friendly tiles and big readable text for use on a tablet or phone next to the machine. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p1"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 02 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">02</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Senior Technician &nbsp;&middot;&nbsp; 9 participants</span>
+                    <h3 class="card-title">Machine Breakdown &amp; Repair Logbook</h3>
+                    <p class="card-why">Every breakdown, what fixed it and how long the line was down, in one searchable place &mdash; replacing the breakdown record book, the downtime tally sheet, and the repair update email to the supervisor.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Machine Breakdown &amp; Repair Logbook</strong> for a Senior Technician at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Top: 5 summary cards &mdash; <em>breakdowns this month</em>, <em>total downtime hours</em>, <em>machines currently down</em>, <em>average repair time</em>, and <em>repeat faults (same machine and fault twice or more in 30 days)</em>. Middle: a breakdown log form capturing <em>date</em>, <em>shift</em>, <em>machine number</em>, <em>fault description</em>, <em>fault category</em> (Mechanical / Electrical / Hydraulic / Pneumatic / Heating or thermocouple / Control or PLC / Screw or barrel / Mould or tool / Utility / Operator error), <em>time stopped</em>, <em>time restarted</em>, <em>parts replaced</em>, <em>action taken</em>, <em>repaired by</em>, and <em>status</em> (Down / Temporary fix / Fixed / Waiting for parts), auto-calculating <em>downtime in minutes</em> and flagging anything still Down or Waiting for parts in red at the top of the list. Below: a pure-CSS Pareto chart of downtime minutes by machine and a second by fault category, plus a <strong>repeat-fault panel</strong> that automatically groups entries with the same machine and fault category inside 30 days so chronic problems become obvious, and a searchable history where typing a machine number or a symptom shows every past fix for it. Include a &ldquo;Copy downtime report&rdquo; button producing a summary of the month&rsquo;s breakdowns with total hours and the top three problem machines. Seed with 10 machines and 22 breakdown entries. Technical aesthetic &mdash; navy with orange accents, monospace for all times and numbers. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p2"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 03 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">03</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Senior Technician &nbsp;&middot;&nbsp; Technician &nbsp;&middot;&nbsp; 16 participants</span>
+                    <h3 class="card-title">Preventive Maintenance Round &amp; Due Board</h3>
+                    <p class="card-why">Tells you at a glance what PM is due today, this week and overdue, and lets you tick it off at the machine &mdash; replacing the PM schedule printout, the signed-off paper checklist, and the &ldquo;is the PM done?&rdquo; message.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Preventive Maintenance Round &amp; Due Board</strong> for technicians at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Top: 4 cards &mdash; <em>due today</em>, <em>due this week</em>, <em>overdue</em>, and <em>completed this month</em>. Section one &mdash; a PM task register with <em>machine</em>, <em>machine number</em>, <em>task</em> (examples: grease guide rails, check hydraulic oil level, clean cooling water filter, inspect heater bands and thermocouples, check screw and barrel wear, clean hopper and dryer filter, verify safety gates and interlocks, inspect mould cooling lines), <em>frequency</em> (Daily / Weekly / Fortnightly / Monthly / Quarterly / Half-yearly / Annual), <em>last done</em>, <em>done by</em>, and <em>estimated minutes</em>, auto-calculating <em>next due date</em> and <em>days remaining</em>, with a RAG band (green more than 7 days, amber within 7 days, red overdue) and a big &ldquo;Mark done&rdquo; button per row that stamps today&rsquo;s date and the technician&rsquo;s name and rolls the next due date forward by the frequency. Section two &mdash; a <strong>today&rsquo;s round</strong> view that pulls everything due or overdue into a single tick-list grouped by machine so I can walk the floor once and tick as I go, each item expanding to show a checkpoint list and a notes box for anything abnormal found. Section three &mdash; an abnormal-findings log (<em>date</em>, <em>machine</em>, <em>finding</em>, <em>action needed</em>, <em>reported to</em>, <em>closed</em>) so issues spotted during a PM round do not get lost. Include a &ldquo;Copy today&rsquo;s PM round&rdquo; button and a &ldquo;Copy overdue list&rdquo; button. Seed with 10 machines and 30 PM tasks across all frequencies. Shop-floor aesthetic &mdash; navy with orange accents, large tick targets sized for gloved hands on a tablet. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p3"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 04 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">04</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Technician &nbsp;&middot;&nbsp; Day Technician &nbsp;&middot;&nbsp; 8 participants</span>
+                    <h3 class="card-title">Line Start-Up &amp; Changeover Checklist</h3>
+                    <p class="card-why">Walks you through a start-up or grade changeover step by step so nothing is skipped and the first parts are good &mdash; replacing the paper changeover form, the machine setting printout, and the reminder email about purge procedure.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Line Start-Up &amp; Changeover Checklist</strong> for a technician at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Top: a job header capturing <em>date</em>, <em>shift</em>, <em>machine number</em>, <em>grade running now</em>, <em>grade changing to</em>, <em>colour change</em> (yes / no), <em>mould or die number</em>, and <em>technician</em>, with a live elapsed-time counter from the moment I press &ldquo;Start changeover&rdquo; to when I press &ldquo;First good part&rdquo;, so changeover time is measured rather than guessed. Middle: a guided step-by-step checklist in ordered stages that I tick through one at a time, with the next stage only unlocking once the previous is complete &mdash; <em>Shut down and isolate</em> (stop feed, confirm lock-out tag-out, PPE on), <em>Empty and purge</em> (empty hopper, record leftover material in kg, purge barrel, record number of purge shots and purge compound used), <em>Change tooling</em> (remove mould or die, check cooling lines and water connections, fit new tool, torque clamps), <em>Load new material</em> (confirm grade and lot number against the work order, check the material is dried to the required temperature and hours, load hopper, set masterbatch dosing percentage), <em>Set parameters</em> (barrel zone temperatures, melt and mould temperature, injection and holding pressure, screw speed, back pressure, cooling time, cycle time &mdash; each an input field with an optional target value and a warning if what I enter is outside the target range), and <em>First-off approval</em> (run first shots, record shots to first good part, visual check for short shot, flash, burn marks, silver streaks and colour variation, get QC sign-off name). Below: a changeover history table with <em>date</em>, <em>machine</em>, <em>from grade</em>, <em>to grade</em>, <em>changeover minutes</em>, <em>purge kg</em>, <em>scrap kg</em> and <em>shots to first good part</em>, with a pure-CSS bar chart of changeover time by machine so slow changeovers stand out. Include a &ldquo;Copy changeover record&rdquo; button producing a complete record for the shift report. Seed with 3 completed changeovers. Shop-floor aesthetic &mdash; navy with orange accents, one big stage visible at a time, large tick targets for tablet use. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p4"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== SHIFT LEADERSHIP ===== -->
+    <section id="shiftlead" class="audience-section mgmt">
+        <div class="audience-header">
+            <div class="audience-badge">&#127981;</div>
+            <div>
+                <h2>Shift Leadership</h2>
+                <div class="subtitle">Manpower, shift output and the team in front of you &middot; Snr Shift Supervisor &middot; Shift Supervisor &middot; Lead Technician</div>
+            </div>
+        </div>
+
+        <!-- Card 05 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">05</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Snr Shift Supervisor &nbsp;&middot;&nbsp; Shift Supervisor</span>
+                    <h3 class="card-title">Shift Manpower &amp; Line Allocation Board</h3>
+                    <p class="card-why">Who is in today, who is on which line, and where you are short before the shift starts &mdash; replacing the manpower planning sheet, the leave tracker, and the morning &ldquo;who is covering?&rdquo; messages.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Shift Manpower &amp; Line Allocation Board</strong> for a Shift Supervisor at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Top: a strip showing <em>headcount required</em>, <em>headcount present</em>, <em>shortfall</em>, <em>on leave today</em>, and <em>overtime hours this week</em>. Section one &mdash; a team roster with <em>name</em>, <em>role</em> (Senior Technician / Technician / Day Technician / Lead Technician / Operator), <em>shift pattern</em>, <em>skills or machine certifications</em> entered as tags (for example: injection moulding, extrusion, compounding, granulator, forklift, crane, first aid), <em>status today</em> (Present / On leave / Medical / Off day / Training / Overtime), and <em>contact number</em>. Section two &mdash; a line allocation grid with one column per production line or machine and one row per shift position, where I assign a team member to each slot from a dropdown that <strong>only offers people who are Present and who carry the required certification for that machine</strong>, greying out anyone unqualified or absent, and flagging any line left unmanned in red. Section three &mdash; a leave and coverage calendar for the next 14 days showing who is off on each day, how many that leaves on each shift, and a warning when a day drops below minimum manning. Include a skills-gap panel listing machines where fewer than two people are certified, so training need is visible, and a &ldquo;Copy shift allocation&rdquo; button producing a paste-ready list of who is on which machine for the shift briefing. Seed with 20 team members, 6 lines and 14 days of leave data. Supervisor aesthetic &mdash; navy with crimson accents, clear status badges, readable at a glance. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p5"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 06 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">06</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Shift Supervisor &nbsp;&middot;&nbsp; Snr Shift Supervisor</span>
+                    <h3 class="card-title">Shift Production &amp; Downtime Report Builder</h3>
+                    <p class="card-why">Turns the numbers you already collect into the shift report, instead of you retyping them at the end of every shift &mdash; replacing the production tally sheet, the downtime log, and the end-of-shift report email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Shift Production &amp; Downtime Report Builder</strong> for a Shift Supervisor at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Top: 5 cards for the current shift &mdash; <em>total output (kg)</em>, <em>attainment against plan %</em>, <em>scrap or reject %</em>, <em>total downtime minutes</em>, and <em>machines currently down</em>. Section one &mdash; a per-machine entry table for the shift with <em>machine</em>, <em>grade running</em>, <em>planned output (kg)</em>, <em>actual good output (kg)</em>, <em>scrap (kg)</em>, <em>downtime minutes</em>, and <em>main downtime reason</em> (chosen from Changeover / Breakdown / No material / No manpower / Quality hold / Mould or die issue / Planned maintenance / No order), auto-calculating <em>attainment %</em>, <em>scrap %</em> and a simple <em>availability %</em> per machine and for the shift overall, with any machine below 85% attainment highlighted amber and below 70% red. Section two &mdash; a downtime detail log where each entry carries <em>machine</em>, <em>start time</em>, <em>end time</em>, <em>reason</em>, and <em>action taken</em>, auto-summing by reason into a pure-CSS Pareto chart so the biggest loss for the shift is obvious. Section three &mdash; a shift issues and escalation list (<em>issue</em>, <em>machine</em>, <em>raised to</em>, <em>status</em>) for anything the next shift or the day team must pick up. Include a &ldquo;Build shift report&rdquo; button that assembles a complete paste-ready report &mdash; output versus plan, scrap, downtime by reason with the top loss named, machines still down, manpower notes, and items escalated &mdash; into an editable text area so I can adjust the wording before sending. Seed with 8 machines and a full shift of realistic data. Supervisor aesthetic &mdash; navy with crimson accents, monospace for all figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p6"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 07 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">07</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Lead Technician</span>
+                    <h3 class="card-title">Team Task, Training &amp; Toolbox Talk Tracker</h3>
+                    <p class="card-why">Keeps the jobs you have handed out, the toolbox talks you have delivered and who still needs training in one place &mdash; replacing the job allocation sheet, the training attendance form, and the follow-up reminders.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Team Task, Training &amp; Toolbox Talk Tracker</strong> for a Lead Technician at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Top: a strip showing <em>open tasks</em>, <em>tasks overdue</em>, <em>toolbox talks this month</em>, <em>team members trained this quarter</em>, and <em>certifications expiring within 60 days</em>. Section one &mdash; a task board in columns (To do / In progress / Blocked / Done) where each card carries <em>task</em>, <em>machine or area</em>, <em>assigned to</em>, <em>priority</em> (High / Medium / Low), <em>due date</em>, and <em>notes</em>, advancing between columns by click, with overdue cards outlined red and a count plus a total on each column. Section two &mdash; a toolbox talk log with <em>date</em>, <em>topic</em> (examples: lock-out tag-out, hot surfaces and burn prevention, manual handling, forklift pedestrian safety, chemical handling and SDS, machine guarding, housekeeping and 5S, hearing protection), <em>delivered by</em>, <em>duration</em>, <em>attendees</em> ticked from the team list, and <em>key points covered</em>, auto-calculating an <strong>attendance percentage per team member across the year</strong> and listing anyone who has missed more than two talks. Section three &mdash; a skills and certification matrix with team members as rows and machines or competencies as columns, each cell set to Not trained / Under training / Competent / Can train others with a colour, plus <em>certification expiry dates</em> for licensed items such as forklift, and a panel listing anyone whose certification expires within 60 days and any machine covered by fewer than two competent people. Include a &ldquo;Copy training gap summary&rdquo; button and a &ldquo;Copy toolbox talk record&rdquo; button. Seed with 12 team members, 18 tasks, 10 toolbox talks and 8 competencies. Team-lead aesthetic &mdash; navy with crimson accents, clear colour-coded matrix. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p7"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== PRODUCTION PLANNING ===== -->
+    <section id="planning" class="audience-section strat">
+        <div class="audience-header">
+            <div class="audience-badge">&#128197;</div>
+            <div>
+                <h2>Production Planning</h2>
+                <div class="subtitle">The schedule, the material to run it, and the promise to the customer &middot; Production Planner</div>
+            </div>
+        </div>
+
+        <!-- Card 08 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">08</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Production Planner</span>
+                    <h3 class="card-title">Production Schedule &amp; Machine Loading Board</h3>
+                    <p class="card-why">Shows which line is loaded, which is free and which is overbooked before you commit a date &mdash; replacing the weekly planning workbook, the machine loading sheet, and the schedule-change email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Production Schedule &amp; Machine Loading Board</strong> for a Production Planner at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Top: a strip showing <em>orders scheduled this week</em>, <em>total tonnes planned</em>, <em>average line utilisation %</em>, <em>lines over capacity</em>, and <em>orders not yet scheduled</em>. Middle: a week grid with one row per production line and one column per day, where I add a job card to a cell capturing <em>work order number</em>, <em>customer</em>, <em>grade</em>, <em>quantity (kg)</em>, <em>standard output rate (kg per hour)</em>, and <em>changeover needed</em> (yes / no with an estimated changeover time), auto-calculating <em>run hours</em> from quantity divided by rate plus changeover, summing hours per line per day against an editable <em>available hours</em> figure, and showing a utilisation bar per cell that turns amber above 90% and red above 100% so overloads are visible before they happen. Below: an unscheduled order backlog list that I can assign into the grid, and a <strong>changeover sequencing helper</strong> that, for each line and day, checks the order of jobs and flags a costly sequence &mdash; for example a dark colour scheduled before a light colour, or a filled grade before an unfilled one &mdash; suggesting a better order to cut purge time and scrap. Include a materials-check column that marks a job red if its raw material is not confirmed in stock, filters by line, customer and grade, and a &ldquo;Copy weekly schedule&rdquo; button producing a paste-ready plan for the shift supervisors. Seed with 6 lines, 5 days and 20 work orders. Planning aesthetic &mdash; navy with indigo accents, dense grid, monospace for all figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p8"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 09 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">09</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Production Planner</span>
+                    <h3 class="card-title">Material Requirement &amp; Resin Stock Coverage Planner</h3>
+                    <p class="card-why">Tells you which material runs out first against the plan, and how many days of cover you actually have &mdash; replacing the stock coverage workbook, the BOM explosion sheet, and the urgent &ldquo;we are short of resin&rdquo; email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Material Requirement &amp; Resin Stock Coverage Planner</strong> for a Production Planner at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Section one &mdash; a material master with <em>material code</em>, <em>description</em>, <em>type</em> (Base resin / Glass fibre / Mineral filler / Additive / Masterbatch / Packaging), <em>supplier</em>, <em>lead time (days)</em>, <em>minimum order quantity</em>, <em>current stock (kg)</em>, and <em>safety stock (kg)</em>. Section two &mdash; a simple bill of materials per finished grade, where each grade lists its component materials and the <em>percentage by weight</em> of each, with a validation warning if a recipe does not total 100%. Section three &mdash; the requirement calculation: pulling from a production plan table (<em>work order</em>, <em>grade</em>, <em>quantity (kg)</em>, <em>scheduled date</em>), explode each order through its bill of materials to get the <em>kg of every raw material required</em>, aggregate by material and by week, then compare against current stock to produce a coverage table showing <em>required</em>, <em>available</em>, <em>shortfall</em>, <em>days of cover</em>, and a <em>must-order-by date</em> calculated by working the supplier lead time back from the date the material runs short, with any material short of the plan highlighted red and anything inside its lead-time window highlighted amber. Include an adjustable <em>process loss percentage</em> applied on top of requirements, a pure-CSS bar chart of days of cover per material with the safety-stock line marked, and a &ldquo;Copy shortage list&rdquo; button producing a purchase request grouped by supplier with quantities and required-by dates. Seed with 15 materials, 8 grades with recipes, and 20 planned orders. Planning aesthetic &mdash; navy with indigo accents, monospace for every quantity. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p9"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 10 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">10</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Production Planner</span>
+                    <h3 class="card-title">Order Promise &amp; On-Time-Delivery Tracker</h3>
+                    <p class="card-why">Keeps every promised date honest and flags the ones about to slip while you can still do something &mdash; replacing the order book workbook, the delivery status sheet, and the customer chase-up emails.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Order Promise &amp; On-Time-Delivery Tracker</strong> for a Production Planner at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Top: 5 cards &mdash; <em>open orders</em>, <em>shipping this week</em>, <em>orders at risk</em>, <em>on-time delivery % this month</em>, and <em>average days late when late</em>. Middle: an order register with <em>order number</em>, <em>customer</em>, <em>grade</em>, <em>quantity (kg)</em>, <em>order date</em>, <em>customer required date</em>, <em>promised ship date</em>, <em>production complete date</em>, <em>actual ship date</em>, and <em>status</em> (Confirmed / Scheduled / In production / Produced / Ready to ship / Shipped / On hold), auto-calculating <em>days to promised date</em> and, once shipped, <em>days early or late against promise</em> and <em>against the customer required date</em>, colouring any order red when the promised date is within three days and production is not yet complete, and amber within seven days. Below: an <strong>at-risk panel</strong> that lists those orders with the reason pulled from an editable risk field (Material shortage / Machine down / Capacity / Quality hold / Waiting customer approval), a monthly on-time-delivery trend as a pure-CSS bar chart, and a root-cause breakdown of late deliveries so the repeat reason is visible. Include filters by customer, grade and status, a search on order number, and a &ldquo;Copy customer update&rdquo; button that drafts a short note per customer naming their order numbers, quantities, current status and revised dates where relevant. Seed with 12 customers and 35 orders in mixed states. Planning aesthetic &mdash; navy with indigo accents, monospace for dates and figures. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p10"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== QUALITY CONTROL ===== -->
+    <section id="quality" class="audience-section quality">
+        <div class="audience-header">
+            <div class="audience-badge">&#128300;</div>
+            <div>
+                <h2>Quality Control</h2>
+                <div class="subtitle">Inspection, non-conformance and batch traceability &middot; Snr QC Specialist</div>
+            </div>
+        </div>
+
+        <!-- Card 11 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">11</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Snr QC Specialist</span>
+                    <h3 class="card-title">Incoming &amp; In-Process Inspection Log</h3>
+                    <p class="card-why">Every test result against its spec limits, with pass or fail decided for you &mdash; replacing the inspection record book, the spec comparison workbook, and the &ldquo;can we release this lot?&rdquo; email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Incoming &amp; In-Process Inspection Log</strong> for a Senior QC Specialist at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Top: a strip showing <em>inspections today</em>, <em>lots on hold</em>, <em>pass rate this month %</em>, <em>lots awaiting test</em>, and <em>out-of-spec results this week</em>. Section one &mdash; a specification master where each grade holds its test parameters with <em>lower limit</em>, <em>target</em> and <em>upper limit</em> for properties such as <em>moisture content %</em>, <em>melt flow rate (g/10 min)</em>, <em>ash or filler content %</em>, <em>tensile strength (MPa)</em>, <em>flexural modulus (MPa)</em>, <em>notched Izod impact (kJ/m&sup2;)</em>, <em>density (g/cm&sup3;)</em>, <em>colour difference delta E</em>, and <em>pellet size or fines %</em>. Section two &mdash; an inspection log where I select <em>inspection type</em> (Incoming raw material / In-process / Final product / Customer complaint retest), <em>date and time</em>, <em>grade</em>, <em>lot or batch number</em>, <em>machine or supplier</em>, <em>sample size</em>, <em>inspector</em>, then key in the measured value for each parameter &mdash; and the page <strong>automatically compares each value against that grade limits, marks it Pass or Fail, colours the cell, and sets the overall lot result</strong>, forcing a <em>disposition</em> (Release / Hold / Rework / Reject / Concession) and a remarks field whenever anything fails. Section three &mdash; a trend view where picking a grade and a parameter draws a pure-CSS run chart of the last 20 results with the spec limits and target drawn as lines, so drift towards a limit is visible before it becomes a failure. Include a hold register listing every lot currently on hold with its age in days, and a &ldquo;Copy inspection result&rdquo; button. Seed with 8 grades with full specs and 30 inspection records. Laboratory aesthetic &mdash; navy with cyan accents, dense data tables, monospace for every measured value. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p11"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 12 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">12</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Snr QC Specialist</span>
+                    <h3 class="card-title">Non-Conformance &amp; Defect Pareto Tracker</h3>
+                    <p class="card-why">Shows which defect is actually costing you the most and whether the fix worked &mdash; replacing the NCR folder, the defect tally sheet, and the corrective action follow-up email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Non-Conformance &amp; Defect Pareto Tracker</strong> for a Senior QC Specialist at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Top: 5 cards &mdash; <em>open non-conformances</em>, <em>overdue corrective actions</em>, <em>kg affected this month</em>, <em>estimated cost of quality</em>, and <em>average days to close</em>. Middle: a non-conformance register capturing <em>NCR number</em>, <em>date raised</em>, <em>source</em> (Incoming material / In-process / Final inspection / Customer complaint / Internal audit), <em>grade</em>, <em>lot or batch number</em>, <em>machine</em>, <em>shift</em>, <em>defect type</em> (contamination, black specks, colour variation, moisture streaks or silver streaks, poor dispersion, off-spec melt flow, low impact, dimensional out-of-spec, pellet fines, wet material, packaging defect, wrong labelling), <em>quantity affected (kg)</em>, <em>severity</em> (Minor / Major / Critical), <em>immediate containment</em>, <em>root cause category</em> (Material / Process / Machine / Tooling / Handling / Human / Method), <em>root cause</em>, <em>corrective action</em>, <em>preventive action</em>, <em>owner</em>, <em>target close date</em>, <em>verification result</em>, and <em>status</em>, auto-calculating <em>days open</em> and sorting overdue items to the top in red. Below: a pure-CSS Pareto chart of defects by <em>quantity affected</em> rather than simple count so the expensive defects rank first, a second chart by root cause category, and a <strong>recurrence panel</strong> that flags any defect type appearing again on the same machine or grade after a corrective action was verified, since that means the fix did not hold. Include a cost-of-quality calculator using an editable cost per kg for scrap, rework and customer return, filters by machine, grade and severity, and a &ldquo;Copy 8D-style report&rdquo; button producing a structured write-up with problem description, containment, root cause, corrective action and verification. Seed with 25 non-conformances across at least 8 defect types. Laboratory aesthetic &mdash; navy with cyan accents, clear severity badges. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p12"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 13 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">13</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Snr QC Specialist</span>
+                    <h3 class="card-title">Certificate of Analysis &amp; Batch Traceability Builder</h3>
+                    <p class="card-why">Builds the CoA from results already logged and traces any batch back to its raw material lots in seconds &mdash; replacing the CoA template document, the batch record workbook, and the customer traceability request email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Certificate of Analysis &amp; Batch Traceability Builder</strong> for a Senior QC Specialist at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Section one &mdash; a batch record register capturing <em>finished batch or lot number</em>, <em>grade</em>, <em>production date</em>, <em>machine or line</em>, <em>shift</em>, <em>quantity produced (kg)</em>, <em>operator</em>, and the <strong>raw material lots consumed</strong> entered as a repeating group of <em>material</em>, <em>supplier lot number</em>, <em>quantity used (kg)</em>, so every finished batch carries its full genealogy. Section two &mdash; a traceability search that works in both directions: entering a finished batch number shows every raw material lot that went into it with supplier and quantity, and entering a supplier lot number shows <strong>every finished batch it touched and every customer those batches shipped to</strong>, which is exactly what is needed when a supplier raises a material recall. Present the result as an indented tree with quantities. Section three &mdash; a Certificate of Analysis builder where selecting a finished batch pulls its grade, its specification limits and its recorded test results, laying them out in a formal CoA table with <em>property</em>, <em>test method</em> (for example ISO 1133 for melt flow, ISO 527 for tensile, ISO 179 for impact, ISO 62 for moisture), <em>unit</em>, <em>specification</em>, and <em>result</em>, with a conformance statement, and fields for <em>customer</em>, <em>delivery order number</em>, <em>issue date</em>, <em>approved by</em> and <em>signature line</em>, rendered in a clean print-ready layout with a print button that prints only the certificate. Include a CoA issue log recording which certificates were issued to which customer and when, and a &ldquo;Copy traceability summary&rdquo; button. Seed with 20 finished batches, 15 supplier lots and 8 grades with specs. Laboratory aesthetic &mdash; navy with cyan accents, formal document styling for the certificate. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p13"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== WAREHOUSE, DELIVERY   DRIVING ===== -->
+    <section id="logistics" class="audience-section dept">
+        <div class="audience-header">
+            <div class="audience-badge">&#128666;</div>
+            <div>
+                <h2>Warehouse, Delivery &amp; Driving</h2>
+                <div class="subtitle">Getting material in, around the yard, and out to the customer &middot; Driver</div>
+            </div>
+        </div>
+
+        <!-- Card 14 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">14</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Driver</span>
+                    <h3 class="card-title">Delivery Run Planner &amp; Trip Log</h3>
+                    <p class="card-why">Plans the day drops in a sensible order and records every trip without a paper logbook &mdash; replacing the delivery schedule sheet, the trip record book, and the &ldquo;where is the delivery?&rdquo; phone calls.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Delivery Run Planner &amp; Trip Log</strong> for a company driver at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Top: a today strip showing <em>drops planned today</em>, <em>drops completed</em>, <em>total kg on board</em>, <em>kilometres today</em>, and <em>next stop</em>. Section one &mdash; a delivery run planner where I add stops with <em>customer</em>, <em>address</em>, <em>area</em> (grouped by Singapore region such as Jurong / Tuas / Woodlands / Changi / Central), <em>delivery order number</em>, <em>grade and quantity (kg)</em>, <em>number of bags or pallets</em>, <em>contact person and phone</em>, <em>delivery window</em>, and <em>special instructions</em> (for example: tail-lift required, call before arrival, loading bay height limit, pass needed), then reorder the stops by clicking up and down, with the running <em>load on board in kg</em> recalculated after each drop and a warning if the starting load exceeds an editable <em>vehicle payload limit</em>. Group stops by area and show a suggested sequence that keeps stops in the same area together. Section two &mdash; a trip log recording <em>date</em>, <em>vehicle</em>, <em>odometer start and end</em>, <em>departure and return time</em>, <em>stops completed</em>, and <em>fuel added (litres and cost)</em>, auto-calculating <em>distance</em>, <em>hours on the road</em> and <em>fuel consumption in km per litre</em> with a monthly trend. Section three &mdash; a proof-of-delivery panel per stop capturing <em>time arrived</em>, <em>time departed</em>, <em>received by name</em>, <em>quantity accepted</em>, <em>any shortage or damage</em>, and a <em>remarks</em> box, marking the stop complete and timestamping it. Include a &ldquo;Copy delivery status update&rdquo; button producing a short message for the office listing what is delivered, what is pending and the expected return time. Seed with 8 stops across 3 areas and 10 past trips. Driver-friendly aesthetic &mdash; navy with teal accents, very large text and buttons, single-column layout designed for a phone screen. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p14"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 15 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">15</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Driver</span>
+                    <h3 class="card-title">Vehicle Daily Checklist &amp; Maintenance Log</h3>
+                    <p class="card-why">The pre-trip check you must do anyway, done on your phone and kept on record &mdash; replacing the paper vehicle checklist, the servicing reminder sheet, and the &ldquo;when is road tax due?&rdquo; email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Vehicle Daily Checklist &amp; Maintenance Log</strong> for a company driver at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Section one &mdash; a daily pre-trip checklist I complete before the first trip, capturing <em>date</em>, <em>vehicle registration</em>, <em>driver</em>, and <em>odometer reading</em>, then a tick-list grouped into <em>Outside</em> (tyres and tyre pressure, wheel nuts, lights and indicators, mirrors, body damage, number plate, tail-lift or tailgate condition), <em>Inside</em> (brakes, horn, wipers and washer, seat belt, dashboard warning lights, air-conditioning), <em>Fluids</em> (engine oil, coolant, brake fluid, fuel level), and <em>Safety equipment</em> (fire extinguisher and its expiry, first aid kit, warning triangle, spare tyre and jack, load straps and their condition), where each item is ticked Good, or marked Defect with a mandatory remarks box. <strong>Any defect marked Critical blocks the checklist from being signed off</strong> and shows a clear &ldquo;Do not drive &mdash; report to supervisor&rdquo; banner. Section two &mdash; a defect log carrying every issue raised from the checklists with <em>date</em>, <em>vehicle</em>, <em>item</em>, <em>description</em>, <em>severity</em>, <em>reported to</em>, <em>action taken</em>, and <em>status</em>, with anything open for more than three days highlighted. Section three &mdash; a vehicle record panel per vehicle holding <em>road tax expiry</em>, <em>insurance expiry</em>, <em>vehicle inspection due</em>, <em>next servicing odometer and date</em>, and <em>LTA vehicle log card details</em>, auto-calculating <em>days remaining</em> for each and turning amber within 30 days and red once overdue, plus a servicing history log with <em>date</em>, <em>odometer</em>, <em>work done</em>, <em>workshop</em> and <em>cost</em>. Include a &ldquo;Copy checklist record&rdquo; button and a &ldquo;Copy defect report&rdquo; button for the supervisor. Seed with 2 vehicles, 10 completed checklists and 6 defects. Driver-friendly aesthetic &mdash; navy with teal accents, very large tick targets and text, single-column phone layout. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p15"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 16 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">16</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Driver &nbsp;&middot;&nbsp; Warehouse duties</span>
+                    <h3 class="card-title">Goods Issue, Receipt &amp; Delivery Order Tracker</h3>
+                    <p class="card-why">One register for what came in, what went out and which delivery orders are still unsigned &mdash; replacing the goods receipt book, the delivery order file, and the paperwork chase-up.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Goods Issue, Receipt &amp; Delivery Order Tracker</strong> for the driver and warehouse team at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Top: a strip showing <em>receipts today</em>, <em>deliveries today</em>, <em>delivery orders awaiting signed copy</em>, <em>discrepancies open</em>, and <em>total kg moved this week</em>. Section one &mdash; an incoming goods receipt log capturing <em>date received</em>, <em>supplier</em>, <em>purchase order number</em>, <em>delivery order number from supplier</em>, <em>material</em>, <em>supplier lot number</em>, <em>quantity on document (kg)</em>, <em>quantity actually received (kg)</em>, <em>number of bags or big bags</em>, <em>vehicle number</em>, <em>received by</em>, and <em>condition on arrival</em> (Good / Wet or damaged packaging / Torn bags / Contaminated / Wrong material), auto-calculating a <em>quantity variance</em> and flagging any mismatch between document and actual in red, with a mandatory remarks field when they differ. Section two &mdash; an outgoing delivery order register with <em>DO number</em>, <em>date</em>, <em>customer</em>, <em>grade</em>, <em>batch or lot number</em>, <em>quantity (kg)</em>, <em>packages</em>, <em>vehicle</em>, <em>driver</em>, <em>delivery address</em>, and <em>status</em> (Prepared / Loaded / Out for delivery / Delivered / Signed copy returned / Discrepancy), where the status advances by click and the page lists every DO stuck at Delivered without a signed copy returned for more than three days as an outstanding-paperwork panel. Section three &mdash; a discrepancy log covering short delivery, over delivery, damage in transit and wrong item, each with <em>reference</em>, <em>description</em>, <em>quantity</em>, <em>reported to</em>, <em>resolution</em> and <em>status</em>. Include a search across DO number, customer, batch and supplier lot, and a &ldquo;Copy outstanding paperwork list&rdquo; button. Seed with 20 receipts, 25 delivery orders and 6 discrepancies. Warehouse aesthetic &mdash; navy with teal accents, monospace for all reference numbers and quantities. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p16"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== ADMINISTRATION ===== -->
+    <section id="admin" class="audience-section admin">
+        <div class="audience-header">
+            <div class="audience-badge">&#128451;&#65039;</div>
+            <div>
+                <h2>Administration</h2>
+                <div class="subtitle">Documents, attendance and the things that keep the office running &middot; Snr Admin Assistant</div>
+            </div>
+        </div>
+
+        <!-- Card 17 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">17</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Snr Admin Assistant</span>
+                    <h3 class="card-title">Document Control, Visitor &amp; Office Log Hub</h3>
+                    <p class="card-why">Keeps controlled documents, visitors and couriers in one place instead of three books &mdash; replacing the document master list, the visitor book, and the &ldquo;which revision is current?&rdquo; email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Document Control, Visitor &amp; Office Log Hub</strong> for a Senior Admin Assistant at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Section one &mdash; a controlled document register with <em>document number</em>, <em>title</em>, <em>type</em> (Procedure / Work instruction / Form / Policy / Specification / Record / External standard), <em>department</em>, <em>current revision</em>, <em>issue date</em>, <em>next review date</em>, <em>document owner</em>, <em>approved by</em>, <em>location or link</em>, and <em>status</em> (Current / Under revision / Obsolete), auto-calculating <em>days to review</em>, turning amber within 60 days and red once overdue, with a revision history sub-log per document recording what changed in each revision and who approved it, and an obsolete-copy panel reminding which departments hold printed copies that must be withdrawn when a revision is issued. Section two &mdash; a visitor log capturing <em>date</em>, <em>visitor name</em>, <em>company</em>, <em>purpose</em> (Customer visit / Supplier / Contractor / Audit / Interview / Delivery / Maintenance), <em>person visiting</em>, <em>time in</em>, <em>time out</em>, <em>pass number issued</em>, <em>vehicle number</em>, and tickboxes for <em>safety induction given</em> and <em>PPE issued</em>, with a live panel of everyone currently on site who has not signed out, which doubles as a roll-call list in a fire drill. Section three &mdash; a courier and mail log with <em>date</em>, <em>direction</em> (Incoming / Outgoing), <em>courier company</em>, <em>tracking number</em>, <em>sender or recipient</em>, <em>description</em>, <em>received or sent by</em>, and <em>collected by</em>. Include a search across all three registers and a &ldquo;Copy documents due for review&rdquo; button. Seed with 25 documents, 20 visitors and 15 courier entries. Office aesthetic &mdash; navy with violet accents, clean tabbed sections. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p17"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 18 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">18</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Snr Admin Assistant</span>
+                    <h3 class="card-title">Staff Attendance, Leave &amp; Overtime Tracker</h3>
+                    <p class="card-why">Turns the attendance and overtime numbers into something you can check before payroll, not after &mdash; replacing the attendance sheet, the leave balance workbook, and the overtime summary email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Staff Attendance, Leave &amp; Overtime Tracker</strong> for a Senior Admin Assistant at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Top: a strip showing <em>staff present today</em>, <em>on leave today</em>, <em>absent without notice</em>, <em>overtime hours this month</em>, and <em>leave applications pending</em>. Section one &mdash; a staff master with <em>employee number</em>, <em>name</em>, <em>department</em>, <em>role</em>, <em>shift pattern</em>, <em>join date</em>, and <em>annual leave entitlement</em>, auto-calculating <em>leave taken</em>, <em>leave pending approval</em> and <em>balance remaining</em> from the leave register. Section two &mdash; a daily attendance grid for the month with staff as rows and days as columns, each cell set by click to Present, Rest day, Annual leave, Medical leave, Hospitalisation leave, Unpaid leave, Absent, Public holiday or Training, colour-coded, with per-person totals down the side and per-day totals along the bottom, and any <em>Absent</em> highlighted for follow-up. Section three &mdash; an overtime log with <em>date</em>, <em>employee</em>, <em>shift</em>, <em>normal hours</em>, <em>overtime hours</em>, <em>reason</em> (Breakdown / Urgent order / Manpower shortage / Stock take / Maintenance), and <em>approved by</em>, auto-calculating overtime per person per month and <strong>flagging anyone exceeding an editable monthly overtime cap</strong> which defaults to 72 hours in line with Singapore Employment Act guidance, with a pure-CSS bar chart of overtime by department. Section four &mdash; a leave application register with <em>applied date</em>, <em>employee</em>, <em>leave type</em>, <em>from</em>, <em>to</em>, <em>days</em>, <em>reason</em>, <em>covering person</em> and <em>status</em> (Pending / Approved / Rejected), which updates the attendance grid once approved, and warns if two people from the same shift are off on the same day. Include a &ldquo;Copy monthly payroll summary&rdquo; button listing per employee the days worked, leave taken by type and overtime hours. Seed with 24 staff and a full month of data. Office aesthetic &mdash; navy with violet accents, dense colour-coded grid. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p18"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 19 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">19</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">Snr Admin Assistant</span>
+                    <h3 class="card-title">Purchase Request &amp; Office Supplies Reorder Board</h3>
+                    <p class="card-why">Every request from the floor tracked from ask to arrival, and supplies reordered before they run out &mdash; replacing the purchase request forms, the stationery stock sheet, and the &ldquo;has my PR been approved?&rdquo; messages.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Purchase Request &amp; Office Supplies Reorder Board</strong> for a Senior Admin Assistant at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Top: a strip showing <em>open purchase requests</em>, <em>pending approval</em>, <em>awaiting delivery</em>, <em>items below reorder level</em>, and <em>total committed value</em>. Section one &mdash; a purchase request register with <em>PR number</em> (auto-generated in a running format), <em>date raised</em>, <em>requested by</em>, <em>department</em>, <em>item description</em>, <em>category</em> (Spare part / Consumable / PPE / Stationery / Pantry / Cleaning / IT / Service), <em>quantity</em>, <em>estimated unit price</em>, <em>justification</em>, <em>urgency</em> (Normal / Urgent / Line down), and <em>status</em> (Draft / Pending approval / Approved / PO raised / Delivered / Rejected / Cancelled), auto-calculating <em>estimated value</em> and <em>days since raised</em>, sorting anything marked Line down to the very top in red, and showing an ageing panel for requests pending approval more than five days. Section two &mdash; an office and consumables stock list with <em>item</em>, <em>category</em>, <em>unit</em>, <em>current stock</em>, <em>reorder level</em>, <em>reorder quantity</em>, <em>supplier</em>, and <em>last ordered date</em>, auto-flagging anything at or below its reorder level and producing a consolidated reorder list grouped by supplier, covering the things that actually run out in a plant &mdash; gloves, safety glasses, ear plugs, dust masks, cleaning rags, purge compound, sample bags, labels, marker pens, printer paper and toner. Section three &mdash; a simple issue log recording who took what and when, which decrements the stock automatically so the reorder flags stay honest, with a monthly consumption summary per item and a per-department PPE issue count. Include a &ldquo;Copy reorder list&rdquo; button and a &ldquo;Copy pending approvals&rdquo; button. Seed with 25 stock items, 20 purchase requests and 30 issue entries. Office aesthetic &mdash; navy with violet accents, clear urgency badges. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p19"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <!-- ===== CROSS-FUNCTION   EVERYONE ===== -->
+    <section id="everyone" class="audience-section finance">
+        <div class="audience-header">
+            <div class="audience-badge">&#128101;</div>
+            <div>
+                <h2>Cross-Function &mdash; Everyone</h2>
+                <div class="subtitle">Two tools that work whichever job you do here &middot; All 24 participants</div>
+            </div>
+        </div>
+
+        <!-- Card 20 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">20</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">All roles</span>
+                    <h3 class="card-title">Safety Observation &amp; Near-Miss Log</h3>
+                    <p class="card-why">Makes reporting a hazard take thirty seconds instead of finding a form, and shows whether anything was actually fixed &mdash; replacing the near-miss form, the hazard register sheet, and the safety reminder email.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>Safety Observation &amp; Near-Miss Log</strong> for everyone working at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Top: a strip showing <em>observations this month</em>, <em>open hazards</em>, <em>overdue actions</em>, <em>days since last incident</em>, and <em>percentage of observations closed</em>. Section one &mdash; a quick-report form deliberately kept short so it can be filled in on a phone in under a minute: <em>date and time</em>, <em>area or machine</em>, <em>type</em> (Unsafe condition / Unsafe act / Near miss / Property damage / First aid case), <em>hazard category</em> (Slip trip or fall / Hot surface or burn / Moving machinery or entanglement / Electrical / Chemical or fumes / Manual handling / Forklift or vehicle / Noise / Falling object / Housekeeping / PPE not worn / Ergonomics), <em>what happened</em>, <em>what could have happened</em>, <em>immediate action taken</em>, <em>reported by</em> with an option to submit anonymously, and a <em>risk rating</em> built from a severity and likelihood picker that auto-calculates a score and a band of Low, Medium, High or Critical, with Critical showing a &ldquo;Stop work and inform your supervisor now&rdquo; banner. Section two &mdash; a hazard action tracker where each reported item gets <em>corrective action</em>, <em>action owner</em>, <em>target date</em>, <em>status</em> and <em>verified by</em>, auto-calculating days open, sorting High and Critical to the top, and colouring overdue actions red. Section three &mdash; a trend view with a pure-CSS bar chart of observations by hazard category and a second by area, so the place and the type of risk that keeps recurring are obvious, plus a monthly count showing whether reporting is going up (which is good) and whether closure rate is keeping pace. Include a positive-observation option for recording good safe behaviour, and a &ldquo;Copy safety summary&rdquo; button for the toolbox talk. Seed with 25 observations across categories and areas. Safety aesthetic &mdash; navy with blue accents, large phone-friendly form, clear risk-band colours. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p20"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+
+        <!-- Card 21 -->
+        <article class="webpage-card">
+            <div class="card-header">
+                <span class="card-number">21</span>
+                <div class="card-title-wrap">
+                    <span class="card-role">All roles</span>
+                    <h3 class="card-title">My Daily Work Board &amp; Shift Notebook</h3>
+                    <p class="card-why">One page for what you must do today, what you keep forgetting, and what you want to remember from this shift &mdash; replacing the pocket notebook, the personal to-do list, and the reminders you send yourself.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="prompt-label"><span class="prompt-label-text">Build Prompt</span></div>
+                <div class="prompt-box">
+                    Build a single-page HTML <strong>My Daily Work Board &amp; Shift Notebook</strong> for anyone working at an engineering-plastics manufacturing plant that compounds, extrudes and moulds resins from chemical feedstock. Top: a today strip showing <em>tasks due today</em>, <em>overdue</em>, <em>done today</em>, <em>recurring checks due</em>, and a live <em>date, day and shift</em> indicator. Section one &mdash; a simple three-column task board (Do now / Today / This week) with a quick-add box, each card carrying <em>task</em>, <em>area or machine</em>, <em>category</em> (Machine / Quality / Safety / Material / Paperwork / Learning), <em>due date</em>, and a <em>waiting on someone</em> flag with a name, moving between columns by click, with overdue cards outlined red. Section two &mdash; a recurring checks scheduler for the small things that must happen every day or week, such as checking hopper dryer temperature, draining the air compressor, checking cooling tower water level, emptying the granulator, or topping up machine oil &mdash; each with <em>task</em>, <em>frequency</em> (Every shift / Daily / Weekly on a chosen day / Monthly), <em>last done</em>, auto-calculating <em>next due</em>, and a large &ldquo;Mark done&rdquo; button that rolls the date forward and logs who did it. Section three &mdash; a shift notebook where I can jot dated free-text entries tagged as <em>Learned something</em>, <em>Problem</em>, <em>Idea to improve</em>, or <em>Ask supervisor</em>, all searchable by keyword, so the machine trick I worked out last month is still findable, and anything tagged <em>Ask supervisor</em> shows in a short list I can take to the next briefing. Section four &mdash; a &ldquo;Copy my shift summary&rdquo; button producing a short paste-ready note of what I completed, what is still open, what I am waiting on and anything I need to raise. Include a week-over-week completed-task count as a pure-CSS bar chart. Seed with 15 tasks, 6 recurring checks and 10 notebook entries. Clean shop-floor aesthetic &mdash; navy with blue accents, large text, phone-friendly single-column layout. Modern, sleek, professional and corporate. Pure HTML, CSS, and vanilla JS with localStorage persistence. <span class="show-code">At the end, show the full, complete HTML source code in the code console/output as the result so I can copy it &mdash; don't only show a rendered preview.</span>
+                </div>
+                <button class="copy-btn" data-prompt-id="p21"><span class="copy-icon">&#128203;</span><span class="copy-label">Copy prompt</span></button>
+            </div>
+        </article>
+    </section>
+
+    <div class="tip-box">
+        <h3>&#128161; Prompt Tips</h3>
+        <p>To get the best results from any of these prompts:</p>
+        <ul>
+            <li>Paste the entire prompt into your AI tool in one go &mdash; do not trim it. The last line asks the AI to <strong>show the full HTML code in the console</strong> so you can copy it straight out.</li>
+            <li>Pick more than one &mdash; your function has two to four tools; build the one that saves you the most time first, then come back for the others.</li>
+            <li>Technicians &mdash; there are sixteen of you sharing one section. Build different tools and swap the finished pages between you rather than all building the same one.</li>
+            <li>After the first build, ask for iterations: <em>&ldquo;Make the buttons bigger for use on a tablet with gloves on&rdquo;</em> or <em>&ldquo;Replace the seed data with my actual machine numbers and grades.&rdquo;</em></li>
+            <li>If the output feels generic, add context at the end: <em>&ldquo;Use terminology familiar to an engineering-plastics compounding and moulding plant.&rdquo;</em></li>
+            <li>Keep company data out of the tool while you are learning &mdash; build with the seeded sample data first, then swap in real figures once the page runs in your own browser.</li>
+            <li>Keep the framing in mind: each page should replace three forms or files and two recurring messages in your job.</li>
+        </ul>
+    </div>
+
+</main>
+
+<!-- ====== BACK TO TOP BUTTON ====== -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top">
+    <span class="arrow" aria-hidden="true">↑</span>
+    <span class="label">TOP</span>
+</button>
+
+<!-- ====== FOOTER ====== -->
+<footer>
+    <p>Asahi Kasei Plastics Singapore Pte Ltd &middot; SFDW 2.0 &middot; 1 Day Class &middot; 21 September 2026</p>
+    <p>Role-based webpage build prompts &mdash; designed for training use, adapt freely to your team, tools, and engineering-plastics manufacturing context.</p>
+</footer>
+
+<script>
+    // Reliable smooth-scroll for anchor links — works inside Google Sites iframe embeds
+    document.addEventListener('DOMContentLoaded', function() {
+        var links = document.querySelectorAll('.toc a[data-target]');
+        links.forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                var targetId = this.getAttribute('data-target');
+                var targetEl = document.getElementById(targetId);
+                if (targetEl) {
+                    var offset = 20;
+                    var top = targetEl.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: top, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Copy-to-clipboard for prompt buttons
+        var copyButtons = document.querySelectorAll('.copy-btn');
+        copyButtons.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var promptBox = this.previousElementSibling;
+                if (!promptBox) return;
+
+                var text = promptBox.innerText.trim();
+
+                var labelEl = this.querySelector('.copy-label');
+                var iconEl = this.querySelector('.copy-icon');
+                var btn = this;
+
+                var showSuccess = function() {
+                    btn.classList.add('copied');
+                    if (iconEl) iconEl.textContent = '✓';
+                    if (labelEl) labelEl.textContent = 'Copied!';
+                    setTimeout(function() {
+                        btn.classList.remove('copied');
+                        if (iconEl) iconEl.textContent = '📋';
+                        if (labelEl) labelEl.textContent = 'Copy prompt';
+                    }, 2000);
+                };
+
+                var fallbackCopy = function(str) {
+                    var ta = document.createElement('textarea');
+                    ta.value = str;
+                    ta.style.position = 'fixed';
+                    ta.style.top = '0';
+                    ta.style.left = '0';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.focus();
+                    ta.select();
+                    try {
+                        document.execCommand('copy');
+                        showSuccess();
+                    } catch (err) {
+                        // silent fail
+                    }
+                    document.body.removeChild(ta);
+                };
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(showSuccess).catch(function() {
+                        fallbackCopy(text);
+                    });
+                } else {
+                    fallbackCopy(text);
+                }
+            });
+        });
+
+        // Back-to-top floating button — reliable inside Google Sites iframe embeds
+        var backToTopBtn = document.getElementById('backToTop');
+        if (backToTopBtn) {
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                if (document.documentElement) {
+                    document.documentElement.scrollTop = 0;
+                }
+                if (document.body) {
+                    document.body.scrollTop = 0;
+                }
+
+                try {
+                    if (window.parent && window.parent !== window) {
+                        window.parent.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                } catch (e) {
+                    // Cross-origin parent — can't scroll it, but that's fine.
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
