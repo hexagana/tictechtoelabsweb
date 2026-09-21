@@ -543,7 +543,61 @@
                 gap: 1rem;
             }
         }
-    </style>
+    
+        /* --- multi-select support (Q9 allows more than one answer) --- */
+        .option input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .option input[type="checkbox"]:checked + .option-label {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+            font-weight: 600;
+        }
+
+        .option input[type="checkbox"]:checked + .option-label::before {
+            width: 100%;
+        }
+
+        .question-badge {
+            display: inline-block;
+            margin-left: 0.6rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            background: var(--gradient-3);
+            color: #0b3b57;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            vertical-align: middle;
+        }
+
+        .question-card:nth-child(6) { animation-delay: 0.5s; }
+        .question-card:nth-child(7) { animation-delay: 0.55s; }
+        .question-card:nth-child(8) { animation-delay: 0.6s; }
+        .question-card:nth-child(9) { animation-delay: 0.65s; }
+        .question-card:nth-child(10) { animation-delay: 0.7s; }
+        .question-card:nth-child(11) { animation-delay: 0.75s; }
+        .question-card:nth-child(12) { animation-delay: 0.8s; }
+        .question-card:nth-child(13) { animation-delay: 0.85s; }
+        .question-card:nth-child(14) { animation-delay: 0.9s; }
+        .question-card:nth-child(15) { animation-delay: 0.95s; }
+
+        .review-item:nth-child(6) { animation-delay: 0.35s; }
+        .review-item:nth-child(7) { animation-delay: 0.4s; }
+        .review-item:nth-child(8) { animation-delay: 0.45s; }
+        .review-item:nth-child(9) { animation-delay: 0.5s; }
+        .review-item:nth-child(10) { animation-delay: 0.55s; }
+        .review-item:nth-child(11) { animation-delay: 0.6s; }
+        .review-item:nth-child(12) { animation-delay: 0.65s; }
+        .review-item:nth-child(13) { animation-delay: 0.7s; }
+        .review-item:nth-child(14) { animation-delay: 0.75s; }
+        .review-item:nth-child(15) { animation-delay: 0.8s; }
+</style>
 </head>
 <body>
     <div class="container">
@@ -557,7 +611,7 @@
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
-                <div class="progress-text" id="progressText">Question 1 of 10</div>
+                <div class="progress-text" id="progressText">Question 0 of 15</div>
             </div>
 
             <form id="quizForm">
@@ -567,10 +621,10 @@
                     <div class="question-text">Which is a current trend shaping the future of work?</div>
                     <div class="options">
                         <div class="option">
-                            <input type="radio" id="q1a" name="q1" value="Remote work only">
+                            <input type="radio" id="q1a" name="q1" value="Using typewriters for reports">
                             <label class="option-label" for="q1a">
-                                Remote work only
-                                <span class="status-icon">✓</span>
+                                Using typewriters for reports
+                                <span class="status-icon">✗</span>
                             </label>
                         </div>
                         <div class="option">
@@ -581,16 +635,16 @@
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q1c" name="q1" value="Paper-based workflows">
+                            <input type="radio" id="q1c" name="q1" value="Removing all technology from workplaces">
                             <label class="option-label" for="q1c">
-                                Paper-based workflows
+                                Removing all technology from workplaces
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q1d" name="q1" value="Traditional office spaces">
+                            <input type="radio" id="q1d" name="q1" value="Only hiring locally">
                             <label class="option-label" for="q1d">
-                                Traditional office spaces
+                                Only hiring locally
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
@@ -610,23 +664,23 @@
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q2b" name="q2" value="Avoiding all technology">
+                            <input type="radio" id="q2b" name="q2" value="Ignoring new tools">
                             <label class="option-label" for="q2b">
-                                Avoiding all technology
+                                Ignoring new tools
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q2c" name="q2" value="Memorizing facts">
+                            <input type="radio" id="q2c" name="q2" value="Avoiding training">
                             <label class="option-label" for="q2c">
-                                Memorizing facts
+                                Avoiding training
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q2d" name="q2" value="Using only manual processes">
+                            <input type="radio" id="q2d" name="q2" value="Using older versions of software">
                             <label class="option-label" for="q2d">
-                                Using only manual processes
+                                Using older versions of software
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
@@ -639,9 +693,9 @@
                     <div class="question-text">Which framework has the categories Projects, Areas, Resources, Archives?</div>
                     <div class="options">
                         <div class="option">
-                            <input type="radio" id="q3a" name="q3" value="GTD">
+                            <input type="radio" id="q3a" name="q3" value="CODE">
                             <label class="option-label" for="q3a">
-                                GTD (Getting Things Done)
+                                CODE
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
@@ -653,16 +707,16 @@
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q3c" name="q3" value="SMART Goals">
+                            <input type="radio" id="q3c" name="q3" value="SWOT">
                             <label class="option-label" for="q3c">
-                                SMART Goals
+                                SWOT
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q3d" name="q3" value="Eisenhower Matrix">
+                            <input type="radio" id="q3d" name="q3" value="SMART">
                             <label class="option-label" for="q3d">
-                                Eisenhower Matrix
+                                SMART
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
@@ -682,23 +736,23 @@
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q4b" name="q4" value="PARA – Areas">
+                            <input type="radio" id="q4b" name="q4" value="CODE – Capture step">
                             <label class="option-label" for="q4b">
-                                PARA – Areas
+                                CODE – Capture step
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q4c" name="q4" value="PARA – Resources">
+                            <input type="radio" id="q4c" name="q4" value="SWOT – Weaknesses">
                             <label class="option-label" for="q4c">
-                                PARA – Resources
+                                SWOT – Weaknesses
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q4d" name="q4" value="PARA – Archives">
+                            <input type="radio" id="q4d" name="q4" value="Mind mapping">
                             <label class="option-label" for="q4d">
-                                PARA – Archives
+                                Mind mapping
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
@@ -711,30 +765,30 @@
                     <div class="question-text">Which of these is a phishing red flag?</div>
                     <div class="options">
                         <div class="option">
-                            <input type="radio" id="q5a" name="q5" value="Email from a known colleague">
+                            <input type="radio" id="q5a" name="q5" value="Email from a known contact with expected content">
                             <label class="option-label" for="q5a">
-                                Email from a known colleague
+                                Email from a known contact with expected content
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q5b" name="q5" value="Sender address doesn't match the company domain">
+                            <input type="radio" id="q5b" name="q5" value="Sender address doesn’t match the company domain">
                             <label class="option-label" for="q5b">
-                                Sender address doesn't match the company domain
+                                Sender address doesn’t match the company domain
                                 <span class="status-icon">✓</span>
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q5c" name="q5" value="Professional email signature">
+                            <input type="radio" id="q5c" name="q5" value="Email sent during business hours">
                             <label class="option-label" for="q5c">
-                                Professional email signature
+                                Email sent during business hours
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q5d" name="q5" value="Clear subject line">
+                            <input type="radio" id="q5d" name="q5" value="Well-formatted newsletter you subscribed to">
                             <label class="option-label" for="q5d">
-                                Clear subject line
+                                Well-formatted newsletter you subscribed to
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
@@ -747,16 +801,16 @@
                     <div class="question-text">What should you do first after spotting a phishing email?</div>
                     <div class="options">
                         <div class="option">
-                            <input type="radio" id="q6a" name="q6" value="Click the link to investigate">
+                            <input type="radio" id="q6a" name="q6" value="Click the link to check">
                             <label class="option-label" for="q6a">
-                                Click the link to investigate
+                                Click the link to check
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q6b" name="q6" value="Delete it immediately">
+                            <input type="radio" id="q6b" name="q6" value="Delete without reporting">
                             <label class="option-label" for="q6b">
-                                Delete it immediately
+                                Delete without reporting
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
@@ -768,9 +822,9 @@
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q6d" name="q6" value="Reply asking for verification">
+                            <input type="radio" id="q6d" name="q6" value="Reply asking if it’s genuine">
                             <label class="option-label" for="q6d">
-                                Reply asking for verification
+                                Reply asking if it’s genuine
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
@@ -783,30 +837,30 @@
                     <div class="question-text">Which one is a good example of automation?</div>
                     <div class="options">
                         <div class="option">
-                            <input type="radio" id="q7a" name="q7" value="Manually copying emails to folders">
+                            <input type="radio" id="q7a" name="q7" value="Trigger: new email → Action: save to OneDrive or Google Drive">
                             <label class="option-label" for="q7a">
-                                Manually copying emails to folders
-                                <span class="status-icon">✗</span>
-                            </label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q7b" name="q7" value="Trigger: new email → Action: save to OneDrive or Google Drive">
-                            <label class="option-label" for="q7b">
                                 Trigger: new email → Action: save to OneDrive or Google Drive
                                 <span class="status-icon">✓</span>
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q7c" name="q7" value="Writing reports by hand">
-                            <label class="option-label" for="q7c">
-                                Writing reports by hand
+                            <input type="radio" id="q7b" name="q7" value="You click to open the browser, go to your email and download and save into your local drive">
+                            <label class="option-label" for="q7b">
+                                You click to open the browser, go to your email and download and save into your local drive
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q7d" name="q7" value="Manually updating spreadsheets daily">
+                            <input type="radio" id="q7c" name="q7" value="Once you receive an email, you have to manually type to reply">
+                            <label class="option-label" for="q7c">
+                                Once you receive an email, you have to manually type to reply
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q7d" name="q7" value="You delegate a task to your colleague by emailing him or her what is required to be done">
                             <label class="option-label" for="q7d">
-                                Manually updating spreadsheets daily
+                                You delegate a task to your colleague by emailing him or her what is required to be done
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
@@ -819,9 +873,9 @@
                     <div class="question-text">Which is the safest way to use AI for a client report?</div>
                     <div class="options">
                         <div class="option">
-                            <input type="radio" id="q8a" name="q8" value="Copy and paste confidential client data">
+                            <input type="radio" id="q8a" name="q8" value="Paste all confidential client data into a public AI">
                             <label class="option-label" for="q8a">
-                                Copy and paste confidential client data
+                                Paste all confidential client data into a public AI
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
@@ -833,16 +887,16 @@
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q8c" name="q8" value="Upload the entire client database">
+                            <input type="radio" id="q8c" name="q8" value="Let AI write it without checking facts">
                             <label class="option-label" for="q8c">
-                                Upload the entire client database
+                                Let AI write it without checking facts
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q8d" name="q8" value="Share client passwords with AI">
+                            <input type="radio" id="q8d" name="q8" value="Use any output without changes">
                             <label class="option-label" for="q8d">
-                                Share client passwords with AI
+                                Use any output without changes
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
@@ -851,35 +905,35 @@
 
                 <!-- Question 9 -->
                 <div class="question-card">
-                    <div class="question-number">QUESTION 09</div>
-                    <div class="question-text">Which of the Analytics below is not part of analytics functions of Big Data?</div>
+                    <div class="question-number">QUESTION 09<span class="question-badge">Select all that apply</span></div>
+                    <div class="question-text">Choose which of the Analytics below as part of analytics functions of Big Data? (Hint: there are more than 1 answers)</div>
                     <div class="options">
                         <div class="option">
-                            <input type="radio" id="q9a" name="q9" value="Descriptive Analytics">
+                            <input type="checkbox" id="q9a" name="q9" value="Descriptive Analytics">
                             <label class="option-label" for="q9a">
                                 Descriptive Analytics
-                                <span class="status-icon">✗</span>
+                                <span class="status-icon">✓</span>
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q9b" name="q9" value="Predictive Analytics">
+                            <input type="checkbox" id="q9b" name="q9" value="Diagnostic Analytics">
                             <label class="option-label" for="q9b">
-                                Predictive Analytics
-                                <span class="status-icon">✗</span>
+                                Diagnostic Analytics
+                                <span class="status-icon">✓</span>
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q9c" name="q9" value="Prescriptive Analytics">
+                            <input type="checkbox" id="q9c" name="q9" value="Predictive Analytics">
                             <label class="option-label" for="q9c">
-                                Prescriptive Analytics
-                                <span class="status-icon">✗</span>
+                                Predictive Analytics
+                                <span class="status-icon">✓</span>
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q9d" name="q9" value="Primitive Analytics">
+                            <input type="checkbox" id="q9d" name="q9" value="Primitive Analytics">
                             <label class="option-label" for="q9d">
                                 Primitive Analytics
-                                <span class="status-icon">✓</span>
+                                <span class="status-icon">✗</span>
                             </label>
                         </div>
                     </div>
@@ -891,16 +945,16 @@
                     <div class="question-text">Which option is most secure for sharing a draft with one colleague?</div>
                     <div class="options">
                         <div class="option">
-                            <input type="radio" id="q10a" name="q10" value="Anyone with the link – can edit">
+                            <input type="radio" id="q10a" name="q10" value="Anyone with the link – edit">
                             <label class="option-label" for="q10a">
-                                Anyone with the link – can edit
+                                Anyone with the link – edit
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q10b" name="q10" value="Public – anyone can view">
+                            <input type="radio" id="q10b" name="q10" value="Specific person – edit">
                             <label class="option-label" for="q10b">
-                                Public – anyone can view
+                                Specific person – edit
                                 <span class="status-icon">✗</span>
                             </label>
                         </div>
@@ -912,10 +966,190 @@
                             </label>
                         </div>
                         <div class="option">
-                            <input type="radio" id="q10d" name="q10" value="Anyone with the link – can view">
+                            <input type="radio" id="q10d" name="q10" value="Anyone with the link – view">
                             <label class="option-label" for="q10d">
-                                Anyone with the link – can view
+                                Anyone with the link – view
                                 <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 11 -->
+                <div class="question-card">
+                    <div class="question-number">QUESTION 11</div>
+                    <div class="question-text">Which is a SMART goal?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q11a" name="q11" value="Get better at Excel someday">
+                            <label class="option-label" for="q11a">
+                                Get better at Excel someday
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q11b" name="q11" value="Learn basic pivot tables in Excel by end of next month">
+                            <label class="option-label" for="q11b">
+                                Learn basic pivot tables in Excel by end of next month
+                                <span class="status-icon">✓</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q11c" name="q11" value="Improve Excel skills soon">
+                            <label class="option-label" for="q11c">
+                                Improve Excel skills soon
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q11d" name="q11" value="Become an Excel expert">
+                            <label class="option-label" for="q11d">
+                                Become an Excel expert
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 12 -->
+                <div class="question-card">
+                    <div class="question-number">QUESTION 12</div>
+                    <div class="question-text">Which 2 properties below cannot be shared in the public space?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q12a" name="q12" value="IP Address and MAC Address">
+                            <label class="option-label" for="q12a">
+                                IP Address and MAC Address
+                                <span class="status-icon">✓</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q12b" name="q12" value="Handphone number and email address">
+                            <label class="option-label" for="q12b">
+                                Handphone number and email address
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q12c" name="q12" value="Your office address and your manager’s name">
+                            <label class="option-label" for="q12c">
+                                Your office address and your manager’s name
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q12d" name="q12" value="Your name and where you work">
+                            <label class="option-label" for="q12d">
+                                Your name and where you work
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 13 -->
+                <div class="question-card">
+                    <div class="question-number">QUESTION 13</div>
+                    <div class="question-text">What is Artificial Intelligence?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q13a" name="q13" value="Artificial Intelligence is a robot that looks and behaves exactly like a human.">
+                            <label class="option-label" for="q13a">
+                                Artificial Intelligence is a robot that looks and behaves exactly like a human.
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q13b" name="q13" value="Artificial Intelligence (AI) is an area of computer science that focuses on creating intelligent machines that work and react like humans.">
+                            <label class="option-label" for="q13b">
+                                Artificial Intelligence (AI) is an area of computer science that focuses on creating intelligent machines that work and react like humans.
+                                <span class="status-icon">✓</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q13c" name="q13" value="AI is a system that can think and feel emotions just like a human.">
+                            <label class="option-label" for="q13c">
+                                AI is a system that can think and feel emotions just like a human.
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q13d" name="q13" value="Artificial Intelligence is a single program that can solve any problem in the world.">
+                            <label class="option-label" for="q13d">
+                                Artificial Intelligence is a single program that can solve any problem in the world.
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 14 -->
+                <div class="question-card">
+                    <div class="question-number">QUESTION 14</div>
+                    <div class="question-text">Which of the following is a legitimate concern when developing or deploying Artificial Intelligence systems?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q14a" name="q14" value="AI systems can become conscious and rebel against humans.">
+                            <label class="option-label" for="q14a">
+                                AI systems can become conscious and rebel against humans.
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q14b" name="q14" value="AI can make biased or unfair decisions if trained on unbalanced data.">
+                            <label class="option-label" for="q14b">
+                                AI can make biased or unfair decisions if trained on unbalanced data.
+                                <span class="status-icon">✓</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q14c" name="q14" value="AI always makes better decisions than humans because it is purely logical.">
+                            <label class="option-label" for="q14c">
+                                AI always makes better decisions than humans because it is purely logical.
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q14d" name="q14" value="AI systems are immune to cybersecurity threats due to their complexity.">
+                            <label class="option-label" for="q14d">
+                                AI systems are immune to cybersecurity threats due to their complexity.
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 15 -->
+                <div class="question-card">
+                    <div class="question-number">QUESTION 15</div>
+                    <div class="question-text">Which is not a good example of an automation tool?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q15a" name="q15" value="Make.com">
+                            <label class="option-label" for="q15a">
+                                Make.com
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q15b" name="q15" value="Zapier">
+                            <label class="option-label" for="q15b">
+                                Zapier
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q15c" name="q15" value="N8N">
+                            <label class="option-label" for="q15c">
+                                N8N
+                                <span class="status-icon">✗</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q15d" name="q15" value="Rapid Miner">
+                            <label class="option-label" for="q15d">
+                                Rapid Miner
+                                <span class="status-icon">✓</span>
                             </label>
                         </div>
                     </div>
@@ -925,12 +1159,12 @@
             </form>
         </div>
 
-        <div id="resultsSection" class="results">
+        <div class="results" id="resultsSection">
+            <div class="score-label">Your Score</div>
+            <div class="score-display" id="scoreDisplay">0/15</div>
+            <div class="score-message" id="scoreMessage"></div>
+
             <div class="results-summary">
-                <div class="score-label">Your Score</div>
-                <div class="score-display" id="scoreDisplay">0/10</div>
-                <div class="score-message" id="scoreMessage"></div>
-                
                 <div class="summary-stats">
                     <div class="stat">
                         <div class="stat-value correct" id="correctCount">0</div>
@@ -944,7 +1178,7 @@
             </div>
 
             <div class="review-section">
-                <h2 class="review-title">Answer Review</h2>
+                <div class="review-title">Answer Review</div>
                 <div id="reviewContainer"></div>
             </div>
 
@@ -953,30 +1187,43 @@
     </div>
 
     <script>
+        const TOTAL_QUESTIONS = 15;
+
+        // A value that is an array means the question accepts more than one answer.
         const correctAnswers = {
-            q1: 'Automation and AI',
-            q2: 'Learning prompt writing',
-            q3: 'PARA',
-            q4: 'PARA – Projects',
-            q5: "Sender address doesn't match the company domain",
-            q6: 'Report it to IT/security',
-            q7: 'Trigger: new email → Action: save to OneDrive or Google Drive',
-            q8: 'Ask AI general questions without using private data',
-            q9: 'Primitive Analytics',
-            q10: 'Specific person – view'
+            q1: "Automation and AI",
+            q2: "Learning prompt writing",
+            q3: "PARA",
+            q4: "PARA – Projects",
+            q5: "Sender address doesn’t match the company domain",
+            q6: "Report it to IT/security",
+            q7: "Trigger: new email → Action: save to OneDrive or Google Drive",
+            q8: "Ask AI general questions without using private data",
+            q9: ["Descriptive Analytics", "Diagnostic Analytics", "Predictive Analytics"],
+            q10: "Specific person – view",
+            q11: "Learn basic pivot tables in Excel by end of next month",
+            q12: "IP Address and MAC Address",
+            q13: "Artificial Intelligence (AI) is an area of computer science that focuses on creating intelligent machines that work and react like humans.",
+            q14: "AI can make biased or unfair decisions if trained on unbalanced data.",
+            q15: "Rapid Miner"
         };
 
         const questionTexts = {
-            q1: 'Which is a current trend shaping the future of work?',
-            q2: 'If your industry is adopting AI tools, which skill would help you stay relevant?',
-            q3: 'Which framework has the categories Projects, Areas, Resources, Archives?',
-            q4: 'You want to organise all notes for one ongoing project — which method is best?',
-            q5: 'Which of these is a phishing red flag?',
-            q6: 'What should you do first after spotting a phishing email?',
-            q7: 'Which one is a good example of automation?',
-            q8: 'Which is the safest way to use AI for a client report?',
-            q9: 'Which of the Analytics below is not part of analytics functions of Big Data?',
-            q10: 'Which option is most secure for sharing a draft with one colleague?'
+            q1: "Which is a current trend shaping the future of work?",
+            q2: "If your industry is adopting AI tools, which skill would help you stay relevant?",
+            q3: "Which framework has the categories Projects, Areas, Resources, Archives?",
+            q4: "You want to organise all notes for one ongoing project — which method is best?",
+            q5: "Which of these is a phishing red flag?",
+            q6: "What should you do first after spotting a phishing email?",
+            q7: "Which one is a good example of automation?",
+            q8: "Which is the safest way to use AI for a client report?",
+            q9: "Choose which of the Analytics below as part of analytics functions of Big Data? (Hint: there are more than 1 answers)",
+            q10: "Which option is most secure for sharing a draft with one colleague?",
+            q11: "Which is a SMART goal?",
+            q12: "Which 2 properties below cannot be shared in the public space?",
+            q13: "What is Artificial Intelligence?",
+            q14: "Which of the following is a legitimate concern when developing or deploying Artificial Intelligence systems?",
+            q15: "Which is not a good example of an automation tool?"
         };
 
         const form = document.getElementById('quizForm');
@@ -987,33 +1234,51 @@
         const progressText = document.getElementById('progressText');
 
         // Update progress as user answers
-        const radioButtons = document.querySelectorAll('input[type="radio"]');
-        radioButtons.forEach(radio => {
-            radio.addEventListener('change', updateProgress);
+        const choiceInputs = document.querySelectorAll('input[type="radio"], input[type="checkbox"]');
+        choiceInputs.forEach(input => {
+            input.addEventListener('change', updateProgress);
         });
+
+        function getSelected(i) {
+            const checked = document.querySelectorAll(`input[name="q${i}"]:checked`);
+            return Array.from(checked).map(input => input.value);
+        }
+
+        function isMulti(i) {
+            return Array.isArray(correctAnswers[`q${i}`]);
+        }
+
+        function formatAnswer(value) {
+            return Array.isArray(value) ? value.join(', ') : value;
+        }
+
+        function matches(selected, correct) {
+            if (Array.isArray(correct)) {
+                if (selected.length !== correct.length) return false;
+                return correct.every(answer => selected.indexOf(answer) !== -1);
+            }
+            return selected.length === 1 && selected[0] === correct;
+        }
 
         function updateProgress() {
             let answered = 0;
-            const totalQuestions = 10;
-            
-            for (let i = 1; i <= totalQuestions; i++) {
-                const question = document.querySelector(`input[name="q${i}"]:checked`);
-                if (question) answered++;
+
+            for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+                if (getSelected(i).length > 0) answered++;
             }
-            
-            const percentage = (answered / totalQuestions) * 100;
+
+            const percentage = (answered / TOTAL_QUESTIONS) * 100;
             progressFill.style.width = percentage + '%';
-            progressText.textContent = `Question ${answered} of ${totalQuestions}`;
+            progressText.textContent = `Question ${answered} of ${TOTAL_QUESTIONS}`;
         }
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             // Check if all questions are answered
             let allAnswered = true;
-            for (let i = 1; i <= 10; i++) {
-                const question = document.querySelector(`input[name="q${i}"]:checked`);
-                if (!question) {
+            for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+                if (getSelected(i).length === 0) {
                     allAnswered = false;
                     break;
                 }
@@ -1026,13 +1291,14 @@
 
             // Calculate score and show results
             let score = 0;
-            const formData = new FormData(form);
             const userAnswers = {};
 
-            for (let i = 1; i <= 10; i++) {
-                const userAnswer = formData.get(`q${i}`);
-                userAnswers[`q${i}`] = userAnswer;
+            for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+                const selected = getSelected(i);
                 const correctAnswer = correctAnswers[`q${i}`];
+                const correctValues = Array.isArray(correctAnswer) ? correctAnswer : [correctAnswer];
+                userAnswers[`q${i}`] = isMulti(i) ? selected : selected[0];
+
                 const questionCard = document.querySelectorAll('.question-card')[i - 1];
                 const options = questionCard.querySelectorAll('.option-label');
 
@@ -1040,14 +1306,14 @@
                     const input = option.previousElementSibling;
                     const value = input.value;
 
-                    if (value === correctAnswer) {
+                    if (correctValues.indexOf(value) !== -1) {
                         option.classList.add('correct');
-                    } else if (value === userAnswer && value !== correctAnswer) {
+                    } else if (selected.indexOf(value) !== -1) {
                         option.classList.add('incorrect');
                     }
                 });
 
-                if (userAnswer === correctAnswer) {
+                if (matches(selected, correctAnswer)) {
                     score++;
                 }
             }
@@ -1065,23 +1331,23 @@
         });
 
         function displayResults(score, userAnswers) {
-            const percentage = (score / 10) * 100;
+            const percentage = (score / TOTAL_QUESTIONS) * 100;
             let message = '';
 
             if (percentage >= 90) {
-                message = 'Outstanding! You have excellent digital skills! 🌟';
+                message = 'Outstanding! You have excellent digital skills! \u{1F31F}';
             } else if (percentage >= 70) {
-                message = 'Great job! You have a strong understanding! 💪';
+                message = 'Great job! You have a strong understanding! \u{1F4AA}';
             } else if (percentage >= 50) {
-                message = 'Good effort! Keep learning and improving! 📚';
+                message = 'Good effort! Keep learning and improving! \u{1F4DA}';
             } else {
-                message = 'Keep practicing! Review the materials and try again! 🎯';
+                message = 'Keep practicing! Review the materials and try again! \u{1F3AF}';
             }
 
-            document.getElementById('scoreDisplay').textContent = `${score}/10`;
+            document.getElementById('scoreDisplay').textContent = `${score}/${TOTAL_QUESTIONS}`;
             document.getElementById('scoreMessage').textContent = message;
             document.getElementById('correctCount').textContent = score;
-            document.getElementById('incorrectCount').textContent = (10 - score);
+            document.getElementById('incorrectCount').textContent = (TOTAL_QUESTIONS - score);
 
             // Generate review section
             generateReview(userAnswers);
@@ -1100,28 +1366,29 @@
             const reviewContainer = document.getElementById('reviewContainer');
             reviewContainer.innerHTML = '';
 
-            for (let i = 1; i <= 10; i++) {
+            for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
                 const questionKey = `q${i}`;
                 const userAnswer = userAnswers[questionKey];
                 const correctAnswer = correctAnswers[questionKey];
                 const questionText = questionTexts[questionKey];
-                const isCorrect = userAnswer === correctAnswer;
+                const selected = Array.isArray(userAnswer) ? userAnswer : [userAnswer];
+                const isCorrect = matches(selected, correctAnswer);
 
                 const reviewItem = document.createElement('div');
                 reviewItem.className = `review-item ${isCorrect ? 'correct-answer' : 'wrong-answer'}`;
 
-                const statusIcon = isCorrect ? '✓' : '✗';
+                const statusIcon = isCorrect ? '\u2713' : '\u2717';
                 const statusText = isCorrect ? 'Correct' : 'Incorrect';
                 const statusClass = isCorrect ? 'correct' : 'incorrect';
 
                 let answerHTML = '';
-                
+
                 if (isCorrect) {
                     // Show only the correct answer
                     answerHTML = `
                         <div class="review-answer your-answer correct">
                             <span class="review-answer-label correct">Your Answer:</span>
-                            <span>${userAnswer}</span>
+                            <span>${formatAnswer(userAnswer)}</span>
                         </div>
                     `;
                 } else {
@@ -1129,11 +1396,11 @@
                     answerHTML = `
                         <div class="review-answer your-answer incorrect">
                             <span class="review-answer-label incorrect">Your Answer:</span>
-                            <span>${userAnswer}</span>
+                            <span>${formatAnswer(userAnswer)}</span>
                         </div>
                         <div class="review-answer correct-answer-display">
                             <span class="review-answer-label correct">Correct Answer:</span>
-                            <span>${correctAnswer}</span>
+                            <span>${formatAnswer(correctAnswer)}</span>
                         </div>
                     `;
                 }
@@ -1157,7 +1424,7 @@
         function retakeQuiz() {
             // Reset form
             form.reset();
-            
+
             // Remove all status classes
             document.querySelectorAll('.option-label').forEach(label => {
                 label.classList.remove('correct', 'incorrect');
@@ -1171,7 +1438,7 @@
 
             // Reset progress
             progressFill.style.width = '0%';
-            progressText.textContent = 'Question 0 of 10';
+            progressText.textContent = `Question 0 of ${TOTAL_QUESTIONS}`;
 
             // Clear review
             document.getElementById('reviewContainer').innerHTML = '';
