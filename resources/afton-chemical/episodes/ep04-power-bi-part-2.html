@@ -1,0 +1,1354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ep 4 · Power BI Part 2 | Afton Chemical Learning Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/hub.css">
+<style>:root { --topic: var(--c-powerbi); }</style>
+</head>
+<body>
+
+<header class="hub-bar">
+  <div class="hub-bar-inner">
+    <a class="brand" href="../index.html"><span class="brand-mark">AC</span>Afton Chemical · MS365 Learning Hub</a>
+    <span class="spacer"></span>
+    <a class="pill" href="../index.html">&larr; All episodes</a>
+  </div>
+</header>
+
+<div class="ep-hero">
+  <div class="ep-hero-inner">
+    <div class="eyebrow">Episode 4 · Learner's Guide</div>
+    <h1>Power BI 101 – Part 2: Dashboards &amp; Program Capstone</h1>
+    <p>Power BI DAX Essential Full Tutorial. DAX stands for Data Analysis Expressions: a formula language built into Power BI that uses functions similar to those found in Microsoft Excel. This guide takes you from importing the sample cookie sales data to writing measures, calculated columns, iterator, date and text functions that answer real business questions.</p>
+    <div class="meta"><span>29 Apr 2026</span><span>6 topics</span><span>DAX &amp; advanced tips</span><span>Designed by Tic Tech Toe Labs · Customised for Afton Chemical</span></div>
+  </div>
+</div>
+
+<div class="ep-layout">
+  <nav class="toc" aria-label="On this page">
+    <h2>On this page</h2>
+    <ul>
+      <li><a href="#practice-files">Practice files</a></li>
+      <li><a href="#topic-1">1. Getting Started: Importing and Exploring Your Data</a>
+        <ul>
+          <li><a href="#topic-1-a">What you need before you begin</a></li>
+          <li><a href="#topic-1-b">Opening Power BI Desktop and starting your first import</a></li>
+          <li><a href="#topic-1-c">Selecting and loading the Cookie Types table</a></li>
+          <li><a href="#topic-1-d">Importing the Customers and Orders workbooks</a></li>
+          <li><a href="#topic-1-e">Reviewing what each table contains</a></li>
+          <li><a href="#topic-1-f">Verifying and completing your data model</a></li>
+          <li><a href="#topic-1-g">Returning to the report view</a></li>
+        </ul>
+      </li>
+      <li><a href="#topic-2">2. Building Essential Measures: Units Sold and Customer Analysis</a>
+        <ul>
+          <li><a href="#topic-2-a">Creating the Total Number of Units Sold measure</a></li>
+          <li><a href="#topic-2-b">Committing the measure and verifying it in the Fields pane</a></li>
+          <li><a href="#topic-2-c">Adding the measure to a visualization and formatting the output</a></li>
+          <li><a href="#topic-2-d">Editing and removing measures when needed</a></li>
+          <li><a href="#topic-2-e">Building the Count of Orders measure</a></li>
+          <li><a href="#topic-2-f">Building the Distinct Customers measure</a></li>
+          <li><a href="#topic-2-g">Verifying the Distinct Customers result and adding documentation</a></li>
+          <li><a href="#topic-2-h">Reviewing your measures and preparing for profit calculations</a></li>
+        </ul>
+      </li>
+      <li><a href="#topic-3">3. Advanced Calculations: Profit Analysis and Margin Metrics</a>
+        <ul>
+          <li><a href="#topic-3-a">Calculating profit using measures and calculated columns</a></li>
+          <li><a href="#topic-3-b">Creating and formatting a profit margin measure</a></li>
+          <li><a href="#topic-3-c">Adding the measure to a matrix visual</a></li>
+          <li><a href="#topic-3-d">Formatting the measure as a percentage</a></li>
+          <li><a href="#topic-3-e">Interpreting the results</a></li>
+          <li><a href="#topic-3-f">Calculating total profit using iterator functions</a></li>
+          <li><a href="#topic-3-g">Writing the SUMX measure</a></li>
+          <li><a href="#topic-3-h">Aggregate vs. iterator functions: when to use each</a></li>
+        </ul>
+      </li>
+      <li><a href="#topic-4">4. Time Intelligence and Date-Based Analysis</a>
+        <ul>
+          <li><a href="#topic-4-a">Understanding your date data</a></li>
+          <li><a href="#topic-4-b">Creating a calculated "Day of week" column</a></li>
+          <li><a href="#topic-4-c">Visualizing orders by day of the week</a></li>
+          <li><a href="#topic-4-d">Interpreting and communicating day-of-week patterns</a></li>
+          <li><a href="#topic-4-e">Identifying spikes and dips</a></li>
+          <li><a href="#topic-4-f">Tips for explaining the chart to non-technical audiences</a></li>
+        </ul>
+      </li>
+      <li><a href="#topic-5">5. Text Functions and Product-Level Insights</a>
+        <ul>
+          <li><a href="#topic-5-a">Reviewing your product data before writing formulas</a></li>
+          <li><a href="#topic-5-b">Creating a calculated column with FIND to detect a keyword</a></li>
+          <li><a href="#topic-5-c">Wrapping FIND with IF to create a readable business category</a></li>
+          <li><a href="#topic-5-d">Building a DAX measure to count orders with multiple conditions</a></li>
+          <li><a href="#topic-5-e">Extending text functions for further product analysis</a></li>
+        </ul>
+      </li>
+      <li><a href="#topic-6">6. Next Steps and Continuing Your Power BI Journey</a>
+        <ul>
+          <li><a href="#topic-6-a">What you've accomplished</a></li>
+          <li><a href="#topic-6-b">Continuing your DAX learning</a></li>
+          <li><a href="#topic-6-c">Real-world applications</a></li>
+          <li><a href="#topic-6-d">Stay connected and keep learning</a></li>
+        </ul>
+      </li>
+      <li><a href="#simplified-guide">Simplified guide (quick reference)</a></li>
+    </ul>
+  </nav>
+
+  <main class="content">
+    <section id="practice-files">
+      <span class="num">Before you start</span>
+      <h2>Practice files</h2>
+      <p class="lead">This guide uses three sample Excel workbooks: Cookie Types, Customers, and Orders. Download all three and save them in one folder before you open Power BI Desktop.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Workbook</th><th>What it holds</th></tr></thead>
+        <tbody>
+          <tr><td><a href="../datasets/ep04/Cookie%20Types.xlsx" download>Cookie Types.xlsx</a></td><td>Lookup table listing every cookie variety with Units Sold, Revenue Per Cookie and Cost Per Cookie.</td></tr>
+          <tr><td><a href="../datasets/ep04/Customers.xlsx" download>Customers.xlsx</a></td><td>Lookup table with customer information (Customer ID, Name, Phone, Address).</td></tr>
+          <tr><td><a href="../datasets/ep04/Orders.xlsx" download>Orders.xlsx</a></td><td>The central fact table: every order with Customer ID, Order ID, Product, Units Sold, Date, Revenue and Cost.</td></tr>
+        </tbody>
+      </table></div>
+      <p>The guide also lists the original sample links for the same three workbooks:</p>
+      <ul>
+        <li><a href="https://docs.google.com/spreadsheets/d/1C1Vv37dWRdDKyWUq7smqfcKIfH_hDZcw/export?format=xlsx">Sample link 1</a></li>
+        <li><a href="https://docs.google.com/spreadsheets/d/1rkGCIwY_j-2jREKJvHO4RlIwJyIdiCp2/export?format=xlsx">Sample link 2</a></li>
+        <li><a href="https://docs.google.com/spreadsheets/d/1oY9uEB9kl8wKh3SRHG3JNWLJuLRqZUYx/export?format=xlsx">Sample link 3</a></li>
+      </ul>
+    </section>
+
+    <section id="topic-1">
+      <span class="num">Topic 1</span>
+      <h2>Getting Started: Importing and Exploring Your Data</h2>
+      <p class="lead">This section walks you through everything you need to get your sample data into Power BI Desktop and verify that it is structured correctly before you write a single DAX formula. Taking the time to import your tables carefully and confirm that relationships exist between them means your calculations will work reliably later.</p>
+      <p>By the end of this section, you will have three tables loaded into Power BI, a complete data model with all necessary relationships in place, and a clear picture of what each table contains.</p>
+
+      <h3 id="topic-1-a">What you need before you begin</h3>
+      <p>Before opening Power BI Desktop, make sure you have the following ready:</p>
+      <ul class="checklist">
+        <li>Power BI Desktop installed on your computer</li>
+        <li>The three sample Excel workbooks provided in the course description: <strong>Cookie Types</strong>, <strong>Customers</strong>, and <strong>Orders</strong> (see <a href="#practice-files">Practice files</a>)</li>
+      </ul>
+      <div class="callout"><span class="label">Note</span>If you are new to Power BI or would like a general refresher before diving into DAX, watch the introductory video linked in the course description. It covers the foundational concepts that this guide builds on.</div>
+      <p>DAX stands for <strong>Data Analysis Expressions</strong>. It is a formula language built into Power BI that uses functions similar to those found in Microsoft Excel. If you have ever written an Excel formula, many of the patterns you already know will transfer directly.</p>
+
+      <h3 id="topic-1-b">Opening Power BI Desktop and starting your first import</h3>
+      <p>Once Power BI Desktop is open, you will see the main welcome screen. This screen provides several quick-start options, including a dedicated shortcut for bringing in Excel data.</p>
+      <ol class="steps">
+        <li>On the main screen, locate the <strong>Add data to your report</strong> section.</li>
+        <li>Click <strong>Import data from Excel</strong>.</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p04-1.png" alt="Power BI Desktop main screen with Import data from Excel highlighted" loading="lazy" width="583">
+        <figcaption>Power BI Desktop main screen with "Import data from Excel" highlighted, showing options to add data to the report, and the Fields and Visualizations panes on the right</figcaption>
+      </figure>
+      <p>This opens the Windows File Picker dialog, which lets you browse to wherever you saved the sample workbooks.</p>
+      <ol class="steps">
+        <li>Navigate to the folder containing your sample data files.</li>
+        <li>Select the <strong>Cookie Types</strong> workbook and click <strong>Open</strong>.</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p05-1.png" alt="Windows File Picker listing the Cookie Types, Customers and Orders workbooks with Cookie Types selected" loading="lazy" width="583">
+        <figcaption>Windows File Picker dialog showing three Excel files: Cookie Types, Customers, Orders, with Cookie Types selected</figcaption>
+      </figure>
+
+      <h3 id="topic-1-c">Selecting and loading the Cookie Types table</h3>
+      <p>After you click <strong>Open</strong>, Power BI displays the <strong>Navigator</strong> window. This window lists every sheet and named table found inside the workbook, and it shows you a live data preview so you can verify you are loading the right content.</p>
+      <ol class="steps">
+        <li>In the Navigator window, select the sheet named <strong>cookie types</strong>.</li>
+        <li>Review the data preview to confirm the columns and rows look correct.</li>
+        <li>Click <strong>Load</strong> to import the data into your report.</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p06-1.png" alt="Navigator window for Cookie Types.xlsx listing Table1 and the Cookie Types sheet" loading="lazy" width="583">
+        <figcaption>Navigator window in Power BI showing Cookie Types.xlsx with Table1 and Cookie Types sheet, no items selected for preview</figcaption>
+      </figure>
+      <p>Once the load completes, you will see the <strong>Cookie Types</strong> table appear in the <strong>Fields</strong> pane on the right side of the screen. This confirms the import was successful.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p06-2.png" alt="Fields pane showing the Cookie Types table loaded" loading="lazy" width="583">
+        <figcaption>Power BI Fields pane showing Cookie Types table loaded, with Visualizations and Filters panels visible</figcaption>
+      </figure>
+
+      <h3 id="topic-1-d">Importing the Customers and Orders workbooks</h3>
+      <p>With Cookie Types loaded, you will now bring in the remaining two workbooks using the <strong>Excel</strong> button in the top ribbon. This button is the standard way to add more data sources after your initial import.</p>
+      <ol class="steps">
+        <li>In the <strong>Home</strong> tab of the top ribbon, click <strong>Excel</strong>.</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p07-1.png" alt="Power BI Home ribbon with the Excel button highlighted" loading="lazy" width="583">
+        <figcaption>Power BI Home ribbon with Excel button highlighted for importing additional data</figcaption>
+      </figure>
+      <ol class="steps">
+        <li>Select the <strong>Customers</strong> workbook and click <strong>Open</strong>.</li>
+        <li>In the Navigator window, select the <strong>Customers</strong> sheet, review the preview, and click <strong>Load</strong>.</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p08-1.png" alt="Navigator window previewing the Customers table from Customers.xlsx" loading="lazy" width="583">
+        <figcaption>Navigator window showing Customers.xlsx with Customers table previewed, displaying columns Customer ID, Name, Phone, Address</figcaption>
+      </figure>
+      <ol class="steps">
+        <li>Click <strong>Excel</strong> in the ribbon again.</li>
+        <li>Select the <strong>Orders</strong> workbook, click <strong>Open</strong>, select the <strong>Orders</strong> sheet in the Navigator, and click <strong>Load</strong>.</li>
+      </ol>
+      <p>After completing these steps, all three tables (<strong>Cookie Types</strong>, <strong>Customers</strong>, and <strong>Orders</strong>) should be listed in the Fields pane. Take a moment to confirm all three names appear before moving on.</p>
+      <div class="callout tip"><span class="label">Tip</span>If a table does not appear in the Fields pane, repeat the import steps for that workbook. Check that you selected the correct sheet in the Navigator before clicking <strong>Load</strong>.</div>
+
+      <h3 id="topic-1-e">Reviewing what each table contains</h3>
+      <p>Now that your data is loaded, it is worth spending a moment in the <strong>Data view</strong> to understand exactly what information each table holds. This context will make your DAX formulas much easier to reason about.</p>
+      <p>Click the <strong>Data view</strong> icon on the left-hand sidebar to switch out of the report canvas and into a row-by-row view of your tables.</p>
+
+      <h4>The Orders table</h4>
+      <p>Select the <strong>Orders</strong> table. This is the central table in your data model: it records every individual transaction and contains the following columns:</p>
+      <ul>
+        <li><strong>Customer ID</strong>: links each order back to a specific customer</li>
+        <li><strong>Order ID</strong>: a unique identifier for each order</li>
+        <li><strong>Product</strong>: the name of the cookie type ordered</li>
+        <li><strong>Units Sold</strong>: how many units were sold in that order</li>
+        <li><strong>Date</strong>: the date the order was placed</li>
+        <li><strong>Revenue</strong>: the total revenue generated by the order</li>
+        <li><strong>Cost</strong>: the total cost associated with the order</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p09-1.png" alt="Data view showing the Orders table and its columns" loading="lazy" width="583">
+        <figcaption>Power BI Data view showing Orders table with columns for Customer ID, Order ID, Product, Units Sold, Date, Revenue, Cost</figcaption>
+      </figure>
+      <p>As an example of the data you are working with, two rows from this table look like this:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Customer ID</th><th>Order ID</th><th>Product</th><th>Units Sold</th><th>Date</th><th>Revenue</th><th>Cost</th></tr></thead>
+        <tbody>
+          <tr><td>3</td><td>266868</td><td>Chocolate Chip</td><td>292</td><td>Saturday, February 1, 2020</td><td>1,460</td><td>584</td></tr>
+          <tr><td>3</td><td>140794</td><td>Chocolate Chip</td><td>974</td><td>Saturday, February 1, 2020</td><td>4,870</td><td>1,948</td></tr>
+        </tbody>
+      </table></div>
+      <p>Notice that the <strong>Units Sold</strong> column has its <strong>Summarization</strong> property set to <strong>Sum</strong> by default. This means Power BI is already prepared to add up units across rows whenever you use this field in a visual or calculation.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p10-1.png" alt="Orders table in Data view with the Units Sold column highlighted and Summarization set to Sum" loading="lazy" width="583">
+        <figcaption>Power BI data view showing Orders table with columns: Customer ID, Order ID, Product, Units Sold, Date, Revenue, Cost. "Units Sold" column highlighted, Summarization set to Sum</figcaption>
+      </figure>
+
+      <h4>The Customers table</h4>
+      <p>Select the <strong>Customers</strong> table to review it. This table holds all customer information and serves as a reference that the Orders table can look up when you need customer-level details.</p>
+
+      <h4>The Cookie Types table</h4>
+      <p>Select the <strong>Cookie Types</strong> table. This table lists every cookie variety sold and contains the following columns:</p>
+      <ul>
+        <li><strong>Cookie Type</strong>: the name of the cookie</li>
+        <li><strong>Units Sold</strong>: aggregated units for that cookie type</li>
+        <li><strong>Revenue Per Cookie</strong>: the selling price for a single cookie</li>
+        <li><strong>Cost Per Cookie</strong>: the cost to produce a single cookie</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p11-1.png" alt="Data view showing the Cookie Types table" loading="lazy" width="583">
+        <figcaption>Power BI Data view showing Cookie Types table with columns for Cookie Type, Units Sold, Revenue Per Cookie, Cost Per Cookie</figcaption>
+      </figure>
+      <p>The table includes the following cookie varieties along with their unit and pricing data:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Cookie Type</th><th>Units Sold</th><th>Revenue Per Cookie</th><th>Cost Per Cookie</th></tr></thead>
+        <tbody>
+          <tr><td>Chocolate Chip</td><td>3,382,309.5</td><td>5</td><td>2</td></tr>
+          <tr><td>Fortune Cookie</td><td>154,198</td><td>3</td><td>0.5</td></tr>
+          <tr><td>Oatmeal Raisin</td><td>1,553,515</td><td>5</td><td>2.2</td></tr>
+          <tr><td>Snickerdoodle</td><td>1,468,646</td><td>4</td><td>1.5</td></tr>
+          <tr><td>Sugar</td><td>1,687,833</td><td>3</td><td>1.25</td></tr>
+          <tr><td>White Chocolate Macadamia Nut</td><td>1,624,224.5</td><td>6</td><td>2.75</td></tr>
+        </tbody>
+      </table></div>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p12-1.png" alt="Cookie Types table with the Table tools ribbon highlighted and three tables in the Fields pane" loading="lazy" width="583">
+        <figcaption>Power BI "Cookie Types" table with columns and sample data, Table tools ribbon highlighted, three tables listed in Fields pane</figcaption>
+      </figure>
+      <div class="callout"><span class="label">Note</span>This guide does not cover data shaping, combining, merging, or transforming tables. If you need to clean or reshape your data before importing, refer to the introductory video for guidance on those operations.</div>
+
+      <h3 id="topic-1-f">Verifying and completing your data model</h3>
+      <p>Having all three tables loaded is only half the job. Before you can write DAX measures that span multiple tables, Power BI needs to know how those tables relate to one another. Click the <strong>data model</strong> icon on the left sidebar to open the model view.</p>
+
+      <h4>Confirming the Customers–Orders relationship</h4>
+      <p>Power BI should have automatically detected and created a relationship between the <strong>Orders</strong> table and the <strong>Customers</strong> table using the shared <strong>Customer ID</strong> field. This is a <strong>one-to-many</strong> relationship, meaning each customer can appear in many different orders.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p13-1.png" alt="Model view showing a one-to-many relationship between Customers and Orders" loading="lazy" width="583">
+        <figcaption>Power BI data model view showing three tables (Cookie Types, Customers, Orders) with a one-to-many relationship between Customers and Orders</figcaption>
+      </figure>
+      <p>Confirm that this relationship line is visible between the two tables in the diagram before continuing.</p>
+
+      <h4>Creating the missing Cookie Types–Orders relationship</h4>
+      <p>You will likely notice that no relationship yet exists between the <strong>Cookie Types</strong> table and the <strong>Orders</strong> table. This gap needs to be filled manually. The connecting fields are:</p>
+      <ul>
+        <li><strong>Cookie Type</strong> in the Cookie Types table</li>
+        <li><strong>Product</strong> in the Orders table</li>
+      </ul>
+      <p>These two fields contain the same values (the name of each cookie) even though they have different column names.</p>
+      <p>To create the relationship:</p>
+      <ol class="steps">
+        <li>In the model view, click and drag the <strong>Cookie Type</strong> field from the Cookie Types table onto the <strong>Product</strong> field in the Orders table.</li>
+      </ol>
+      <p>This establishes a one-to-many relationship between the two tables: each cookie type can appear across many individual orders.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p14-1.png" alt="Model view after linking Cookie Type to Product, showing both relationships" loading="lazy" width="583">
+        <figcaption>Power BI data model view after creating a relationship between Cookie Types (Cookie Type) and Orders (Product), showing both relationships</figcaption>
+      </figure>
+
+      <h4>Understanding the role of each table</h4>
+      <p>With all relationships in place, your data model follows a clear structure:</p>
+      <ul>
+        <li><strong>Orders</strong> is the central <strong>fact table</strong>. It contains every transaction record, including revenue and cost figures.</li>
+        <li><strong>Customers</strong> and <strong>Cookie Types</strong> are <strong>lookup tables</strong>. They provide supporting detail, such as customer contact information and per-cookie pricing, that enriches the Orders data.</li>
+      </ul>
+      <p>This structure is the foundation that allows DAX measures to filter, aggregate, and cross-reference data across all three tables at once.</p>
+
+      <h3 id="topic-1-g">Returning to the report view</h3>
+      <p>Once you have confirmed that all relationships are correct and the model is arranged as you want it, you are ready to move on to building calculations.</p>
+      <ol class="steps">
+        <li>Click the <strong>report</strong> icon on the left sidebar to return to the report canvas.</li>
+      </ol>
+      <p>The canvas will display the message: "Build visuals with your data. Select or drag fields from the Fields pane onto the report canvas." This is your blank workspace for adding visuals and the DAX measures you will create next.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p15-1.png" alt="Blank report view with the Build visuals with your data message" loading="lazy" width="583">
+        <figcaption>Power BI report view with "Build visuals with your data" message, Visualizations and Fields panes visible</figcaption>
+      </figure>
+      <p>A <strong>measure</strong> in Power BI is a calculation that runs dynamically across your entire data model. Rather than computing a value for a single row, a measure evaluates across all relevant rows based on the context of whatever visual or filter is currently active. For example, a measure that sums the <strong>Units Sold</strong> column will give you the total number of cookies sold across all orders, and that total will automatically adjust when you slice the data by date, customer, or cookie type.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p16-1.png" alt="Report view ready for measure creation with the Orders table selected" loading="lazy" width="583">
+        <figcaption>Power BI report view ready for measure creation, Visualizations and Fields panes visible, Orders table selected</figcaption>
+      </figure>
+      <p>That's everything you need to get your data into Power BI and confirm it is properly connected. Your three tables are loaded, your relationships are established, and your report canvas is ready. You are now fully prepared to start writing DAX formulas.</p>
+    </section>
+
+    <section id="topic-2">
+      <span class="num">Topic 2</span>
+      <h2>Building Essential Measures: Units Sold and Customer Analysis</h2>
+      <p class="lead">With your data model in place, you can begin building the measures that will power your analysis. Measures are calculated fields that aggregate, count, or transform your data dynamically based on the context of any visualization you place them in.</p>
+      <p>This section walks you through creating three foundational measures: <strong>Total Number of Units Sold</strong>, <strong>Count of orders</strong>, and <strong>Distinct Customers</strong>. Each measure builds on the same workflow, so mastering the first one makes every subsequent measure faster and more intuitive to create.</p>
+      <p>By the end of this section, you will have a working set of measures that reveal how many units your business has sold, how many orders have been placed, and how many unique customers you serve, all ready to use in any report visualization.</p>
+
+      <h3 id="topic-2-a">Creating the Total Number of Units Sold measure</h3>
+      <p>The <strong>Total Number of Units Sold</strong> measure uses the DAX <code>SUM</code> function to add up every value in the <strong>Units Sold</strong> column of the <strong>Orders</strong> table. This is one of the most commonly used measure patterns in Power BI and serves as an excellent starting point for understanding how measures work.</p>
+
+      <h4>Step 1 — Open the New Measure dialog</h4>
+      <ul>
+        <li>In the <strong>Fields</strong> pane on the right side of the Power BI Desktop interface, locate the <strong>Orders</strong> table.</li>
+        <li>Hover over the Orders table to reveal the options icon, then right-click the table name to open the context menu.</li>
+        <li>At the top of the context menu, select <strong>New measure</strong>.</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p17-1.png" alt="Right-click context menu on the Orders table with New measure highlighted" loading="lazy" width="583">
+        <figcaption>Context menu open after right-clicking "Orders" in the Fields pane, with "New measure" highlighted. Other options like New column, New quick measure, Refresh data, Edit query, etc., are visible.</figcaption>
+      </figure>
+
+      <h4>Step 2 — Review the Measure tools tab</h4>
+      <ul>
+        <li>After selecting <strong>New measure</strong>, Power BI activates the <strong>Measure tools</strong> tab in the ribbon.</li>
+        <li>The formula bar appears at the top of the report canvas.</li>
+        <li>By default, the formula bar displays <code>Measure =</code>.</li>
+        <li>The <strong>Name</strong> field in the Measure tools tab shows "Measure" as a placeholder.</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p18-1.png" alt="Measure tools tab active with the formula bar showing Measure =" loading="lazy" width="583">
+        <figcaption>Power BI Desktop with the Measure tools tab active. The formula bar displays "Measure =". The Name field is set to "Measure".</figcaption>
+      </figure>
+
+      <h4>Step 3 — Name the measure</h4>
+      <ul>
+        <li>Click inside the formula bar to position your cursor.</li>
+        <li>Delete the default placeholder text "Measure".</li>
+        <li>Replace it with a clear, descriptive name.</li>
+      </ul>
+      <pre><code>Total Number of Units Sold</code></pre>
+      <p>The formula bar should now read: <code>Total Number of Units Sold =</code></p>
+      <ul>
+        <li>Using a descriptive name from the start is a best practice.</li>
+        <li>When your model contains dozens of measures, clear names make it much easier to locate the right measure in the Fields pane.</li>
+        <li>Clear names help you understand each measure's purpose at a glance.</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p19-1.png" alt="Formula bar reading Total Number of Units Sold =" loading="lazy" width="583">
+        <figcaption>Formula bar now reads "Total Number of Units Sold =". The cursor is positioned after the equal sign.</figcaption>
+      </figure>
+
+      <h4>Step 4 — Enter the SUM function using IntelliSense</h4>
+      <ul>
+        <li>After the equals sign, begin typing <code>sum</code>.</li>
+        <li>As you type, Power BI's <strong>IntelliSense</strong> engine displays a dropdown list of matching DAX functions, each accompanied by a brief description.</li>
+        <li>This auto-complete feature helps you find the right function quickly and reduces the chance of typing errors.</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p20-1.png" alt="IntelliSense dropdown listing SUM, SUMMARIZE, SUMMARIZECOLUMNS and SUMX" loading="lazy" width="583">
+        <figcaption>Formula bar with "Total Number of Units Sold = sum" typed. IntelliSense dropdown shows SUM, SUMMARIZE, SUMMARIZECOLUMNS, SUMX, with descriptions.</figcaption>
+      </figure>
+      <ul>
+        <li>Select <strong>SUM</strong> from the IntelliSense dropdown.</li>
+        <li>The <code>SUM</code> function adds all numeric values in a specified column.</li>
+      </ul>
+
+      <h4>Step 5 — Specify the column</h4>
+      <ul>
+        <li>After selecting <code>SUM</code>, type an opening parenthesis <code>(</code></li>
+        <li>Power BI immediately displays a list of available tables and columns.</li>
+        <li>Scroll through the list to locate the <strong>Orders</strong> table.</li>
+        <li>Select the <strong>Units Sold</strong> column.</li>
+      </ul>
+      <p>Your completed formula should read:</p>
+      <pre><code>Total Number of Units Sold = sum(Orders[Units Sold])</code></pre>
+      <p>Before committing, take a moment to verify three things:</p>
+      <ul class="checklist">
+        <li>The measure name is descriptive and accurate.</li>
+        <li>The <code>SUM</code> function is used.</li>
+        <li>The correct table and column are referenced: <code>Orders[Units Sold]</code>.</li>
+      </ul>
+
+      <h3 id="topic-2-b">Committing the measure and verifying it in the Fields pane</h3>
+      <p>Once your formula is complete, you need to commit it properly so Power BI saves the measure to your model. Pressing <kbd>Enter</kbd> or clicking the <strong>checkmark (commit)</strong> icon in the formula bar both accomplish this, but it is important not to simply click away from the formula bar without committing, as unsaved changes can be lost.</p>
+
+      <h4>Step 1 — Commit the measure</h4>
+      <ul>
+        <li>Click the <strong>checkmark (commit)</strong> icon located to the left of the formula bar, or press <kbd>Enter</kbd> on your keyboard.</li>
+        <li>The formula bar should display:</li>
+      </ul>
+      <pre><code>Total Number of Units Sold = sum(Orders[Units Sold])</code></pre>
+
+      <h4>Step 2 — Verify the measure in the Fields pane</h4>
+      <ul>
+        <li>After committing, look at the <strong>Fields</strong> pane on the right side of the screen.</li>
+        <li>Expand the <strong>Orders</strong> table and confirm that <strong>Total Number of Units Sold</strong> now appears in the list.</li>
+        <li>Measures are distinguished from regular columns by a small <strong>calculator icon</strong> displayed next to their name.</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p22-1.png" alt="Fields pane listing Total Number of Units Sold under Orders" loading="lazy" width="583">
+        <figcaption>Fields pane showing "Total Number of Units Sold" under Orders, with the measure selected.</figcaption>
+      </figure>
+      <ul>
+        <li>Seeing the measure listed here confirms it has been saved to the model.</li>
+        <li>The measure is available for use in any visualization across your report.</li>
+      </ul>
+
+      <h3 id="topic-2-c">Adding the measure to a visualization and formatting the output</h3>
+      <p>With the measure created and committed, the next step is to place it in a visualization and ensure the values display in a meaningful format.</p>
+
+      <h4>Step 1 — Add the measure to the report canvas</h4>
+      <p>Click the checkbox next to <strong>Total Number of Units Sold</strong> in the Fields pane. Power BI adds the measure to the report canvas as a default visualization.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p23-1.png" alt="Default bar chart visual for Total Number of Units Sold on the canvas" loading="lazy" width="583">
+        <figcaption>Bar chart visual showing "Total Number of Units Sold" on the canvas.</figcaption>
+      </figure>
+
+      <h4>Step 2 — Switch to a matrix visualization</h4>
+      <p>For a clearer table-style view of the data, click the <strong>matrix</strong> icon in the Visualizations pane. The matrix displays the total number of units sold as a single aggregated value: in this dataset, <strong>1,125,806</strong>.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p23-2.png" alt="Matrix visual showing Total Number of Units Sold of 1,125,806.00" loading="lazy" width="583">
+        <figcaption>Matrix visualization showing "Total Number of Units Sold" with a value of 1,125,806.00.</figcaption>
+      </figure>
+      <p>The <strong>Filters</strong>, <strong>Visualizations</strong>, and <strong>Fields</strong> panes on the right side of the interface allow you to refine the visual further. You will see that <strong>Total Number of Units Sold</strong> is now listed in the <strong>Values</strong> area of the Visualizations pane.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p24-1.png" alt="Visualizations pane with Total Number of Units Sold in the Values area" loading="lazy" width="583">
+        <figcaption>Filters, Visualizations, and Fields panes with "Total Number of Units Sold" in the Values area.</figcaption>
+      </figure>
+
+      <h4>Step 3 — Break down units sold by customer</h4>
+      <p>To see how units sold are distributed across customers, drag the <strong>Name</strong> field from the <strong>Customers</strong> table into the <strong>Rows</strong> area of the matrix. The matrix now displays a row for each customer alongside their total units sold, with a grand total at the bottom. Example customers include ABC Groceries, ACME Bites, Park &amp; Shop Convenience Stores, Tres Delicious, and Wholesome Foods.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p25-1.png" alt="Matrix listing customer names with their Total Number of Units Sold" loading="lazy" width="583">
+        <figcaption>Matrix showing customer names and their corresponding "Total Number of Units Sold".</figcaption>
+      </figure>
+
+      <h4>Step 4 — Identify and fix the decimal formatting issue</h4>
+      <p>You may notice that the totals display decimal places, for example <strong>221,023.00</strong>. Since this dataset tracks cookies sold in whole units, decimal values are not meaningful and are likely the result of a data entry error somewhere in the source data.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p25-2.png" alt="Matrix totals shown with two decimal places" loading="lazy" width="583">
+        <figcaption>Matrix showing totals with decimal places, highlighting the need to adjust formatting.</figcaption>
+      </figure>
+      <div class="callout"><span class="label">Note</span>Formatting changes applied to a measure persist across all visualizations that use that measure. You only need to set the format once.</div>
+      <p>To fix this, click on <strong>Total Number of Units Sold</strong> in the Fields pane to select it. In the <strong>Measure tools</strong> tab that appears in the ribbon, locate the <strong>decimal places</strong> dropdown; it defaults to <strong>Auto</strong>.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p26-1.png" alt="Measure selected in the Fields pane with Measure tools formatting options" loading="lazy" width="583">
+        <figcaption>Measure selected in the Fields pane, ready for formatting changes.</figcaption>
+      </figure>
+      <p>Set the decimal places value to <strong>0</strong>.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p27-1.png" alt="Measure tools formatting bar with decimal places set to 0" loading="lazy" width="583">
+        <figcaption>Formatting bar with decimal places set to 0 for the measure.</figcaption>
+      </figure>
+      <p>The matrix immediately updates to show whole numbers only, such as <strong>221,023</strong>.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p27-2.png" alt="Matrix showing whole-number totals after the formatting change" loading="lazy" width="583">
+        <figcaption>Matrix showing totals as whole numbers after formatting change.</figcaption>
+      </figure>
+
+      <h4>Step 5 — Verify that formatting persists across new visuals</h4>
+      <p>To confirm the formatting is stored in the measure itself (not just the current visual), delete the matrix from the canvas and add a new matrix visualization. Drag <strong>Total Number of Units Sold</strong> back into the <strong>Values</strong> area. The whole-number formatting is retained automatically.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p28-1.png" alt="New matrix visual that keeps the whole-number formatting" loading="lazy" width="583">
+        <figcaption>New matrix visualization added, showing formatted totals.</figcaption>
+      </figure>
+      <p>This behavior confirms that formatting is a property of the measure, not the visual, which is one of the key advantages of using measures over ad-hoc aggregations.</p>
+
+      <h3 id="topic-2-d">Editing and removing measures when needed</h3>
+      <p>Power BI makes it straightforward to revise or remove measures as your analysis evolves. You can return to the formula bar at any time to update the measure's name, formula, or formatting.</p>
+
+      <h4>Editing a measure name</h4>
+      <p>Click on a measure in the Fields pane to select it. The formula bar becomes active and displays the current name and formula. You can edit the name directly in the formula bar, for example changing "Units" to "Cookies" to reflect the specific product your business sells.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p29-1.png" alt="Formula bar with the measure being renamed to Total Number of Cookies Sold" loading="lazy" width="583">
+        <figcaption>Formula bar with measure name being edited to "Total Number of Cookies Sold".</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p29-2.png" alt="Formula bar showing the editable measure name and formula" loading="lazy" width="583">
+        <figcaption>Formula bar showing editable measure name and formula.</figcaption>
+      </figure>
+
+      <h4>Deleting a measure</h4>
+      <p>If a measure is no longer needed, select it in the Fields pane and press the <kbd>Delete</kbd> key. The measure is removed from the model entirely.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p30-1.png" alt="Fields pane with Total Number of Cookies Sold selected for deletion" loading="lazy" width="583">
+        <figcaption>Fields pane with "Total Number of Cookies Sold" selected, ready for deletion.</figcaption>
+      </figure>
+      <div class="callout warn"><span class="label">Warning</span>Deleting a measure removes it permanently from the model. Any visuals that rely on the deleted measure will display an error. Confirm that no active visuals depend on a measure before deleting it.</div>
+      <p>In this workflow, you may need to remove a practice or renamed measure before moving on to build the next set of measures. Keeping your Fields pane clean and free of unused measures makes your model easier to navigate and maintain.</p>
+
+      <h3 id="topic-2-e">Building the Count of Orders measure</h3>
+      <p>With the units sold measure complete, you can now apply the same workflow to count the number of orders in the dataset. Where the previous measure used <code>SUM</code> to aggregate a numeric column, this measure uses <code>COUNTROWS</code> to count the number of rows in the <strong>Orders</strong> table, where each row represents one order.</p>
+
+      <h4>Step 1 — Confirm the starting state</h4>
+      <p>Before creating the next measure, confirm that the report canvas shows the card visual for the measure you just created; in this example, <strong>Total Number of Cookies Sold</strong> with a value of <strong>1,125,806</strong>. This confirms your previous work is intact.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p31-1.png" alt="Card visual showing Total Number of Cookies Sold of 1,125,806" loading="lazy" width="583">
+        <figcaption>Power BI Desktop showing a card visual with "Total Number of Cookies Sold" and a value of 1,125,806. Filters, Visualizations, and Fields panes are visible on the right.</figcaption>
+      </figure>
+      <p>You can also switch to the <strong>Data view</strong> to inspect the Orders table directly. The table contains columns for Customer ID, Order ID, Product, Units Sold, Date, Revenue, and Cost, and includes <strong>700 rows</strong> in total. Each row represents a single order.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p31-2.png" alt="Data view of the Orders table with 700 rows" loading="lazy" width="583">
+        <figcaption>Power BI Desktop data view showing the Orders table with columns: Customer ID, Order ID, Product, Units Sold, Date, Revenue, and Cost. 700 rows are visible.</figcaption>
+      </figure>
+
+      <h4>Step 2 — Return to Report view and create the new measure</h4>
+      <p>Click the <strong>report</strong> icon on the left sidebar to switch back to the report canvas. Right-click the <strong>Orders</strong> table in the Fields pane and select <strong>New measure</strong>.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p32-1.png" alt="Report view with the Orders table highlighted in the Fields pane" loading="lazy" width="583">
+        <figcaption>Report view in Power BI Desktop with Filters, Visualizations, and Fields panes. The Orders table is highlighted.</figcaption>
+      </figure>
+      <p>The formula bar opens with the default placeholder <code>Measure =</code>.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p32-2.png" alt="Formula bar open showing Measure =" loading="lazy" width="583">
+        <figcaption>Power BI Desktop with the formula bar open, showing "Measure =" ready for input.</figcaption>
+      </figure>
+
+      <h4>Step 3 — Name the measure and enter the formula</h4>
+      <p>Replace the placeholder with the measure name:</p>
+      <pre><code>Count of orders =</code></pre>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p33-1.png" alt="Formula bar with Count of orders = typed" loading="lazy" width="583">
+        <figcaption>Formula bar in Power BI Desktop with "Count of orders =" typed, ready for function input.</figcaption>
+      </figure>
+      <p>After the equals sign, begin typing <code>count</code>. From the IntelliSense dropdown, select <strong>COUNTROWS</strong>. The <code>COUNTROWS</code> function counts the number of rows in a specified table; in this case, each row in the Orders table corresponds to one order.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p33-2.png" alt="IntelliSense dropdown with COUNTROWS selected" loading="lazy" width="583">
+        <figcaption>Formula bar in Power BI Desktop with COUNTROWS function selected from the dropdown.</figcaption>
+      </figure>
+      <p>Inside the parentheses, type <code>Orders</code> as the table name. Your complete formula should read:</p>
+      <pre><code>Count of orders = COUNTROWS(Orders)</code></pre>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p34-1.png" alt="Formula bar with COUNTROWS(Orders) being entered" loading="lazy" width="583">
+        <figcaption>Formula bar in Power BI Desktop with COUNTROWS(Orders) being entered.</figcaption>
+      </figure>
+      <p>Commit the measure by clicking the checkmark icon or pressing <kbd>Enter</kbd>.</p>
+
+      <h4>Step 4 — Verify and visualize the result</h4>
+      <p>After committing, confirm that <strong>Count of orders</strong> appears under the <strong>Orders</strong> table in the Fields pane.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p35-1.png" alt="Fields pane listing the new Count of orders measure under Orders" loading="lazy" width="583">
+        <figcaption>Fields pane in Power BI Desktop showing the new "Count of orders" measure under Orders.</figcaption>
+      </figure>
+      <p>Drag the <strong>Count of orders</strong> measure onto the report canvas. A card visual appears displaying the value <strong>700</strong>, which matches the 700 rows you observed in the data view.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p35-2.png" alt="Card visual showing Count of orders of 700" loading="lazy" width="583">
+        <figcaption>Report canvas in Power BI Desktop showing a card visual with "Count of orders" and a value of 700.</figcaption>
+      </figure>
+      <div class="callout tip"><span class="label">Tip</span>Cross-checking your measure result against a known value, such as the row count in the data view, is a reliable way to confirm your measure is working correctly.</div>
+
+      <h4>Step 5 — Break down order counts by customer</h4>
+      <p>Add the <strong>Name</strong> field from the <strong>Customers</strong> table to the <strong>Rows</strong> area. The visual now shows each customer's individual order count:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Customer</th><th>Count of orders</th></tr></thead>
+        <tbody>
+          <tr><td>ABC Groceries</td><td>132</td></tr>
+          <tr><td>ACME Bites</td><td>206</td></tr>
+          <tr><td>Park &amp; Shop Convenience Stores</td><td>114</td></tr>
+          <tr><td>Tres Delicious</td><td>92</td></tr>
+          <tr><td>Wholesome Foods</td><td>156</td></tr>
+          <tr><td><strong>Grand Total</strong></td><td><strong>700</strong></td></tr>
+        </tbody>
+      </table></div>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p36-1.png" alt="Table visual of customer names and order counts totalling 700" loading="lazy" width="583">
+        <figcaption>Table visual in Power BI Desktop showing customer names and their respective order counts, totaling 700.</figcaption>
+      </figure>
+      <p>You can also return to the Data view to inspect the raw order data. For example, Customer ID 3 appears in many rows, indicating that customer places a high volume of orders.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p37-1.png" alt="Orders table in Data view with many rows for Customer ID 3" loading="lazy" width="583">
+        <figcaption>Data view in Power BI Desktop showing the Orders table, highlighting Customer ID 3 with many orders.</figcaption>
+      </figure>
+
+      <h3 id="topic-2-f">Building the Distinct Customers measure</h3>
+      <p>The order count measure tells you how many orders exist, but it does not tell you how many <em>unique</em> customers placed those orders. The same customer can appear in many rows of the Orders table. To find the number of distinct customers, you use the <code>DISTINCTCOUNT</code> function, which counts only unique values in a column.</p>
+
+      <h4>Step 1 — Create the new measure</h4>
+      <p>In the Fields pane, right-click the <strong>Orders</strong> table and select <strong>New measure</strong>. In the formula bar, type the measure name:</p>
+      <pre><code>Distinct Customers =</code></pre>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p38-1.png" alt="Formula bar with Distinct Customers = typed" loading="lazy" width="583">
+        <figcaption>Formula bar in Power BI Desktop with "Distinct Customers =" typed, ready for function input.</figcaption>
+      </figure>
+
+      <h4>Step 2 — Enter the DISTINCTCOUNT function</h4>
+      <p>After the equals sign, begin typing <code>dist</code>. From the IntelliSense dropdown, select <strong>DISTINCTCOUNT</strong>. The <code>DISTINCTCOUNT</code> function counts the number of distinct (unique) values in a specified column.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p38-2.png" alt="IntelliSense dropdown with DISTINCTCOUNT selected" loading="lazy" width="583">
+        <figcaption>Formula bar in Power BI Desktop with DISTINCTCOUNT function selected from the dropdown.</figcaption>
+      </figure>
+
+      <h4>Step 3 — Specify the column</h4>
+      <p>Inside the parentheses, select the column you want to count unique values from. In this case, choose <code>Orders[Customer ID]</code> to count the number of unique customer IDs present in the Orders table.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p39-1.png" alt="DISTINCTCOUNT with the column selection dropdown open" loading="lazy" width="583">
+        <figcaption>Formula bar in Power BI Desktop with DISTINCTCOUNT function and column selection dropdown visible.</figcaption>
+      </figure>
+      <p>Your complete formula should read:</p>
+      <pre><code>Distinct Customers = DISTINCTCOUNT(Orders[Customer ID])</code></pre>
+      <p>Close the parentheses and commit the measure by pressing <kbd>Enter</kbd> or clicking the checkmark icon.</p>
+
+      <h3 id="topic-2-g">Verifying the Distinct Customers result and adding documentation</h3>
+      <p>After committing, confirm that the <strong>Distinct Customers</strong> measure appears under the <strong>Orders</strong> table in the Fields pane.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p40-1.png" alt="Fields pane with the Distinct Customers measure highlighted under Orders" loading="lazy" width="583">
+        <figcaption>Power BI interface showing the Visualizations and Fields pane, with the "Distinct Customers" measure highlighted under the Orders table. No data yet displayed in the report area.</figcaption>
+      </figure>
+      <p>A card visual on the report canvas displays <strong>Distinct Customers</strong> with a value of <strong>5</strong>. This confirms there are five unique customers in the dataset, consistent with the five customer names visible in the earlier matrices.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p40-2.png" alt="Card visual showing Distinct Customers of 5 above a customer order count table" loading="lazy" width="583">
+        <figcaption>Power BI report canvas showing a card visual labeled "Distinct Customers" with the value 5, and a table below listing customer names and order counts.</figcaption>
+      </figure>
+      <p>This result makes intuitive sense: even though there are 700 orders in the table, all of those orders were placed by just 5 distinct customers.</p>
+
+      <h4>Adding comments to your measure</h4>
+      <p>DAX supports inline comments, which are a practical way to document the purpose of each measure directly in the formula. Comments do not affect the calculation in any way; they are purely informational.</p>
+      <p>To add a comment to the Distinct Customers measure:</p>
+      <ol class="steps">
+        <li>Click on <strong>Distinct Customers</strong> in the Fields pane to open it in the formula bar.</li>
+        <li>Press <kbd>Shift</kbd> + <kbd>Enter</kbd> to add a new line within the formula.</li>
+        <li>On the new line, type your comment preceded by <code>//</code>, for example:</li>
+      </ol>
+      <pre><code>// This tells me how many customers we have</code></pre>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p41-1.png" alt="Distinct Customers formula with a comment line added" loading="lazy" width="583">
+        <figcaption>Power BI formula bar showing the "Distinct Customers" measure with a comment line: // This tells me how many customers we have.</figcaption>
+      </figure>
+      <div class="callout tip"><span class="label">Tip</span>Adding comments is especially valuable when you share reports with colleagues or return to a model after a period of time. A one-line comment explaining what each measure calculates saves significant time when reviewing or troubleshooting a model.</div>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p42-1.png" alt="Formula bar with the explanatory comment and the Distinct Customers card on the canvas" loading="lazy" width="583">
+        <figcaption>Power BI formula bar with a comment explaining the measure, and the report canvas showing the "Distinct Customers" card visual.</figcaption>
+      </figure>
+      <p>Commit the updated measure. The card visual continues to display the value <strong>5</strong>, confirming that the comment has no effect on the calculation.</p>
+
+      <h3 id="topic-2-h">Reviewing your measures and preparing for profit calculations</h3>
+      <p>At this point, your report canvas displays the <strong>Distinct Customers</strong> card and the customer order count table side by side. Together, these measures give you a clear picture of customer activity across your dataset.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p43-1.png" alt="Report canvas with the Distinct Customers card and the customer order count table" loading="lazy" width="583">
+        <figcaption>Power BI report canvas with "Distinct Customers" card and customer order count table, preparing for new calculations.</figcaption>
+      </figure>
+      <p>Before moving on, it is useful to switch to the <strong>Data view</strong> once more to examine the <strong>Revenue</strong> and <strong>Cost</strong> columns in the Orders table. These two columns will form the basis of the next measure you build.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p43-2.png" alt="Data view of the Orders table" loading="lazy" width="583">
+        <figcaption>Power BI Data view showing the Orders table with columns: Customer ID, Order ID, Product, Units Sold, Date, Revenue, and Cost.</figcaption>
+      </figure>
+      <p>The approach for calculating total profit follows the same pattern you have already used: sum the Revenue column, sum the Cost column, and subtract the second from the first. Understanding how the data is structured in these columns makes it straightforward to write that formula confidently.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p44-1.png" alt="Data view with the Revenue and Cost columns highlighted" loading="lazy" width="583">
+        <figcaption>Power BI Data view with Revenue and Cost columns highlighted, explaining the upcoming aggregation and subtraction.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p44-2.png" alt="Data view with the Revenue and Cost columns ready for the profit calculation" loading="lazy" width="583">
+        <figcaption>Power BI Data view with Revenue and Cost columns, preparing to aggregate and subtract for profit calculation.</figcaption>
+      </figure>
+      <p>You now have three working measures (<strong>Total Number of Units Sold</strong>, <strong>Count of orders</strong>, and <strong>Distinct Customers</strong>), each documented, formatted, and verified against the underlying data. These measures form a solid analytical foundation and demonstrate the three most common DAX aggregation patterns: summing a numeric column, counting rows in a table, and counting distinct values in a column. You're ready to move on to building measures that use operators to combine aggregations, starting with total profit.</p>
+    </section>
+
+    <section id="topic-3">
+      <span class="num">Topic 3</span>
+      <h2>Advanced Calculations: Profit Analysis and Margin Metrics</h2>
+      <p class="lead">Understanding profitability is one of the most common goals in business reporting, and Power BI Desktop provides several complementary approaches to achieve it.</p>
+      <p>This section walks you through three progressively sophisticated techniques: calculating basic profit using measures and calculated columns, building and formatting a profit margin percentage measure, and leveraging iterator functions to compute row-level profit across a summary table. By working through each technique in order, you'll develop a clear understanding of when to use each approach and how they differ in both behavior and performance impact.</p>
+
+      <h3 id="topic-3-a">Calculating profit using measures and calculated columns</h3>
+      <p>Before building any visual, ensure your data model includes:</p>
+      <ul class="checklist">
+        <li><strong>Orders</strong> table with at least a <strong>Revenue</strong> column and a <strong>Cost</strong> column</li>
+        <li><strong>Customers</strong> table with a <strong>Name</strong> field</li>
+      </ul>
+      <p>These are the foundation for all profit calculations in this section.</p>
+      <p>To add profit fields to a table visual:</p>
+      <ol class="steps">
+        <li>Start in the <strong>Report</strong> view.</li>
+        <li>In the Fields pane, expand the <strong>Customers</strong> table and select the <strong>Name</strong> field to populate a table visual with customer names.</li>
+        <li>Add <strong>Distinct Customers</strong> and <strong>Total Profit</strong> to the <strong>Values</strong> well of the visualization.</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p46-1.png" alt="Table visual built from Customers Name with Distinct Customers and Total Profit in Values" loading="lazy" width="583">
+        <figcaption>Power BI Desktop interface showing the Fields pane, Visualizations pane, and the selection of the 'Name' field under Customers. Distinct Customers and Total Profit are in the Values section.</figcaption>
+      </figure>
+      <p>The table visual will now display each customer alongside their distinct customer count and total profit figure. Based on the sample data, results look like this:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Customer</th><th>Distinct Customers</th><th>Total Profit</th></tr></thead>
+        <tbody>
+          <tr><td>ABC Groceries</td><td>1</td><td>523,317.00</td></tr>
+          <tr><td>ACME Bites</td><td>1</td><td>828,379.00</td></tr>
+          <tr><td>Park &amp; Shop Convenience Stores</td><td>1</td><td>423,498.50</td></tr>
+          <tr><td>Tres Delicious</td><td>1</td><td>302,199.00</td></tr>
+          <tr><td>Wholesome Foods</td><td>1</td><td>639,677.00</td></tr>
+          <tr><td><strong>Total</strong></td><td></td><td><strong>2,717,070.50</strong></td></tr>
+        </tbody>
+      </table></div>
+      <p>The underlying DAX formula for <strong>Total Profit</strong> aggregates revenue and cost across all rows before subtracting:</p>
+      <pre><code>SUM(Orders[Revenue]) - SUM(Orders[Cost])</code></pre>
+
+      <h4>Creating a profit measure with Quick Measures</h4>
+      <p>Power BI's <strong>Quick Measures</strong> tool lets you build DAX formulas through a guided interface without writing code from scratch.</p>
+      <ol class="steps">
+        <li>Navigate to <strong>Home &gt; Calculations &gt; Quick measure</strong> to open the dialog.</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p47-1.png" alt="Home tab selected with the table visual and calculation options" loading="lazy" width="583">
+        <figcaption>Power BI Desktop with the Home tab selected, showing the table visual and calculation formula.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p47-2.png" alt="Quick measures dialog open with the calculation picker and field list" loading="lazy" width="583">
+        <figcaption>Quick measures dialog open, with options to select a calculation and available fields listed.</figcaption>
+      </figure>
+      <ol class="steps">
+        <li>In the <strong>Calculation</strong> dropdown, scroll to <strong>Mathematical operations</strong> and select <strong>Subtraction</strong>.</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p48-1.png" alt="Quick measures Calculation dropdown expanded showing Subtraction and Addition" loading="lazy" width="583">
+        <figcaption>Quick measures dialog with the Calculation dropdown expanded, showing options like Subtraction, Addition, etc.</figcaption>
+      </figure>
+      <ol class="steps">
+        <li>Configure the fields by dragging <strong>Sum of Revenue</strong> from the Orders table into the <strong>Base value</strong> slot, and <strong>Sum of Cost</strong> into the <strong>Value to subtract</strong> slot.</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p48-2.png" alt="Subtraction quick measure with Sum of Revenue as base value and Sum of Cost being dragged in" loading="lazy" width="583">
+        <figcaption>Quick measures dialog with Subtraction selected, Sum of Revenue as the base value, and the user about to drag Sum of Cost to Value to subtract.</figcaption>
+      </figure>
+      <ol class="steps">
+        <li>Click <strong>OK</strong>. Power BI creates a new measure called <strong>Revenue minus Cost</strong> and adds it to the Fields list. The generated DAX formula is:</li>
+      </ol>
+      <pre><code>Revenue minus Cost = SUM('Orders'[Revenue]) - SUM('Orders'[Cost])</code></pre>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p49-1.png" alt="New Revenue minus Cost measure with its DAX formula and the updated table visual" loading="lazy" width="583">
+        <figcaption>Power BI Desktop showing the new measure 'Revenue minus Cost' with its DAX formula and the updated table visual.</figcaption>
+      </figure>
+
+      <h4>Verifying the measure output</h4>
+      <ul>
+        <li>Add <strong>Revenue minus Cost</strong> to your existing table visual.</li>
+        <li>Compare the <strong>Revenue minus Cost</strong> column against the <strong>Total Profit</strong> column.</li>
+        <li>Both columns should display identical values for every customer and the overall total.</li>
+        <li>This confirms that the Quick Measures approach produces the same result as a manually written formula.</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p50-1.png" alt="Table visual where Total Profit and Revenue minus Cost show matching values" loading="lazy" width="583">
+        <figcaption>Table visual with columns for Distinct Customers, Total Profit, and Revenue minus Cost, all showing matching values.</figcaption>
+      </figure>
+      <ul>
+        <li>You can inspect the formula at any time by selecting the measure in the Fields pane and reading the expression in the formula bar.</li>
+        <li>Measures aggregate data dynamically based on the current filter context.</li>
+      </ul>
+
+      <h4>Creating a Profit calculated column</h4>
+      <p>When you need a profit value stored for each individual order row (for example, to use in further row-level calculations or to filter by individual transaction profitability), a <strong>calculated column</strong> is the right choice.</p>
+      <ol class="steps">
+        <li>Switch to <strong>Data view</strong> by clicking the table icon in the left sidebar.</li>
+        <li>The <strong>Orders</strong> table should display columns including Customer ID, Order ID, Product, Units Sold, Date, Revenue, and Cost.</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p51-1.png" alt="Data view of the Orders table before adding the Profit column" loading="lazy" width="583">
+        <figcaption>Data view showing the Orders table with columns for Customer ID, Order ID, Product, Units Sold, Date, Revenue, and Cost.</figcaption>
+      </figure>
+      <p>Under <strong>Column tools</strong>, click <strong>New column</strong>. In the formula bar, enter:</p>
+      <pre><code>Profit = Orders[Revenue] - Orders[Cost]</code></pre>
+      <ul>
+        <li>Power BI auto-completes column names as you type.</li>
+        <li>Press <kbd>Enter</kbd> to commit the formula.</li>
+        <li>The new <strong>Profit</strong> column appears immediately in the table, showing a calculated value for every row, for example 876, 2922, 7554, and so on.</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p52-1.png" alt="Orders table with the new Profit column filled for every row" loading="lazy" width="583">
+        <figcaption>Orders table with the new Profit column populated for each row.</figcaption>
+      </figure>
+
+      <h4>Choosing between measures and calculated columns</h4>
+      <p>Both approaches produce profit figures, but they serve different purposes and have different implications for your data model.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Approach</th><th>How it behaves</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Measures</strong></td><td>Calculated on the fly at query time and do not consume additional storage in the model. They respond dynamically to slicers, filters, and visual context.</td></tr>
+          <tr><td><strong>Calculated columns</strong></td><td>Computed at data refresh time and stored within the model, which increases its size. They are evaluated row by row and can be used in relationships, as filter values, or as inputs to further row-level logic.</td></tr>
+        </tbody>
+      </table></div>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p53-1.png" alt="Orders table with the Profit column and a Fields pane listing both calculated columns and measures" loading="lazy" width="583">
+        <figcaption>Orders table with Profit column, Fields pane showing both calculated columns and measures.</figcaption>
+      </figure>
+      <div class="callout"><span class="label">Note</span>For large datasets, prefer measures over calculated columns wherever possible to keep your data model lean and queries fast.</div>
+
+      <h3 id="topic-3-b">Creating and formatting a profit margin measure</h3>
+      <p>Profit in absolute dollar terms tells you how much you're earning, but <strong>profit margin</strong> expresses that figure as a proportion of revenue, making it far easier to compare performance across products, regions, or time periods with different sales volumes.</p>
+
+      <h4>Defining the profit margin percentage formula</h4>
+      <ol class="steps">
+        <li>Return to <strong>Report view</strong>.</li>
+        <li>In the Fields pane, right-click the <strong>Orders</strong> table and select <strong>New measure</strong>.</li>
+        <li>The formula bar appears at the top of the canvas, ready for input.</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p54-1.png" alt="Formula bar showing Measure = above the report canvas with summary tables" loading="lazy" width="583">
+        <figcaption>Formula bar at the top with "Measure =" ready for input, and the report canvas showing summary tables</figcaption>
+      </figure>
+      <p>Enter the following DAX formula:</p>
+      <pre><code>Profit Margin % = [Total Profit] / SUM('Orders'[Revenue])</code></pre>
+      <ul>
+        <li>The <code>[Total Profit]</code> measure references the existing calculation you created earlier.</li>
+        <li><code>SUM('Orders'[Revenue])</code> calculates the total revenue in the current filter context.</li>
+        <li>Dividing one by the other gives you a decimal representing the proportion of revenue retained as profit.</li>
+      </ul>
+
+      <h3 id="topic-3-c">Adding the measure to a matrix visual</h3>
+      <div class="callout"><span class="label">Note</span>Because <code>[Total Profit]</code> is itself a measure, Power BI resolves it correctly within any filter context, including when the formula is used inside a matrix broken down by product category.</div>
+      <ol class="steps">
+        <li>Insert a new <strong>matrix</strong> visual on the report canvas.</li>
+        <li>Drag <strong>Cookie Type</strong> to the <strong>Rows</strong> field.</li>
+        <li>Drag <strong>Profit Margin %</strong> to the <strong>Values</strong> field.</li>
+        <li>The matrix now shows a decimal profit margin value for each cookie type.</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p55-1.png" alt="Matrix of Cookie Type and Profit Margin % shown as decimals such as 0.60" loading="lazy" width="583">
+        <figcaption>Matrix visual on the report canvas showing Cookie Type and Profit Margin %, with values like 0.60, 0.50, 0.56, etc.</figcaption>
+      </figure>
+      <p>Decimals like 0.60 are technically correct but harder to read at a glance. The next step converts these into properly formatted percentages.</p>
+
+      <h3 id="topic-3-d">Formatting the measure as a percentage</h3>
+      <ol class="steps">
+        <li>Select the <strong>Profit Margin %</strong> measure in the Fields pane.</li>
+        <li>In the formatting toolbar above the formula bar, change the format from <strong>General</strong> to <strong>Percentage</strong>.</li>
+        <li>The matrix immediately updates to display readable percentage values.</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p56-1.png" alt="Matrix of Cookie Type and Profit Margin % formatted as percentages" loading="lazy" width="583">
+        <figcaption>Matrix visual showing Cookie Type and Profit Margin % formatted as percentages, e.g., 60.00%, 50.00%, 56.00%, etc.</figcaption>
+      </figure>
+
+      <h3 id="topic-3-e">Interpreting the results</h3>
+      <div class="callout tip"><span class="label">Tip</span>Always format percentage measures at the measure level rather than at the visual level. Formatting applied to the measure travels with it to every visual where it's used, ensuring consistency across your entire report.</div>
+      <p>With formatting applied, you can now compare profit margins across cookie types directly. In this example:</p>
+      <ul>
+        <li><strong>Snickerdoodle</strong>: 62.50%</li>
+        <li><strong>Chocolate Chip</strong>: 60.00%</li>
+        <li>Overall total across all cookie types: <strong>57.93%</strong></li>
+      </ul>
+      <p>These figures make it immediately clear which products are most profitable relative to their revenue, something that raw profit figures alone cannot easily convey. A product with high total profit but low margin may be generating most of its returns through volume, while a high-margin product might be constrained by limited sales.</p>
+
+      <h3 id="topic-3-f">Calculating total profit using iterator functions</h3>
+      <p>The measures covered so far use standard aggregation functions like <code>SUM</code>, which operate over entire columns. These work well when your profit values are already stored in the data model. However, some data structures, particularly summary tables, store the components of profit rather than profit itself, requiring a row-by-row calculation before aggregation. This is where <strong>iterator functions</strong> come in.</p>
+
+      <h4>Understanding the Cookie Types table structure</h4>
+      <p>The <strong>Cookie Types</strong> table is a summary table that does not contain a pre-calculated profit column. Instead, it stores the inputs needed to derive profit at the row level.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p57-1.png" alt="Cookie Types table with Cookie Type, Units Sold, Revenue Per Cookie and Cost Per Cookie for six cookies" loading="lazy" width="583">
+        <figcaption>Cookie Types table with columns for Cookie Type, Units Sold, Revenue Per Cookie, and Cost Per Cookie. Data is visible for six cookie types.</figcaption>
+      </figure>
+      <p>The table contains the following columns and sample data:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Cookie Type</th><th>Units Sold</th><th>Revenue Per Cookie</th><th>Cost Per Cookie</th></tr></thead>
+        <tbody>
+          <tr><td>Chocolate Chip</td><td>338,239.5</td><td>5</td><td>2</td></tr>
+          <tr><td>Fortune Cookie</td><td>154,198</td><td>1</td><td>0.5</td></tr>
+          <tr><td>Oatmeal Raisin</td><td>155,315</td><td>5</td><td>2.2</td></tr>
+          <tr><td>Snickerdoodle</td><td>146,846</td><td>4</td><td>1.5</td></tr>
+          <tr><td>Sugar</td><td>168,783</td><td>3</td><td>1.25</td></tr>
+          <tr><td>White Chocolate Macadamia Nut</td><td>162,424.5</td><td>6</td><td>2.75</td></tr>
+        </tbody>
+      </table></div>
+      <p>To calculate total profit from this table, you need to compute:</p>
+      <ul>
+        <li>Calculate <code>Units Sold * (Revenue Per Cookie - Cost Per Cookie)</code> for every row, then sum those results. A standard <code>SUM</code> function cannot do this because there is no single column to sum; the profit must be derived on a per-row basis first.</li>
+        <li>The <code>SUMX</code> iterator function is designed exactly for this scenario.</li>
+      </ul>
+
+      <h4>How SUMX works</h4>
+      <p><code>SUMX</code> takes two arguments: a table and an expression. It iterates through each row of the specified table, evaluates the expression in the context of that row, and then sums all the results. Its syntax is:</p>
+      <pre><code>SUMX(Table, Expression)</code></pre>
+      <p>This row-by-row evaluation is what makes iterator functions more flexible than standard aggregators when working with tables that store per-unit metrics.</p>
+
+      <h3 id="topic-3-g">Writing the SUMX measure</h3>
+      <ol class="steps">
+        <li>In the Fields pane, right-click and select <strong>New measure</strong>. In the formula bar, type the following:</li>
+      </ol>
+      <pre><code>Total Profit 2 = SUMX('Cookie Types', 'Cookie Types'[Units Sold] *
+    ('Cookie Types'[Revenue Per Cookie] - 'Cookie Types'[Cost Per Cookie]))</code></pre>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p59-1.png" alt="Formula bar with SUMX('Cookie Types', typed and the SUMX syntax tooltip" loading="lazy" width="583">
+        <figcaption>Formula bar showing SUMX('Cookie Types', with tooltip explaining SUMX syntax.</figcaption>
+      </figure>
+      <ul>
+        <li>As you type, Power BI displays a tooltip describing the <code>SUMX</code> syntax and auto-completes column names from the Cookie Types table, making it easier to build the expression accurately.</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p59-2.png" alt="Formula bar showing the full SUMX expression" loading="lazy" width="583">
+        <figcaption>Formula bar showing the full SUMX expression with Units Sold, Revenue Per Cookie, and Cost Per Cookie.</figcaption>
+      </figure>
+      <ul>
+        <li>The expression inside <code>SUMX</code> first subtracts the cost per cookie from the revenue per cookie to get the profit margin per unit.</li>
+        <li>It then multiplies this margin by units sold to calculate the total profit contribution for that cookie type.</li>
+        <li><code>SUMX</code> repeats this calculation for every row and sums the results.</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p60-1.png" alt="Completed Total Profit 2 SUMX measure in the formula bar" loading="lazy" width="583">
+        <figcaption>Formula bar with the completed Total Profit 2 measure using SUMX.</figcaption>
+      </figure>
+
+      <h4>Viewing and validating the result</h4>
+      <p>After committing the formula, add <strong>Total Profit 2</strong> to a card visual on the report canvas. The calculated result is <strong>2,717,064.38</strong>.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p61-1.png" alt="Card visual showing Total Profit 2 of 2,717,064.38" loading="lazy" width="583">
+        <figcaption>Power BI report canvas showing a card visual with Total Profit 2 = 2,717,064.38.</figcaption>
+      </figure>
+      <div class="callout"><span class="label">Note</span>The Total Profit 2 result of 2,717,064.38 is close to but not identical to the Total Profit figure of 2,717,070.50 calculated from the Orders table. This is expected: the two measures operate on different source tables with potentially different levels of rounding or data precision.</div>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p61-2.png" alt="Cookie Types table shown again for review" loading="lazy" width="583">
+        <figcaption>Cookie Types table displayed again for review.</figcaption>
+      </figure>
+
+      <h3 id="topic-3-h">Aggregate vs. iterator functions: when to use each</h3>
+      <p>Both aggregator functions (like <code>SUM</code>) and iterator functions (like <code>SUMX</code>) are valuable tools in DAX. Understanding the difference helps you choose the right approach for each scenario.</p>
+      <ul>
+        <li>Use <strong>aggregator functions</strong> like <code>SUM</code> when you need to total values that already exist as a column in your data. They are simpler to write and slightly more efficient for straightforward totals.</li>
+        <li>Use <strong>iterator functions</strong> like <code>SUMX</code> when your calculation requires evaluating an expression row by row before aggregating, for example when multiplying per-unit values by quantities stored in the same table, or when applying conditional logic at the row level.</li>
+      </ul>
+      <h4>The idea in simple terms</h4>
+      <ul>
+        <li><strong>Normal SUM</strong>
+          <ul>
+            <li>Adds up <strong>one column</strong>.</li>
+            <li>Example: add all the sales amounts.</li>
+          </ul>
+        </li>
+        <li><strong>SUMX</strong>
+          <ul>
+            <li>Works <strong>row by row</strong>, does a calculation <strong>for each row first</strong>, then <strong>adds up the results</strong>.</li>
+            <li>Use it when <strong>each row needs math</strong>, not just adding numbers.</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="callout tip"><span class="label">Easy way to remember</span>
+        <ul>
+          <li><strong>SUM = add column</strong></li>
+          <li><strong>SUMX = calculate per row, then add</strong></li>
+        </ul>
+      </div>
+      <h4>Why SUMX is perfect here</h4>
+      <p>Each product row needs:</p>
+      <ul>
+        <li><strong>Price × Quantity</strong></li>
+        <li>Then add all rows together</li>
+        <li>This is exactly what <strong>SUMX</strong> is meant for.</li>
+      </ul>
+      <p>In many cases, both approaches will produce the same final number. The key distinction is the source data structure: if the value you want to sum doesn't exist yet as a column, an iterator function gives you the flexibility to calculate it on the fly during aggregation.</p>
+    </section>
+
+    <section id="topic-4">
+      <span class="num">Topic 4</span>
+      <h2>Time Intelligence and Date-Based Analysis</h2>
+      <p class="lead">Understanding when things happen is just as important as understanding what happened. Power BI's date and time functions let you slice your data by day, week, month, or any other time unit, unlocking patterns that would otherwise stay hidden in a flat table of rows.</p>
+      <p>In this section, you'll learn how to work with the date functions available in Power BI's DAX formula language, create a calculated column that identifies the day of the week for each order, and then build a visualization that reveals how sales volumes shift across the week. The cookie sales dataset used here is a clear, relatable example, but the same techniques apply to any business data that includes a date column.</p>
+
+      <h3 id="topic-4-a">Understanding your date data</h3>
+      <p>Before writing any formulas, it helps to confirm exactly what date information you're working with. In the <strong>Fields</strong> pane on the right side of the Power BI interface, locate and expand the <strong>Orders</strong> table.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p63-1.png" alt="Power BI interface with the Fields pane on the right in focus" loading="lazy" width="583">
+        <figcaption>Power BI interface with focus on the Fields pane on the right.</figcaption>
+      </figure>
+      <p>The Orders table contains columns for Customer ID, Order ID, Product, Units Sold, Date, Revenue, Cost, and Profit.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p64-1.png" alt="Orders table columns including the Profit column" loading="lazy" width="583">
+        <figcaption>Orders table with columns for Customer ID, Order ID, Product, Units Sold, Date, Revenue, Cost, and Profit.</figcaption>
+      </figure>
+      <ul>
+        <li>The key column for this analysis is <strong>Date</strong>.</li>
+        <li>In Data view, each entry appears as a fully formatted date, such as "Saturday, February 1, 2020."</li>
+        <li>This rich date format is exactly what Power BI's DAX time intelligence functions need to work with.</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p65-1.png" alt="Orders table showing a fully formatted date for each order" loading="lazy" width="583">
+        <figcaption>Orders table with detailed order data, including formatted dates for each order.</figcaption>
+      </figure>
+      <ul>
+        <li>The analysis goal is practical and directly useful: determine how many cookies are sold on each day of the week.</li>
+        <li>To answer this question, you first need to extract the day-of-week information from each date.</li>
+        <li>Store the day-of-week data as its own column, which the next step covers.</li>
+      </ul>
+
+      <h3 id="topic-4-b">Creating a calculated "Day of week" column</h3>
+      <p>A calculated column lets you add a new field to your table based on a DAX formula. Every row will automatically receive a value computed from that formula, and the column will update whenever your data refreshes. Follow the steps below to create a <strong>Day of week</strong> column using the <code>WEEKDAY</code> function.</p>
+
+      <h4>Step 1: Switch to Data view and open Column tools</h4>
+      <p>Make sure you are in the <strong>Data view</strong>; click the table icon on the left sidebar if needed. Once there, select the <strong>Column tools</strong> tab at the top of the screen to access column creation and formatting options.</p>
+
+      <h4>Step 2: Create a new column</h4>
+      <p>Click <strong>New column</strong> in the Column tools tab. The formula bar at the top of the screen will become active and ready for your input.</p>
+
+      <h4>Step 3: Start building the formula</h4>
+      <p>In the formula bar, type the name of your new column followed by an equals sign:</p>
+      <pre><code>Day of week =</code></pre>
+      <p>As you begin typing a DAX function, Power BI displays an autocomplete dropdown showing matching functions. For date-related work, you'll notice options such as <code>DAY</code>, <code>NEXTDAY</code>, and <code>WEEKDAY</code>. While <code>DAY</code> extracts the numeric day of the month, <code>WEEKDAY</code> is the function you need to identify which day of the week a date falls on.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p66-1.png" alt="Formula bar with Day of week = day and a dropdown of DAX date functions" loading="lazy" width="583">
+        <figcaption>A Power BI Desktop window showing the formula bar with "Day of week = day", a dropdown of DAX date functions (COUPDAYBS, COUPDAYS, DAY, NEXTDAY, etc.), and a data table with columns like Customer ID, Order ID, Product, Date, Profit, and a highlighted "Column" field. The "Column tools" tab is active.</figcaption>
+      </figure>
+
+      <h4>Step 4: Use the WEEKDAY function</h4>
+      <p>Type <code>WEEKDAY(</code> in the formula bar. A tooltip will appear showing the function signature:</p>
+      <pre><code>WEEKDAY(Date, [ReturnType])</code></pre>
+      <p>The <code>WEEKDAY</code> function returns a number from 1 to 7 that identifies the day of the week for a given date. The <code>ReturnType</code> argument controls which day is counted as day 1.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p67-1.png" alt="Formula bar showing Day of week = WEEKDAY with the function tooltip" loading="lazy" width="583">
+        <figcaption>Power BI Desktop with the formula bar showing "Day of week = WEEKDAY", the tooltip for the WEEKDAY function, and the data table visible. The cursor is over the Product column.</figcaption>
+      </figure>
+
+      <h4>Step 5: Reference the Date column</h4>
+      <p>Inside the <code>WEEKDAY</code> function, type <code>Orders[Date]</code>. As you type, a dropdown will appear listing available tables and columns, making it easy to select the correct field.</p>
+      <div class="callout tip"><span class="label">Tip</span>Using the fully qualified reference <code>Orders[Date]</code> (table name plus column name) is a good habit. It makes formulas easier to read and avoids ambiguity when your model contains multiple tables with similarly named columns.</div>
+
+      <h4>Step 6: Specify the return type</h4>
+      <p>After <code>Orders[Date]</code>, type a comma. The tooltip will display the available return type options:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ReturnType</th><th>Numbering</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Sunday = 1, Saturday = 7</td></tr>
+          <tr><td>2</td><td>Monday = 1, Sunday = 7</td></tr>
+          <tr><td>3</td><td>Monday = 0, Sunday = 6</td></tr>
+        </tbody>
+      </table></div>
+      <p>For this analysis, enter <strong>1</strong> so that Sunday is represented as 1 and Saturday as 7. Your complete formula should now read:</p>
+      <pre><code>Day of week = WEEKDAY(Orders[Date],1)</code></pre>
+
+      <h4>Step 7: Confirm the formula</h4>
+      <p>Press <kbd>Enter</kbd> to create the column. Power BI will calculate a value for every row in the Orders table and display the results immediately.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p69-1.png" alt="Data table with the new Day of week column filled with values 1 to 7" loading="lazy" width="583">
+        <figcaption>Power BI Desktop showing the data table with the new "Day of week" column populated with values 1–7, alongside columns for Customer ID, Order ID, Product, Units Sold, Date, Revenue, Cost, and Profit.</figcaption>
+      </figure>
+      <p>You'll now see a <strong>Day of week</strong> column filled with numbers from 1 to 7 alongside the original date values. You can cross-check the output by comparing a known date: for example, "Saturday, February 1, 2020" should show <strong>7</strong> using return type 1. You're ready to move on to visualization.</p>
+
+      <h3 id="topic-4-c">Visualizing orders by day of the week</h3>
+      <p>With the Day of week column in place, you can now build a chart that makes the day-by-day pattern immediately visible to anyone reviewing the report.</p>
+
+      <h4>Step 1: Switch to Report view</h4>
+      <p>Click the <strong>report</strong> icon on the left sidebar to switch to Report view.</p>
+
+      <h4>Step 2: Add the Day of week field to the canvas</h4>
+      <p>In the Fields pane on the right, expand the <strong>Orders</strong> table and check the box next to <strong>Day of week</strong>. Power BI will automatically place a default visual, typically a bar chart, on the report canvas.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p70-1.png" alt="Day of week field selected in the Fields pane with a blank visual on the canvas" loading="lazy" width="583">
+        <figcaption>Power BI Report view with the "Day of week" field being selected from the Fields pane, and a blank visual appearing on the canvas.</figcaption>
+      </figure>
+
+      <h4>Step 3: Configure the axis</h4>
+      <p>Drag the <strong>Day of week</strong> field to the <strong>Axis</strong> area of the visual in the Visualizations pane. This ensures that the x-axis represents days of the week (as numbers 1–7) and the y-axis represents the count or sum of orders for each day.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p71-1.png" alt="Bar chart with Day of week being dragged to the axis" loading="lazy" width="583">
+        <figcaption>Power BI Report view with a bar chart visual showing "Day of week" on both the axis and values, and the "Day of week" field being dragged to the axis.</figcaption>
+      </figure>
+
+      <h4>Step 4: Read the chart</h4>
+      <p>The resulting bar chart displays a bar for each day value (1 through 7), with bar height reflecting the volume of orders on that day. Remember the mapping you chose: 1 = Sunday, 2 = Monday, 3 = Tuesday, and so on through 7 = Saturday.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p71-2.png" alt="Bar chart titled Day of week by Day of week with bars for days 1 to 7" loading="lazy" width="583">
+        <figcaption>Power BI Report view with a bar chart visual showing "Day of week by Day of week", with bars for each day (1–7) and varying heights.</figcaption>
+      </figure>
+
+      <h3 id="topic-4-d">Interpreting and communicating day-of-week patterns</h3>
+      <p>Once your chart is rendered, spend a moment examining the shape of the data before sharing it with stakeholders.</p>
+
+      <h3 id="topic-4-e">Identifying spikes and dips</h3>
+      <p>Look for bars that stand out noticeably above or below the average. In the cookie sales example, you may observe a clear spike on day 3 (Tuesday), with the remaining days showing comparatively lower volumes.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p72-1.png" alt="Bar chart with a spike in orders on day 3, Tuesday" loading="lazy" width="583">
+        <figcaption>Power BI Report view with a bar chart visual showing a spike in orders on day 3 (Tuesday), with the rest of the days having lower values.</figcaption>
+      </figure>
+      <p>A spike like this is a meaningful business signal. It could indicate a weekly promotion, a restocking pattern, a delivery schedule, or simply organic customer behavior. When presenting this chart to stakeholders, lead with the observation ("Tuesday consistently shows the highest order volume") and then invite discussion about the possible cause rather than asserting a conclusion the data alone cannot confirm.</p>
+
+      <h3 id="topic-4-f">Tips for explaining the chart to non-technical audiences</h3>
+      <p>When sharing a day-of-week chart, two common points of confusion are worth addressing proactively:</p>
+      <ul>
+        <li><strong>The x-axis shows numbers, not day names.</strong> Let your audience know up front that 1 = Sunday and 7 = Saturday (or whichever mapping you chose), so they can read the chart without constantly referring back to a legend.</li>
+        <li><strong>The chart shows relative volume across days, not absolute totals in isolation.</strong> A "low" day might still represent a significant number of orders if the overall data set is large.</li>
+      </ul>
+      <div class="callout"><span class="label">Note</span>The numeric labels (1–7) on the axis are a direct result of how the <code>WEEKDAY</code> function returns its values. If your audience would prefer to see day names on the axis instead of numbers, you can create an additional calculated column that maps each number to its corresponding day name using a DAX <code>SWITCH</code> statement, then use that column as the axis field instead.</div>
+
+      <h4>Further customization</h4>
+      <p>The chart is already functional, but you can continue refining it to suit your reporting needs. The <strong>Filters</strong> and <strong>Fields</strong> panes remain accessible alongside the visual, and the Orders table can be expanded to bring in additional fields, such as Units Sold or Revenue, if you want to show more than just order counts per day.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p73-1.png" alt="Day of week bar chart with the Filters and Fields panes and the Orders table expanded" loading="lazy" width="583">
+        <figcaption>Power BI Report view with the "Day of week by Day of week" bar chart, the Filters and Fields panes visible, and the Orders table expanded.</figcaption>
+      </figure>
+      <div class="callout tip"><span class="label">Tip</span>Consider combining your day-of-week analysis with a slicer for product type or date range. This lets stakeholders interactively explore whether the Tuesday spike is consistent across all products or driven by a specific item, a much richer insight than a static chart alone can provide.</div>
+    </section>
+
+    <section id="topic-5">
+      <span class="num">Topic 5</span>
+      <h2>Text Functions and Product-Level Insights</h2>
+      <p class="lead">When your data includes text-based fields like product names, you can use Power BI's text functions to extract meaning, create categories, and filter data in ways that simple numeric operations cannot achieve.</p>
+      <p>Rather than relying on manually maintained lookup tables, you can write DAX formulas that inspect the contents of a text column and automatically classify or count records based on what they find. This section walks you through two closely related techniques: creating a calculated column that labels products by ingredient using <code>FIND</code> and <code>IF</code>, and building a DAX measure that counts orders meeting multiple business conditions using <code>CALCULATE</code> and <code>COUNTROWS</code>.</p>
+
+      <h3 id="topic-5-a">Reviewing your product data before writing formulas</h3>
+      <p>Before writing any text-based formulas, it helps to understand the shape of your product data so you know what patterns to search for.</p>
+      <ol class="steps">
+        <li>Switch to the <strong>Data view</strong> by clicking the data icon on the left sidebar.</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p75-1.png" alt="Data view icon being clicked, showing the data table with the Day of week column" loading="lazy" width="583">
+        <figcaption>Power BI Desktop with the Data view icon being clicked, showing the data table and the "Day of week" column.</figcaption>
+      </figure>
+      <ol class="steps">
+        <li>Locate the <strong>Product</strong> column in your data table. You will see product names such as "Chocolate Chip" listed across multiple rows.</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p75-2.png" alt="Data view with Chocolate Chip entries in the Product column" loading="lazy" width="583">
+        <figcaption>Power BI Data view showing the data table with columns for Customer ID, Order ID, Product (with "Chocolate Chip" entries), Units Sold, Date, Revenue, Cost, Profit, and Day of week.</figcaption>
+      </figure>
+      <ol class="steps">
+        <li>Scroll through the <strong>Product</strong> column to review the full range of product names. You will notice entries such as "Sugar" and "White Chocolate Macadamia" alongside the chocolate varieties.</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p76-1.png" alt="Data view showing Sugar and White Chocolate Macadamia products" loading="lazy" width="583">
+        <figcaption>Power BI Data view showing the data table with "Sugar" and "White Chocolate Macadamia" products, along with other columns.</figcaption>
+      </figure>
+      <p>This review tells you that "chocolate" appears in some product names but not all, and that it can appear at different positions within a name (e.g., at the start in "Chocolate Chip", or in the middle of "White Chocolate Macadamia"). This is exactly the scenario where a text-search function becomes valuable.</p>
+
+      <h3 id="topic-5-b">Creating a calculated column with FIND to detect a keyword</h3>
+      <p>The <code>FIND</code> function searches for one text string inside another and returns the position at which the search text begins. If the text is not found, it returns an error by default, but you can supply a fallback value to avoid errors and make the result easier to work with downstream.</p>
+
+      <h4>Step 1 — Add a new column</h4>
+      <p>With your data table visible, click <strong>New column</strong> in the <strong>Column tools</strong> tab. The formula bar will activate, ready for you to enter a column name and formula.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p77-1.png" alt="Formula bar starting a new column named Has Chocolate" loading="lazy" width="583">
+        <figcaption>Power BI Data view with the formula bar showing the start of a new column "Has Chocolate", and the data table visible.</figcaption>
+      </figure>
+
+      <h4>Step 2 — Start the FIND formula</h4>
+      <p>Name the column <strong>Has Chocolate</strong> and type the equals sign (<code>=</code>) followed by <code>FIND(</code>. Power BI will display the function tooltip showing its full syntax:</p>
+      <pre><code>FIND(FindText, WithinText, [StartPosition], [NotFoundValue])</code></pre>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p78-1.png" alt="Formula bar showing Has Chocolate = FIND( with the FIND tooltip" loading="lazy" width="583">
+        <figcaption>Power BI Data view with the formula bar showing "Has Chocolate = FIND(", and the tooltip for the FIND function visible. The data table is shown in the background.</figcaption>
+      </figure>
+
+      <h4>Step 3 — Specify what to search for and where</h4>
+      <p>Enter <code>"chocolate"</code> as the first argument, followed by a comma. Then type <code>Orders[Product]</code> to tell the function to search within the Product column of the Orders table.</p>
+      <pre><code>Has Chocolate = FIND("chocolate", Orders[Product]</code></pre>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p79-1.png" alt="Formula bar showing Has Chocolate = FIND(&quot;chocolate&quot;, with the FIND tooltip" loading="lazy" width="583">
+        <figcaption>Power BI Desktop with formula bar showing: Has Chocolate = FIND("chocolate", and tooltip for FIND function. Data table visible below.</figcaption>
+      </figure>
+
+      <h4>Step 4 — Set the start position and not-found value</h4>
+      <p>Add another comma, then type <code>1, 0</code> to start the search at position 1 and return 0 whenever "chocolate" is not found in the product name. This prevents errors from appearing in your column.</p>
+      <pre><code>Has Chocolate = FIND("chocolate", Orders[Product], 1, 0)</code></pre>
+      <p>The tooltip will highlight the <code>[NotFoundValue]</code> parameter as you type.</p>
+      <div class="callout"><span class="label">Note</span>The <code>FIND</code> function is case-sensitive. If your product names use mixed casing, you may need to account for that in your formula. In this example the product names use title case, but the search string "chocolate" is lowercase; test your data carefully to confirm matches behave as expected.</div>
+
+      <h4>Step 5 — Review the numeric output</h4>
+      <p>After entering the formula, the <strong>Has Chocolate</strong> column will populate. Products that do not contain "chocolate" will show <strong>0</strong>. Products that do contain "chocolate" will show a number representing the character position where the word begins, for example <strong>1</strong> for "Chocolate Chip" because "chocolate" starts at the first character.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p80-1.png" alt="Has Chocolate column showing 0 for products without chocolate" loading="lazy" width="583">
+        <figcaption>Data table with Has Chocolate column showing 0 for products without "chocolate".</figcaption>
+      </figure>
+      <p>Any value greater than 0 confirms the product name contains the word "chocolate". Products like "Chocolate Chip" show 1, while non-chocolate products like "Sugar" show 0.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p81-1.png" alt="Has Chocolate column with values greater than 0 for chocolate products" loading="lazy" width="583">
+        <figcaption>Data table with Has Chocolate column, highlighting values greater than 0 for products with "chocolate".</figcaption>
+      </figure>
+
+      <h3 id="topic-5-c">Wrapping FIND with IF to create a readable business category</h3>
+      <p>A column containing position numbers like 1 and 0 is functional, but not immediately meaningful to a business user reading a report. Wrapping the <code>FIND</code> result inside an <code>IF</code> statement converts the numeric output into a clear text label.</p>
+
+      <h4>Step 1 — Open the IF function</h4>
+      <p>In the formula bar, begin replacing the existing formula by typing <code>if(</code>. The <code>IF</code> function tooltip will appear showing its syntax.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p82-1.png" alt="Formula bar with the IF function being typed and its tooltip" loading="lazy" width="583">
+        <figcaption>Formula bar with IF function being typed, tooltip for IF function visible.</figcaption>
+      </figure>
+
+      <h4>Step 2 — Write the logical test</h4>
+      <p>The logical test checks whether the <code>FIND</code> function returned a value greater than 0, which indicates "chocolate" was found in the product name:</p>
+      <pre><code>if(FIND("chocolate", Orders[Product], 1, 0) &gt; 0,</code></pre>
+
+      <h4>Step 3 — Define the TRUE and FALSE return values</h4>
+      <p>Complete the formula by specifying what to display when the condition is true and when it is false:</p>
+      <ul>
+        <li>If <strong>TRUE</strong> (the product contains "chocolate"): return <code>"Has Chocolate"</code></li>
+        <li>If <strong>FALSE</strong> (the product does not contain "chocolate"): return <code>"No Chocolate"</code></li>
+      </ul>
+      <p>The complete formula is:</p>
+      <pre><code>Has Chocolate = if(FIND("chocolate", Orders[Product], 1, 0) &gt; 0, "Has Chocolate", "No Chocolate")</code></pre>
+
+      <h4>Step 4 — Apply the formula and verify the results</h4>
+      <p>Press <kbd>Enter</kbd> to apply the formula. The <strong>Has Chocolate</strong> column will now display the text label "Has Chocolate" or "No Chocolate" for every row, making the category immediately readable.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p83-1.png" alt="Has Chocolate column labelled Has Chocolate or No Chocolate" loading="lazy" width="583">
+        <figcaption>Data table with Has Chocolate column showing "Has Chocolate" or "No Chocolate" based on product name.</figcaption>
+      </figure>
+      <p>Scroll through the table to confirm that products like "White Chocolate Macadamia" are correctly labeled as "Has Chocolate", even though the word "chocolate" does not appear at the start of the name.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p84-1.png" alt="White Chocolate Macadamia rows correctly labelled Has Chocolate" loading="lazy" width="583">
+        <figcaption>Data table showing correct labeling for "White Chocolate Macadamia" and other products.</figcaption>
+      </figure>
+      <div class="callout tip"><span class="label">Tip</span>The <code>IF</code> function can be combined with additional functions for more complex classification logic. For example, you could nest multiple <code>IF</code> statements or use <code>SWITCH</code> to assign products to more than two categories.</div>
+      <p>The formula bar and data table remain visible at all times so you can review the applied logic as you work.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p85-1.png" alt="Formula bar with the IF formula above the data table" loading="lazy" width="583">
+        <figcaption>Formula bar and data table showing IF function in use.</figcaption>
+      </figure>
+      <p>You now have a calculated column that automatically categorizes every product row based on its name. This column can be used as a filter, a slicer, or a legend in any visual in your report.</p>
+
+      <h3 id="topic-5-d">Building a DAX measure to count orders with multiple conditions</h3>
+      <p>Calculated columns classify data row by row, but DAX measures go further by aggregating data across your entire table according to conditions you define. The <code>CALCULATE</code> function is the foundation for this kind of conditional aggregation. In this example, you will create a measure that counts the number of orders for the "Chocolate Chip" product where more than 500 units were sold.</p>
+
+      <h4>Step 1 — Create a new measure</h4>
+      <p>In the <strong>Fields</strong> pane on the right side of the Power BI Desktop interface, right-click on the <strong>Orders</strong> table. Select <strong>New measure</strong> from the dropdown menu.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p86-1.png" alt="Right-click menu on the Orders table with the cursor on New measure" loading="lazy" width="583">
+        <figcaption>Fields pane with right-click menu open on Orders table, cursor on "New measure"</figcaption>
+      </figure>
+
+      <h4>Step 2 — Name the measure</h4>
+      <p>In the formula bar, type the measure name followed by an equals sign:</p>
+      <pre><code>Chocolate chip with over 500 units =</code></pre>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p87-1.png" alt="Formula bar with Chocolate chip with over 500 units = typed" loading="lazy" width="583">
+        <figcaption>Formula bar with measure name being typed: "Chocolate chip with over 500 units ="</figcaption>
+      </figure>
+      <p>Choosing a descriptive measure name like this is a good habit: it makes the measure self-documenting when it appears in the Fields pane and in visuals.</p>
+
+      <h4>Step 3 — Add the CALCULATE function</h4>
+      <p>Type <code>CALCULATE</code> after the equals sign. The tooltip will appear explaining that <code>CALCULATE</code> "Evaluates an expression in a context modified by filters." This is the function that allows you to combine an aggregation with filter conditions.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p87-2.png" alt="Formula bar with CALCULATE being typed and its tooltip" loading="lazy" width="583">
+        <figcaption>Formula bar with CALCULATE function being typed, tooltip visible</figcaption>
+      </figure>
+
+      <h4>Step 4 — Specify the aggregation with COUNTROWS</h4>
+      <p>Inside <code>CALCULATE</code>, type <code>COUNTROWS(</code> and select the <strong>Orders</strong> table as the argument. The <code>COUNTROWS</code> function counts the number of rows in the table; in this context, that equates to the number of orders.</p>
+      <pre><code>CALCULATE(COUNTROWS(Orders),</code></pre>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p88-1.png" alt="Formula bar with CALCULATE(COUNTROWS( being typed and function suggestions" loading="lazy" width="583">
+        <figcaption>Formula bar with CALCULATE(COUNTRows( being typed, function suggestions visible</figcaption>
+      </figure>
+      <p>After closing the <code>COUNTROWS</code> parenthesis, add a comma to begin specifying the filter conditions.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p89-1.png" alt="Formula bar with COUNTROWS(Orders), and suggestions for filters" loading="lazy" width="583">
+        <figcaption>Formula bar with COUNTRows(Orders), and function suggestions for filters</figcaption>
+      </figure>
+
+      <h4>Step 5 — Add the first filter condition</h4>
+      <p>Type <code>Orders[Units Sold]&gt;500</code> to restrict the count to orders where more than 500 units were sold.</p>
+
+      <h4>Step 6 — Add the second filter condition</h4>
+      <p>Add a comma after the first filter, then type <code>Orders[Product]=="Chocolate Chip"</code> to further restrict the count to only the "Chocolate Chip" product. The complete measure formula is:</p>
+      <pre><code>Chocolate chip with over 500 units = CALCULATE(COUNTROWS(Orders),
+    Orders[Units Sold]&gt;500, Orders[Product]=="Chocolate Chip")</code></pre>
+      <p>Close the parentheses and press <kbd>Enter</kbd> to save the measure.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p90-1.png" alt="Formula bar with the complete CALCULATE measure ready to enter" loading="lazy" width="583">
+        <figcaption>Formula bar with complete DAX measure, ready to be entered</figcaption>
+      </figure>
+      <div class="callout"><span class="label">Note</span>Both filter conditions are passed as separate arguments to <code>CALCULATE</code>, separated by commas. <code>CALCULATE</code> applies all filter conditions simultaneously, so only rows satisfying both conditions are counted.</div>
+
+      <h4>Step 7 — Add the measure to a visual and verify the result</h4>
+      <p>The new measure will appear under the <strong>Orders</strong> table in the Fields pane. Drag it into a visual, such as a card, to display the result. The value returned, for example <strong>185</strong>, represents the total number of orders for "Chocolate Chip" with more than 500 units sold.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p91-1.png" alt="Card visual showing Chocolate chip with over 500 units of 185" loading="lazy" width="583">
+        <figcaption>Visual showing "Chocolate chip with over 500 units" and value 185</figcaption>
+      </figure>
+      <p>This single number answers a specific business question (how many high-volume Chocolate Chip orders exist in the dataset) without requiring any manual filtering or exporting to another tool.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p91-2.png" alt="The measure result shown in the context of the Power BI report" loading="lazy" width="583">
+        <figcaption>Visual showing the measure result in context of the Power BI report</figcaption>
+      </figure>
+
+      <h3 id="topic-5-e">Extending text functions for further product analysis</h3>
+      <p>The techniques you have just applied (searching text with <code>FIND</code>, categorizing results with <code>IF</code>, and aggregating conditionally with <code>CALCULATE</code> and <code>COUNTROWS</code>) form a flexible toolkit for a wide range of product analysis scenarios. Here are examples of how you can extend this logic:</p>
+      <ul>
+        <li><strong>Filter for high-volume orders by category:</strong> Add the Has Chocolate calculated column as a filter condition in a <code>CALCULATE</code> measure to count or sum only chocolate product orders above a sales threshold.</li>
+        <li><strong>Classify products by ingredient or type:</strong> Use the same <code>FIND</code>/<code>IF</code> pattern to create additional category columns, for example identifying "Sugar" cookies, "Macadamia" products, or any other keyword present in your product names.</li>
+        <li><strong>Combine multiple text conditions:</strong> Nest additional <code>IF</code> statements or use the <code>OR</code> and <code>AND</code> functions to assign products to categories based on more than one keyword.</li>
+        <li><strong>Use the category column as a slicer:</strong> Because the Has Chocolate column contains text labels, you can add it directly to a slicer visual, allowing report viewers to filter the entire report by product category with a single click.</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/ep04/ep04-p92-1.png" alt="Data table with the Has Chocolate column ready for further logic or filtering" loading="lazy" width="583">
+        <figcaption>Data table with Has Chocolate column, ready for further logic or filtering.</figcaption>
+      </figure>
+      <div class="callout tip"><span class="label">Tip</span>When building measures that combine text filters with numeric thresholds, always verify the result against a filtered table view first. This helps you confirm that both conditions are working as intended before you publish the report.</div>
+      <p>You now have a practical foundation for turning raw product name data into structured categories and targeted business metrics using Power BI's text and DAX functions.</p>
+    </section>
+
+    <section id="topic-6">
+      <span class="num">Topic 6</span>
+      <h2>Next Steps and Continuing Your Power BI Journey</h2>
+      <p class="lead">Congratulations: you've taken a significant step forward in your Power BI skills. By working through this tutorial, you've built a solid foundation in DAX and learned how to create measures that filter and count specific orders to answer real business questions.</p>
+      <p>That's no small achievement, and it sets you up well for tackling more advanced analytics challenges ahead.</p>
+
+      <h3 id="topic-6-a">What you've accomplished</h3>
+      <p>In this tutorial, you learned how to write a DAX measure in Power BI, apply filtering logic to isolate specific order types, and use those measures to surface meaningful insights from your data. These are core skills that underpin almost every reporting and analytics workflow in Power BI.</p>
+
+      <h3 id="topic-6-b">Continuing your DAX learning</h3>
+      <p>DAX is a deep and powerful language, and what you've covered here is just the beginning. As you grow more comfortable with measures, you'll find opportunities to explore more advanced DAX patterns that can unlock even richer analytics in your reports.</p>
+      <p>Some areas worth exploring next include:</p>
+      <ul class="checklist">
+        <li>More advanced DAX functions for time intelligence, such as year-over-year comparisons and running totals</li>
+        <li>Calculated columns versus measures, and when to use each</li>
+        <li>Using variables inside DAX expressions to simplify complex logic</li>
+        <li>Combining multiple filter conditions within a single measure</li>
+      </ul>
+      <div class="callout tip"><span class="label">Tip</span>The best way to reinforce your DAX skills is to apply them to real datasets from your own work. Try recreating business questions you encounter day-to-day as DAX measures.</div>
+
+      <h3 id="topic-6-c">Real-world applications</h3>
+      <p>The skills you've built translate directly into practical, high-value scenarios. You can use DAX measures to build executive dashboards, track KPIs over time, segment customers by behavior, or monitor operational performance, all within Power BI's interactive reporting environment.</p>
+      <div class="callout"><span class="label">Note</span>As your reports grow in complexity, well-structured measures become increasingly important. Naming your measures clearly and organizing them into dedicated measure tables will make your Power BI files much easier to maintain.</div>
+
+      <h3 id="topic-6-d">Stay connected and keep learning</h3>
+      <p>There's a wealth of tutorials and updates available to help you keep progressing. Subscribing to the tutorial series ensures you won't miss new content as it's released, covering more Power BI features and advanced DAX techniques.</p>
+      <p>Subscribe to the free weekly newsletter: Tic Tech Toe Labs | Khairun Kamaruzaini | Substack</p>
+    </section>
+
+    <section id="simplified-guide">
+      <span class="num">Quick reference</span>
+      <h2>Simplified guide (quick reference)</h2>
+      <p class="lead">A one-page view of the "Power BI Mastery" course reference hub from Tic Tech Toe Labs: your complete training companion with handouts, walkthroughs, advanced tips, DAX fundamentals, hands-on activities, and downloadable practice datasets.</p>
+      <figure class="shot">
+        <img src="images/ep04/ep04-simplified-guide.png" alt="Power BI Mastery course reference hub page showing 6 topics, 3-hour training, beginner to advanced, with topic cards for Power BI for Beginners and 10 Advanced Power BI Tips" loading="lazy" width="638">
+        <figcaption>Simplified guide: the Power BI Mastery course reference hub (6 topics, 3-hour training, Beginner to Advanced)</figcaption>
+      </figure>
+    </section>
+  </main>
+</div>
+
+<nav class="ep-pager" aria-label="Episode navigation">
+  <a class="prev" href="ep03-power-bi-part-1.html"><small>&larr; Previous</small>Ep 3 · Power BI Part 1</a>
+  <a class="next" href="ep05-copilot-essentials.html"><small>Next &rarr;</small>Ep 5 · Copilot Essentials</a>
+</nav>
+
+<footer class="site-foot">Afton Chemical MS365 Digital Skills Training Programme</footer>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ep 2 · MS Outlook Essentials | Afton Chemical Learning Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/hub.css">
+<style>:root { --topic: var(--c-outlook); }</style>
+</head>
+<body>
+
+<header class="hub-bar">
+  <div class="hub-bar-inner">
+    <a class="brand" href="../index.html"><span class="brand-mark">AC</span>Afton Chemical · MS365 Learning Hub</a>
+    <span class="spacer"></span>
+    <a class="pill" href="../index.html">&larr; All episodes</a>
+  </div>
+</header>
+
+<div class="ep-hero">
+  <div class="ep-hero-inner">
+    <div class="eyebrow">Episode 2 · Learner's Guide</div>
+    <h1>MS Outlook Essentials To Make You Work Smarter</h1>
+    <p>Mastering Microsoft Outlook &mdash; Participant Learning Guide. Follow along step-by-step with detailed instructions and visual screenshots to master every feature covered in this course.</p>
+    <div class="meta"><span>13 Mar 2026</span><span>5 topics</span><span>30 detailed steps</span><span>Hands-on triad activities</span></div>
+  </div>
+</div>
+
+<div class="ep-layout">
+  <nav class="toc" aria-label="On this page">
+    <h2>On this page</h2>
+    <ul>
+      <li><a href="#topic-1">1. Customizing the Outlook Interface</a>
+        <ul>
+          <li><a href="#topic-1-a">A. Restore the Classic Ribbon</a></li>
+          <li><a href="#topic-1-b">B. Disable Conversation Threads</a></li>
+          <li><a href="#topic-1-c">C. Adjust Message Density</a></li>
+          <li><a href="#topic-1-d">D. Turn Off Focus Mode</a></li>
+          <li><a href="#topic-1-e">E. Pop-out Replies</a></li>
+          <li><a href="#topic-1-f">F. Enable Dark Mode</a></li>
+        </ul>
+      </li>
+      <li><a href="#topic-2">2. Mastering Inbox Organization &amp; &ldquo;Inbox Zero&rdquo;</a>
+        <ul>
+          <li><a href="#topic-2-a">A. Create a 3-Folder System</a></li>
+          <li><a href="#topic-2-b">B. Color-Code and Sort Folders</a></li>
+          <li><a href="#topic-2-c">C. Triage Effectively</a></li>
+          <li><a href="#topic-2-d">D. Pin Important Tasks</a></li>
+          <li><a href="#topic-2-e">E. Use Color Categories</a></li>
+          <li><a href="#topic-2-f">F. Automate Newsletters with Rules</a></li>
+        </ul>
+      </li>
+      <li><a href="#topic-3">3. Calendar Management &amp; Scheduling</a>
+        <ul>
+          <li><a href="#topic-3-a">A. Drag Emails to Create Meetings</a></li>
+          <li><a href="#topic-3-b">B. Add Multiple Time Zones</a></li>
+          <li><a href="#topic-3-c">C. Build in Meeting Buffers</a></li>
+          <li><a href="#topic-3-d">D. Use Scheduling Polls</a></li>
+          <li><a href="#topic-3-e">E. Duplicate Recurring Events</a></li>
+          <li><a href="#topic-3-f">F. Silently Add Attendees</a></li>
+          <li><a href="#topic-3-g">G. View Calendar and Inbox Side-by-Side</a></li>
+        </ul>
+      </li>
+      <li><a href="#topic-4">4. Microsoft 365 Integrations in Outlook</a>
+        <ul>
+          <li><a href="#topic-4-a">A. Share Emails to Teams</a></li>
+          <li><a href="#topic-4-b">B. Turn Emails into To-Do Tasks</a></li>
+          <li><a href="#topic-4-c">C. Block Time for Tasks</a></li>
+          <li><a href="#topic-4-d">D. Access OneDrive in Outlook</a></li>
+        </ul>
+      </li>
+      <li><a href="#topic-5">5. AI Assistance with Copilot in Outlook</a>
+        <ul>
+          <li><a href="#topic-5-a">A. Set Copilot Draft Instructions</a></li>
+          <li><a href="#topic-5-b">B. Prioritize Important Emails</a></li>
+          <li><a href="#topic-5-c">C. Draft and Rewrite Emails</a></li>
+          <li><a href="#topic-5-d">D. Summarize and Search via Chat</a></li>
+          <li><a href="#topic-5-e">E. Use Voice Chat</a></li>
+          <li><a href="#topic-5-f">F. Draft Meeting Agendas</a></li>
+          <li><a href="#topic-5-g">G. Prepare for Meetings</a></li>
+        </ul>
+      </li>
+      <li><a href="#topic-6">Hands-On Triad Activities</a>
+        <ul>
+          <li><a href="#topic-6-a">Activity 1: The Workspace &amp; Folder Foundation</a></li>
+          <li><a href="#topic-6-b">Activity 2: The Triage Relay</a></li>
+          <li><a href="#topic-6-c">Activity 3: The Scheduling Showdown</a></li>
+          <li><a href="#topic-6-d">Activity 4: Ecosystem Integration</a></li>
+          <li><a href="#topic-6-e">Activity 5: AI-Powered Productivity</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <main class="content">
+
+    <!-- ===================== TOPIC 1 ===================== -->
+    <section id="topic-1">
+      <span class="num">Topic 1</span>
+      <h2>Customizing the Outlook Interface</h2>
+      <p class="lead">Make Outlook work the way you want</p>
+      <p>Tailoring the visual layout and behavior of Outlook to reduce screen clutter and match your personal working preferences.</p>
+      <div class="callout"><span class="label">Use case scenarios for work</span>This is highly useful when you are transitioning to the new version of Outlook and want it to feel familiar, when you are working on a smaller laptop screen and need to maximize your view of emails, or when you need to reference other emails while typing a reply.</div>
+
+      <h3 id="topic-1-a">A. Restore the Classic Ribbon</h3>
+      <ol class="steps">
+        <li>Look at the <strong>top ribbon bar</strong> in Outlook</li>
+        <li>On the <strong>right-hand side</strong>, click the <strong>drop-down arrow (&#9662;)</strong></li>
+        <li>From the layout options, select <strong>&ldquo;Classic Ribbon&rdquo;</strong></li>
+        <li>The ribbon will expand to show <strong>full-sized buttons</strong> instead of the simplified compact menu</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p02-1.png" alt="Outlook View tab selected (1), with the Ribbon drop-down open showing Classic ribbon ticked and Simplified ribbon below (2)" loading="lazy" width="590">
+        <figcaption>Screenshot: Restore the Classic Ribbon</figcaption>
+      </figure>
+      <div class="callout tip"><span class="label">Pro Tip</span>Classic Ribbon gives you one-click access to all commands &mdash; great for power users who rely on the full toolbar.</div>
+
+      <h3 id="topic-1-b">B. Disable Conversation Threads</h3>
+      <ol class="steps">
+        <li>Click the <strong>&ldquo;View&rdquo;</strong> tab in the top ribbon</li>
+        <li>Find the <strong>&ldquo;Conversations&rdquo;</strong> section</li>
+        <li>Select <strong>&ldquo;Show each message separately&rdquo;</strong></li>
+        <li>Emails will now appear <strong>chronologically</strong> instead of grouped by conversation</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p03-1.png" alt="Outlook View tab with the Conversations button highlighted (1) and the Message list sub-menu open showing Group messages by conversation, Group messages by branches within conversations, and Do not group messages (2)" loading="lazy" width="676">
+        <figcaption>Screenshot: Disable Conversation Threads</figcaption>
+      </figure>
+      <div class="callout tip"><span class="label">Pro Tip</span>If you often lose track of individual replies in long chains, switching to chronological view makes it easier to spot every message.</div>
+
+      <h3 id="topic-1-c">C. Adjust Message Density</h3>
+      <ol class="steps">
+        <li>In the <strong>ribbon bar</strong>, click <strong>&ldquo;Density&rdquo;</strong></li>
+        <li>Choose between <strong>&ldquo;Cozy&rdquo;</strong> or <strong>&ldquo;Compact&rdquo;</strong></li>
+        <li><strong>Cozy</strong> reduces spacing slightly; <strong>Compact</strong> fits the most emails on screen</li>
+        <li>This is especially useful on <strong>smaller laptop screens</strong></li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p03-3.png" alt="Illustration of the Density menu under the View tab with options Full, Cozy (selected) and Compact, and the note: Choose Cozy or Compact" loading="lazy" width="646">
+        <figcaption>Screenshot: Adjust Message Density</figcaption>
+      </figure>
+
+      <h3 id="topic-1-d">D. Turn Off Focus Mode</h3>
+      <ol class="steps">
+        <li>Go to <strong>View settings</strong> (via the View tab or Settings gear)</li>
+        <li>Under Focused Inbox, select <strong>&ldquo;Don&rsquo;t sort my messages&rdquo;</strong></li>
+        <li>Click <strong>&ldquo;Save&rdquo;</strong></li>
+        <li>All emails will now appear in a <strong>single unified inbox</strong> without auto-sorting</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p04-1.png" alt="Outlook View settings button (1) opening Settings, with Layout selected (2) and the Focused Inbox option set to Don't sort my messages (3)" loading="lazy" width="646">
+        <figcaption>Screenshot: Turn Off Focus Mode</figcaption>
+      </figure>
+      <div class="callout tip"><span class="label">Pro Tip</span>Turning off Focused Inbox prevents Outlook from hiding emails it thinks are less important &mdash; you&rsquo;ll never miss a message again.</div>
+
+      <h3 id="topic-1-e">E. Pop-out Replies</h3>
+      <ol class="steps">
+        <li>Click the <strong>Settings gear icon (&#9881;&#xFE0E;)</strong> in the top right</li>
+        <li>Navigate to <strong>Email</strong> &rarr; <strong>Compose and reply</strong></li>
+        <li>Find the reply window setting and change it to <strong>&ldquo;Pop out to a new window&rdquo;</strong></li>
+        <li>Click <strong>&ldquo;Save&rdquo;</strong></li>
+        <li>Replies will now open in a <strong>separate window</strong>, letting you read other emails simultaneously</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p05-2.png" alt="Outlook Settings with Mail selected (1), Compose and reply selected (2), and the Pop-out settings section showing Write inline and Pop-out to a new window (3)" loading="lazy" width="663">
+        <figcaption>Screenshot: Pop-out Replies</figcaption>
+      </figure>
+
+      <h3 id="topic-1-f">F. Enable Dark Mode</h3>
+      <ol class="steps">
+        <li>Click the <strong>Settings gear icon (&#9881;&#xFE0E;)</strong> in the top right</li>
+        <li>Navigate to <strong>General</strong> &rarr; <strong>Appearance</strong></li>
+        <li>Select <strong>&ldquo;Dark Mode&rdquo;</strong> (or set it to follow your system settings)</li>
+        <li>Outlook&rsquo;s interface will switch to a <strong>dark theme</strong> to reduce eye strain</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p05-3.png" alt="Illustration of Settings, General, Appearance with theme choices Light, Dark (selected) and System, and the note: Select Dark mode to reduce eye strain" loading="lazy" width="646">
+        <figcaption>Screenshot: Enable Dark Mode</figcaption>
+      </figure>
+    </section>
+
+    <!-- ===================== TOPIC 2 ===================== -->
+    <section id="topic-2">
+      <span class="num">Topic 2</span>
+      <h2>Mastering Inbox Organization &amp; &ldquo;Inbox Zero&rdquo;</h2>
+      <p class="lead">Triage and manage email efficiently</p>
+      <p>A structural system utilizing folders, categories, and automation to triage your emails efficiently.</p>
+      <div class="callout"><span class="label">Use case scenarios for work</span>Ideal for users who are overwhelmed by a high volume of daily emails. It helps you separate urgent tasks from newsletters you want to read on Friday afternoons, and keeps track of tasks you have delegated to coworkers.</div>
+
+      <h3 id="topic-2-a">A. Create a 3-Folder System</h3>
+      <ol class="steps">
+        <li>In the <strong>left sidebar</strong>, find <strong>&ldquo;Folders&rdquo;</strong></li>
+        <li>Click the <strong>three dots (&middot;&middot;&middot;)</strong> next to &ldquo;Folders&rdquo;</li>
+        <li>Select <strong>&ldquo;Create new folder&rdquo;</strong></li>
+        <li>Create three folders: <strong>&ldquo;Action Items&rdquo;</strong>, <strong>&ldquo;Waiting On&rdquo;</strong>, and <strong>&ldquo;Read Later&rdquo;</strong></li>
+        <li>These three folders form the foundation of your email triage system</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p07-1.png" alt="Illustration of the Folders menu with Create new folder, Manage folders and Edit favorites, and the three folders Action Items, Waiting On and Read Later" loading="lazy" width="646">
+        <figcaption>Screenshot: Create a 3-Folder System</figcaption>
+      </figure>
+
+      <h3 id="topic-2-b">B. Color-Code and Sort Folders</h3>
+      <ol class="steps">
+        <li>Click the <strong>three dots (&middot;&middot;&middot;)</strong> next to each new folder</li>
+        <li>Assign distinct colors: <strong>Red</strong> for Action Items, <strong>Green</strong> for Waiting On, <strong>Blue</strong> for Read Later</li>
+        <li><strong>Press, hold, and drag</strong> each folder to reorder them</li>
+        <li>Position them <strong>directly under your Inbox</strong> for quick access</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p07-2.png" alt="Illustration of the colour-coded Action Items (red), Waiting On (green) and Read Later (blue) folders under the Inbox, with an Assign Color palette and the notes: Right-click folder, Assign color; Drag and drop to reorder under Inbox" loading="lazy" width="646">
+        <figcaption>Screenshot: Color-Code and Sort Folders</figcaption>
+      </figure>
+
+      <h3 id="topic-2-c">C. Triage Effectively</h3>
+      <ol class="steps">
+        <li><strong>Read</strong> each email as it arrives</li>
+        <li>If the response takes <strong>less than 2 minutes</strong> &rarr; reply immediately, then press <kbd>E</kbd> (or <kbd>Backspace</kbd>) to <strong>Archive</strong> it</li>
+        <li>If it requires more time &rarr; <strong>drag the email</strong> to the <strong>&ldquo;Action Items&rdquo;</strong> folder</li>
+        <li>If you delegate the work &rarr; <strong>forward the email</strong>, then drag the original to <strong>&ldquo;Waiting On&rdquo;</strong></li>
+        <li>Newsletters and FYI emails &rarr; move to <strong>&ldquo;Read Later&rdquo;</strong></li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p08-1.png" alt="Email triage workflow diagram: Read, then under 2 minutes? Yes leads to Reply plus Archive (E); No leads to the Action Items (needs your attention), Waiting On (delegated to someone) or Read Later (newsletters, FYI emails) folders" loading="lazy" width="646">
+        <figcaption>Screenshot: Triage Effectively</figcaption>
+      </figure>
+
+      <h3 id="topic-2-d">D. Pin Important Tasks</h3>
+      <ol class="steps">
+        <li>Navigate to your <strong>&ldquo;Action Items&rdquo;</strong> folder</li>
+        <li>Highlight a <strong>highly urgent email</strong></li>
+        <li>Click the <strong>Pin icon</strong></li>
+        <li>The email will be <strong>locked at the top</strong> of the folder, always visible</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p09-1.png" alt="Illustration of the Action Items folder with the email URGENT: Q3 Budget Review pinned to the top above other emails" loading="lazy" width="646">
+        <figcaption>Screenshot: Pin Important Tasks</figcaption>
+      </figure>
+
+      <h3 id="topic-2-e">E. Use Color Categories</h3>
+      <ol class="steps">
+        <li><strong>Right-click</strong> an email</li>
+        <li>Select <strong>&ldquo;Categorize&rdquo;</strong></li>
+        <li>Click <strong>&ldquo;New category&rdquo;</strong> and give it a project name and color</li>
+        <li>Click the <strong>star icon</strong> next to the category to <strong>favorite</strong> it</li>
+        <li>A dedicated folder for that category will appear in your <strong>left-hand menu</strong></li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p09-2.png" alt="Illustration of the Categorize menu listing Project Alpha, Client Requests and Team Updates with a New category button, and the note: Favorite a category to add it as a folder in your left menu" loading="lazy" width="646">
+        <figcaption>Screenshot: Use Color Categories</figcaption>
+      </figure>
+
+      <h3 id="topic-2-f">F. Automate Newsletters with Rules</h3>
+      <ol class="steps">
+        <li><strong>Right-click</strong> an incoming newsletter email</li>
+        <li>Select <strong>&ldquo;Rules&rdquo;</strong> &rarr; click <strong>&ldquo;Create&rdquo;</strong></li>
+        <li>Click <strong>&ldquo;More options&rdquo;</strong> to define the condition (e.g., From contains &ldquo;newsletter&rdquo;)</li>
+        <li>Set the action to <strong>&ldquo;Move to Read Later&rdquo;</strong></li>
+        <li>Check the box to <strong>&ldquo;Run the rule now&rdquo;</strong></li>
+        <li>Click <strong>&ldquo;Save&rdquo;</strong> &mdash; all matching future emails will be auto-sorted</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p10-1.png" alt="Illustration of the Create Rule dialog: condition From contains newsletter@company.com, action Move to Read Later, Run rule now on existing messages ticked, and a Save button" loading="lazy" width="646">
+        <figcaption>Screenshot: Automate Newsletters with Rules</figcaption>
+      </figure>
+    </section>
+
+    <!-- ===================== TOPIC 3 ===================== -->
+    <section id="topic-3">
+      <span class="num">Topic 3</span>
+      <h2>Calendar Management &amp; Scheduling</h2>
+      <p class="lead">Schedule smarter, meet better</p>
+      <p>Efficient tactics to create meetings, accommodate external time zones, and build breathing room into your daily schedule.</p>
+      <div class="callout"><span class="label">Use case scenarios for work</span>Perfect for hybrid workers scheduling a mix of in-person and remote events, professionals who frequently coordinate with international clients, or anyone suffering from back-to-back meeting fatigue.</div>
+
+      <h3 id="topic-3-a">A. Drag Emails to Create Meetings</h3>
+      <ol class="steps">
+        <li>Open the <strong>&ldquo;My Day&rdquo;</strong> sidebar by clicking the <strong>calendar icon</strong> at the top</li>
+        <li><strong>Left-click and drag</strong> an email from your Inbox onto the calendar</li>
+        <li>Outlook will automatically copy the <strong>attendees, subject line, and email body</strong> into a new meeting invite</li>
+        <li>Adjust the time and click <strong>Send</strong> &mdash; no need to re-enter any details</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p11-1.png" alt="Illustration of dragging the email Q4 Planning Discussion from the Inbox onto the My Day calendar, creating an event auto-filled with attendees and body" loading="lazy" width="646">
+        <figcaption>Screenshot: Drag Emails to Create Meetings</figcaption>
+      </figure>
+      <div class="callout tip"><span class="label">Pro Tip</span>This is the fastest way to convert an email conversation into a meeting &mdash; everything is pre-filled automatically.</div>
+
+      <h3 id="topic-3-b">B. Add Multiple Time Zones</h3>
+      <ol class="steps">
+        <li>Go to <strong>Settings (&#9881;&#xFE0E;) &rarr; Calendar &rarr; View</strong></li>
+        <li>Scroll down to <strong>&ldquo;Time zones&rdquo;</strong></li>
+        <li>Add and <strong>label</strong> multiple time zones (e.g., &ldquo;Singapore&rdquo;, &ldquo;US East&rdquo;, &ldquo;London&rdquo;)</li>
+        <li>The additional zones will display <strong>side by side</strong> next to your calendar in day/week view</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p12-1.png" alt="Illustration of the Time Zones settings: primary (UTC+8) Singapore Standard Time, with added zones (UTC-5) Eastern Time (US) and (UTC+0) London, GMT, and a Save button" loading="lazy" width="646">
+        <figcaption>Screenshot: Add Multiple Time Zones</figcaption>
+      </figure>
+
+      <h3 id="topic-3-c">C. Build in Meeting Buffers</h3>
+      <ol class="steps">
+        <li>Go to <strong>Settings (&#9881;&#xFE0E;) &rarr; Calendar &rarr; Events and invitations</strong></li>
+        <li>Check the box for <strong>&ldquo;Shorten duration for all events&rdquo;</strong></li>
+        <li>Choose <strong>&ldquo;End event early&rdquo;</strong></li>
+        <li>Select a buffer time: <strong>5, 10, or 15 minutes</strong></li>
+        <li>All meetings you create will automatically end early, giving you breathing room</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p12-2.png" alt="Illustration of Events and invitations settings with Shorten duration for all events ticked and the End event early drop-down showing 5, 10 (selected) and 15 minutes" loading="lazy" width="646">
+        <figcaption>Screenshot: Build in Meeting Buffers</figcaption>
+      </figure>
+      <div class="callout tip"><span class="label">Pro Tip</span>Even a 5-minute buffer between meetings makes a huge difference for mental clarity and transition time.</div>
+
+      <h3 id="topic-3-d">D. Use Scheduling Polls</h3>
+      <ol class="steps">
+        <li>Start drafting a <strong>new meeting email</strong> and add your attendees</li>
+        <li>In the ribbon, click <strong>&ldquo;Scheduling Poll&rdquo;</strong> on the right side</li>
+        <li>Select <strong>a few time slots</strong> that work for you</li>
+        <li>Click <strong>&ldquo;Insert&rdquo;</strong> to embed the poll into the email</li>
+        <li>Recipients can <strong>vote</strong> on their preferred time &mdash; no back-and-forth needed</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p13-1.png" alt="Illustration of a new email to team@company.com with the Scheduling Poll button, two of three time slots ticked, and an Insert Poll button" loading="lazy" width="646">
+        <figcaption>Screenshot: Use Scheduling Polls</figcaption>
+      </figure>
+
+      <h3 id="topic-3-e">E. Duplicate Recurring Events</h3>
+      <ol class="steps">
+        <li><strong>Right-click</strong> on an existing calendar event</li>
+        <li>Select <strong>&ldquo;Duplicate event&rdquo;</strong></li>
+        <li>All details (attendees, description, duration) are <strong>instantly copied</strong> to a new event</li>
+        <li>Simply change the <strong>date and time</strong> as needed</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p14-1.png" alt="Illustration of the right-click menu on the Weekly Team Sync event with Duplicate event highlighted and the note: Click to duplicate with all details" loading="lazy" width="646">
+        <figcaption>Screenshot: Duplicate Recurring Events</figcaption>
+      </figure>
+
+      <h3 id="topic-3-f">F. Silently Add Attendees</h3>
+      <ol class="steps">
+        <li>Open an <strong>existing calendar event</strong></li>
+        <li><strong>Add a new invitee</strong> in the attendees field</li>
+        <li>When prompted by Outlook on who to notify, select <strong>&ldquo;Only added or removed attendees&rdquo;</strong></li>
+        <li>This avoids <strong>spamming the entire group</strong> with an update notification</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p14-2.png" alt="Illustration of the Send update to attendees? prompt with options All attendees, Only added or removed attendees (selected) and Don't send" loading="lazy" width="646">
+        <figcaption>Screenshot: Silently Add Attendees</figcaption>
+      </figure>
+
+      <h3 id="topic-3-g">G. View Calendar and Inbox Side-by-Side</h3>
+      <ol class="steps">
+        <li><strong>Right-click</strong> the calendar icon in the left menu and select <strong>&ldquo;Open in new window&rdquo;</strong></li>
+        <li>Or click the <strong>&ldquo;My Day&rdquo;</strong> icon at the top of the screen</li>
+        <li>Your daily agenda will be <strong>locked to the right side</strong> of your inbox</li>
+        <li>You can now view emails and your schedule <strong>simultaneously</strong></li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p15-1.png" alt="Illustration of the Inbox with the My Day agenda pinned on the right, and the note: Click the My Day icon or right-click, Open in new window" loading="lazy" width="646">
+        <figcaption>Screenshot: View Calendar and Inbox Side-by-Side</figcaption>
+      </figure>
+    </section>
+
+    <!-- ===================== TOPIC 4 ===================== -->
+    <section id="topic-4">
+      <span class="num">Topic 4</span>
+      <h2>Microsoft 365 Integrations in Outlook</h2>
+      <p class="lead">Use Outlook as your command center</p>
+      <p>Using Outlook as a central hub to access and share content across Microsoft Teams, To-Do, and OneDrive.</p>
+      <div class="callout"><span class="label">Use case scenarios for work</span>Use these steps when an email chain gets too long and needs to be moved to a Teams chat, when you need to block out calendar time to finish a specific task, or when you want to review cloud documents without opening a web browser.</div>
+
+      <h3 id="topic-4-a">A. Share Emails to Teams</h3>
+      <ol class="steps">
+        <li>Select the email you want to move to Teams</li>
+        <li>Click the <strong>&ldquo;Apps&rdquo;</strong> button on the <strong>right side of the email</strong></li>
+        <li>Choose <strong>&ldquo;Share to Teams&rdquo;</strong></li>
+        <li>Select a <strong>channel or group chat</strong> as the destination</li>
+        <li>The conversation moves from your inbox into <strong>Microsoft Teams</strong></li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p16-1.png" alt="Illustration of a long email thread RE: Project Alpha Update with the Apps panel open showing Share to Teams, To Do and OneDrive" loading="lazy" width="646">
+        <figcaption>Screenshot: Share Emails to Teams</figcaption>
+      </figure>
+
+      <h3 id="topic-4-b">B. Turn Emails into To-Do Tasks</h3>
+      <ol class="steps">
+        <li>Open the <strong>&ldquo;To Do&rdquo;</strong> icon on the <strong>right-hand sidebar</strong></li>
+        <li><strong>Left-click and drag</strong> an email into the To-Do window</li>
+        <li>A task is <strong>instantly generated</strong> with a direct link back to the source email</li>
+        <li>You can now track the task with due dates and reminders</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p17-1.png" alt="Illustration of dragging the email Prepare quarterly slides from the Inbox into To Do, creating a task linked to the original email" loading="lazy" width="646">
+        <figcaption>Screenshot: Turn Emails into To-Do Tasks</figcaption>
+      </figure>
+      <div class="callout tip"><span class="label">Pro Tip</span>Every task created this way links back to the original email &mdash; click the link anytime to jump back to the full context.</div>
+
+      <h3 id="topic-4-c">C. Block Time for Tasks</h3>
+      <ol class="steps">
+        <li>From the same <strong>To-Do sidebar</strong>, type in the task you need to work on</li>
+        <li>Any tasks added here will be shown on your Calendar too</li>
+        <li>A calendar event is created with <strong>dedicated time</strong> for that specific work</li>
+        <li>This ensures you have <strong>protected focus time</strong> to complete important tasks</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p17-2.png" alt="Outlook My Day pane with the Calendar tab selected (1), the March month view (2), and the Add a task due today box under Today, Thu 12 Mar (3)" loading="lazy" width="400">
+        <figcaption>Screenshot: Block Time for Tasks</figcaption>
+      </figure>
+
+      <h3 id="topic-4-d">D. Access OneDrive in Outlook</h3>
+      <ol class="steps">
+        <li>Click the <strong>OneDrive icon (cloud)</strong> in the <strong>left-hand menu</strong> of Outlook</li>
+        <li><strong>Browse, preview, and share</strong> your cloud files directly inside Outlook</li>
+        <li>Open Word documents, spreadsheets, and presentations <strong>without opening a separate app</strong></li>
+        <li>You can also <strong>share file links</strong> directly from within Outlook&rsquo;s OneDrive panel</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p18-1.png" alt="Illustration of the OneDrive My Files panel inside Outlook listing Q3 Sales Report.docx, Budget_2025.xlsx and the Project Alpha folder, with the note: Click the OneDrive icon in the left menu" loading="lazy" width="646">
+        <figcaption>Screenshot: Access OneDrive in Outlook</figcaption>
+      </figure>
+    </section>
+
+    <!-- ===================== TOPIC 5 ===================== -->
+    <section id="topic-5">
+      <span class="num">Topic 5</span>
+      <h2>AI Assistance with Copilot in Outlook</h2>
+      <p class="lead">Let AI handle the heavy lifting</p>
+      <p>Leveraging Microsoft Copilot natively within Outlook to draft messages, summarize long threads, prioritize your inbox, and prepare for meetings.</p>
+      <div class="callout"><span class="label">Use case scenarios for work</span>Incredibly helpful when you return from vacation and need to summarize dozens of long email chains, when you struggle to find the right polite tone for an email response, or when you want the system to automatically flag emails from your boss.</div>
+
+      <h3 id="topic-5-a">A. Set Copilot Draft Instructions</h3>
+      <ol class="steps">
+        <li>Navigate to <strong>Copilot &rarr; Settings &rarr; Draft Instructions</strong></li>
+        <li><strong>Turn the toggle on</strong> to enable personalized drafting</li>
+        <li>Type your preferences (e.g., <strong>&ldquo;Use a friendly tone&rdquo;</strong>, <strong>&ldquo;Use UK spelling&rdquo;</strong>, <strong>&ldquo;Use bullet points&rdquo;</strong>)</li>
+        <li>Click <strong>Save</strong> &mdash; Copilot will now personalize all future drafts to your style</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p19-1.png" alt="Illustration of Copilot Draft Instructions switched on, with instructions: use a friendly, professional tone; keep emails concise and clear; use bullet points for action items, and a Save button" loading="lazy" width="646">
+        <figcaption>Screenshot: Set Copilot Draft Instructions</figcaption>
+      </figure>
+
+      <h3 id="topic-5-b">B. Prioritize Important Emails</h3>
+      <ol class="steps">
+        <li>Go to <strong>Settings &rarr; Copilot &rarr; Prioritize</strong></li>
+        <li><strong>Turn the toggle on</strong> and click <strong>&ldquo;Customize&rdquo;</strong></li>
+        <li>Define <strong>high-priority rules</strong> (e.g., &ldquo;emails from [manager name]&rdquo; or specific project names)</li>
+        <li>Define <strong>low-priority rules</strong> (e.g., newsletters, automated notifications)</li>
+        <li>You can then <strong>sort your inbox view by priority</strong> to focus on what matters most</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p20-1.png" alt="Illustration of Copilot Prioritize switched on, with high priority rules for emails from manager@company.com and subject containing Project Alpha, and a low priority rule for newsletter@ and notifications@" loading="lazy" width="646">
+        <figcaption>Screenshot: Prioritize Important Emails</figcaption>
+      </figure>
+
+      <h3 id="topic-5-c">C. Draft and Rewrite Emails</h3>
+      <ol class="steps">
+        <li>In a <strong>new message window</strong>, click the <strong>Copilot icon</strong> next to <strong>&ldquo;Draft with Copilot&rdquo;</strong></li>
+        <li>Type a <strong>prompt</strong> describing what you want to write</li>
+        <li>To change specific text, <strong>highlight it</strong>, click the <strong>Copilot button</strong></li>
+        <li>Choose options like <strong>&ldquo;Auto rewrite&rdquo;</strong>, <strong>&ldquo;Make it longer&rdquo;</strong>, or <strong>&ldquo;Change tone&rdquo;</strong></li>
+        <li>Click <strong>&ldquo;Keep it&rdquo;</strong> when you&rsquo;re satisfied with the result</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p20-2.png" alt="Illustration of Draft with Copilot in a new email: the prompt asks for a polite follow-up about the Q3 deliverables, a generated draft appears, with Keep it, Rewrite and Make longer buttons" loading="lazy" width="646">
+        <figcaption>Screenshot: Draft and Rewrite Emails</figcaption>
+      </figure>
+
+      <h3 id="topic-5-d">D. Summarize and Search via Chat</h3>
+      <ol class="steps">
+        <li>Open the <strong>Copilot chat sidebar</strong> (click the drop-down &rarr; <strong>Chat</strong>)</li>
+        <li>Ensure the <strong>&ldquo;Work&rdquo;</strong> tab is selected</li>
+        <li>Ask Copilot to <strong>&ldquo;summarize this email&rdquo;</strong> or <strong>&ldquo;identify an email relating to [topic]&rdquo;</strong></li>
+        <li>Copilot will search across your data and provide a <strong>concise summary or link</strong></li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p21-1.png" alt="Illustration of the Copilot Chat sidebar with the Work tab selected, a request to summarize an email thread about the project timeline, and a summary reply" loading="lazy" width="646">
+        <figcaption>Screenshot: Summarize and Search via Chat</figcaption>
+      </figure>
+
+      <h3 id="topic-5-e">E. Use Voice Chat</h3>
+      <ol class="steps">
+        <li>In the <strong>Copilot sidebar</strong>, click the <strong>microphone icon</strong></li>
+        <li><strong>Verbally ask</strong> Copilot to summarize an email or draft a reply</li>
+        <li>Copilot will generate the response in the chat window</li>
+        <li><strong>Copy</strong> the generated text and <strong>paste it directly</strong> into your email</li>
+      </ol>
+      <div class="callout tip"><span class="label">Pro Tip</span>Voice Chat is great for multitasking &mdash; dictate replies while working on other tasks.</div>
+
+      <h3 id="topic-5-f">F. Draft Meeting Agendas</h3>
+      <ol class="steps">
+        <li>When scheduling a <strong>new event</strong> with Copilot, add your <strong>subject line and attendees</strong></li>
+        <li>Click <strong>&ldquo;Draft an agenda for me&rdquo;</strong></li>
+        <li>Copilot will analyze the <strong>context and participants</strong> to generate a custom agenda</li>
+        <li>The agenda appears <strong>right inside the meeting invite</strong> &mdash; review and edit as needed</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p22-1.png" alt="Illustration of a new meeting, Q4 Planning Session with Sarah, John and Lisa, using Draft an agenda for me to generate a three-item agenda" loading="lazy" width="646">
+        <figcaption>Screenshot: Draft Meeting Agendas</figcaption>
+      </figure>
+
+      <h3 id="topic-5-g">G. Prepare for Meetings</h3>
+      <ol class="steps">
+        <li>Open an <strong>upcoming meeting invite</strong></li>
+        <li>Look for the <strong>&ldquo;Prepare for your meeting&rdquo;</strong> section</li>
+        <li>Click <strong>&ldquo;Show insights&rdquo;</strong></li>
+        <li>Copilot will summarize <strong>relevant files, emails, and chats</strong> you should review before joining</li>
+        <li>Walk into every meeting <strong>fully briefed</strong> without manual searching</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep02/ep02-p23-1.png" alt="Illustration of a meeting invite, Q4 Planning Session tomorrow 2:00 PM, with Prepare for your meeting and Show insights listing a recent file, an email thread and a Teams channel" loading="lazy" width="646">
+        <figcaption>Screenshot: Prepare for Meetings</figcaption>
+      </figure>
+      <div class="callout tip"><span class="label">Pro Tip</span>Use this 5 minutes before any meeting to quickly catch up on all related conversations and documents.</div>
+
+      <p><em>Mastering Microsoft Outlook &mdash; Participant Learning Guide. Created by Tic Tech Toe Labs.</em></p>
+    </section>
+
+    <!-- ===================== TRIAD ACTIVITIES ===================== -->
+    <section id="topic-6">
+      <span class="num">Practice</span>
+      <h2>Microsoft Outlook: Hands-On Triad Activities</h2>
+      <div class="callout"><span class="label">Instructions for the Instructor/Facilitator</span>Divide the class into groups of three. For these activities, group members will refer to themselves as <strong>Person A</strong>, <strong>Person B</strong>, and <strong>Person C</strong>. They will rotate roles throughout the exercises so everyone gets a chance to practice all the skills outlined in the training document.</div>
+
+      <h3 id="topic-6-a">Activity 1: The Workspace &amp; Folder Foundation</h3>
+      <p><em>Covers Topic 1 (Customizing Interface) &amp; Topic 2 (Inbox Organization)</em></p>
+      <p><strong>Objective:</strong> Set up a distraction-free workspace and a standardized folder system.</p>
+      <h4>Part 1: Independent Setup (5 minutes)</h4>
+      <ul>
+        <li><strong>All members (A, B, and C)</strong> must customize their own Outlook interface:
+          <ul class="checklist">
+            <li>Switch to the <strong>Classic Ribbon</strong>.</li>
+            <li>Change Message Density to <strong>Compact</strong> or <strong>Cozy</strong>.</li>
+            <li>Enable <strong>Pop-out Replies</strong> (Settings &gt; Email &gt; Compose and reply).</li>
+            <li>Create the <strong>3-Folder System</strong>: &ldquo;Action Items&rdquo;, &ldquo;Waiting On&rdquo;, and &ldquo;Read Later&rdquo;.</li>
+            <li>Assign a distinct <strong>Color Category</strong> to each of the three folders.</li>
+          </ul>
+        </li>
+      </ul>
+      <h4>Part 2: Triad Verification (2 minutes)</h4>
+      <ul>
+        <li>Turn your screens toward each other (or screen share).</li>
+        <li><strong>Person A</strong> verifies Person B&rsquo;s setup.</li>
+        <li><strong>Person B</strong> verifies Person C&rsquo;s setup.</li>
+        <li><strong>Person C</strong> verifies Person A&rsquo;s setup.</li>
+      </ul>
+
+      <h3 id="topic-6-b">Activity 2: The Triage Relay</h3>
+      <p><em>Covers Topic 2 (Inbox Organization)</em></p>
+      <p><strong>Objective:</strong> Practice processing incoming emails quickly using the Archive, Folder, and Rules systems.</p>
+      <h4>Step 1: Send the Test Emails</h4>
+      <ul>
+        <li><strong>Person A</strong> sends an email to Person B with the subject: <em>&ldquo;URGENT: Project Approval Required&rdquo;</em></li>
+        <li><strong>Person B</strong> sends an email to Person C with the subject: <em>&ldquo;Task Delegated to You: Review Q3 Numbers&rdquo;</em></li>
+        <li><strong>Person C</strong> sends an email to Person A with the subject: <em>&ldquo;Weekly Newsletter: Industry Updates&rdquo;</em></li>
+      </ul>
+      <h4>Step 2: Process the Inbox</h4>
+      <ul>
+        <li><strong>Person B (Receiving Urgent):</strong> Drag the email from Person A into the <strong>Action Items</strong> folder. Open the folder and <strong>Pin</strong> the email to the top.</li>
+        <li><strong>Person C (Receiving Delegated Task):</strong> Forward the email back to Person B with a note saying &ldquo;I will handle this.&rdquo; Then, categorize the original email with a new color category called &ldquo;Q3 Project&rdquo; and drag it to your <strong>Action Items</strong> folder.</li>
+        <li><strong>Person A (Receiving Newsletter):</strong> Right-click the email from Person C and create a <strong>Rule</strong>. Set the condition to catch emails from Person C with &ldquo;Newsletter&rdquo; in the subject, and set the action to move it automatically to your <strong>Read Later</strong> folder. Run the rule immediately.</li>
+      </ul>
+
+      <h3 id="topic-6-c">Activity 3: The Scheduling Showdown</h3>
+      <p><em>Covers Topic 3 (Calendar Management)</em></p>
+      <p><strong>Objective:</strong> Coordinate complex schedules using drag-and-drop, polls, and meeting buffers.</p>
+      <h4>Step 1: The Drag-and-Drop Meeting</h4>
+      <ul>
+        <li><strong>Person A</strong> sends an email to B and C titled: <em>&ldquo;Brainstorming Session Needed&rdquo;</em> with a brief sentence about needing to meet.</li>
+        <li><strong>Person B</strong> opens the &ldquo;My Day&rdquo; sidebar, drags Person A&rsquo;s email onto their calendar to create a meeting, and invites both A and C.</li>
+        <li><em>Requirement:</em> Person B must use a <strong>Scheduling Poll</strong> to offer three different time slots and insert the poll into the invite.</li>
+      </ul>
+      <h4>Step 2: Voting and Buffers</h4>
+      <ul>
+        <li><strong>Person A and C</strong> open the email and vote on the poll.</li>
+        <li>Once a time is chosen, <strong>Person B</strong> finalizes the meeting. Before sending the final invite, Person B must go to Settings and ensure <strong>Meeting Buffers</strong> are turned on (e.g., end 5 minutes early).</li>
+      </ul>
+      <h4>Step 3: The Silent Follow-up</h4>
+      <ul>
+        <li><strong>Person C</strong> goes to their calendar, right-clicks the newly created Brainstorming meeting, and selects <strong>Duplicate event</strong> to schedule a follow-up for the next week.</li>
+        <li>Person C adds a fake external email address to the attendee list and chooses <strong>&ldquo;Only added or removed attendees&rdquo;</strong> when prompted, ensuring A and B do not get spammed with another notification.</li>
+      </ul>
+
+      <h3 id="topic-6-d">Activity 4: Ecosystem Integration</h3>
+      <p><em>Covers Topic 4 (Microsoft 365 Integrations)</em></p>
+      <p><strong>Objective:</strong> Move work out of the inbox and into To-Do, Teams, and the Calendar.</p>
+      <h4>The Workflow:</h4>
+      <ol class="steps">
+        <li><strong>Person C</strong> sends a long email to Person A and Person B detailing a complex fake project (e.g., &ldquo;Website Redesign Phases 1-3&rdquo;).</li>
+        <li><strong>Person A</strong> clicks the &ldquo;Apps&rdquo; button on the email and selects <strong>Share to Teams</strong>. Person A shares it to a Teams chat or channel that includes B and C, adding a comment: <em>&ldquo;Let&rsquo;s discuss this here instead of email.&rdquo;</em></li>
+        <li><strong>Person B</strong> opens the &ldquo;To Do&rdquo; sidebar in Outlook, drags Person C&rsquo;s email into To-Do to create a task, and then drags that newly created task onto their Outlook Calendar to block out 30 minutes of focus time.</li>
+        <li><strong>All Members:</strong> Click the <strong>OneDrive</strong> icon on the left menu of Outlook and practice locating a file and copying its link without leaving the Outlook window.</li>
+      </ol>
+
+      <h3 id="topic-6-e">Activity 5: AI-Powered Productivity</h3>
+      <p><em>Covers Topic 5 (AI Assistance with Copilot)</em></p>
+      <p><strong>Objective:</strong> Utilize Copilot to summarize threads, draft replies, and create agendas.</p>
+      <h4>Step 1: The Messy Thread</h4>
+      <ul>
+        <li><strong>Person A, B, and C</strong> quickly reply back and forth to a single email thread 4-5 times with random updates, contradictions, and noise (e.g., changing meeting locations, arguing over coffee flavors for the break room).</li>
+      </ul>
+      <h4>Step 2: AI Summarization &amp; Drafting</h4>
+      <ul>
+        <li><strong>Person A</strong> opens the Copilot Chat sidebar, ensures the &ldquo;Work&rdquo; tab is selected, and asks Copilot to <em>&ldquo;Summarize the coffee flavor email thread.&rdquo;</em></li>
+        <li><strong>Person B</strong> opens a new reply to the thread. Using the &ldquo;Draft with Copilot&rdquo; feature, instruct the AI to: <em>&ldquo;Write a polite but firm email deciding that we will only have decaf coffee. Use bullet points.&rdquo;</em></li>
+        <li><strong>Person C</strong> takes the summarized information, creates a new Calendar Event for a &ldquo;Coffee Committee Meeting,&rdquo; adds A and B, and clicks <strong>&ldquo;Draft an agenda for me&rdquo;</strong> using Copilot to auto-generate the meeting details.</li>
+      </ul>
+      <h4>Step 3: Debrief</h4>
+      <ul>
+        <li>The triad reviews the Copilot outputs together. Discuss how accurate the summary was and how well Copilot&hellip;</li>
+      </ul>
+      <div class="callout"><span class="label">Note</span>The source guide ends mid-sentence at this point; the rest of the debrief question is not included in the original document.</div>
+    </section>
+
+  </main>
+</div>
+
+<nav class="ep-pager" aria-label="Episode navigation">
+  <a class="prev" href="ep01-ms-teams.html"><small>&larr; Previous</small>Ep 1 · Microsoft Teams</a>
+  <a class="next" href="ep03-power-bi-part-1.html"><small>Next &rarr;</small>Ep 3 · Power BI Part 1</a>
+</nav>
+
+<footer class="site-foot">Afton Chemical MS365 Digital Skills Training Programme</footer>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

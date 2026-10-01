@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Afton Chemical Learning Hub</title>
+<meta name="description" content="Learner's guides for all 12 episodes of the Afton Chemical MS365 Digital Skills Training Programme.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/hub.css">
+<style>
+  .card-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--topic); color: #fff; display: grid; place-items: center; font: 800 15px var(--font-head); flex: none; }
+  .card-head { display: flex; align-items: center; gap: 12px; }
+  .section-title { font-size: 22px; margin: 36px 0 0; }
+  .empty { display: none; color: var(--muted); padding: 24px 0 48px; }
+</style>
+</head>
+<body>
+
+<header class="hub-bar">
+  <div class="hub-bar-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">AC</span>Afton Chemical · MS365 Learning Hub</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">MS365 Digital Skills Training Programme</div>
+    <h1>Afton Chemical Learning Hub</h1>
+    <p>Every learner's guide from the programme in one place. Pick an episode below to open its step-by-step guide, with screenshots, tips and practice activities.</p>
+    <div class="hero-stats"><span>12 episodes</span><span>8 Microsoft 365 apps</span><span>March – September 2026</span></div>
+  </div>
+</div>
+
+<main class="wrap">
+  <input class="search" type="search" id="search" placeholder="Search episodes, e.g. &ldquo;DAX&rdquo; or &ldquo;approvals&rdquo;" aria-label="Search episodes">
+  <div class="filters" role="group" aria-label="Filter by app">
+    <button type="button" data-filter="all" aria-pressed="true">All</button>
+    <button type="button" data-filter="teams" aria-pressed="false">Teams</button>
+    <button type="button" data-filter="outlook" aria-pressed="false">Outlook</button>
+    <button type="button" data-filter="powerbi" aria-pressed="false">Power BI</button>
+    <button type="button" data-filter="copilot" aria-pressed="false">Copilot</button>
+    <button type="button" data-filter="onedrive" aria-pressed="false">OneDrive</button>
+    <button type="button" data-filter="loop" aria-pressed="false">Loop &amp; Whiteboard</button>
+    <button type="button" data-filter="sharepoint" aria-pressed="false">SharePoint</button>
+    <button type="button" data-filter="automate" aria-pressed="false">Power Automate</button>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <a class="card" data-cat="teams" style="--topic: var(--c-teams)" href="episodes/ep01-ms-teams.html">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-head"><span class="card-icon">T</span>
+          <div class="card-meta"><span class="card-ep">Episode 1</span><span>5 Mar 2026</span></div></div>
+        <h3>Microsoft Teams: Beyond Just Meetings and Chat</h3>
+        <ul>
+          <li>Workspace layouts, sections and pop-outs</li>
+          <li>Scheduling, cross-posting, threads and pinning</li>
+          <li>Planner tasks, OneDrive files and Loop components</li>
+          <li>Voice isolation, transcripts and AI recaps</li>
+        </ul>
+      </div>
+      <div class="card-foot"><span class="tag">Teams</span><span class="open">Open guide &rarr;</span></div>
+    </a>
+
+    <a class="card" data-cat="outlook" style="--topic: var(--c-outlook)" href="episodes/ep02-outlook.html">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-head"><span class="card-icon">O</span>
+          <div class="card-meta"><span class="card-ep">Episode 2</span><span>13 Mar 2026</span></div></div>
+        <h3>Outlook Essentials to Make You Work Smarter</h3>
+        <ul>
+          <li>Customising the Outlook interface</li>
+          <li>Inbox organisation and Inbox Zero</li>
+          <li>Calendar management and scheduling</li>
+          <li>Microsoft 365 integrations and Copilot in Outlook</li>
+        </ul>
+      </div>
+      <div class="card-foot"><span class="tag">Outlook</span><span class="open">Open guide &rarr;</span></div>
+    </a>
+
+    <a class="card" data-cat="powerbi" style="--topic: var(--c-powerbi)" href="episodes/ep03-power-bi-part-1.html">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-head"><span class="card-icon">BI</span>
+          <div class="card-meta"><span class="card-ep">Episode 3</span><span>17 Apr 2026</span></div></div>
+        <h3>Power BI 101, Part 1: Data Visualisation Basics</h3>
+        <ul>
+          <li>Cleaning data with Power Query</li>
+          <li>Importing Excel data into Power BI</li>
+          <li>Creating your first visuals</li>
+          <li>Building a basic dashboard, with practice datasets</li>
+        </ul>
+      </div>
+      <div class="card-foot"><span class="tag">Power BI</span><span class="open">Open guide &rarr;</span></div>
+    </a>
+
+    <a class="card" data-cat="powerbi" style="--topic: var(--c-powerbi)" href="episodes/ep04-power-bi-part-2.html">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-head"><span class="card-icon">BI</span>
+          <div class="card-meta"><span class="card-ep">Episode 4</span><span>29 Apr 2026</span></div></div>
+        <h3>Power BI 101, Part 2: DAX, Dashboards &amp; Capstone</h3>
+        <ul>
+          <li>Building and checking your data model</li>
+          <li>Essential DAX measures</li>
+          <li>Profit, margin and SUMX iterator functions</li>
+          <li>Date-based analysis and text functions</li>
+        </ul>
+      </div>
+      <div class="card-foot"><span class="tag">Power BI</span><span class="open">Open guide &rarr;</span></div>
+    </a>
+
+    <a class="card" data-cat="copilot" style="--topic: var(--c-copilot)" href="episodes/ep05-copilot-essentials.html">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-head"><span class="card-icon">C</span>
+          <div class="card-meta"><span class="card-ep">Episode 5</span><span>21 May 2026</span></div></div>
+        <h3>Essentials of Microsoft Copilot</h3>
+        <ul>
+          <li>Getting started and writing good prompts</li>
+          <li>Research, documents and PDFs</li>
+          <li>Excel analysis and goal-oriented email drafting</li>
+          <li>Free vs paid Copilot quick reference</li>
+        </ul>
+      </div>
+      <div class="card-foot"><span class="tag">Copilot</span><span class="open">Open guide &rarr;</span></div>
+    </a>
+
+    <a class="card" data-cat="copilot" style="--topic: var(--c-copilot)" href="episodes/ep06-copilot-advanced.html">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-head"><span class="card-icon">C</span>
+          <div class="card-meta"><span class="card-ep">Episode 6</span><span>28 May 2026</span></div></div>
+        <h3>Advanced Copilot: Build a Webpage with Vibe Coding</h3>
+        <ul>
+          <li>What &ldquo;vibe coding&rdquo; actually means</li>
+          <li>Getting Copilot to write the code</li>
+          <li>Embedding and publishing on Google Sites</li>
+          <li>Building a real tool for your job role</li>
+        </ul>
+      </div>
+      <div class="card-foot"><span class="tag">Copilot</span><span class="open">Open guide &rarr;</span></div>
+    </a>
+
+    <a class="card" data-cat="onedrive" style="--topic: var(--c-onedrive)" href="episodes/ep07-onedrive.html">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-head"><span class="card-icon">OD</span>
+          <div class="card-meta"><span class="card-ep">Episode 7</span><span>5 Jun 2026</span></div></div>
+        <h3>How Every Worker Needs to Leverage OneDrive</h3>
+        <ul>
+          <li>Ask Copilot about your files</li>
+          <li>Folder Backup, Files On-Demand and version history</li>
+          <li>AutoSave, co-authoring and Personal Vault</li>
+          <li>PDF mark-up and automated file flows</li>
+        </ul>
+      </div>
+      <div class="card-foot"><span class="tag">OneDrive</span><span class="open">Open guide &rarr;</span></div>
+    </a>
+
+    <a class="card" data-cat="loop" style="--topic: var(--c-loop)" href="episodes/ep08-loop-whiteboard.html">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-head"><span class="card-icon">L</span>
+          <div class="card-meta"><span class="card-ep">Episode 8</span><span>26 Jun 2026</span></div></div>
+        <h3>Microsoft Loop &amp; Whiteboard for Enhanced Collaboration</h3>
+        <ul>
+          <li>Copilot in Loop and Whiteboard</li>
+          <li>Loop components for tracking actions across apps</li>
+          <li>Running Whiteboard sessions in Teams meetings</li>
+          <li>Nine hands-on team activities</li>
+        </ul>
+      </div>
+      <div class="card-foot"><span class="tag">Loop &amp; Whiteboard</span><span class="open">Open guide &rarr;</span></div>
+    </a>
+
+    <a class="card" data-cat="sharepoint" style="--topic: var(--c-sharepoint)" href="episodes/ep09-sharepoint-part-1.html">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-head"><span class="card-icon">S</span>
+          <div class="card-meta"><span class="card-ep">Episode 9</span><span>16 Jul 2026</span></div></div>
+        <h3>SharePoint for Departments, Part 1: Document Libraries</h3>
+        <ul>
+          <li>Digital note taking with CODE and PARA</li>
+          <li>Building and customising a department site</li>
+          <li>SharePoint Build-A-Thon team activity</li>
+        </ul>
+      </div>
+      <div class="card-foot"><span class="tag">SharePoint</span><span class="open">Open guide &rarr;</span></div>
+    </a>
+
+    <a class="card" data-cat="sharepoint" style="--topic: var(--c-sharepoint)" href="episodes/ep10-sharepoint-part-2.html">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-head"><span class="card-icon">S</span>
+          <div class="card-meta"><span class="card-ep">Episode 10</span><span>30 Jul 2026</span></div></div>
+        <h3>SharePoint for Departments, Part 2: Lists &amp; Pages</h3>
+        <ul>
+          <li>Document libraries and lists</li>
+          <li>Site permissions and security</li>
+          <li>Pages and web parts</li>
+          <li>Designing a site people want to use</li>
+        </ul>
+      </div>
+      <div class="card-foot"><span class="tag">SharePoint</span><span class="open">Open guide &rarr;</span></div>
+    </a>
+
+    <a class="card" data-cat="automate" style="--topic: var(--c-automate)" href="episodes/ep11-power-automate-part-1.html">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-head"><span class="card-icon">PA</span>
+          <div class="card-meta"><span class="card-ep">Episode 11</span><span>10 Sep 2026</span></div></div>
+        <h3>Power Automate, Part 1: Fundamentals</h3>
+        <ul>
+          <li>Introduction to Power Automate</li>
+          <li>Creating your first flow</li>
+          <li>Working with expressions</li>
+        </ul>
+      </div>
+      <div class="card-foot"><span class="tag">Power Automate</span><span class="open">Open guide &rarr;</span></div>
+    </a>
+
+    <a class="card" data-cat="automate" style="--topic: var(--c-automate)" href="episodes/ep12-power-automate-part-2.html">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-head"><span class="card-icon">PA</span>
+          <div class="card-meta"><span class="card-ep">Episode 12</span><span>16 Sep 2026</span></div></div>
+        <h3>Power Automate, Part 2: Intermediate</h3>
+        <ul>
+          <li>Conditions and controls</li>
+          <li>Working with SharePoint list data</li>
+          <li>Approvals</li>
+          <li>Keeping your flows running</li>
+        </ul>
+      </div>
+      <div class="card-foot"><span class="tag">Power Automate</span><span class="open">Open guide &rarr;</span></div>
+    </a>
+
+  </div>
+  <p class="empty" id="empty">No episodes match that search.</p>
+</main>
+
+<footer class="site-foot">Afton Chemical MS365 Digital Skills Training Programme</footer>
+
+<script>
+(function () {
+  var cards = Array.prototype.slice.call(document.querySelectorAll('#grid .card'));
+  var buttons = document.querySelectorAll('.filters button');
+  var search = document.getElementById('search');
+  var empty = document.getElementById('empty');
+  var filter = 'all';
+  function apply() {
+    var q = search.value.trim().toLowerCase();
+    var shown = 0;
+    cards.forEach(function (c) {
+      var ok = (filter === 'all' || c.dataset.cat === filter) && (!q || c.textContent.toLowerCase().indexOf(q) !== -1);
+      c.style.display = ok ? '' : 'none';
+      if (ok) shown++;
+    });
+    empty.style.display = shown ? 'none' : 'block';
+  }
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      filter = b.dataset.filter;
+      buttons.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      apply();
+    });
+  });
+  search.addEventListener('input', apply);
+})();
+</script>
+</body>
+</html>

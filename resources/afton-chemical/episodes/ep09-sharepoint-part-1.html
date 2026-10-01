@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ep 9 · SharePoint Part 1 | Afton Chemical Learning Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/hub.css">
+<style>:root { --topic: var(--c-sharepoint); }</style>
+</head>
+<body>
+
+<header class="hub-bar">
+  <div class="hub-bar-inner">
+    <a class="brand" href="../index.html"><span class="brand-mark">AC</span>Afton Chemical · MS365 Learning Hub</a>
+    <span class="spacer"></span>
+    <a class="pill" href="../index.html">&larr; All episodes</a>
+  </div>
+</header>
+
+<div class="ep-hero">
+  <div class="ep-hero-inner">
+    <div class="eyebrow">Episode 9 · Learner's Guide</div>
+    <h1>SharePoint for Departments – Part 1: Document Libraries</h1>
+    <p>CODE is how you get information into your second brain; PARA is how you organise it. You'll then create a team site for your department and add the four building blocks that turn a blank page into a working hub: a list, a task board, quick-link buttons, and a document library.</p>
+    <div class="meta"><span>16 July 2026</span><span>3 topics</span><span>Topic 1 · 30 min</span><span>Topic 2 · 45 min</span><span>Topic 3 · 30 min</span></div>
+  </div>
+</div>
+
+<div class="ep-layout">
+  <nav class="toc" aria-label="On this page">
+    <h2>On this page</h2>
+    <ul>
+      <li><a href="#topic-1">1. Digital Note Taking: CODE &amp; PARA</a>
+        <ul>
+          <li><a href="#t1-why">Why don’t we remember?</a></li>
+          <li><a href="#t1-code">The CODE Method</a></li>
+          <li><a href="#t1-capture">C — Capture</a></li>
+          <li><a href="#t1-organise">O — Organise</a></li>
+          <li><a href="#t1-para">What is P-A-R-A?</a></li>
+          <li><a href="#t1-projects">P — Projects</a></li>
+          <li><a href="#t1-areas">A — Areas of Responsibility</a></li>
+          <li><a href="#t1-resources">R — Resources</a></li>
+          <li><a href="#t1-archive">A — Archive</a></li>
+          <li><a href="#t1-diff">Differentiating PARA</a></li>
+          <li><a href="#t1-iphone">Capture on iPhone + Apple Notes</a></li>
+          <li><a href="#t1-android">Capture on Android + Google Keep</a></li>
+          <li><a href="#t1-distill">D — Distill</a></li>
+          <li><a href="#t1-express">E — Express</a></li>
+          <li><a href="#t1-practice">Let’s Practice</a></li>
+        </ul>
+      </li>
+      <li><a href="#topic-2">2. Build &amp; Customise a Department SharePoint Site</a>
+        <ul>
+          <li><a href="#t2-webpart">Adding a web part</a></li>
+          <li><a href="#t2-site">0 · Create the department site</a></li>
+          <li><a href="#t2-list">1 · Add a SharePoint list</a></li>
+          <li><a href="#t2-planner">2 · Add a Planner task board</a></li>
+          <li><a href="#t2-links">3 · Add quick-link buttons</a></li>
+          <li><a href="#t2-library">4 · Integrate a document library</a></li>
+          <li><a href="#t2-recap">You’ve built a working hub</a></li>
+        </ul>
+      </li>
+      <li><a href="#topic-3">3. SharePoint Build-A-Thon Activity</a>
+        <ul>
+          <li><a href="#t3-overview">1. Activity Overview</a></li>
+          <li><a href="#t3-rules">2. Co-Authoring Rules</a></li>
+          <li><a href="#t3-roles">3. Splitting 10 members</a></li>
+          <li><a href="#t3-cards">4. Team Task Cards</a></li>
+          <li><a href="#t3-quickref">5. Do’s &amp; Don’ts</a></li>
+          <li><a href="#t3-stuck">Troubleshooting</a></li>
+          <li><a href="#t3-success">Success criteria</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <main class="content">
+
+    <!-- ===================== TOPIC 1 ===================== -->
+    <section id="topic-1">
+      <span class="num">Topic 1 · SkillsFuture for Digital Workplace · Module Reference</span>
+      <h2>Digital Note Taking — How To Remember Everything</h2>
+      <p class="lead">A learner reference guide for the <strong>CODE</strong> and <strong>PARA</strong> frameworks by <strong>Tiago Forte</strong>. CODE is how you <em>get</em> information into your second brain; PARA is how you <em>organise</em> it. Together they turn information overload into a system you can actually act on.</p>
+      <p><span class="tag">30-min session</span> <span class="tag">2 frameworks: CODE + PARA</span> <span class="tag">Works on iPhone &amp; Android</span> <span class="tag">Includes step-by-step screenshots</span></p>
+
+      <h3 id="t1-originator">Method originator: Tiago Forte</h3>
+      <figure class="shot">
+        <img src="images/ep09/ep09-t1-p01-extra-1.png" alt="Portrait of Tiago Forte, creator of the CODE and PARA methods" loading="lazy" width="106">
+        <figcaption>Tiago Forte</figcaption>
+      </figure>
+      <p>Productivity expert and bestselling author. Tiago developed the <strong>CODE</strong> method and the <strong>PARA</strong> method as a complete system for capturing, organising, distilling and expressing information in a digital world.</p>
+      <figure class="shot">
+        <img src="images/ep09/ep09-t1-p01-extra-2.png" alt="Book cover: Building a Second Brain by Tiago Forte" loading="lazy" width="85">
+        <img src="images/ep09/ep09-t1-p01-extra-3.png" alt="Book cover: The PARA Method by Tiago Forte" loading="lazy" width="85">
+        <figcaption>Tiago Forte’s books: <em>Building a Second Brain</em> and <em>The PARA Method</em></figcaption>
+      </figure>
+
+      <h3 id="t1-why">Why don’t we remember?</h3>
+      <p>Modern life floods us with information — bills, ideas, articles, meetings, recipes, errands. Our brains were never built to store all of it. The answer is to stop trying. Capture it externally, organise it for action, distill it for clarity, and express it as outcomes. That’s a <strong>Second Brain</strong>.</p>
+
+      <h4>What’s inside this guide</h4>
+      <p><strong>The CODE Method — how to get information</strong></p>
+      <ul>
+        <li><a href="#t1-code">CODE Method Overview</a></li>
+        <li><a href="#t1-capture">C — Capture</a></li>
+        <li><a href="#t1-organise">O — Organise</a></li>
+        <li><a href="#t1-distill">D — Distill</a></li>
+        <li><a href="#t1-express">E — Express</a></li>
+      </ul>
+      <p><strong>The PARA Method — how to organise information</strong></p>
+      <ul>
+        <li><a href="#t1-para">PARA Overview</a></li>
+        <li><a href="#t1-projects">P — Projects</a></li>
+        <li><a href="#t1-areas">A — Areas of Responsibility</a></li>
+        <li><a href="#t1-resources">R — Resources</a></li>
+        <li><a href="#t1-archive">A — Archive</a></li>
+        <li><a href="#t1-diff">Differentiating PARA</a></li>
+      </ul>
+      <p><strong>Putting it into practice</strong></p>
+      <ul>
+        <li><a href="#t1-iphone">Capture on iPhone + Apple Notes</a></li>
+        <li><a href="#t1-android">Capture on Android + Google Keep</a></li>
+        <li><a href="#t1-practice">Let’s Practice</a></li>
+      </ul>
+
+      <h3 id="t1-code">The CODE Method</h3>
+      <p><em>Capture &rarr; Organise &rarr; Distill &rarr; Express — the four moves to remember everything</em></p>
+      <figure class="shot">
+        <img src="images/ep09/ep09-t1-p03-1.png" alt="Illustrated banner: The CODE Method — Capture, Organize, Distill, Express, showing four characters each acting out one stage" loading="lazy" width="664">
+        <figcaption>The CODE Method: Capture, Organize, Distill, Express (visual by Andrew Nalband)</figcaption>
+      </figure>
+      <p>The <strong>CODE Method</strong> is Tiago Forte’s four-step framework for processing information into knowledge you can use. Each letter is a stage; the steps run in order; together they form the workflow of a Second Brain.</p>
+      <ul>
+        <li><strong>C — Capture</strong>: dump information into a note app the moment you see it.</li>
+        <li><strong>O — Organise</strong>: file it using PARA so it’s actionable, not buried.</li>
+        <li><strong>D — Distill</strong>: highlight the gist so future-you can scan it in seconds.</li>
+        <li><strong>E — Express</strong>: turn knowledge into output — share it, ship it, act on it.</li>
+      </ul>
+
+      <h3 id="t1-capture">C — Capture</h3>
+      <p><em>Use a note app to dump your information there — before you lose it</em></p>
+      <figure class="shot">
+        <img src="images/ep09/ep09-t1-p04-1.png" alt="Illustration titled Capture: a man in a boat scooping fish out of the water with a net" loading="lazy" width="664">
+        <figcaption>Capture (visual by Andrew Nalband)</figcaption>
+      </figure>
+      <h4>Anything worth a second thought is worth capturing</h4>
+      <p>Your phone is always with you, so make your note app the place where everything lands first. Don’t try to decide where it belongs yet — just capture it. You’ll organise it later.</p>
+      <h4>Examples of information worth capturing</h4>
+      <ul>
+        <li>10 ways how to live past 100 years old</li>
+        <li>Bill payment due: $4,000</li>
+        <li>Make your husband / wife fall in love with you again</li>
+        <li>Meeting with boss next week at 10 AM on Sunday</li>
+        <li>Repair vacuum because my dog peed on my vacuum</li>
+      </ul>
+      <h4>Examples of note apps you can use</h4>
+      <p>Pick one app and stick with it. The best one is the one you’ll actually open.</p>
+      <ul>
+        <li>Apple Notes</li>
+        <li>Samsung Notes</li>
+        <li>Google Keep</li>
+        <li>Microsoft OneNote</li>
+        <li>Notion</li>
+      </ul>
+
+      <h3 id="t1-organise">O — Organise</h3>
+      <p><em>Make your captured information actionable using the PARA method</em></p>
+      <figure class="shot">
+        <img src="images/ep09/ep09-t1-p06-1.png" alt="Illustration titled Organize: a man sorting floating screens, code and document panels with his hands" loading="lazy" width="664">
+        <figcaption>Organize (visual by Andrew Nalband)</figcaption>
+      </figure>
+      <h4>Why organise at all?</h4>
+      <p><strong>To make things actionable.</strong> Captured information that isn’t organised is just clutter — like a desktop full of unsorted files. The PARA method gives every note a home so future-you can find it and use it.</p>
+      <h4>Before vs After</h4>
+      <p>This is what unorganised capture looks like — versus what four simple PARA folders look like:</p>
+      <figure class="shot">
+        <img src="images/ep09/ep09-t1-p07-1.png" alt="A cluttered computer desktop covered in dozens of unsorted files and icons" loading="lazy" width="284">
+        <figcaption>Captured, but unorganised</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="images/ep09/ep09-t1-p07-2.png" alt="A clean computer desktop with only four folders: 1) Projects, 2) Areas, 3) Resources, 4) Archive" loading="lazy" width="284">
+        <figcaption>Organised with PARA</figcaption>
+      </figure>
+    </section>
+
+    <section id="t1-para">
+      <span class="num">Topic 1 · The PARA Method</span>
+      <h2>What is P-A-R-A?</h2>
+      <p class="lead">Four folders. Sorted by how actionable the contents are.</p>
+      <figure class="shot">
+        <img src="images/ep09/ep09-t1-p08-1.png" alt="Diagram titled Organize by Actionability: an arrow from Most Actionable to Least Actionable above four folders labelled P Projects, A Areas, R Resources, A Archive" loading="lazy" width="664">
+        <figcaption>Organize by Actionability (visual by Andrew Nalband)</figcaption>
+      </figure>
+      <h3 id="t1-actionability">Organise by actionability</h3>
+      <p>PARA stands for <strong>Projects, Areas, Resources, Archive</strong>. The order matters: it goes from <strong>most actionable</strong> on the left (Projects you’re working on this week) to <strong>least actionable</strong> on the right (Archive — stuff you’re done with).</p>
+      <p>Every note you capture goes into exactly one of these four folders. That’s it. No sub-categories, no complex tagging — just four buckets.</p>
+
+      <h3 id="t1-projects">P — Projects</h3>
+      <p><em>Short-term efforts you’re working on now</em></p>
+      <h4>What goes here?</h4>
+      <p>Short-term efforts in your work or life with a clear finish line.</p>
+      <p><span class="tag">✓ Actionable</span> <span class="tag">✓ Has a due date</span></p>
+      <p><strong>Examples of projects:</strong></p>
+      <ul>
+        <li>Complete webpage design by today</li>
+        <li>Buy a new computer next Sunday</li>
+        <li>Write research report by end of the week</li>
+        <li>Renovate the bathroom by end of June</li>
+        <li>Finish Spanish language course in 3 months</li>
+        <li>Set up new living room furniture before Hari Raya</li>
+        <li>Repair vacuum by tomorrow</li>
+      </ul>
+
+      <h3 id="t1-areas">A — Areas of Responsibility</h3>
+      <p><em>Long-term responsibilities you manage over time</em></p>
+      <h4>What goes here?</h4>
+      <p>Ongoing responsibilities that don’t have a finish line, but that you need to maintain at a certain standard.</p>
+      <p><span class="tag">✓ Actionable</span> <span class="tag">✕ No due date</span> <span class="tag">✓ Private to you</span> <span class="tag">✓ Often recurring</span></p>
+      <p><strong>Examples of areas of responsibility:</strong></p>
+      <ul>
+        <li><strong>Work:</strong> Marketing, Human Resources, Product Management, Research &amp; Development, Direct Reports, Engineering</li>
+        <li><strong>Personal:</strong> Health, Finances, Kids, Writing, Car, Home Maintenance</li>
+      </ul>
+
+      <h3 id="t1-resources">R — Resources</h3>
+      <p><em>Topics or interests that might be useful in the future</em></p>
+      <h4>What goes here?</h4>
+      <p>Reference material on topics you find interesting or might need later. Not tied to any current project.</p>
+      <p><span class="tag">✕ Not actionable</span> <span class="tag">✕ No due date</span> <span class="tag">✓ Can be shared</span></p>
+      <p><strong>Examples of resources:</strong></p>
+      <ul>
+        <li>Graphic design ideas</li>
+        <li>Personal productivity tips</li>
+        <li>Organic gardening 101</li>
+        <li>Coffee art manual</li>
+        <li>Modern architecture designs</li>
+        <li>Web design templates</li>
+        <li>Japanese language references</li>
+        <li>History articles</li>
+        <li>Hainanese chicken rice recipe</li>
+      </ul>
+
+      <h3 id="t1-archive">A — Archive</h3>
+      <p><em>Inactive items from the other three categories</em></p>
+      <h4>What goes here?</h4>
+      <p>Anything from Projects, Areas or Resources that is no longer active. Don’t delete things — archive them, so you can dig them up later if you need to.</p>
+      <p><span class="tag">✕ Not actionable</span> <span class="tag">✕ No due date</span> <span class="tag">✓ Completed items</span> <span class="tag">✓ Outdated items</span> <span class="tag">✓ No-longer-relevant content</span></p>
+      <p><strong>Examples of archive contents:</strong></p>
+      <ul>
+        <li>Cold-storage items</li>
+        <li>Completed projects</li>
+        <li>Areas that are no longer active or relevant</li>
+        <li>Resources you’re no longer interested in</li>
+      </ul>
+
+      <h3 id="t1-diff">Differentiating PARA at a glance</h3>
+      <p><em>When you’re unsure where a note belongs, check this table</em></p>
+      <p>Use three quick questions: <strong>Is it actionable? Does it have a due date? Is it shareable?</strong> Your answers tell you which PARA folder the note belongs in.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Category</th><th>Actionable</th><th>Has due date</th><th>Sharable</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Projects</strong></td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><td><strong>Areas</strong></td><td>✓</td><td>—</td><td>—</td></tr>
+          <tr><td><strong>Resources</strong></td><td>—</td><td>—</td><td>✓</td></tr>
+          <tr><td><strong>Archive</strong></td><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table></div>
+      <figure class="shot">
+        <img src="images/ep09/ep09-t1-p12-1.png" alt="A Notion table called PARA Metric with checkboxes for Actionable, Due Dates and Sharable against Projects, Areas, Resources and Archive" loading="lazy" width="662">
+        <figcaption>The same comparison as a “PARA Metric” table in Notion</figcaption>
+      </figure>
+    </section>
+
+    <section id="topic-1-practice">
+      <span class="num">Topic 1 · Putting it into practice</span>
+      <h2>How to capture on your phone</h2>
+      <p class="lead">Step-by-step walk-throughs with screenshots for iPhone + Apple Notes and Android + Google Keep.</p>
+
+      <h3 id="t1-iphone">How to capture — iPhone + Apple Notes</h3>
+      <p><em>Step-by-step walk-through with screenshots</em></p>
+      <ol class="steps">
+        <li><strong>Steps 1 &amp; 2 — Set up your four PARA folders</strong><br>Create the 4 folders in Apple Notes.</li>
+        <li>Ensure each folder is numbered 1 to 4 (so they always stay in PARA order).
+          <figure class="shot">
+            <img src="images/ep09/ep09-t1-p13-1.png" alt="Apple Notes Folders screen on iPhone listing iCloud folders: All iCloud, Notes, 1) Projects, 2) Areas, 3) Resources and 4) Archived, with tags below" loading="lazy" width="664">
+            <img src="images/ep09/ep09-t1-p14-1.png" alt="Bottom of the Apple Notes Folders screen showing the new-folder icon at bottom-left and the new-note icon at bottom-right" loading="lazy" width="664">
+            <figcaption>The four numbered PARA folders in Apple Notes; the new-folder icon is at the bottom-left</figcaption>
+          </figure>
+          <p>You’ll end up with four named folders: <strong>1) Projects</strong>, <strong>2) Areas</strong>, <strong>3) Resources</strong>, <strong>4) Archived</strong>. The numbers force them to sort correctly every time you open the app.</p>
+          <p>Tap the folder icon at the bottom-left of Apple Notes to create each one.</p>
+        </li>
+        <li><strong>Steps 3 &amp; 4 — Share to Notes from Safari</strong><br>Press the <strong>Share</strong> icon on Safari (or the three-dot menu, then Share).</li>
+        <li>Choose <strong>Notes</strong> from the share sheet.
+          <figure class="shot">
+            <img src="images/ep09/ep09-t1-p14-2.png" alt="Training slide: in Safari on iPhone, arrows point to the three-dot menu at the bottom of the page and then to Share in the menu" loading="lazy" width="662">
+            <figcaption>Step 3: press the share icon on Safari (via the three-dot menu)</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="images/ep09/ep09-t1-p15-1.png" alt="Training slide: the iPhone share sheet for a Yahoo News article with an arrow pointing to the Notes app icon" loading="lazy" width="662">
+            <figcaption>Step 4: choose Notes from the share sheet</figcaption>
+          </figure>
+        </li>
+        <li><strong>Step 5 — Tap “New Note”</strong><br>Press on <strong>New Note</strong> at the top of the share dialog to choose where the note will be saved.
+          <figure class="shot">
+            <img src="images/ep09/ep09-t1-p15-2.png" alt="Training slide: the Notes share dialog with the Save To: New Note option circled and an arrow pointing to it" loading="lazy" width="662">
+            <figcaption>Step 5: press on New Note</figcaption>
+          </figure>
+        </li>
+        <li><strong>Steps 6 &amp; 7 — Pick a PARA folder and create the note</strong><br>Press the PARA folder you want the new note saved into (Projects, Areas, Resources or Archive).</li>
+        <li>Press <strong>Create New Note</strong> to confirm.
+          <figure class="shot">
+            <img src="images/ep09/ep09-t1-p16-1.png" alt="Training slide: the Choose Folder screen with the four PARA folders circled, then the 3) Resources folder with the Create New Note button circled" loading="lazy" width="662">
+            <figcaption>Steps 6 &amp; 7: press the folder you want the note saved into, then press Create New Note</figcaption>
+          </figure>
+        </li>
+      </ol>
+
+      <h3 id="t1-android">How to capture — Android + Google Keep</h3>
+      <p><em>Same PARA, different app — and Archive is already built in</em></p>
+      <ol class="steps">
+        <li><strong>Steps 1 &amp; 2 — Create your labels</strong><br>On Google Keep, create <strong>Labels</strong> for Projects, Areas, and Resources.</li>
+        <li>You don’t need to create an Archive label — Google Keep has Archive built in.
+          <figure class="shot">
+            <img src="images/ep09/ep09-t1-p17-1.png" alt="Training slide: the Google Keep side menu with the labels 1) Projects, 2) Areas and 3) Resources circled, and the built-in Archive below them" loading="lazy" width="662">
+            <figcaption>Steps 1 &amp; 2: create labels in Google Keep; Archive is already built in</figcaption>
+          </figure>
+        </li>
+        <li><strong>Steps 3 &amp; 4 — Share to Google Keep</strong><br>Press the <strong>Share</strong> icon on your browser.</li>
+        <li>Choose <strong>Google Keep</strong> (or <em>Keep Notes</em>) from the share sheet.
+          <figure class="shot">
+            <img src="images/ep09/ep09-t1-p17-2.png" alt="Training slide: an arrow points to the share icon in the browser toolbar, then to Google Keep in the share sheet" loading="lazy" width="662">
+            <figcaption>Steps 3 &amp; 4: press the share icon on your browser, then choose Google Keep or Keep Notes</figcaption>
+          </figure>
+        </li>
+        <li><strong>Step 5 — Add a label</strong><br>Press the label icon at the bottom of the new note to change its label.
+          <figure class="shot">
+            <img src="images/ep09/ep09-t1-p18-1.png" alt="Training slide: the new Google Keep note with the label icon circled and an arrow pointing to it" loading="lazy" width="662">
+            <figcaption>Step 5: press on the label to change the label</figcaption>
+          </figure>
+        </li>
+        <li><strong>Step 6 — Save under your preferred label</strong><br>Save the note under your preferred label: <strong>1) Projects</strong>, <strong>2) Areas</strong>, or <strong>3) Resources</strong>.
+          <figure class="shot">
+            <img src="images/ep09/ep09-t1-p19-1.png" alt="Training slide: the Label picker listing 1) Projects, 2) Areas and 3) Resources, circled, with an arrow pointing to them" loading="lazy" width="662">
+            <figcaption>Step 6: save it under your preferred label</figcaption>
+          </figure>
+        </li>
+      </ol>
+    </section>
+
+    <section id="topic-1-de">
+      <span class="num">Topic 1 · The CODE Method, continued</span>
+      <h2>Distill, Express &amp; Practise</h2>
+      <p class="lead">Finish the CODE workflow, then put CODE and PARA to work.</p>
+
+      <h3 id="t1-distill">D — Distill</h3>
+      <p><em>Summarise your captured notes using Progressive Summarisation</em></p>
+      <figure class="shot">
+        <img src="images/ep09/ep09-t1-p20-1.png" alt="Illustration titled Distill: a scientist in a lab coat holding up a flask beside laboratory glassware" loading="lazy" width="664">
+        <figcaption>Distill (visual by Andrew Nalband)</figcaption>
+      </figure>
+      <h4>What is Progressive Summarisation?</h4>
+      <ul>
+        <li><strong>Bold</strong> the main points and most important takeaways.</li>
+        <li>One look at the distilled notes and you can see the most important bit.</li>
+        <li>You can spot the gist of what the notes contain in seconds.</li>
+      </ul>
+      <h4>Worked example — before and after distilling</h4>
+      <p>Here’s a typical chunk of captured text. Read it once — it’s a wall of words and nothing jumps out.</p>
+      <p><strong>Before — captured but not distilled</strong></p>
+      <blockquote><p>Go on a day-to-night journey across River Wonders and Night Safari from now till 17 December 2026 with Secret Wild-erland, a two-park ticket that allows you to soak in the sights of wondrous animals at two wildlife parks along with digital experiences.</p></blockquote>
+      <p>Now the same text, but with the meaningful phrases highlighted. One glance tells you what it’s about, when it ends, and what kind of ticket it is.</p>
+      <p><strong>After — progressive summarisation</strong></p>
+      <blockquote><p>Go on a <strong>day-to-night journey</strong> across <strong>River Wonders and Night Safari</strong> from <strong>now till 17 December 2026</strong> with <strong>Secret Wild-erland, a two-park ticket</strong> that allows you to soak in the sights of wondrous animals at two wildlife parks along with digital experiences.</p></blockquote>
+
+      <h3 id="t1-express">E — Express</h3>
+      <p><em>Turn knowledge and information into actions</em></p>
+      <figure class="shot">
+        <img src="images/ep09/ep09-t1-p22-1.png" alt="Illustration titled Express: a man in glasses pointing at a picture he is holding up" loading="lazy" width="664">
+        <figcaption>Express (visual by Andrew Nalband)</figcaption>
+      </figure>
+      <h4>Information only has value when you do something with it</h4>
+      <p>The CODE method ends in <strong>Express</strong> on purpose. A note you never act on is just digital clutter. Expressing means closing the loop — using what you captured.</p>
+      <h4>Examples of Express</h4>
+      <ul>
+        <li>Share the information in your WhatsApp group.</li>
+        <li>Ensure that you follow up on your projects.</li>
+        <li>Post a recipe on your social media.</li>
+        <li>Move information to the Archive when it is completed.</li>
+        <li>Revisit the information captured in Resources and actually use it.</li>
+      </ul>
+
+      <h3 id="t1-practice">Let’s Practice</h3>
+      <p><em>Put CODE and PARA to work right now</em></p>
+      <h4>Try the full CODE workflow</h4>
+      <ol class="steps">
+        <li><strong>Capture</strong> — Scan the QR code from the slide (or pick any article you’ve been meaning to read), and use the CODE method to start processing it.</li>
+        <li><strong>Organise</strong> — File what you captured into the right PARA folder: Projects, Areas, Resources, or Archive.</li>
+        <li><strong>Distill</strong> — Copy a few paragraphs from the article into your note and use Progressive Summarisation: bold the gist so future-you can scan it in seconds.</li>
+        <li><strong>Express</strong> — Do something with it. Share it in a WhatsApp group, add it to a project, schedule a follow-up — whatever turns the note into an outcome.</li>
+      </ol>
+      <figure class="shot">
+        <img src="images/ep09/ep09-t1-p24-1.png" alt="Let's Practice slide listing the four CODE steps (Capture, Organize, Distill, Express) beside three QR codes linking to practice articles" loading="lazy" width="706">
+        <figcaption>The Let’s Practice slide with the QR codes to scan</figcaption>
+      </figure>
+      <div class="callout tip"><span class="label">The one habit that makes all of this stick</span>Don’t over-engineer. Don’t debate where a note belongs for ten minutes. <strong>Capture first, file fast, distill only what matters, and express anything you actually use.</strong> The system rewards practice, not perfection.</div>
+      <p><small>Reference guide for the <strong>Digital Note Taking</strong> module — based on Tiago Forte’s <em>Building a Second Brain</em> and <em>The PARA Method</em>.<br>Frameworks: <code>CODE</code> (Capture · Organise · Distill · Express) &amp; <code>PARA</code> (Projects · Areas · Resources · Archive)</small></p>
+    </section>
+
+    <!-- ===================== TOPIC 2 ===================== -->
+    <section id="topic-2">
+      <span class="num">Topic 2 · Hands-on build · 45 min</span>
+      <h2>Build &amp; Customise a Department SharePoint Site</h2>
+      <p class="lead">SharePoint Site for Departments. You'll create a team site for your department, then add the four building blocks that turn a blank page into a working hub: a list, a task board, quick-link buttons, and a document library.</p>
+
+      <h3 id="t2-build">What you'll build today</h3>
+      <ul>
+        <li>Create a <strong>department team site</strong> and understand how a SharePoint page is edited.</li>
+        <li>Add a <strong>SharePoint list</strong> to track structured information (e.g. a request or asset register).</li>
+        <li>Add a <strong>Planner / To-Do task board</strong> so the team can see who's doing what.</li>
+        <li>Add a section of <strong>quick-link buttons</strong> to your most-used tools and pages.</li>
+        <li>Integrate a <strong>document library</strong> right onto the home page — connected to the folder system from Topic 1.</li>
+      </ul>
+      <p><strong>On this page:</strong> <a href="#t2-site">0 · Create the department site</a> · <a href="#t2-list">1 · Add a SharePoint list</a> · <a href="#t2-planner">2 · Add a Planner task board</a> · <a href="#t2-links">3 · Add quick-link buttons</a> · <a href="#t2-library">4 · Integrate a document library</a></p>
+
+      <h3 id="t2-webpart">One skill unlocks all four: adding a web part</h3>
+      <p>Everything below is added the same way. On your site's home page you click <strong>Edit</strong> (top-right), hover where you want the content, click the circled <strong>+</strong>, and pick a <strong>web part</strong>. Learn this once and you can add anything.</p>
+      <ol class="steps">
+        <li>Open your site</li>
+        <li>Click <strong>Edit</strong></li>
+        <li>Click the <strong>+</strong></li>
+        <li>Choose a web part</li>
+        <li>Click <strong>Republish</strong></li>
+      </ol>
+
+      <h3 id="t2-site">0 · Create the department site</h3>
+      <p><em>Your team's home base in SharePoint · about 7 min</em></p>
+      <div class="callout"><span class="label">Objective</span>Spin up a <em>Team site</em> for your department that everyone can access, with its own document library ready to use.</div>
+      <ol class="steps">
+        <li><strong>Open SharePoint</strong><br>Go to <code>office.com</code> (or the Microsoft 365 app launcher — the ▦ waffle, top-left) and click <strong>SharePoint</strong>.</li>
+        <li><strong>Click “+ Create site”</strong><br>You'll see it near the top of the SharePoint start page. Choose <strong>Team site</strong> — this gives your department shared files, a calendar, and a document library out of the box.</li>
+        <li><strong>Name it after the department</strong><br>e.g. <code>Afton – Operations</code>. SharePoint auto-creates the address and a matching Microsoft 365 group.</li>
+        <li><strong>Add members</strong><br>Add your team as <strong>Members</strong> (can edit) and keep yourself as <strong>Owner</strong> (full control). Click <strong>Finish</strong>.</li>
+      </ol>
+      <figure class="shot">
+        <p><code>https://aftonchemical.sharepoint.com/sites/Operations</code></p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Site type</th><th>What it's for</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Team site</strong></td><td>Collaborate on files &amp; tasks with your department. Includes a document library. &larr; <strong>Choose this</strong></td></tr>
+            <tr><td><strong>Communication site</strong></td><td>Broadcast news &amp; info to a wide audience. Fewer collaboration tools.</td></tr>
+          </tbody>
+        </table></div>
+        <figcaption>Illustrative reference — the “Create a site” choice. For a department hub, pick <strong>Team site</strong>.</figcaption>
+      </figure>
+
+      <h3 id="t2-list">1 · Add a SharePoint list</h3>
+      <p><em>Track structured information — like a smart, shared spreadsheet · about 9 min</em></p>
+      <div class="callout"><span class="label">Objective</span>Create a list to track a repeating process for the department — for example an <em>Equipment / Asset Register</em> or a <em>Request Tracker</em> — with columns, statuses, and views everyone shares.</div>
+      <ol class="steps">
+        <li><strong>On the home page, click Edit &rarr; + &rarr; List</strong><br>Or from the command bar choose <strong>+ New &rarr; List</strong>. You can start <strong>Blank</strong>, from an <strong>Excel</strong> file, or from a ready-made <strong>template</strong>.</li>
+        <li><strong>Name the list</strong><br>e.g. <code>Equipment Register</code>. Give it a clear description so the team knows what it's for.</li>
+        <li><strong>Add your columns</strong><br>Click <strong>+ Add column</strong> and choose a data type per column — <em>Text</em>, <em>Choice</em> (for status), <em>Date</em>, <em>Person</em>, <em>Number</em>. Data types keep entries clean and filterable.</li>
+        <li><strong>Enter a few rows, then save a view</strong><br>Add items with <strong>+ New</strong>. Filter or group by <em>Status</em>, then <strong>Save view as</strong> "Open items" so the team lands on the right filter.</li>
+        <li><strong>Republish the page</strong><br>Back on the home page, the list web part now shows live data. Click <strong>Republish</strong> to make it visible to everyone.</li>
+      </ol>
+      <figure class="shot">
+        <p><code>https://aftonchemical.sharepoint.com/sites/Operations/Lists/Equipment Register</code></p>
+        <p><strong>Afton – Operations</strong> · Equipment Register<br>Command bar: + New · Edit in grid · Filter: Status · All items ▾</p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Asset ID ▲</th><th>Equipment</th><th>Location</th><th>Status</th><th>Next service</th><th>Owner</th></tr></thead>
+          <tbody>
+            <tr><td><code>AF-1042</code></td><td>Viscometer</td><td>Lab A</td><td>Operational</td><td>2026-08-14</td><td>J. Tan</td></tr>
+            <tr><td><code>AF-1043</code></td><td>Centrifuge</td><td>Lab A</td><td>Servicing</td><td>2026-07-22</td><td>R. Lim</td></tr>
+            <tr><td><code>AF-1051</code></td><td>Fume Hood 3</td><td>Lab B</td><td>Attention</td><td>2026-07-18</td><td>M. Ng</td></tr>
+            <tr><td><code>AF-1067</code></td><td>Spectrometer</td><td>QC Room</td><td>Operational</td><td>2026-09-30</td><td>S. Devi</td></tr>
+          </tbody>
+        </table></div>
+        <div class="callout">Notice the <strong>Status</strong> column uses a <em>Choice</em> data type — that's what gives you the coloured badges and lets you filter to just "Attention" items in one click.</div>
+        <figcaption>Illustrative reference — a SharePoint list acts like a shared spreadsheet with data types, coloured statuses, and saved views.</figcaption>
+      </figure>
+      <div class="callout tip"><span class="label">Tip</span>A list beats a spreadsheet on a shared drive because two people can edit at once, every change is tracked, and you can filter, group, and even trigger reminders — no version conflicts.</div>
+
+      <h3 id="t2-planner">2 · Add a Planner / To-Do task board</h3>
+      <p><em>See who's doing what, at a glance · about 9 min</em></p>
+      <div class="callout"><span class="label">Objective</span>Embed a <em>Planner</em> board on the site so the department can assign tasks, set due dates, and track progress across simple columns (buckets).</div>
+      <ol class="steps">
+        <li><strong>Edit the page &rarr; + &rarr; search "Planner"</strong><br>In the web part picker, type <code>Planner</code> and select the <strong>Tasks by Planner and To Do</strong> web part.</li>
+        <li><strong>Create a new plan (or link an existing one)</strong><br>Choose <strong>Create a new plan</strong> and name it — e.g. <code>Operations – Weekly Tasks</code>. It's automatically tied to your team.</li>
+        <li><strong>Set up buckets</strong><br>Buckets are your columns. Create <strong>To do</strong>, <strong>In progress</strong>, and <strong>Done</strong> — or use stages that fit your workflow.</li>
+        <li><strong>Add tasks and assign people</strong><br>Click <strong>+ Add task</strong>, give it a title, a <strong>due date</strong>, and <strong>assign</strong> a team member. Drag tasks between buckets as work progresses.</li>
+        <li><strong>Republish</strong><br>The board is now live on the home page and stays in sync with Planner and Microsoft To Do.</li>
+      </ol>
+      <figure class="shot">
+        <p><code>https://aftonchemical.sharepoint.com/sites/Operations/SitePages/Home.aspx</code></p>
+        <p><strong>Afton – Operations</strong> · Operations – Weekly Tasks · Board<br>Command bar: + Add task · Group by: Bucket ▾ · Filter</p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>To do (2)</th><th>In progress (2)</th><th>Done (2)</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Update SDS binder for Lab B</strong><br>Due 18 Jul · MN</td><td><strong>Fume Hood 3 service call</strong><br>Due 18 Jul · JT</td><td><s>Monthly calibration check</s><br>✓ 12 Jul · RL</td></tr>
+            <tr><td><strong>Order replacement filters</strong><br>Due 21 Jul · RL</td><td><strong>Draft Q3 safety report</strong><br>Due 30 Jul · SD</td><td><s>Restock PPE cabinet</s><br>✓ 10 Jul · MN</td></tr>
+          </tbody>
+        </table></div>
+        <div class="callout">The coloured dot is the task's <strong>priority flag</strong>; the circle on the right is the <strong>assigned person</strong>. Drag a card from <em>To do</em> to <em>Done</em> and everyone sees it update instantly.</div>
+        <figcaption>Illustrative reference — the Planner board web part embedded on the department home page.</figcaption>
+      </figure>
+      <div class="callout tip"><span class="label">Tip</span>Tasks assigned in Planner also appear in each person's <strong>Microsoft To Do</strong> and Teams — so nobody has to remember to check the site.</div>
+
+      <h3 id="t2-links">3 · Add a section of quick-link buttons</h3>
+      <p><em>One-click access to the tools your team uses daily · about 7 min</em></p>
+      <div class="callout"><span class="label">Objective</span>Add a <em>Quick links</em> web part — a tidy row of clickable buttons pointing to your most-used pages, tools, and documents.</div>
+      <ol class="steps">
+        <li><strong>Edit the page &rarr; + &rarr; Quick links</strong><br>In the picker, choose <strong>Quick links</strong>. It drops in a labelled section you can fill with buttons.</li>
+        <li><strong>Click + Add and paste a link</strong><br>Paste a URL (an internal SharePoint page, a document, or an external site like your ERP), give it a friendly <strong>title</strong>, and pick an <strong>icon</strong>.</li>
+        <li><strong>Choose a layout</strong><br>In the web part settings (pencil ✎), pick a layout — <strong>Button</strong>, <strong>Compact</strong>, or <strong>Filmstrip</strong>. Button and Compact look cleanest for a link bar.</li>
+        <li><strong>Reorder &amp; republish</strong><br>Drag buttons into priority order (most-used first) and click <strong>Republish</strong>.</li>
+      </ol>
+      <figure class="shot">
+        <p><code>https://aftonchemical.sharepoint.com/sites/Operations/SitePages/Home.aspx</code></p>
+        <p><strong>Afton – Operations</strong> · Home<br>Command bar: + New · ✎ Edit</p>
+        <p><strong>Department Quick Links</strong></p>
+        <ul>
+          <li>SOP Library</li>
+          <li>SDS / Safety Data</li>
+          <li>ERP Dashboard</li>
+          <li>Shift Roster</li>
+          <li>Raise a Ticket</li>
+        </ul>
+        <div class="callout">Each button is one link + one icon. Point them at the pages your team opens 10 times a day — your document library, the roster, your ticketing tool — so they're never more than one click away.</div>
+        <figcaption>Illustrative reference — the Quick links web part in Button layout, acting as a department launchpad.</figcaption>
+      </figure>
+
+      <h3 id="t2-library">4 · Integrate a document library</h3>
+      <p><em>Surface your files right on the home page · about 9 min</em></p>
+      <div class="callout"><span class="label">Objective</span>Show a <em>document library</em> directly on the department home page — organised with the date-first folder convention from Topic 1 — so files are visible without hunting through menus.</div>
+      <ol class="steps">
+        <li><strong>Set up the library first</strong><br>Open <strong>Documents</strong> and create your top-level folders using PARA + the date-first convention: <code>Projects</code>, <code>Areas</code>, <code>Resources</code>, <code>Archives</code>, with dated folders inside (e.g. <code>2026-07-16 Afton Onboarding</code>).</li>
+        <li><strong>Edit the home page &rarr; + &rarr; Document library</strong><br>In the picker, choose the <strong>Document library</strong> web part.</li>
+        <li><strong>Pick which library and view to show</strong><br>Select your <strong>Documents</strong> library, then choose a <strong>view</strong> (e.g. "All Documents" or a custom filtered view). You can show a specific folder as the starting point.</li>
+        <li><strong>Set the size &amp; command bar</strong><br>In settings (✎), choose how many items to show and whether people can upload directly from the home page. Turn on the command bar so they can add files in place.</li>
+        <li><strong>Republish</strong><br>Files now live on the home page. Because folders are date-first, they stay in order automatically — the payoff from Topic 1.</li>
+      </ol>
+      <figure class="shot">
+        <p><code>https://aftonchemical.sharepoint.com/sites/Operations/Shared Documents</code></p>
+        <p><strong>Afton – Operations</strong> · Documents<br>Command bar: + New · Upload · Sync · All Documents ▾</p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Name ▲</th><th>Modified</th><th>Modified by</th></tr></thead>
+          <tbody>
+            <tr><td>Folder: <strong>2026-07-16</strong> Afton Onboarding</td><td>16 Jul</td><td>K. Rahman</td></tr>
+            <tr><td>Folder: <strong>2026-07-28</strong> July Report</td><td>28 Jul</td><td>J. Tan</td></tr>
+            <tr><td>Folder: <strong>2026-08-02</strong> Safety Audit</td><td>2 Aug</td><td>M. Ng</td></tr>
+            <tr><td>Operations Handbook.docx</td><td>10 Jul</td><td>S. Devi</td></tr>
+            <tr><td>Equipment Log.xlsx</td><td>12 Jul</td><td>R. Lim</td></tr>
+            <tr><td>Dept Induction.pptx</td><td>9 Jul</td><td>K. Rahman</td></tr>
+          </tbody>
+        </table></div>
+        <div class="callout">The dated folders sit at the top in perfect order because <strong>Name</strong> is sorted A&rarr;Z — exactly the behaviour you set up in Topic 1. Word, Excel, and PowerPoint files open and co-edit right in the browser.</div>
+        <figcaption>Illustrative reference — a document library embedded on the site, using the date-first + PARA structure from Topic 1.</figcaption>
+      </figure>
+      <div class="callout tip"><span class="label">Tip</span>Click <strong>Sync</strong> (or "Add shortcut to OneDrive") and the library appears in File Explorer — so the team can work with SharePoint files as if they were local, while everything stays backed up and shared.</div>
+
+      <h3 id="t2-recap">You've built a working department hub</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Building block</th><th>What it gives you</th></tr></thead>
+        <tbody>
+          <tr><td><strong>List</strong></td><td>Structured, filterable tracking that beats a shared spreadsheet.</td></tr>
+          <tr><td><strong>Planner</strong></td><td>A shared task board synced to To Do and Teams.</td></tr>
+          <tr><td><strong>Quick links</strong></td><td>One-click access to the team's daily tools.</td></tr>
+          <tr><td><strong>Library</strong></td><td>Files on the home page, self-sorting by date.</td></tr>
+        </tbody>
+      </table></div>
+      <p><a href="#topic-1">Open the CODE × PARA guide &rarr;</a></p>
+      <p><small>Tic Tech Toe Labs · Workplace Digital Skills Training<br>Afton Chemical · Episode 9 · SharePoint for Departments (Part 1) · 16 July 2026</small></p>
+    </section>
+
+    <!-- ===================== TOPIC 3 ===================== -->
+    <section id="topic-3">
+      <span class="num">Topic 3 · Participant Activity Guide</span>
+      <h2>SharePoint Build-A-Thon</h2>
+      <p class="lead">30-Minute Team Challenge | 5 Teams × 10 Members</p>
+      <div class="callout"><span class="label">Objective</span>In 30 minutes, each team will build one section (a dedicated page) of a shared SharePoint site. You will work in parallel with the other teams — without overwriting each other's work — by following the co-authoring rules in this guide.</div>
+
+      <h3 id="t3-overview">1. Activity Overview</h3>
+      <h4>Team Assignments</h4>
+      <p>Each team owns ONE dedicated SharePoint page. No team touches the home page or another team's page during the activity.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Team</th><th>Section (Page)</th><th>Deliverable</th></tr></thead>
+        <tbody>
+          <tr><td>Team 1</td><td>News Hub</td><td>New page with News web part + 2 sample news posts + Highlights block</td></tr>
+          <tr><td>Team 2</td><td>Resources</td><td>New Document Library + page embedding the library + 3–5 uploaded files</td></tr>
+          <tr><td>Team 3</td><td>Events &amp; Calendar</td><td>New page with Events web part + 3 sample events + Featured Event card</td></tr>
+          <tr><td>Team 4</td><td>Our People</td><td>New page with People web part + Contact section + 3-question FAQ</td></tr>
+          <tr><td>Team 5</td><td>About Us</td><td>New page with hero banner + Mission text + image gallery + Forms embed</td></tr>
+        </tbody>
+      </table></div>
+      <h4>30-Minute Timeline</h4>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Time</th><th>What Happens</th></tr></thead>
+        <tbody>
+          <tr><td>0:00 – 0:05</td><td>Facilitator briefing. Teams confirm their page name and site link.</td></tr>
+          <tr><td>0:05 – 0:10</td><td>Each team plans: assigns roles, drafts outline of content.</td></tr>
+          <tr><td>0:10 – 0:25</td><td>BUILD TIME — all 5 teams work simultaneously on their own page.</td></tr>
+          <tr><td>0:25 – 0:30</td><td>Each team publishes and does a 1-minute walkthrough of their page.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 id="t3-rules">2. Co-Authoring Rules — READ THIS FIRST</h3>
+      <p><em>SharePoint does NOT work like Google Docs. Some parts of SharePoint can be edited by many people at the same time. Other parts LOCK the moment one person clicks Edit. Understanding this is the difference between a smooth activity and a frustrating one.</em></p>
+      <h4>What CAN Be Co-Authored (Multiple People At Once)</h4>
+      <div class="table-wrap"><table>
+        <thead><tr><th>SharePoint Element</th><th>How Many People At Once?</th></tr></thead>
+        <tbody>
+          <tr><td>Document Library — uploading files</td><td>Unlimited. Every member can upload different files simultaneously.</td></tr>
+          <tr><td>Document Library — creating folders</td><td>Unlimited, as long as they are different folders.</td></tr>
+          <tr><td>Word / Excel / PowerPoint files (in the library)</td><td>Multiple people can edit the same file at the same time (true co-authoring).</td></tr>
+          <tr><td>OneNote notebook (for content drafting)</td><td>Unlimited co-authoring.</td></tr>
+          <tr><td>Microsoft Forms (for FAQs, feedback)</td><td>Multiple people can build separate forms in parallel.</td></tr>
+          <tr><td>Different SharePoint pages</td><td>Each page can be edited by a different person at the same time.</td></tr>
+          <tr><td>Site navigation (viewing)</td><td>Everyone can browse and open the site at once.</td></tr>
+        </tbody>
+      </table></div>
+      <h4>What CANNOT Be Co-Authored (One Person At A Time)</h4>
+      <div class="table-wrap"><table>
+        <thead><tr><th>SharePoint Element</th><th>Why It Locks</th></tr></thead>
+        <tbody>
+          <tr><td>The SAME SharePoint page (in Edit mode)</td><td>Only 1 person can click Edit at a time. Others see 'This page is being edited by [name]' and are locked out.</td></tr>
+          <tr><td>Web parts on the same page</td><td>Adding, moving, or configuring a web part requires being the current editor of that page.</td></tr>
+          <tr><td>Page layout (sections, columns)</td><td>Only the current editor can change the page structure.</td></tr>
+          <tr><td>The Home Page (all teams share it)</td><td>Off-limits during this activity — do not touch it.</td></tr>
+          <tr><td>The top navigation menu</td><td>Only site owners can change it. Off-limits during this activity.</td></tr>
+          <tr><td>Site theme, logo, and site name</td><td>Owner-level settings. Off-limits during this activity.</td></tr>
+          <tr><td>Publishing a page</td><td>Only the person currently in Edit mode can publish.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn"><span class="label">The 3 golden rules</span>
+        <ol>
+          <li><strong>Do NOT touch the home page, navigation menu, or site theme.</strong></li>
+          <li><strong>Only ONE person from your team edits your page at a time. Everyone else preps content in Word, OneNote, or the library.</strong></li>
+          <li><strong>Rotate the 'editor' role every ~10 minutes so multiple members get hands-on time.</strong></li>
+        </ol>
+      </div>
+
+      <h3 id="t3-roles">3. How to Split 10 Members Within Your Team</h3>
+      <p>SharePoint page editing is a 1-person-at-a-time job. To keep all 10 members busy, split into prep work (parallel) and building (rotation).</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Role</th><th># People</th><th>What They Do</th><th>Can Work In Parallel?</th></tr></thead>
+        <tbody>
+          <tr><td>Team Lead</td><td>1</td><td>Directs flow, decides who builds when, presents at demo</td><td>Yes</td></tr>
+          <tr><td>Builder A</td><td>1</td><td>First to edit the page (approx. 0:10 – 0:16)</td><td>Takes turn</td></tr>
+          <tr><td>Builder B</td><td>1</td><td>Second editor (approx. 0:16 – 0:22)</td><td>Takes turn</td></tr>
+          <tr><td>Builder C</td><td>1</td><td>Final polish + publishes page (approx. 0:22 – 0:25)</td><td>Takes turn</td></tr>
+          <tr><td>Content Writers</td><td>3</td><td>Draft all text in a shared Word doc or OneNote</td><td>Yes (co-author)</td></tr>
+          <tr><td>Designers</td><td>2</td><td>Pick images, colours, layout style; hand to Builders</td><td>Yes</td></tr>
+          <tr><td>Reviewer / Uploader</td><td>1</td><td>Uploads files to library, proofreads before publish</td><td>Yes</td></tr>
+        </tbody>
+      </table></div>
+      <h4>Within-Team Workflow (Assembly Line)</h4>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Time</th><th>Builder A</th><th>Builder B</th><th>Builder C</th><th>Everyone Else</th></tr></thead>
+        <tbody>
+          <tr><td>0:05 – 0:10</td><td>Plan</td><td>Plan</td><td>Plan</td><td>Draft text / find images</td></tr>
+          <tr><td>0:10 – 0:16</td><td><strong>EDITS PAGE</strong></td><td>Prep content</td><td>Prep content</td><td>Keep writing / uploading</td></tr>
+          <tr><td>0:16 – 0:22</td><td>Support</td><td><strong>EDITS PAGE</strong></td><td>Prep</td><td>Refine text / send images</td></tr>
+          <tr><td>0:22 – 0:25</td><td>Support</td><td>Support</td><td><strong>PUBLISHES</strong></td><td>Final review</td></tr>
+          <tr><td>0:25 – 0:30</td><td>Present</td><td>Present</td><td>Present</td><td>Present</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 id="t3-cards">4. Team Task Cards</h3>
+      <p>Detailed checklist for each team. Tick off as you complete each item.</p>
+
+      <h4>Team 1 — News Hub</h4>
+      <p>Your Page: <strong>News Hub</strong> · Task Checklist:</p>
+      <ul class="checklist">
+        <li>Create a new blank page in SharePoint named 'News Hub'</li>
+        <li>Add a page title and short subtitle</li>
+        <li>Add the News web part to the page</li>
+        <li>Publish 2 sample news posts with headings and images</li>
+        <li>Add a 'Highlights' text section at the top of the page</li>
+        <li>Proofread all text and check images display correctly</li>
+        <li>Publish the page</li>
+      </ul>
+
+      <h4>Team 2 — Resources</h4>
+      <p>Your Page: <strong>Resources</strong> · Task Checklist:</p>
+      <ul class="checklist">
+        <li>Create a new Document Library called 'Team Resources'</li>
+        <li>Create 3 folders inside: Templates, Guides, Policies</li>
+        <li>Upload 3–5 sample files across the folders</li>
+        <li>Add columns/metadata (e.g., Category, Owner, Date)</li>
+        <li>Create a new blank page named 'Resources'</li>
+        <li>Add a Document Library web part linked to your library</li>
+        <li>Write a short intro paragraph explaining the library</li>
+        <li>Publish the page</li>
+      </ul>
+
+      <h4>Team 3 — Events &amp; Calendar</h4>
+      <p>Your Page: <strong>Events</strong> · Task Checklist:</p>
+      <ul class="checklist">
+        <li>Create a new blank page in SharePoint named 'Events'</li>
+        <li>Add the Events web part</li>
+        <li>Create 3 sample events (title, date, time, location)</li>
+        <li>Add a 'Featured Event' call-to-action card</li>
+        <li>Add a short intro paragraph at the top</li>
+        <li>Check event dates display correctly</li>
+        <li>Publish the page</li>
+      </ul>
+
+      <h4>Team 4 — Our People</h4>
+      <p>Your Page: <strong>Our People</strong> · Task Checklist:</p>
+      <ul class="checklist">
+        <li>Create a new blank page in SharePoint named 'Our People'</li>
+        <li>Add a page title and welcome message</li>
+        <li>Add a People web part with 4–5 team member profiles</li>
+        <li>Add a Contact section with email and phone</li>
+        <li>Build a 3-question FAQ using a text/accordion layout</li>
+        <li>Proofread names and contact details</li>
+        <li>Publish the page</li>
+      </ul>
+
+      <h4>Team 5 — About Us</h4>
+      <p>Your Page: <strong>About Us</strong> · Task Checklist:</p>
+      <ul class="checklist">
+        <li>Create a new blank page in SharePoint named 'About Us'</li>
+        <li>Add a hero banner with a title and background image</li>
+        <li>Add an 'Our Mission' text block</li>
+        <li>Add an Image Gallery web part with 3–4 images</li>
+        <li>Create a short Microsoft Forms feedback form</li>
+        <li>Embed the Forms link on the page</li>
+        <li>Publish the page</li>
+      </ul>
+
+      <h3 id="t3-quickref">5. Quick Reference — Do's &amp; Don'ts</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>DO</th><th>DON'T</th></tr></thead>
+        <tbody>
+          <tr><td>Create your OWN new page for your section</td><td>Do NOT edit the home page or another team's page</td></tr>
+          <tr><td>Draft text and content in a shared Word doc / OneNote (co-author freely)</td><td>Do NOT have all 10 members click 'Edit' on the same SharePoint page</td></tr>
+          <tr><td>Upload files to your Document Library in parallel — all 10 members can</td><td>Do NOT change the site theme, logo, or top navigation</td></tr>
+          <tr><td>Rotate 3 Builders through the page editor role every ~6 minutes</td><td>Do NOT publish the page until your Reviewer has proofread it</td></tr>
+          <tr><td>Ask the facilitator if you're locked out of a page for more than 2 minutes</td><td>Do NOT try to force-edit a page someone else is already editing</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 id="t3-stuck">If You Get Stuck — Troubleshooting</h3>
+      <ul>
+        <li><strong>'Page is being edited by [name]' —</strong> Wait. Only 1 editor at a time. Use the time to prep content or upload files.</li>
+        <li><strong>'You don't have permission' —</strong> Raise your hand. Facilitator will fix your access.</li>
+        <li><strong>Changes not saving —</strong> Click 'Save as draft' or 'Republish' at the top of the page.</li>
+        <li><strong>Web part not appearing —</strong> Refresh the page. Some web parts take 30 seconds to load.</li>
+        <li><strong>Uploaded file not showing —</strong> Refresh the Document Library view.</li>
+      </ul>
+
+      <h3 id="t3-success">Success criteria</h3>
+      <div class="callout tip"><span class="label">By 0:25, your team should have:</span>
+        <ul>
+          <li>✓ A published SharePoint page with your section's content</li>
+          <li>✓ All 10 members contributed something (page, text, images, or files)</li>
+          <li>✓ A Team Lead ready to give a 1-minute walkthrough</li>
+          <li>✓ Zero conflicts with other teams</li>
+        </ul>
+      </div>
+      <p><strong>Good luck, teams!</strong></p>
+    </section>
+
+  </main>
+</div>
+
+<nav class="ep-pager" aria-label="Episode navigation">
+  <a class="prev" href="ep08-loop-whiteboard.html"><small>&larr; Previous</small>Ep 8 · Loop &amp; Whiteboard</a>
+  <a class="next" href="ep10-sharepoint-part-2.html"><small>Next &rarr;</small>Ep 10 · SharePoint Part 2</a>
+</nav>
+
+<footer class="site-foot">Afton Chemical MS365 Digital Skills Training Programme</footer>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

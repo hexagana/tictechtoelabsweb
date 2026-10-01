@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consolidated Revenue Dashboard — Jan to Apr 2026 + Projection</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 24px;
+        color: #2d3748;
+    }
+    .container { max-width: 1400px; margin: 0 auto; }
+
+    /* Header */
+    .header {
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255,255,255,0.25);
+        border-radius: 20px;
+        padding: 36px;
+        color: white;
+        margin-bottom: 28px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+    .header h1 { font-size: 2.4rem; margin-bottom: 8px; font-weight: 700; }
+    .header p { font-size: 1.05rem; opacity: 0.92; }
+    .header .tag-row { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .header .tag {
+        background: rgba(255,255,255,0.2);
+        padding: 6px 14px;
+        border-radius: 14px;
+        font-size: 0.82rem;
+        font-weight: 500;
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    /* Section */
+    .section {
+        background: white;
+        border-radius: 18px;
+        padding: 28px;
+        margin-bottom: 24px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    .section-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #4a5568;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .section-title::before {
+        content: '';
+        width: 4px;
+        height: 24px;
+        background: linear-gradient(180deg, #667eea, #764ba2);
+        border-radius: 2px;
+    }
+    .section-subtitle {
+        color: #718096;
+        font-size: 0.95rem;
+        margin-bottom: 18px;
+        margin-top: -10px;
+    }
+
+    /* Metric cards */
+    .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+    }
+    .metric-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 24px;
+        border-radius: 14px;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        box-shadow: 0 4px 12px rgba(102,126,234,0.3);
+    }
+    .metric-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(102,126,234,0.45);
+    }
+    .metric-card h3 {
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        opacity: 0.92;
+        margin-bottom: 10px;
+    }
+    .metric-card .value { font-size: 2.1rem; font-weight: 700; margin-bottom: 6px; }
+    .metric-card .sub { font-size: 0.85rem; opacity: 0.88; }
+    .metric-card.target-hit {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        box-shadow: 0 4px 12px rgba(17,153,142,0.3);
+    }
+    .metric-card.warn {
+        background: linear-gradient(135deg, #f6ad55 0%, #ed8936 100%);
+        box-shadow: 0 4px 12px rgba(237,137,54,0.3);
+    }
+    .metric-card.dave {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        box-shadow: 0 4px 12px rgba(245,87,108,0.3);
+    }
+
+    /* Layout helpers */
+    .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+    }
+    .grid-2-wide {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 24px;
+    }
+    @media (max-width: 900px) {
+        .grid-2, .grid-2-wide { grid-template-columns: 1fr; }
+    }
+    .chart-wrapper { position: relative; height: 320px; }
+    .chart-wrapper.tall { height: 380px; }
+
+    /* Tables */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+    }
+    th, td {
+        text-align: left;
+        padding: 12px 14px;
+        border-bottom: 1px solid #edf2f7;
+        font-size: 0.92rem;
+    }
+    th {
+        background: #f7fafc;
+        font-weight: 600;
+        color: #4a5568;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+    }
+    td.num { font-variant-numeric: tabular-nums; font-weight: 600; }
+    td.right, th.right { text-align: right; }
+    tr.total-row { background: #f7fafc; font-weight: 700; }
+
+    /* Pills */
+    .pill {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 12px;
+        font-size: 0.78rem;
+        font-weight: 600;
+    }
+    .pill.green { background: #c6f6d5; color: #22543d; }
+    .pill.red { background: #fed7d7; color: #742a2a; }
+    .pill.amber { background: #fefcbf; color: #744210; }
+    .pill.blue { background: #bee3f8; color: #2c5282; }
+
+    /* Insight cards */
+    .insights-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 16px;
+    }
+    .insight-card {
+        background: #f7fafc;
+        padding: 22px;
+        border-radius: 12px;
+        border-left: 5px solid #667eea;
+    }
+    .insight-card.high { border-left-color: #e53e3e; background: #fff5f5; }
+    .insight-card.medium { border-left-color: #ed8936; background: #fffaf0; }
+    .insight-card.low { border-left-color: #38a169; background: #f0fff4; }
+    .insight-card h4 {
+        color: #2d3748;
+        font-size: 1rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+    }
+    .insight-card p {
+        color: #4a5568;
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+    .insight-card strong { color: #2d3748; }
+
+    /* Projection scenarios */
+    .scenario-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin-bottom: 20px;
+    }
+    @media (max-width: 768px) { .scenario-grid { grid-template-columns: 1fr; } }
+    .scenario-card {
+        padding: 24px;
+        border-radius: 14px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+    .scenario-card.bear { background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%); }
+    .scenario-card.base { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .scenario-card.bull { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+    .scenario-card .label {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        opacity: 0.92;
+        margin-bottom: 8px;
+    }
+    .scenario-card .total {
+        font-size: 2.4rem;
+        font-weight: 800;
+        margin-bottom: 4px;
+    }
+    .scenario-card .monthly {
+        font-size: 0.95rem;
+        opacity: 0.92;
+        margin-bottom: 14px;
+    }
+    .scenario-card .logic {
+        font-size: 0.86rem;
+        opacity: 0.95;
+        line-height: 1.5;
+        border-top: 1px solid rgba(255,255,255,0.25);
+        padding-top: 12px;
+    }
+    .scenario-card.base::after {
+        content: 'MOST LIKELY';
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: rgba(255,255,255,0.25);
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    /* Data quality flag */
+    .data-flag {
+        background: linear-gradient(135deg, #fefcbf 0%, #faf089 100%);
+        border-left: 5px solid #d69e2e;
+        padding: 22px 28px;
+        border-radius: 12px;
+    }
+    .data-flag h4 {
+        color: #744210;
+        font-size: 1.05rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+    }
+    .data-flag p { color: #5f370e; font-size: 0.92rem; line-height: 1.6; }
+    .data-flag table { margin-top: 14px; background: white; border-radius: 8px; overflow: hidden; }
+    .data-flag td, .data-flag th { font-size: 0.88rem; }
+
+    /* Assumptions */
+    .assumptions {
+        background: #f7fafc;
+        border-radius: 12px;
+        padding: 22px 28px;
+    }
+    .assumptions h4 {
+        color: #4a5568;
+        font-size: 1rem;
+        margin-bottom: 12px;
+        font-weight: 700;
+    }
+    .assumptions ul {
+        padding-left: 22px;
+        color: #4a5568;
+        font-size: 0.9rem;
+        line-height: 1.8;
+    }
+
+    .footer {
+        text-align: center;
+        color: rgba(255,255,255,0.8);
+        padding: 20px 0;
+        font-size: 0.85rem;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>📊 Consolidated Revenue Dashboard</h1>
+        <p>SFDW Training Revenue · January – April 2026 with May – August Projection</p>
+        <div class="tag-row">
+            <span class="tag">4 months actuals</span>
+            <span class="tag">12 classes delivered</span>
+            <span class="tag">145 participants</span>
+            <span class="tag">$45,050 total revenue</span>
+            <span class="tag">4-month forward projection</span>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SECTION 1: TOP-LINE METRICS                    -->
+    <!-- ============================================== -->
+    <div class="section">
+        <div class="section-title">Top-Line Metrics — Jan to Apr 2026</div>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h3>Total Revenue</h3>
+                <div class="value">$45,050</div>
+                <div class="sub">Across 4 months</div>
+            </div>
+            <div class="metric-card">
+                <h3>Total Participants</h3>
+                <div class="value">145</div>
+                <div class="sub">Avg 36 / month</div>
+            </div>
+            <div class="metric-card">
+                <h3>Classes Delivered</h3>
+                <div class="value">12</div>
+                <div class="sub">Avg 3 / month</div>
+            </div>
+            <div class="metric-card target-hit">
+                <h3>Avg Revenue / Pax</h3>
+                <div class="value">$311</div>
+                <div class="sub">Improving toward $350 target</div>
+            </div>
+            <div class="metric-card warn">
+                <h3>Revenue Volatility</h3>
+                <div class="value">2.8x</div>
+                <div class="sub">Highest ÷ lowest month</div>
+            </div>
+            <div class="metric-card dave">
+                <h3>Allan Commission Paid</h3>
+                <div class="value">$2,335</div>
+                <div class="sub">Methodology inconsistent ⚠</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SECTION 2: MONTHLY TREND                       -->
+    <!-- ============================================== -->
+    <div class="section">
+        <div class="section-title">Monthly Revenue & Volume Trend</div>
+        <div class="grid-2-wide">
+            <div class="chart-wrapper tall">
+                <canvas id="trendChart"></canvas>
+            </div>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th class="right">Revenue</th>
+                            <th class="right">Pax</th>
+                            <th class="right">Classes</th>
+                            <th class="right">$/Pax</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>January</td>
+                            <td class="num right">$10,580</td>
+                            <td class="num right">41</td>
+                            <td class="num right">3</td>
+                            <td class="num right"><span class="pill red">$258</span></td>
+                        </tr>
+                        <tr>
+                            <td>February</td>
+                            <td class="num right">$14,520</td>
+                            <td class="num right">48</td>
+                            <td class="num right">4</td>
+                            <td class="num right"><span class="pill amber">$303</span></td>
+                        </tr>
+                        <tr>
+                            <td>March</td>
+                            <td class="num right">$5,250</td>
+                            <td class="num right">14</td>
+                            <td class="num right">2</td>
+                            <td class="num right"><span class="pill green">$375</span></td>
+                        </tr>
+                        <tr>
+                            <td>April</td>
+                            <td class="num right">$14,700</td>
+                            <td class="num right">42</td>
+                            <td class="num right">3</td>
+                            <td class="num right"><span class="pill green">$350</span></td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>Total / Avg</td>
+                            <td class="num right">$45,050</td>
+                            <td class="num right">145</td>
+                            <td class="num right">12</td>
+                            <td class="num right"><span class="pill blue">$311</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SECTION 3: PRICING DISCIPLINE                  -->
+    <!-- ============================================== -->
+    <div class="section">
+        <div class="section-title">Pricing Discipline — Trending Toward Target</div>
+        <p class="section-subtitle">Per-participant revenue has improved every month. Funded-class underpricing was the historical drag — now resolved.</p>
+        <div class="grid-2">
+            <div class="chart-wrapper">
+                <canvas id="priceChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="fundedClassChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SECTION 4: TRAINER CONCENTRATION               -->
+    <!-- ============================================== -->
+    <div class="section">
+        <div class="section-title">Trainer Concentration — Operational Risk</div>
+        <p class="section-subtitle">Khai delivers an average of 74% of revenue. March hit 100% — a single point of failure.</p>
+        <div class="grid-2-wide">
+            <div class="chart-wrapper tall">
+                <canvas id="trainerChart"></canvas>
+            </div>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th class="right">Khai</th>
+                            <th class="right">Zayed</th>
+                            <th class="right">Khai %</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Jan</td>
+                            <td class="num right">$7,350</td>
+                            <td class="num right">$3,230</td>
+                            <td class="num right">69.5%</td>
+                        </tr>
+                        <tr>
+                            <td>Feb</td>
+                            <td class="num right">$11,720</td>
+                            <td class="num right">$2,800</td>
+                            <td class="num right">80.7%</td>
+                        </tr>
+                        <tr>
+                            <td>Mar</td>
+                            <td class="num right">$5,250</td>
+                            <td class="num right">$0</td>
+                            <td class="num right"><span class="pill red">100%</span></td>
+                        </tr>
+                        <tr>
+                            <td>Apr</td>
+                            <td class="num right">$10,150</td>
+                            <td class="num right">$4,550</td>
+                            <td class="num right">69.0%</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>4-mo Total</td>
+                            <td class="num right">$34,470</td>
+                            <td class="num right">$10,580</td>
+                            <td class="num right">76.5%</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="insight-card high" style="margin-top: 18px;">
+                    <h4>🚨 Single Point of Failure</h4>
+                    <p>If Khai had been unavailable in March, monthly revenue would have been <strong>$0</strong>. Across 4 months, Khai's absence in any single month would compress revenue by an average of <strong>$8,618</strong>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SECTION 5: KEY INSIGHTS                        -->
+    <!-- ============================================== -->
+    <div class="section">
+        <div class="section-title">Intelligent Insights</div>
+        <div class="insights-grid">
+            <div class="insight-card high">
+                <h4>🎯 Volume — not pricing — is the revenue lever</h4>
+                <p>March had the <strong>highest $/pax ($375)</strong> of any month, yet delivered the <strong>lowest revenue ($5,250)</strong>. Volatility is almost entirely a scheduling / pipeline-fill problem. Each additional class at typical fill rates adds ~<strong>$4,200–$4,900</strong> to the month.</p>
+            </div>
+            <div class="insight-card low">
+                <h4>✅ Funded-class pricing has been quietly fixed</h4>
+                <p>Funded classes used to underprice severely (Jan: $162/pax, Feb: $160/pax). March (NSRC) and April (HL Material) both hit <strong>$350/pax exactly</strong>. If this discipline holds, the revenue floor is structurally lifted by ~$3K–$4K per funded class.</p>
+            </div>
+            <div class="insight-card high">
+                <h4>⚠ Trainer concentration is the #1 operational risk</h4>
+                <p>Khai delivers <strong>74% of revenue on average, 100% in March</strong>. Zayed's utilisation is wildly inconsistent (30%, 19%, 0%, 31%). This is a single-person-of-failure problem the monthly dashboards keep flagging without a structural fix.</p>
+            </div>
+            <div class="insight-card medium">
+                <h4>📊 No clear seasonal pattern yet — sample is too small</h4>
+                <p>4 months isn't enough to call seasonality. The March dip looks more like a sales-pipeline gap than a calendar effect (CNY was Feb 17, well clear of March). Treat March as an open question, not a predictable trough, until another year of data is in.</p>
+            </div>
+            <div class="insight-card medium">
+                <h4>📈 Pricing trend is up; volume trend is flat</h4>
+                <p>$/pax went $258 → $303 → $375 → $350. Class count went 3 → 4 → 2 → 3 (no trend). The team is getting better at <strong>extracting value per booking</strong> but not at <strong>generating bookings</strong>. Sales pipeline likely needs more attention than pricing.</p>
+            </div>
+            <div class="insight-card low">
+                <h4>💪 Margins are exceptional</h4>
+                <p>Reported expenses are tiny ($105–$359/month). Gross margin runs <strong>~98%+</strong>. The economic model is fundamentally healthy — the problem is throughput, not profitability per class.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SECTION 6: DATA QUALITY FLAG                   -->
+    <!-- ============================================== -->
+    <div class="section">
+        <div class="section-title">Data Quality Flag — Allan's Commission</div>
+        <div class="data-flag">
+            <h4>⚠ Two different commission rules are being applied</h4>
+            <p>The historical dashboards use <strong>inconsistent methodology</strong> for Allan's 10% commission. This means month-to-month "net revenue" comparisons are not apples-to-apples, and there may be under- or over-payment across the period.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>Method Used</th>
+                        <th class="right">Allan Paid</th>
+                        <th class="right">If 10% of total</th>
+                        <th class="right">If 10% of funded class only</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Jan</td>
+                        <td>10% of <strong>total</strong> revenue</td>
+                        <td class="num right">$1,058</td>
+                        <td class="num right">$1,058</td>
+                        <td class="num right">$323 (Semi Southeast)</td>
+                    </tr>
+                    <tr>
+                        <td>Feb</td>
+                        <td>10% of <strong>funded class only</strong></td>
+                        <td class="num right">$192</td>
+                        <td class="num right">$1,452</td>
+                        <td class="num right">$192 (Hitachi)</td>
+                    </tr>
+                    <tr>
+                        <td>Mar</td>
+                        <td>10% of <strong>total</strong> revenue</td>
+                        <td class="num right">$525</td>
+                        <td class="num right">$525</td>
+                        <td class="num right">$280 (NSRC)</td>
+                    </tr>
+                    <tr>
+                        <td>Apr</td>
+                        <td>10% of <strong>funded class only</strong></td>
+                        <td class="num right">$560</td>
+                        <td class="num right">$1,470</td>
+                        <td class="num right">$560 (HL Material)</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>4-mo Total</td>
+                        <td>Mixed</td>
+                        <td class="num right">$2,335</td>
+                        <td class="num right">$4,505</td>
+                        <td class="num right">$1,355</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 14px;"><strong>Action:</strong> Confirm with Khairun which rule is correct. Under the "total revenue" rule, Allan is owed <strong>~$2,170 more</strong> across these 4 months. Under the "funded class only" rule, Allan was <strong>overpaid by ~$980</strong>. Resolve before May calculations.</p>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SECTION 7: 4-MONTH PROJECTION                  -->
+    <!-- ============================================== -->
+    <div class="section">
+        <div class="section-title">4-Month Forward Projection (May – Aug 2026)</div>
+        <p class="section-subtitle">Three scenarios anchored to historical performance. Most-likely landing: <strong>$45K–$50K</strong> with ±$8K uncertainty.</p>
+
+        <div class="scenario-grid">
+            <div class="scenario-card bear">
+                <div class="label">Bear Case</div>
+                <div class="total">~$38,000</div>
+                <div class="monthly">~$9,500 / month</div>
+                <div class="logic">One March-like dip every quarter; otherwise mean-reverting volume. Pricing holds at recent levels but class count slips below 3 in 1–2 months.</div>
+            </div>
+            <div class="scenario-card base">
+                <div class="label">Base Case</div>
+                <div class="total">~$45,000</div>
+                <div class="monthly">~$11,300 / month</div>
+                <div class="logic">4-month historical mean projected forward. Class volume averages 3/month, pricing around $311/pax. No structural improvement assumed.</div>
+            </div>
+            <div class="scenario-card bull">
+                <div class="label">Bull Case</div>
+                <div class="total">~$54,000</div>
+                <div class="monthly">~$13,500 / month</div>
+                <div class="logic">April-like execution sustained: ~36 pax / month at $350, plus one funded class held to target. Requires consistent scheduling and Zayed actively delivering.</div>
+            </div>
+        </div>
+
+        <div class="chart-wrapper tall">
+            <canvas id="projectionChart"></canvas>
+        </div>
+
+        <div class="insight-card medium" style="margin-top: 20px;">
+            <h4>🔑 Single biggest swing factor: classes scheduled per month</h4>
+            <p>If the team books <strong>≥3 classes</strong> in a month, expect ~<strong>$13K+</strong>. <strong>≤2 classes</strong> compresses the month to ~<strong>$5K–$7K</strong> regardless of pricing. Sales pipeline visibility (forward bookings) would dramatically tighten this projection range.</p>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SECTION 8: ASSUMPTIONS & LIMITATIONS           -->
+    <!-- ============================================== -->
+    <div class="section">
+        <div class="section-title">Assumptions & Limitations</div>
+        <div class="assumptions">
+            <h4>What this analysis is built on</h4>
+            <ul>
+                <li><strong>Source data:</strong> the four monthly HTML dashboards (Jan–Apr 2026). Not cross-validated against the underlying <code>TRAINER PAYMENT TRACKER ...xlsx</code> backup files — recommend reconciliation before using these numbers in any client-facing or investor-facing context.</li>
+                <li><strong>Sample size:</strong> 4 months is small. Confidence intervals on the projection are wide — treat scenarios as ranges, not point estimates.</li>
+                <li><strong>No pipeline data:</strong> projection assumes historical class-generation rate continues. Actual May–Aug bookings (if known) would tighten the forecast significantly.</li>
+                <li><strong>Allan commission methodology:</strong> inconsistent across the 4 months, so historical "net revenue after commission" comparisons are not directly comparable.</li>
+                <li><strong>Currency:</strong> SGD throughout.</li>
+                <li><strong>Seasonality:</strong> not modelled — would require at least 12 months of data to identify.</li>
+                <li><strong>Trainer capacity:</strong> projections assume current trainer roster. A second active trainer would expand the bull case ceiling.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        SFDW Consolidated Revenue Dashboard · Jan–Apr 2026 + May–Aug Projection · Generated April 2026
+    </div>
+</div>
+
+<script>
+// =============================
+// Shared palette
+// =============================
+const purple = '#667eea';
+const deepPurple = '#764ba2';
+const teal = '#11998e';
+const green = '#38ef7d';
+const orange = '#f6ad55';
+const red = '#e53e3e';
+const pink = '#f5576c';
+
+// =============================
+// Chart 1: Monthly trend (combo: revenue bars + pax line)
+// =============================
+new Chart(document.getElementById('trendChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr'],
+        datasets: [
+            {
+                type: 'bar',
+                label: 'Revenue ($)',
+                data: [10580, 14520, 5250, 14700],
+                backgroundColor: [
+                    'rgba(102,126,234,0.85)',
+                    'rgba(102,126,234,0.85)',
+                    'rgba(229,62,62,0.85)',
+                    'rgba(17,153,142,0.85)'
+                ],
+                borderRadius: 8,
+                yAxisID: 'y',
+                order: 2
+            },
+            {
+                type: 'line',
+                label: 'Participants',
+                data: [41, 48, 14, 42],
+                borderColor: orange,
+                backgroundColor: orange,
+                borderWidth: 3,
+                pointRadius: 6,
+                pointBackgroundColor: orange,
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                tension: 0.3,
+                yAxisID: 'y1',
+                order: 1
+            },
+            {
+                type: 'line',
+                label: 'Classes',
+                data: [3, 4, 2, 3],
+                borderColor: deepPurple,
+                backgroundColor: deepPurple,
+                borderWidth: 2,
+                borderDash: [6, 4],
+                pointRadius: 5,
+                pointBackgroundColor: deepPurple,
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                tension: 0.2,
+                yAxisID: 'y2',
+                order: 1
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'top' },
+            tooltip: {
+                callbacks: {
+                    label: function(ctx) {
+                        if (ctx.dataset.label === 'Revenue ($)') {
+                            return 'Revenue: $' + ctx.parsed.y.toLocaleString();
+                        }
+                        return ctx.dataset.label + ': ' + ctx.parsed.y;
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                position: 'left',
+                beginAtZero: true,
+                title: { display: true, text: 'Revenue ($)' },
+                ticks: { callback: v => '$' + (v/1000) + 'K' }
+            },
+            y1: {
+                position: 'right',
+                beginAtZero: true,
+                title: { display: true, text: 'Participants' },
+                grid: { drawOnChartArea: false }
+            },
+            y2: {
+                position: 'right',
+                beginAtZero: true,
+                display: false,
+                max: 8
+            }
+        }
+    }
+});
+
+// =============================
+// Chart 2: Pricing discipline ($/pax monthly)
+// =============================
+new Chart(document.getElementById('priceChart'), {
+    type: 'line',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr'],
+        datasets: [
+            {
+                label: '$/Participant',
+                data: [258, 303, 375, 350],
+                borderColor: purple,
+                backgroundColor: 'rgba(102,126,234,0.15)',
+                borderWidth: 3,
+                pointRadius: 7,
+                pointBackgroundColor: ['#e53e3e', '#ed8936', '#38a169', '#38a169'],
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                tension: 0.3,
+                fill: true
+            },
+            {
+                label: '$350 Target',
+                data: [350, 350, 350, 350],
+                borderColor: '#d69e2e',
+                borderDash: [8, 4],
+                borderWidth: 2,
+                pointRadius: 0,
+                fill: false
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: { display: true, text: 'Avg Revenue per Participant', font: { size: 14, weight: 600 }, color: '#4a5568' },
+            legend: { position: 'bottom' },
+            tooltip: {
+                callbacks: { label: ctx => ctx.dataset.label + ': $' + ctx.parsed.y }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: false,
+                min: 200,
+                max: 400,
+                ticks: { callback: v => '$' + v }
+            }
+        }
+    }
+});
+
+// =============================
+// Chart 3: Funded class pricing transformation
+// =============================
+new Chart(document.getElementById('fundedClassChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Jan\nSemi Southeast', 'Feb\nHitachi Hi Tech', 'Mar\nNSRC', 'Apr\nHL Material'],
+        datasets: [
+            {
+                label: '$/Pax (funded class)',
+                data: [162, 160, 350, 350],
+                backgroundColor: [
+                    'rgba(229,62,62,0.85)',
+                    'rgba(229,62,62,0.85)',
+                    'rgba(56,161,105,0.85)',
+                    'rgba(56,161,105,0.85)'
+                ],
+                borderRadius: 8
+            },
+            {
+                label: '$350 Target',
+                data: [350, 350, 350, 350],
+                type: 'line',
+                borderColor: '#d69e2e',
+                borderDash: [8, 4],
+                borderWidth: 2,
+                pointRadius: 0,
+                fill: false
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: { display: true, text: 'Funded-Class Pricing: Underpriced → Fixed', font: { size: 14, weight: 600 }, color: '#4a5568' },
+            legend: { position: 'bottom' },
+            tooltip: {
+                callbacks: { label: ctx => ctx.dataset.label + ': $' + ctx.parsed.y }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 400,
+                ticks: { callback: v => '$' + v }
+            }
+        }
+    }
+});
+
+// =============================
+// Chart 4: Trainer concentration (stacked bar by month)
+// =============================
+new Chart(document.getElementById('trainerChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr'],
+        datasets: [
+            {
+                label: 'Khai',
+                data: [7350, 11720, 5250, 10150],
+                backgroundColor: purple,
+                borderRadius: { topLeft: 0, topRight: 0, bottomLeft: 8, bottomRight: 8 }
+            },
+            {
+                label: 'Zayed',
+                data: [3230, 2800, 0, 4550],
+                backgroundColor: orange,
+                borderRadius: { topLeft: 8, topRight: 8, bottomLeft: 0, bottomRight: 0 }
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'top' },
+            tooltip: {
+                callbacks: {
+                    label: ctx => ctx.dataset.label + ': $' + ctx.parsed.y.toLocaleString(),
+                    footer: function(items) {
+                        const total = items.reduce((sum, i) => sum + i.parsed.y, 0);
+                        return 'Total: $' + total.toLocaleString();
+                    }
+                }
+            }
+        },
+        scales: {
+            x: { stacked: true, grid: { display: false } },
+            y: {
+                stacked: true,
+                beginAtZero: true,
+                ticks: { callback: v => '$' + (v/1000) + 'K' }
+            }
+        }
+    }
+});
+
+// =============================
+// Chart 5: Projection — actuals + 3 scenarios
+// =============================
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'];
+
+// Actual values (first 4), null for projection months
+const actuals = [10580, 14520, 5250, 14700, null, null, null, null];
+
+// Bear scenario: avg ~$9,500/month with one ~$5K dip
+const bearProjection = [null, null, null, 14700, 11000, 5500, 11000, 10500];
+
+// Base scenario: avg ~$11,300/month flat
+const baseProjection = [null, null, null, 14700, 11300, 11300, 11300, 11300];
+
+// Bull scenario: ~$13,500/month sustained
+const bullProjection = [null, null, null, 14700, 13500, 13500, 13500, 13500];
+
+new Chart(document.getElementById('projectionChart'), {
+    type: 'line',
+    data: {
+        labels: months,
+        datasets: [
+            {
+                label: 'Actuals',
+                data: actuals,
+                borderColor: purple,
+                backgroundColor: 'rgba(102,126,234,0.18)',
+                borderWidth: 4,
+                pointRadius: 7,
+                pointBackgroundColor: purple,
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                tension: 0.25,
+                fill: true,
+                spanGaps: false
+            },
+            {
+                label: 'Bull Case',
+                data: bullProjection,
+                borderColor: teal,
+                backgroundColor: 'rgba(17,153,142,0.10)',
+                borderWidth: 2,
+                borderDash: [4, 4],
+                pointRadius: 5,
+                pointBackgroundColor: teal,
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                tension: 0.25,
+                fill: '+1',
+                spanGaps: true
+            },
+            {
+                label: 'Base Case',
+                data: baseProjection,
+                borderColor: deepPurple,
+                backgroundColor: 'rgba(118,75,162,0.10)',
+                borderWidth: 3,
+                pointRadius: 6,
+                pointBackgroundColor: deepPurple,
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                tension: 0.25,
+                fill: false,
+                spanGaps: true
+            },
+            {
+                label: 'Bear Case',
+                data: bearProjection,
+                borderColor: red,
+                backgroundColor: 'rgba(229,62,62,0.10)',
+                borderWidth: 2,
+                borderDash: [4, 4],
+                pointRadius: 5,
+                pointBackgroundColor: red,
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                tension: 0.25,
+                fill: false,
+                spanGaps: true
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Monthly Revenue: Actuals (Jan–Apr) + Projection (May–Aug)',
+                font: { size: 15, weight: 700 },
+                color: '#2d3748'
+            },
+            legend: { position: 'top' },
+            tooltip: {
+                callbacks: {
+                    label: ctx => ctx.dataset.label + ': $' + (ctx.parsed.y ? ctx.parsed.y.toLocaleString() : 'n/a')
+                }
+            },
+            annotation: {}
+        },
+        scales: {
+            x: {
+                grid: { display: false },
+                ticks: {
+                    color: function(ctx) {
+                        return ctx.index < 4 ? '#2d3748' : '#a0aec0';
+                    },
+                    font: function(ctx) {
+                        return ctx.index < 4 ? { weight: 700 } : { weight: 400, style: 'italic' };
+                    }
+                }
+            },
+            y: {
+                beginAtZero: true,
+                title: { display: true, text: 'Monthly Revenue (SGD)' },
+                ticks: { callback: v => '$' + (v/1000) + 'K' }
+            }
+        }
+    }
+});
+</script>
+</body>
+</html>
