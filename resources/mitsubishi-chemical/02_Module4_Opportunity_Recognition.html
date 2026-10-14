@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -523,15 +523,6 @@
   }
 
 </style>
-
-<!--[if gte mso 9]><xml>
-<mso:CustomDocumentProperties>
-<mso:_ApprovalStatus msdt:dt="string">0</mso:_ApprovalStatus>
-<mso:_ApprovalAssignedTo msdt:dt="string"></mso:_ApprovalAssignedTo>
-<mso:_ApprovalRespondedBy msdt:dt="string"></mso:_ApprovalRespondedBy>
-<mso:_ApprovalSentBy msdt:dt="string"></mso:_ApprovalSentBy>
-</mso:CustomDocumentProperties>
-</xml><![endif]-->
 </head>
 <body data-page="p2">
 <div class="page-nav"><div class="page-nav-inner"><span class="page-nav-label">MCMS · Day 2</span><a href="https://www.tictechtoelabs.com/learninghub/mitsubishi_chemical_learninghub.html" class="">Learning Hub</a><a href="00_MCMS_Day2_Hub.html" class="">Day 2 Hub</a><a href="01_Module1_Failure_Lab_and_Glossary.html" class="">1 · Failure Lab &amp; Glossary</a><a href="02_Module4_Opportunity_Recognition.html" class="current">2 · Opportunity Recognition</a><a href="03_Module4_Suitability_and_Risk_Filter.html" class="">3 · Suitability &amp; Risk Filter</a><a href="04_Module5_UC4_Operational_Dataset.html" class="">4 · Operational Dataset</a><a href="05_Module6_Traffic_Light_Data.html" class="">5 · Traffic-Light Data</a><a href="06_Module7_Where_I_Start_and_Assessment.html" class="">6 · Where I Start + Assessment</a></div></div>
@@ -617,11 +608,22 @@
 <section class="topic" id="shortlist">
 <span class="topic-label">Hands-on · 10 minutes</span>
 <h2 class="topic-title">My opportunity shortlist</h2>
-<p class="topic-subtitle">From your audit, pick three candidate tasks. Good candidates are frequent or take a lot of effort.</p>
+<p class="topic-subtitle">Go back to your audit table above and pick three tasks that might be worth trying with AI. We call them <strong>candidates</strong> because nothing is decided yet: the Suitability &amp; Risk Filter decides. A good candidate sits in one of the five categories <em>and</em> is either frequent or takes a lot of effort.</p>
+<div class="card noprint">
+<h3 class="sub" style="margin-top:0">Worked example: a Maintenance Supervisor's shortlist</h3>
+<p>Their audit listed eight tasks. They picked the three below, because each one falls in one of the five categories and adds up to real hours every week.</p>
+<div class="table-wrap"><table class=""><thead><tr><th></th><th>Candidate task</th><th>Category</th><th>Why it's a candidate (volume / effort)</th></tr></thead><tbody><tr><td><strong>A</strong></td><td>Weekly downtime summary for the Monday plant meeting</td><td>Reporting</td><td>Every Monday, about 3 hours copying figures from four spreadsheets</td></tr><tr><td><strong>B</strong></td><td>Writing work-order close-out notes</td><td>Repetitive</td><td>About 15 a week at 10 minutes each, so 2.5 hours a week</td></tr><tr><td><strong>C</strong></td><td>Finding equipment history or the right OEM manual section when a pump trips</td><td>Information searching</td><td>2 or 3 times a week, 20 to 30 minutes of digging each time</td></tr></tbody></table></div>
+<p style="margin-bottom:0.4rem"><strong>Not picked, and why:</strong></p>
+<ul style="margin-top:0">
+<li><em>Inspecting pumps on the floor</em> (6 hours a week). Hands-on work, marked Not suitable in the audit. AI can't do it.</li>
+<li><em>Preparing the annual maintenance budget slides</em>. Knowledge work, so the right category, but it happens once a year. Not worth trying first.</li>
+</ul>
+<p style="margin-bottom:0"><strong>Same idea in other departments:</strong> Lab: transcribing instrument results into a spreadsheet (Manual, every day). Finance: first draft of the variance commentary (Knowledge, 4 hours every month end). HR: the monthly headcount update email (Repetitive, every month).</p>
+</div>
 <div class="table-wrap"><table class="ws"><thead><tr><th></th><th style="width:38%">Candidate task</th><th>Category</th><th style="width:34%">Why it's a candidate (volume / effort)</th></tr></thead><tbody>
-<tr><td><strong>A</strong></td><td><input class="in " type="text" data-k="m4-sA" placeholder=""></td><td><select class="in" data-k="m4-scA"><option value="">Choose...</option><option>Repetitive</option><option>Manual</option><option>Knowledge</option><option>Information searching</option><option>Reporting</option></select></td><td><input class="in " type="text" data-k="m4-swA" placeholder="e.g. 3 hours every Monday"></td></tr>
-<tr><td><strong>B</strong></td><td><input class="in " type="text" data-k="m4-sB" placeholder=""></td><td><select class="in" data-k="m4-scB"><option value="">Choose...</option><option>Repetitive</option><option>Manual</option><option>Knowledge</option><option>Information searching</option><option>Reporting</option></select></td><td><input class="in " type="text" data-k="m4-swB" placeholder="e.g. 3 hours every Monday"></td></tr>
-<tr><td><strong>C</strong></td><td><input class="in " type="text" data-k="m4-sC" placeholder=""></td><td><select class="in" data-k="m4-scC"><option value="">Choose...</option><option>Repetitive</option><option>Manual</option><option>Knowledge</option><option>Information searching</option><option>Reporting</option></select></td><td><input class="in " type="text" data-k="m4-swC" placeholder="e.g. 3 hours every Monday"></td></tr>
+<tr><td><strong>A</strong></td><td><input class="in " type="text" data-k="m4-sA" placeholder="A task from your audit, in your words"></td><td><select class="in" data-k="m4-scA"><option value="">Choose...</option><option>Repetitive</option><option>Manual</option><option>Knowledge</option><option>Information searching</option><option>Reporting</option></select></td><td><input class="in " type="text" data-k="m4-swA" placeholder="e.g. every Monday, 3 hours"></td></tr>
+<tr><td><strong>B</strong></td><td><input class="in " type="text" data-k="m4-sB" placeholder="A task from your audit, in your words"></td><td><select class="in" data-k="m4-scB"><option value="">Choose...</option><option>Repetitive</option><option>Manual</option><option>Knowledge</option><option>Information searching</option><option>Reporting</option></select></td><td><input class="in " type="text" data-k="m4-swB" placeholder="e.g. every Monday, 3 hours"></td></tr>
+<tr><td><strong>C</strong></td><td><input class="in " type="text" data-k="m4-sC" placeholder="A task from your audit, in your words"></td><td><select class="in" data-k="m4-scC"><option value="">Choose...</option><option>Repetitive</option><option>Manual</option><option>Knowledge</option><option>Information searching</option><option>Reporting</option></select></td><td><input class="in " type="text" data-k="m4-swC" placeholder="e.g. every Monday, 3 hours"></td></tr>
 </tbody></table></div>
 <div class="note"><strong>Next:</strong> run all three through the <a href="03_Module4_Suitability_and_Risk_Filter.html">Suitability &amp; Risk Filter</a>. Some will fail it, which is the point. A task that fails the filter is named openly as a poor <em>first</em> candidate. Then come back and write your ranked #1 below.</div>
 <div class="field"><label>My ranked #1 opportunity (after the filter): this is the one I carry into Module 5 and the assessment</label><div class="fill tall" contenteditable="true" data-k="m4-top" data-ph="Task · category · why it ranked first"></div></div>
