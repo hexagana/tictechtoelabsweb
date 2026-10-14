@@ -543,13 +543,30 @@
 </div></div>
 <div class="wrap">
 
-<div class="toolbar noprint"><button onclick="window.print()">Print / Save as PDF</button><button onclick="clearAnswers()">Clear my answers</button><span>Your answers save automatically in this browser only. Save as PDF to keep or submit them.</span></div>
+<style>
+  .print-head, .pr-val { display:none; }
+  @media print {
+    body.print-one #audit .in, body.print-one #shortlist .in { display:none; }
+    body.print-one .pr-val { display:block; font-size:0.92rem; line-height:1.45; white-space:normal; overflow-wrap:anywhere; }
+    .print-head.print-target { display:block !important; border-bottom:2px solid #0f172a; padding:0 0 0.6rem; margin:0 0 1rem; }
+    .print-head h2 { font-family:'Poppins',sans-serif; font-size:1.25rem; margin:0 0 0.3rem; }
+    .print-head p { margin:0; font-size:0.9rem; color:#334155; }
+    body.print-one tr.pr-empty { display:none; }
+    .in::placeholder { color:transparent; }
+    #shortlist th:nth-child(2) { width:30% !important; } #shortlist th:nth-child(4) { width:30% !important; }
+    .fill:empty:before { content:''; }
+  }
+</style>
+<div class="toolbar noprint"><button onclick="window.print()">Print / Save as PDF</button><button onclick="exportM4()">Export my results (PDF)</button><button onclick="clearAnswers()">Clear my answers</button><span>Your answers save automatically in this browser only. Save as PDF to keep or submit them.</span></div>
+<div class="print-head" id="m4-print-head"><h2>Module 4 · Opportunity Recognition: my results</h2>
+<p><strong id="ph-name"></strong> · <span id="ph-dept"></span> · Mitsubishi Chemical Methacrylates Singapore · <span id="ph-date"></span></p></div>
 <nav class="toc"><h2>On this page</h2>
 <a class="toc-row" href="#five" data-target="five"><span class="toc-emoji">1</span><span class="toc-text"><span class="toc-title">The five categories of work</span><span class="toc-sub">Learn to recognise the shape of work AI can support</span></span></a>
 <a class="toc-row" href="#examples" data-target="examples"><span class="toc-emoji">2</span><span class="toc-text"><span class="toc-title">What it looks like across MCMS</span><span class="toc-sub">One example per function per category</span></span></a>
 <a class="toc-row" href="#audit" data-target="audit"><span class="toc-emoji">3</span><span class="toc-text"><span class="toc-title">My week: personal work audit</span><span class="toc-sub">Where do my hours actually go?</span></span></a>
 <a class="toc-row" href="#shortlist" data-target="shortlist"><span class="toc-emoji">4</span><span class="toc-text"><span class="toc-title">My opportunity shortlist</span><span class="toc-sub">Three candidates to carry into the filter</span></span></a>
 <a class="toc-row" href="#compare" data-target="compare"><span class="toc-emoji">5</span><span class="toc-text"><span class="toc-title">Cross-functional comparison</span><span class="toc-sub">How much of the work looks the same?</span></span></a>
+<a class="toc-row" href="#export" data-target="export"><span class="toc-emoji">6</span><span class="toc-text"><span class="toc-title">Export my results to PDF</span><span class="toc-sub">Audit, shortlist and comparison in one file</span></span></a>
 </nav>
 
 <section class="topic" id="five">
@@ -620,6 +637,14 @@
 <li>Agree the one or two shapes of work that almost everyone in the room has.</li>
 </ol></div>
 <div class="field"><label>Shapes of work we found in more than one department</label><div class="fill tall" contenteditable="true" data-k="m4-shared" data-ph="e.g. Recurring summaries for a manager: Production, Maintenance, Finance, Lab"></div></div>
+</section>
+
+<section class="topic noprint" id="export">
+<span class="topic-label">Keep a copy</span>
+<h2 class="topic-title">Export my results to PDF</h2>
+<p class="topic-subtitle">One PDF with your week audit, your shortlist and the group comparison. Empty rows are left out. In the print window, choose <strong>Save as PDF</strong> as the printer.</p>
+<div class="ws-two"><div class="field"><label>My name</label><input class="in " type="text" data-k="m4-name" placeholder="As on the attendance list"></div><div class="field"><label>My department</label><input class="in " type="text" data-k="m4-dept" placeholder="e.g. Maintenance"></div></div>
+<button class="btn" onclick="exportM4()">Export my results to PDF</button>
 </section>
 
 <div class="pager"><a href="01_Module1_Failure_Lab_and_Glossary.html"><span class="dir">Previous</span><span class="nm">1 · Failure Lab &amp; Glossary</span></a><a href="03_Module4_Suitability_and_Risk_Filter.html" class="next"><span class="dir">Next</span><span class="nm">3 · Suitability &amp; Risk Filter</span></a></div>
@@ -727,6 +752,42 @@ window.recalc = function () {
       '%;background:' + COL[j] + '"></span></div><span class="v">' + (Math.round(v * 10) / 10) + ' h · ' + Math.round(w) + '%</span></div>';
   }
   document.getElementById('bars').innerHTML = html;
+};
+window.exportM4 = function () {
+  var val = function (k) { var el = document.querySelector('[data-k="' + k + '"]'); return el ? (el.value || '').trim() : ''; };
+  var name = val('m4-name'), dept = val('m4-dept');
+  document.getElementById('ph-name').textContent = name || 'Name not entered';
+  document.getElementById('ph-dept').textContent = dept || 'Department not entered';
+  document.getElementById('ph-date').textContent = new Date().toLocaleDateString('en-SG', { day: 'numeric', month: 'short', year: 'numeric' });
+  // leave out rows with nothing typed in them
+  var rows = document.querySelectorAll('#audit tbody tr, #shortlist tbody tr');
+  for (var i = 0; i < rows.length; i++) {
+    var f = rows[i].querySelectorAll('.in'), used = false;
+    for (var j = 0; j < f.length; j++) { var v = (f[j].value || '').trim(); if (v && v !== '0') used = true; }
+    rows[i].classList.toggle('pr-empty', !used);
+  }
+  // inputs can't wrap on paper: print each answer as plain text beside its (hidden) input
+  var ins = document.querySelectorAll('#audit .in, #shortlist .in'), vals = [];
+  for (var n = 0; n < ins.length; n++) {
+    var sp = document.createElement('span');
+    sp.className = 'pr-val'; sp.textContent = ins[n].value === '0' ? '' : ins[n].value;
+    ins[n].parentNode.insertBefore(sp, ins[n].nextSibling); vals.push(sp);
+  }
+  if (window.recalc) window.recalc();
+  var ids = ["m4-print-head","audit","shortlist","compare"], oldTitle = document.title;
+  document.title = 'MCMS_Module4_Results' + (name ? '_' + name.replace(/[^A-Za-z0-9]+/g, '_') : '');
+  document.body.classList.add('print-one');
+  for (var k = 0; k < ids.length; k++) document.getElementById(ids[k]).classList.add('print-target');
+  var done = function () {
+    document.body.classList.remove('print-one');
+    for (var k = 0; k < ids.length; k++) document.getElementById(ids[k]).classList.remove('print-target');
+    for (var i = 0; i < rows.length; i++) rows[i].classList.remove('pr-empty');
+    for (var n = 0; n < vals.length; n++) vals[n].parentNode.removeChild(vals[n]);
+    document.title = oldTitle;
+    window.removeEventListener('afterprint', done);
+  };
+  window.addEventListener('afterprint', done);
+  window.print();
 };
 
 
