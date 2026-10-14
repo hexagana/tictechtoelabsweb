@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Think Before You Prompt — Question · Map · Process — Mitsubishi Chemical Methacrylates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #0f172a; background: #f8fafc; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: #1d4ed8; }
+
+  /* ===================== HERO ===================== */
+  .hero {
+    background:
+      radial-gradient(at 10% 20%, rgba(37,99,235,0.28) 0, transparent 50%),
+      radial-gradient(at 90% 80%, rgba(245,158,11,0.18) 0, transparent 50%),
+      linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #fff; padding: 3.4rem 2rem 2.8rem;
+  }
+  .hero-inner { max-width: 1100px; margin: 0 auto; }
+  .hero-tag {
+    display: inline-block; background: rgba(37,99,235,0.20); color: #93c5fd;
+    padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.74rem;
+    font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 1.1rem; border: 1px solid rgba(37,99,235,0.42);
+  }
+  .hero h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.75rem, 4.2vw, 2.7rem); font-weight: 800;
+    line-height: 1.15; margin: 0 0 0.7rem; letter-spacing: -0.02em;
+  }
+  .hero h1 span {
+    background: linear-gradient(90deg, #60a5fa, #fbbf24);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p.sub { color: #cbd5e1; font-size: 1.03rem; max-width: 760px; margin: 0; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.35rem; }
+  .hero-chip {
+    background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.16);
+    color: #e2e8f0; border-radius: 8px; padding: 0.35rem 0.8rem;
+    font-size: 0.8rem; font-weight: 500;
+  }
+
+  /* ============ CROSS-PAGE NAVIGATION (top strip) ============ */
+  .page-nav {
+    background: #0b1220; border-bottom: 1px solid #1e293b;
+    padding: 0.55rem 0; position: relative;
+  }
+  .page-nav-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+    display: flex; align-items: center; gap: 0.4rem;
+    overflow-x: auto; scrollbar-width: thin;
+  }
+  .page-nav-inner::-webkit-scrollbar { height: 5px; }
+  .page-nav-inner::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+  .page-nav-label {
+    color: #64748b; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; white-space: nowrap; padding-right: 0.5rem;
+    border-right: 1px solid #1e293b; margin-right: 0.35rem;
+  }
+  .page-nav a {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    color: #94a3b8; text-decoration: none; white-space: nowrap;
+    font-size: 0.82rem; font-weight: 600; padding: 0.4rem 0.75rem;
+    border-radius: 7px; border: 1px solid transparent; transition: all 0.15s ease;
+  }
+  .page-nav a:hover { color: #fff; background: #1e293b; }
+  .page-nav a.current {
+    color: #0b1220; background: #fbbf24; border-color: #fbbf24; cursor: default;
+  }
+  .page-nav a.current:hover { color: #0b1220; background: #fbbf24; }
+
+  /* ===================== LAYOUT ===================== */
+  .wrap { max-width: 900px; margin: 0 auto; padding: 2.4rem 2rem 3rem; }
+  .wrap.wide { max-width: 1100px; }
+
+  .card {
+    background: #fff; border-radius: 14px; padding: 1.5rem 1.75rem;
+    box-shadow: 0 4px 20px rgba(15,23,42,0.06); border: 1px solid #e8edf3;
+    margin-bottom: 1.6rem;
+  }
+  .card.accent { border-left: 4px solid #2563eb; }
+
+  /* ===================== IN-PAGE TOC ===================== */
+  nav.toc { background: #fff; border-radius: 14px; padding: 1.4rem 1.6rem;
+    box-shadow: 0 4px 20px rgba(15,23,42,0.06); border: 1px solid #e8edf3;
+    margin-bottom: 2.2rem; }
+  nav.toc h2 { font-family: 'Poppins', sans-serif; font-size: 1.05rem; margin: 0 0 0.9rem; }
+  .toc-row {
+    display: flex; align-items: flex-start; gap: 0.8rem; text-decoration: none;
+    color: inherit; padding: 0.6rem 0.7rem; border-radius: 9px;
+    border: 1px solid transparent; transition: all 0.15s ease;
+  }
+  .toc-row:hover { background: #f1f5f9; border-color: #dbe3ec; }
+  .toc-emoji { font-size: 1.2rem; line-height: 1.4; flex-shrink: 0; }
+  .toc-text { display: flex; flex-direction: column; }
+  .toc-title { font-weight: 650; font-size: 0.95rem; color: #0f172a; }
+  .toc-sub { font-size: 0.83rem; color: #64748b; }
+
+  /* ===================== TOPIC BLOCKS ===================== */
+  .topic { margin: 0 0 2.6rem; scroll-margin-top: 1rem; }
+  .topic-label {
+    display: inline-block; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #1d4ed8; background: #eff6ff;
+    padding: 0.28rem 0.7rem; border-radius: 999px; margin-bottom: 0.7rem;
+  }
+  .topic-title {
+    font-family: 'Poppins', sans-serif; font-size: 1.55rem; font-weight: 700;
+    margin: 0 0 0.35rem; line-height: 1.25; color: #0f172a;
+  }
+  .topic-subtitle { color: #64748b; font-size: 0.97rem; margin: 0 0 1.2rem; }
+  h3.sub {
+    font-family: 'Poppins', sans-serif; font-size: 1.12rem; margin: 1.8rem 0 0.6rem;
+    color: #0f172a;
+  }
+  h4.subsub {
+    font-family: 'Poppins', sans-serif; font-size: 0.98rem; margin: 1.3rem 0 0.5rem;
+    color: #1e293b;
+  }
+  p { margin: 0 0 0.9rem; }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.3rem; }
+  li { margin-bottom: 0.4rem; }
+
+  .objective {
+    background: #f0fdfa; border: 1px solid #99f6e4; border-left: 4px solid #0d9488;
+    border-radius: 10px; padding: 0.9rem 1.1rem; margin: 0 0 1.4rem;
+    font-size: 0.93rem;
+  }
+  .objective strong { color: #0f766e; }
+
+  /* ===================== STEPS ===================== */
+  .steps { margin: 1rem 0 1.4rem; }
+  .step { display: flex; gap: 0.9rem; margin-bottom: 1rem; align-items: flex-start; }
+  .step-letter {
+    flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px;
+    background: #2563eb; color: #fff; font-family: 'Poppins', sans-serif;
+    font-weight: 700; font-size: 0.85rem; display: flex;
+    align-items: center; justify-content: center; margin-top: 2px;
+  }
+  .step-body { flex: 1; }
+  .step-head { font-weight: 650; color: #0f172a; margin-bottom: 0.15rem; }
+  .step-body p { margin: 0 0 0.4rem; font-size: 0.94rem; color: #475569; }
+
+  /* ===================== CALLOUTS ===================== */
+  .protip, .warn, .note {
+    border-radius: 10px; padding: 0.95rem 1.15rem; margin: 1.1rem 0;
+    font-size: 0.92rem; line-height: 1.6;
+  }
+  .protip { background: #fffbeb; border: 1px solid #fde68a; border-left: 4px solid #f59e0b; }
+  .warn   { background: #fef2f2; border: 1px solid #fecaca; border-left: 4px solid #dc2626; }
+  .note   { background: #eff6ff; border: 1px solid #bfdbfe; border-left: 4px solid #2563eb; }
+  .protip strong, .warn strong, .note strong { display: inline; }
+
+  /* ===================== ACTIVITY ===================== */
+  .activity {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #e2e8f0; border-radius: 14px; padding: 1.5rem 1.7rem; margin: 1.6rem 0;
+  }
+  .activity h4 {
+    font-family: 'Poppins', sans-serif; color: #fbbf24; margin: 0 0 0.7rem;
+    font-size: 1.08rem;
+  }
+  .activity p { color: #cbd5e1; }
+  .activity ul, .activity ol { color: #cbd5e1; }
+  .activity strong { color: #fff; }
+  .act-sub {
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.11em; text-transform: uppercase;
+    color: #7dd3fc; margin: 1.1rem 0 0.4rem;
+  }
+  /* Light-background components nested inside the dark activity card.
+     Their default text colours are near-black and vanish on navy, so restate
+     them here. Anything with its own light background (dl-btn, callouts, kc,
+     tables) must also stop inheriting the card's light text. */
+  .activity .step-head { color: #fff; }
+  .activity .step-body p { color: #cbd5e1; }
+  .activity .step-body em { color: #fde68a; font-style: italic; }
+  .activity .dl-btn { color: #0f172a; }
+  .activity .dl-btn .dl-meta { color: #64748b; }
+  .activity .protip, .activity .warn, .activity .note { color: #1e293b; }
+  .activity .protip p, .activity .warn p, .activity .note p { color: #1e293b; }
+  .activity .protip strong, .activity .warn strong, .activity .note strong { color: #0f172a; }
+  .activity .kc, .activity .kc-q, .activity .kc-opt { color: #0f172a; }
+  .activity table td { color: #1e293b; }
+  .activity .formula-label { color: #94a3b8; }
+  .activity code.inline { color: #b91c1c; }
+
+  /* ===================== PROMPT BOX + COPY ===================== */
+  .prompt-box {
+    background: #0f172a; color: #e2e8f0; border-radius: 10px 10px 0 0;
+    padding: 1rem 1.15rem; font-family: 'Consolas', 'SF Mono', Menlo, monospace;
+    font-size: 0.855rem; line-height: 1.65; white-space: pre-wrap;
+    word-break: break-word; margin: 1.1rem 0 0; border: 1px solid #1e293b;
+  }
+  .copy-btn {
+    display: block; width: 100%; background: #1e293b; color: #93c5fd;
+    border: 1px solid #1e293b; border-top: none; border-radius: 0 0 10px 10px;
+    padding: 0.55rem; font-family: 'Inter', sans-serif; font-size: 0.8rem;
+    font-weight: 650; cursor: pointer; margin: 0 0 1.2rem; transition: all 0.15s ease;
+  }
+  .copy-btn:hover { background: #334155; color: #fff; }
+  .copy-btn.copied { background: #059669; color: #fff; border-color: #059669; }
+
+  /* ===================== FORMULA BOX ===================== */
+  .formula {
+    background: #0b1220; color: #a5d6ff; border: 1px solid #1e293b;
+    border-radius: 10px; padding: 0.95rem 1.1rem; margin: 0.8rem 0 1.1rem;
+    font-family: 'Consolas', 'SF Mono', Menlo, monospace; font-size: 0.83rem;
+    line-height: 1.7; overflow-x: auto; white-space: pre;
+  }
+  .formula-label {
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #64748b; margin: 1.2rem 0 0.3rem;
+  }
+  code.inline {
+    background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 5px;
+    padding: 0.1rem 0.38rem; font-family: 'Consolas', monospace; font-size: 0.87em;
+    color: #b91c1c;
+  }
+
+  /* ===================== TABLES ===================== */
+  .table-wrap { overflow-x: auto; margin: 1.1rem 0 1.4rem;
+    border: 1px solid #e2e8f0; border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.9rem; background: #fff; }
+  thead th {
+    background: #0f172a; color: #fff; text-align: left; padding: 0.7rem 0.9rem;
+    font-weight: 650; font-size: 0.82rem; letter-spacing: 0.02em; white-space: nowrap;
+  }
+  tbody td { padding: 0.62rem 0.9rem; border-top: 1px solid #eef2f7; vertical-align: top; }
+  tbody tr:nth-child(even) { background: #fafbfd; }
+  td .yes { color: #059669; font-weight: 700; }
+  td .no  { color: #dc2626; font-weight: 700; }
+
+  /* ===================== DOWNLOAD BUTTONS ===================== */
+  .dl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 0.9rem; margin: 1.3rem 0 1.6rem; }
+  .dl-btn {
+    display: flex; align-items: center; gap: 0.85rem; text-decoration: none;
+    background: #fff; border: 1px solid #cbd5e1; border-radius: 12px;
+    padding: 0.95rem 1.1rem; color: inherit; transition: all 0.18s ease;
+  }
+  .dl-btn:hover { border-color: #2563eb; box-shadow: 0 8px 22px rgba(37,99,235,0.14);
+    transform: translateY(-2px); }
+  .dl-icon {
+    width: 42px; height: 42px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; background: #dcfce7; color: #166534;
+  }
+  .dl-icon.csv { background: #dbeafe; color: #1e40af; }
+  .dl-name { font-weight: 650; font-size: 0.92rem; display: block; }
+  .dl-meta { font-size: 0.79rem; color: #64748b; }
+
+  /* ===================== SCOREBOARD ===================== */
+  .versus { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.4rem 0; }
+  .versus > div { border-radius: 12px; padding: 1.2rem 1.35rem; }
+  .v-manual { background: #fef2f2; border: 1px solid #fecaca; }
+  .v-copilot { background: #ecfdf5; border: 1px solid #a7f3d0; }
+  .versus h4 { font-family: 'Poppins', sans-serif; margin: 0 0 0.6rem; font-size: 1rem; }
+  .v-manual h4 { color: #b91c1c; }
+  .v-copilot h4 { color: #047857; }
+  .versus ul { margin: 0; padding-left: 1.1rem; font-size: 0.9rem; }
+  @media (max-width: 720px) { .versus { grid-template-columns: 1fr; } }
+
+  /* ===================== KNOWLEDGE CHECK ===================== */
+  .kc { background: #fff; border: 1px solid #e2e8f0; border-left: 4px solid #7c3aed;
+    border-radius: 12px; padding: 1.25rem 1.45rem; margin: 1.6rem 0; }
+  .kc h4 { font-family: 'Poppins', sans-serif; margin: 0 0 0.3rem; font-size: 1rem; color: #5b21b6; }
+  .kc-q { font-weight: 600; margin: 0.6rem 0 0.8rem; }
+  .kc-opt {
+    display: block; width: 100%; text-align: left; background: #f8fafc;
+    border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6rem 0.85rem;
+    margin-bottom: 0.5rem; font-family: inherit; font-size: 0.92rem;
+    cursor: pointer; transition: all 0.15s ease; color: #0f172a;
+  }
+  .kc-opt:hover { border-color: #7c3aed; background: #faf5ff; }
+  .kc-opt.right { background: #dcfce7; border-color: #22c55e; color: #14532d; font-weight: 600; }
+  .kc-opt.wrong { background: #fee2e2; border-color: #ef4444; color: #7f1d1d; }
+  .kc-feedback { display: none; margin-top: 0.7rem; font-size: 0.9rem;
+    padding: 0.7rem 0.9rem; border-radius: 8px; background: #f1f5f9; color: #334155; }
+  .kc-feedback.show { display: block; }
+
+  /* ===================== PREV / NEXT ===================== */
+  .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2.6rem 0 0; }
+  .pager a {
+    display: block; text-decoration: none; background: #fff; border: 1px solid #e2e8f0;
+    border-radius: 12px; padding: 1rem 1.2rem; color: inherit; transition: all 0.18s ease;
+  }
+  .pager a:hover { border-color: #2563eb; box-shadow: 0 8px 22px rgba(15,23,42,0.09);
+    transform: translateY(-2px); }
+  .pager .dir { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.11em;
+    text-transform: uppercase; color: #64748b; display: block; margin-bottom: 0.2rem; }
+  .pager .nm { font-weight: 650; color: #0f172a; font-size: 0.95rem; }
+  .pager .next { text-align: right; }
+  .pager .spacer { }
+  @media (max-width: 640px) { .pager { grid-template-columns: 1fr; } }
+
+  /* ===================== FOOTER ===================== */
+  footer.site {
+    background: #0f172a; color: #94a3b8; text-align: center;
+    padding: 2.2rem 2rem; font-size: 0.85rem; margin-top: 3rem;
+  }
+  footer.site strong { color: #e2e8f0; display: block; margin-bottom: 0.25rem;
+    font-family: 'Poppins', sans-serif; }
+
+  /* ===================== BACK TO TOP ===================== */
+  .back-to-top {
+    position: fixed; right: 20px; bottom: 20px; width: 44px; height: 44px;
+    border-radius: 50%; background: #2563eb; color: #fff; border: none;
+    font-size: 1.15rem; cursor: pointer; z-index: 9999; display: none;
+    box-shadow: 0 6px 20px rgba(37,99,235,0.4);
+  }
+  .back-to-top.visible { display: block; }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 1.8rem 1.15rem 2.4rem; }
+    .hero { padding: 2.4rem 1.15rem 2rem; }
+    .page-nav-inner { padding: 0 1.15rem; }
+    .card { padding: 1.2rem 1.15rem; }
+  }
+
+  .part-divider { margin: 3.2rem 0 2.2rem; padding: 1.6rem 1.8rem; border-radius: 14px;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #e2e8f0; }
+  .part-divider .pd-tag { display:inline-block; font-size:0.7rem; font-weight:800;
+    letter-spacing:0.12em; text-transform:uppercase; color:#fbbf24;
+    background:rgba(251,191,36,0.14); border:1px solid rgba(251,191,36,0.34);
+    padding:0.25rem 0.7rem; border-radius:999px; margin-bottom:0.75rem; }
+  .part-divider h2 { font-family:'Poppins',sans-serif; font-size:1.6rem; margin:0 0 0.5rem;
+    color:#fff; line-height:1.25; }
+  .part-divider p { color:#cbd5e1; margin:0; font-size:0.97rem; }
+  .toc-part { font-size:0.68rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase;
+    color:#94a3b8; margin:1.1rem 0 0.45rem; padding-top:0.9rem; border-top:1px solid #e8edf3; }
+  .insight-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:0.85rem; margin:1.2rem 0 1.4rem; }
+  .insight { background:#fff; border:1px solid #e2e8f0; border-left:4px solid #0d9488;
+    border-radius:10px; padding:0.9rem 1.1rem; font-size:0.89rem; }
+  .insight strong { display:block; margin-bottom:0.2rem; color:#0f172a; font-size:0.93rem; }
+  .gcse-map td:first-child { font-weight:800; font-size:1.05rem; text-align:center; width:44px; }
+
+  /* ---------- hub cards (from the UEL hub) ---------- */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 1.2rem; }
+  .topic-card { display: flex; flex-direction: column; background: #fff; border-radius: 14px;
+    padding: 1.5rem 1.7rem; box-shadow: 0 2px 14px rgba(15,23,42,0.05); border: 1px solid #e2e8f0;
+    text-decoration: none; color: inherit; min-height: 250px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
+  .topic-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(15,23,42,0.12);
+    border-color: #2563eb; }
+  .card-meta { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.9rem; }
+  .card-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 44px;
+    height: 44px; padding: 0 0.5rem; border-radius: 10px; background: #2563eb; color: #fff;
+    font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 0.95rem; flex-shrink: 0; }
+  .card-badge.b2 { background: #dc2626; } .card-badge.b3 { background: #0d9488; }
+  .card-badge.b4 { background: #7c3aed; } .card-badge.b5 { background: #b45309; }
+  .card-time { font-size: 0.77rem; font-weight: 600; color: #64748b; background: #f1f5f9;
+    padding: 0.3rem 0.7rem; border-radius: 6px; }
+  .card-dev { font-size: 0.77rem; font-weight: 600; color: #1e40af; background: #dbeafe;
+    padding: 0.3rem 0.7rem; border-radius: 6px; }
+  .card-title { font-family: 'Poppins', sans-serif; font-size: 1.16rem; font-weight: 700;
+    line-height: 1.3; margin: 0 0 0.55rem; }
+  .card-desc { color: #475569; font-size: 0.92rem; line-height: 1.6; margin: 0 0 1.15rem; flex-grow: 1; }
+  .card-cta { display: inline-flex; align-items: center; gap: 0.4rem; color: #1d4ed8;
+    font-weight: 650; font-size: 0.89rem; margin-top: auto; }
+  
+  .heading-pill { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    background: #eff6ff; color: #1d4ed8; padding: 0.25rem 0.7rem; border-radius: 999px; margin-left: auto; }
+
+  .topic-section { margin-bottom: 2.8rem; }
+
+
+
+  .tag { display:inline-block; font-size:0.7rem; font-weight:800; letter-spacing:0.08em; text-transform:uppercase;
+    padding:0.2rem 0.55rem; border-radius:999px; margin-right:0.3rem; white-space:nowrap; }
+  .tag.ai { background:#dbeafe; color:#1e40af; } .tag.help { background:#fef3c7; color:#92400e; }
+  .tag.me { background:#fee2e2; color:#991b1b; } .tag.free { background:#d1fae5; color:#065f46; }
+  .tag.paid { background:#ede9fe; color:#5b21b6; } .tag.new { background:#d1fae5; color:#065f46; }
+  .tag.cop { background:#dbeafe; color:#1e40af; } .tag.gpt { background:#d1fae5; color:#065f46; } .tag.cla { background:#fde68a; color:#78350f; }
+  .qmp { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:1rem; margin:1.4rem 0; }
+  .qmp > div { border-radius:14px; padding:1.25rem 1.3rem; color:#fff; }
+  .qmp .q { background:linear-gradient(135deg,#1d4ed8,#1e3a8a); }
+  .qmp .m { background:linear-gradient(135deg,#b45309,#78350f); }
+  .qmp .p { background:linear-gradient(135deg,#047857,#064e3b); }
+  .qmp h4 { font-family:'Poppins',sans-serif; margin:0 0 0.4rem; font-size:1.15rem; color:#fff; }
+  .qmp .big { font-family:'Poppins',sans-serif; font-size:2.2rem; font-weight:800; line-height:1; opacity:0.35; margin-bottom:0.3rem; }
+  .qmp p, .qmp li { color:rgba(255,255,255,0.9); font-size:0.9rem; }
+  .qmp ul { padding-left:1.1rem; margin:0.4rem 0 0; } .qmp li { margin-bottom:0.3rem; }
+  .worksheet { background:#fff; border:2px dashed #94a3b8; border-radius:12px; padding:1.2rem 1.4rem; margin:1.3rem 0; font-size:0.92rem; }
+  .worksheet h4 { font-family:'Poppins',sans-serif; margin:0 0 0.6rem; font-size:1rem; color:#0f172a; }
+  .worksheet .ws-line { display:flex; gap:0.6rem; padding:0.35rem 0; border-bottom:1px solid #e2e8f0; }
+  .worksheet .ws-line strong { min-width:150px; color:#1e40af; }
+  .ws-grid { display:grid; grid-template-columns: 2fr 1fr 2fr; gap:0; font-size:0.86rem; }
+  .ws-grid > div { padding:0.35rem 0.5rem; border-bottom:1px solid #e2e8f0; }
+  .ws-grid .h { font-weight:800; color:#1e40af; background:#f1f5f9; }
+  @media (max-width: 640px) { .ws-grid { grid-template-columns: 1fr; } }
+  .three-up { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 1rem; margin: 1.3rem 0; }
+  .three-up > div { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.1rem 1.2rem; }
+  .three-up h4 { font-family: 'Poppins', sans-serif; margin: 0 0 0.45rem; font-size: 0.98rem; color: #1e40af; }
+  .three-up p, .three-up li { font-size: 0.9rem; }
+  .three-up.tools > div { border-top: 5px solid #2563eb; }
+  .three-up.tools > div.gpt { border-top-color: #059669; } .three-up.tools > div.cla { border-top-color: #d97706; }
+  .three-up.tools h4 { color:#0f172a; font-size:1.05rem; }
+  .datacls { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:0.8rem; margin:1.2rem 0; }
+  .datacls > div { border-radius:12px; padding:1rem 1.1rem; font-size:0.9rem; border:1px solid #e2e8f0; }
+  .datacls h4 { margin:0 0 0.3rem; font-family:'Poppins',sans-serif; font-size:0.98rem; }
+  .dc-pub { background:#ecfdf5; } .dc-pub h4 { color:#047857; }
+  .dc-int { background:#eff6ff; } .dc-int h4 { color:#1d4ed8; }
+  .dc-con { background:#fff7ed; } .dc-con h4 { color:#c2410c; }
+  .dc-per { background:#fef2f2; } .dc-per h4 { color:#b91c1c; }
+  .uses { display:inline-block; font-size:0.78rem; font-weight:700; color:#166534; background:#dcfce7;
+    border:1px solid #bbf7d0; border-radius:6px; padding:0.2rem 0.6rem; margin:0.4rem 0 0; }
+  .uses span { font-weight:500; color:#3f6212; }
+  .dl-grid.uses-files { margin:0.45rem 0 0.2rem; gap:0.5rem; grid-template-columns:repeat(auto-fill, minmax(230px, 340px)); }
+  .dl-grid.uses-files .dl-btn { padding:0.45rem 0.7rem; }
+  .dl-grid.uses-files .dl-name { font-size:0.82rem; } .dl-grid.uses-files .dl-meta { font-size:0.7rem; }
+  .dl-btn .dl-name { overflow-wrap:anywhere; }
+  .ask { font-weight:700; margin:1.3rem 0 0; color:#0f172a; }
+  .route { border-radius:12px; padding:0.9rem 1.1rem; margin:0.8rem 0; font-size:0.92rem; border:1px solid #e2e8f0; }
+  .route.ra { background:#f5f3ff; border-color:#ddd6fe; } .route.rb { background:#eff6ff; border-color:#bfdbfe; }
+  .route strong { display:block; margin-bottom:0.25rem; }
+  .route.ra strong { color:#5b21b6; } .route.rb strong { color:#1e40af; }
+  .check { background:#ecfdf5; border:1px solid #a7f3d0; border-left:4px solid #059669; border-radius:10px;
+    padding:0.75rem 1rem; margin:0.8rem 0 1.2rem; font-size:0.9rem; }
+  .check strong { color:#047857; }
+  .scenario { border:1px solid #e2e8f0; border-radius:14px; padding:1.3rem 1.5rem; margin:1.4rem 0; background:#fff; }
+  .scenario h4 { font-family:'Poppins',sans-serif; margin:0 0 0.5rem; font-size:1.08rem; color:#0f172a; }
+  .scenario .sc-num { display:inline-flex; width:32px; height:32px; border-radius:8px; background:#dc2626; color:#fff;
+    align-items:center; justify-content:center; font-family:'Poppins',sans-serif; font-weight:800; margin-right:0.6rem; }
+  .decide { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:0.9rem; margin:1.2rem 0; }
+  .decide > div { border-radius:14px; padding:1.1rem 1.2rem; color:#fff; }
+  .decide .d1 { background:linear-gradient(135deg,#b91c1c,#7f1d1d); } .decide .d2 { background:linear-gradient(135deg,#1d4ed8,#1e3a8a); } .decide .d3 { background:linear-gradient(135deg,#047857,#064e3b); }
+  .decide h4 { font-family:'Poppins',sans-serif; margin:0 0 0.35rem; font-size:1.02rem; color:#fff; }
+  .decide p { color:rgba(255,255,255,0.92); font-size:0.9rem; margin:0; }
+  .decide .big { font-family:'Poppins',sans-serif; font-size:1.8rem; font-weight:800; line-height:1; opacity:0.4; margin-bottom:0.25rem; }
+  .layers { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:0.9rem; margin:1.2rem 0; }
+  .layers > div { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:1rem 1.1rem; font-size:0.9rem; }
+  .layers h4 { margin:0 0 0.3rem; font-family:'Poppins',sans-serif; font-size:1rem; color:#1e40af; }
+  .chartrule td:first-child { font-weight:650; color:#1e40af; white-space:nowrap; }
+  .yes { color:#047857; font-weight:700; } .no { color:#b91c1c; font-weight:700; } .part { color:#b45309; font-weight:700; }
+  table.compare th:first-child, table.compare td:first-child { min-width:150px; }
+  .kbd { display:inline-block; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:0.82rem; background:#f1f5f9; border:1px solid #cbd5e1; border-bottom-width:2px; border-radius:5px; padding:0 0.4rem; }
+
+</style>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_ApprovalStatus msdt:dt="string">0</mso:_ApprovalStatus>
+<mso:_ApprovalAssignedTo msdt:dt="string"></mso:_ApprovalAssignedTo>
+<mso:_ApprovalRespondedBy msdt:dt="string"></mso:_ApprovalRespondedBy>
+<mso:_ApprovalSentBy msdt:dt="string"></mso:_ApprovalSentBy>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+<body>
+<div class="page-nav"><div class="page-nav-inner"><span class="page-nav-label">MCMS · Learning Hub</span><a href="https://www.tictechtoelabs.com/resources/mitsubishi-chemical/index.html" class="">🏠 Learning Hub</a><a href="https://www.tictechtoelabs.com/resources/mitsubishi-chemical/think-before-you-prompt.html" class="current">🧭 4 · Question·Map·Process</a><a href="https://www.tictechtoelabs.com/resources/mitsubishi-chemical/00_MCMS_Day2_Hub.html" class="">📅 2 · Day 2 Timetable</a><a href="https://www.tictechtoelabs.com/resources/mitsubishi-chemical/02_Module4_Opportunity_Recognition.html" class="">🔎 5 · Opportunity Recognition</a><a href="https://www.tictechtoelabs.com/resources/mitsubishi-chemical-job-prompt-library.html" class="">🧰 10 · Job Role Prompts</a></div></div>
+<div class="hero"><div class="hero-inner">
+  <span class="hero-tag">Card 4 · The approach module</span>
+  <h1>Think Before You Prompt — <span>Question · Map · Process</span></h1>
+  <p class="sub">How to approach any job with AI: interrogate it with five questions, map it into labelled steps, then let AI process its steps one prompt at a time — with you checking in between. Worked example: the end-of-shift handover.</p>
+  <div class="hero-meta"><span class="hero-chip">🏢 Mitsubishi Chemical Methacrylates Singapore</span><span class="hero-chip">🧑‍🏫 Zayed · Tic Tech Toe Labs</span><span class="hero-chip">📅 Day 2 · Fri 16 October 2026</span><span class="hero-chip">💻 Laptop or phone</span><span class="hero-chip">⭐ Best practices</span></div>
+</div></div>
+<div class="wrap">
+
+<div class="card accent"><p style="margin:0"><strong>About this module.</strong> This is Tic Tech Toe Labs' house approach module, first delivered on a manufacturing floor and used again in the Semiko Day 2 case studies. The worked example is an end-of-shift handover on a compounding line — the method is identical for a plant shift handover, a permit-to-work pack, a lab results summary or a monthly site report. Read it once for the method; then run the Q·M·P card on one of your own recurring jobs.</p></div>
+<nav class="toc"><h2>📑 On this page</h2>
+<a class="toc-row" href="#t1" data-target="t1"><span class="toc-emoji">🎰</span><span class="toc-text"><span class="toc-title">The prompt lottery</span><span class="toc-sub">Why one-line prompts give you mush</span></span></a>
+<a class="toc-row" href="#t2" data-target="t2"><span class="toc-emoji">🧭</span><span class="toc-text"><span class="toc-title">The system — Question · Map · Process</span><span class="toc-sub">Three stages, always the same</span></span></a>
+<a class="toc-row" href="#t3" data-target="t3"><span class="toc-emoji">🏭</span><span class="toc-text"><span class="toc-title">Worked example — end-of-shift handover</span><span class="toc-sub">Six steps, every prompt written out, sample notes to try it on</span></span></a>
+<a class="toc-row" href="#t4" data-target="t4"><span class="toc-emoji">📏</span><span class="toc-text"><span class="toc-title">The 8 best practices</span><span class="toc-sub">The rules of the road</span></span></a>
+<a class="toc-row" href="#t5" data-target="t5"><span class="toc-emoji">🗂️</span><span class="toc-text"><span class="toc-title">The Q·M·P card</span><span class="toc-sub">Screenshot it into PARA → Resources</span></span></a>
+<a class="toc-row" href="#t6" data-target="t6"><span class="toc-emoji">✔</span><span class="toc-text"><span class="toc-title">Knowledge check</span><span class="toc-sub">Three questions</span></span></a>
+</nav>
+
+<section class="topic" id="t1"><span class="topic-label">Topic 1</span><h2 class="topic-title">The prompt lottery</h2>
+<p>You type <em>"write my end of shift handover report"</em>. Copilot writes a polite, generic, 300-word report about a shift that never happened. You conclude AI is useless for real work. Most people stop here.</p>
+<p>The problem isn't the tool and it isn't even the prompt. It's the <strong>approach</strong>: you asked for the whole job in one line, with no material, no decisions made, and no way to check the result. GCES (Copilot 101 and Prompt Coach, cards 11 and 12 on the hub) fixes how you write a prompt. This page fixes how you decide <em>what</em> to prompt for.</p>
+<div class="objective"><strong>The one idea:</strong> think before you prompt. Interrogate the job, map it into steps, decide which steps are AI's and which are yours, then let AI process its steps one at a time.</div>
+</section>
+
+<section class="topic" id="t2"><span class="topic-label">Topic 2</span><h2 class="topic-title">The system — Question · Map · Process</h2>
+<div class="qmp">
+  <div class="q"><div class="big">1</div><h4>QUESTION</h4><p>Interrogate the job before you open Copilot. Five questions, always the same five:</p>
+    <ul><li><strong>Outcome</strong> — what exactly must exist when I'm done?</li><li><strong>Audience</strong> — who uses it, and what do they do next?</li><li><strong>Good looks like</strong> — length, format, language, tone?</li><li><strong>Inputs</strong> — what do I already have (notes, log, photo, last week's version)?</li><li><strong>Stays with me</strong> — what must I decide, check or sign myself?</li></ul></div>
+  <div class="m"><div class="big">2</div><h4>MAP</h4><p>Write the job as a list of steps, in order. Label every step:</p>
+    <ul><li><span class="tag ai">AI-do</span> AI does it, I check it — reformat, summarise, translate, draft, group, list.</li><li><span class="tag help">AI-help</span> AI proposes, I decide — options, wording, "what did I miss".</li><li><span class="tag me">Me-only</span> judgement, safety, sign-off, anything with personal or confidential data.</li></ul>
+    <p>Note what each step takes in and hands out — the output of step 2 is the input of step 3.</p></div>
+  <div class="p"><div class="big">3</div><h4>PROCESS</h4><p>Run the map. One step, one prompt, one check:</p>
+    <ul><li>Write each AI step as a <strong>GCES</strong> prompt; paste the real input as the Source.</li><li><strong>Verify</strong> the output against the source before feeding it to the next step (S.U.R.E.).</li><li>Do the <span class="tag me">Me-only</span> steps yourself, in the chain, where they sit.</li><li>When it works, <strong>save the chain</strong> as a recipe in PARA → Resources. Next shift, reuse it.</li></ul></div>
+</div>
+<div class="note"><strong>Why the labels matter.</strong> The label is where the thinking happens. Deciding that "which items are URGENT" is <em>Me-only</em> is the decision that keeps you in charge of the shift — and it is exactly the decision the one-line prompt skipped.</div>
+</section>
+
+<section class="topic" id="t3"><span class="topic-label">Topic 3</span><h2 class="topic-title">Worked example — end-of-shift handover</h2>
+<p class="topic-subtitle">A shift supervisor's real job, done the Q·M·P way. Download the sample notes and run it yourself.</p>
+<div class="dl-grid"><a class="dl-btn" download="Sample_Shift_Notes_Line3.txt" href="data:text/plain;base64,TElORSAzIC0gTklHSFQgU0hJRlQgLSBSQVcgTk9URVMgKHR5cGVkIG9uIHBob25lKQoyMjQ1IGRyeWVyIEQyIGFsYXJtIGhpZ2ggZGV3cG9pbnQsIHJlc2V0LCBvayBhZnRlciAxMG1pbgoyMzEwIE0yIHNjcmV3IGFtcCBoaWdoIG9uIFBBNjYgR0YzMCBsb3QgNDQ3MSwgcmVkdWNlIGZlZWQgNSUsIHdhdGNoaW5nCjIzNTAgYmFnZ2luZyBzY2FsZSBkcmlmdCAwLjNrZywgcmVjYWxpYnJhdGUgZG9uZQowMDIwIHBlbGxldCBjb2xvdXIgc2xpZ2h0bHkgb2ZmIGxvdCA0NDcxIC0gUUMgaW5mb3JtZWQsIHNhbXBsZSBzZW50LCB3YWl0IHJlc3VsdAowMTE1IE0xIGNoYW5nZW92ZXIgdG8gUFAgZ3JhZGUgc3RhcnRlZCwgNDBtaW4KMDIxMCBNMSBydW5uaW5nLCBmaXJzdCBiYWcgMDIxMAowMzAwIGZvcmtsaWZ0IEYzIGJhdHRlcnkgbG93LCBjaGFyZ2UsIEYyIHVzZWQKMDMzNSBNMiBhbXAgc3RpbGwgaGlnaCwgbG90IDQ0NzEgLSBzdXNwZWN0IG1vaXN0dXJlLCBkcnllciBEMiBhZ2Fpbj8gbmVlZCBjaGVjawowNDIwIGxlYWsgYXQgaG9wcGVyIGxvYWRlciBNMyBob3NlLCB0YXBlZCwgbmVlZCBwcm9wZXIgaG9zZQowNDU1IE0yIFNUT1AgLSBzdHJhbmQgYnJlYWsgeDMsIGNsZWFuZWQgZGllLCByZXN0YXJ0IDA1MTUKMDU0MCBRQyByZXN1bHQgbG90IDQ0NzEgUEFTUyBjb2xvdXIgb2sKMDYxMCBob3VzZWtlZXBpbmcgZG9uZSwgYmF5IEIgdGlkeQowNjQwIE0zIGhvc2Ugc3RpbGwgdGFwZWQgLSB0ZWxsIGRheSBzaGlmdAo="><span class="dl-icon ">📄</span><span><span class="dl-name">Sample_Shift_Notes_Line3.txt</span><span class="dl-meta">Raw night-shift notes, Line 3 · paste as the Source in step 1 · 0.7 KB</span></span></a></div>
+<h3 class="sub">1 · QUESTION</h3>
+<ul>
+<li><strong>Outcome:</strong> a handover the incoming supervisor can act on in 2 minutes.</li>
+<li><strong>Audience:</strong> incoming supervisor and his technicians, on phones at 7am; some read Malay or Tamil more easily.</li>
+<li><strong>Good looks like:</strong> 6 bullets max, urgent items first, then "Actions for next shift".</li>
+<li><strong>Inputs:</strong> my raw notes typed through the shift, mixed shorthand.</li>
+<li><strong>Stays with me:</strong> deciding what is <em>urgent</em>, and pressing send.</li>
+</ul>
+<h3 class="sub">2 · MAP</h3>
+<div class="table-wrap"><table><thead><tr><th>#</th><th>Step</th><th>Label</th><th>In → Out</th></tr></thead><tbody>
+<tr><td>1</td><td>Turn raw notes into a clean event table</td><td><span class="tag help">AI-help</span></td><td>raw notes → table (time · machine · event · action · status)</td></tr>
+<tr><td>2</td><td>Group by machine, flag open items and alarm words</td><td><span class="tag ai">AI-do</span></td><td>table → grouped table with flags</td></tr>
+<tr><td>3</td><td>Decide which flagged items are URGENT</td><td><span class="tag me">Me-only</span></td><td>flagged table → 2 items marked URGENT</td></tr>
+<tr><td>4</td><td>Write the 6-bullet handover + actions list</td><td><span class="tag ai">AI-do</span></td><td>grouped table + URGENT marks → handover text</td></tr>
+<tr><td>5</td><td>Plain Malay / Tamil version of the actions list</td><td><span class="tag help">AI-help</span></td><td>actions list → 3-language actions list (checked by a native reader)</td></tr>
+<tr><td>6</td><td>Read, correct, send on Teams</td><td><span class="tag me">Me-only</span></td><td>handover → sent</td></tr>
+</tbody></table></div>
+<h3 class="sub">3 · PROCESS — the prompts, in order</h3>
+<h4 class="subsub">Step 1 · <span class="tag help">AI-help</span></h4>
+<div class="prompt-box">Goal: Turn my raw shift notes into a clean event table.
+Context: I am the shift supervisor on Line 3 (compounding, glass-filled PA66). The notes below are in the order things happened, typed on my phone, mixed English/Malay shorthand.
+Expectations: One table with columns Time | Machine | What happened | Action taken | Status (Open/Closed). Keep my wording where it is unclear and put "?" rather than guessing. Do not add events I did not write.
+Source: [paste the sample notes here]</div>
+<button class="copy-btn" onclick="copyPrompt(this)">📋 Copy prompt</button>
+<p><em>Verify:</em> count the rows against your notes. Thirteen lines in, thirteen rows out. Anything marked "?" — fix it now, before step 2.</p>
+<h4 class="subsub">Step 2 · <span class="tag ai">AI-do</span></h4>
+<div class="prompt-box">Using the table you just made: group the rows by Machine. Add a column "Flag" and mark YES for any row where Status is Open, or where the event contains the words trip, alarm, reject, stop, leak or contamination. Show the grouped table only — no commentary.</div>
+<button class="copy-btn" onclick="copyPrompt(this)">📋 Copy prompt</button>
+<h4 class="subsub">Step 3 · <span class="tag me">Me-only</span></h4>
+<p>Read the flagged rows. Mark two as URGENT. In the sample notes the obvious two are the taped hose on M3 (still taped at 06:40) and the M2 amp problem on lot 4471 — Copilot doesn't know the dryer alarm on D2 has come up three shifts running. You do.</p>
+<h4 class="subsub">Step 4 · <span class="tag ai">AI-do</span></h4>
+<div class="prompt-box">Goal: Write my end-of-shift handover from the grouped table.
+Context: Reader is the incoming shift supervisor and his technicians, reading on phones at 7am. I have marked two rows URGENT.
+Expectations: Maximum 6 bullet points, plain English, no more than 15 words per bullet. The two URGENT items come first and start with the word URGENT. End with a short list titled "Actions for next shift" (max 5 items, each starting with a verb). No greetings, no sign-off.
+Source: The grouped table above, plus my URGENT marks: M3 hopper loader hose (taped, needs proper hose) and M2 high screw amp on lot 4471 (suspect moisture / dryer D2).</div>
+<button class="copy-btn" onclick="copyPrompt(this)">📋 Copy prompt</button>
+<h4 class="subsub">Step 5 · <span class="tag help">AI-help</span></h4>
+<div class="prompt-box">Under the "Actions for next shift" list, add the same list in simple Bahasa Melayu and in simple Tamil. Keep machine names and numbers exactly as in the English. Keep each line short. Do not translate the rest of the handover.</div>
+<button class="copy-btn" onclick="copyPrompt(this)">📋 Copy prompt</button>
+<div class="warn"><strong>Verify step 5 with a person.</strong> That is what AI-help means: AI proposes, a human who reads the language checks. Then step 6 — you read the whole thing once more and send it.</div>
+<div class="protip"><strong>Save the recipe.</strong> Five prompts, two decisions. Put them in a note called <em>Recipe — shift handover</em> in PARA → Resources. Tomorrow it is a three-minute job. The MCMS role prompt library (card 10 on the hub) gives you the same recipe pattern for your own job function.</div>
+</section>
+
+<section class="topic" id="t4"><span class="topic-label">Topic 4</span><h2 class="topic-title">The 8 best practices</h2>
+<ol>
+<li><strong>Ask before you prompt.</strong> Five questions, every time. If you can't answer "outcome", you're not ready to type.</li>
+<li><strong>One step, one prompt.</strong> Never ask for the whole job in one line.</li>
+<li><strong>Give the input, not the job title.</strong> Paste the notes, the log, the photo — not "write a report".</li>
+<li><strong>Label every step</strong> AI-do / AI-help / Me-only. Safety decisions, sign-offs and disposition are always Me-only.</li>
+<li><strong>Verify before you chain.</strong> Check each output against the source before it becomes the next input. S.U.R.E. applies to Copilot too.</li>
+<li><strong>Never paste what you can't email outside.</strong> NRIC/FIN, customer names and prices, process conditions, plant drawings and specifications marked confidential, photos of screens showing any of these. Card 8 (Traffic-Light Data) sorts what is Green, Amber and Red.</li>
+<li><strong>Fix the step, not the whole thing.</strong> Wrong output? Change that one prompt. Don't start over.</li>
+<li><strong>Save the recipe.</strong> The chain that worked goes into PARA → Resources with a name. Next shift it's a 3-minute job.</li>
+</ol>
+</section>
+
+<section class="topic" id="t5"><span class="topic-label">Topic 5</span><h2 class="topic-title">The Q·M·P card</h2>
+<p class="topic-subtitle">Screenshot this into PARA → Resources. Fill it in your notes for any task you repeat.</p>
+<div class="worksheet">
+  <h4>Think Before You Prompt · Question → Map → Process</h4>
+  <div class="ws-line"><strong>Q1 Outcome</strong><span>What must exist when I'm done? ____________________</span></div>
+  <div class="ws-line"><strong>Q2 Audience</strong><span>Who uses it, and what do they do next? ____________________</span></div>
+  <div class="ws-line"><strong>Q3 Good looks like</strong><span>Length · format · language · tone ____________________</span></div>
+  <div class="ws-line"><strong>Q4 Inputs I have</strong><span>Notes / log / photo / last version ____________________</span></div>
+  <div class="ws-line"><strong>Q5 Stays with me</strong><span>Decide · check · sign · confidential ____________________</span></div>
+  <div style="height:0.8rem"></div>
+  <div class="ws-grid">
+    <div class="h">MAP — step (in order)</div><div class="h">Label</div><div class="h">In → Out</div>
+    <div>1. ______________________</div><div>AI-do / AI-help / Me</div><div>______ → ______</div>
+    <div>2. ______________________</div><div>AI-do / AI-help / Me</div><div>______ → ______</div>
+    <div>3. ______________________</div><div>AI-do / AI-help / Me</div><div>______ → ______</div>
+    <div>4. ______________________</div><div>AI-do / AI-help / Me</div><div>______ → ______</div>
+    <div>5. ______________________</div><div>AI-do / AI-help / Me</div><div>______ → ______</div>
+  </div>
+  <div style="height:0.8rem"></div>
+  <div class="ws-line"><strong>PROCESS</strong><span>For each AI step: G·C·E·S prompt → run → verify against source → next. Me-only steps done in place. Recipe saved as: ____________________</span></div>
+</div>
+</section>
+
+<section class="topic" id="t6"><span class="topic-label">Topic 6</span><h2 class="topic-title">Knowledge check</h2>
+<div class="kc"><h4>✔ Knowledge check</h4><p class="kc-q">In the handover example, why is 'decide which items are URGENT' labelled Me-only?</p><button class="kc-opt" data-correct="0" onclick="kc(this,false)">Copilot can't read tables</button><button class="kc-opt" data-correct="1" onclick="kc(this,true)">It needs the supervisor's judgement and context Copilot doesn't have</button><button class="kc-opt" data-correct="0" onclick="kc(this,false)">It is against PDPA</button><button class="kc-opt" data-correct="0" onclick="kc(this,false)">Because it is the third step</button><div class="kc-feedback">It is a judgement call that depends on what the supervisor knows about the last three shifts. AI can flag; the supervisor decides.</div></div>
+<div class="kc"><h4>✔ Knowledge check</h4><p class="kc-q">What is the difference between AI-do and AI-help?</p><button class="kc-opt" data-correct="0" onclick="kc(this,false)">AI-do is free, AI-help is paid</button><button class="kc-opt" data-correct="1" onclick="kc(this,true)">AI-do: AI does it and I check; AI-help: AI proposes and I decide</button><button class="kc-opt" data-correct="0" onclick="kc(this,false)">AI-do is for phones, AI-help is for laptops</button><button class="kc-opt" data-correct="0" onclick="kc(this,false)">There is no difference</button><div class="kc-feedback">AI-do — reformatting, summarising, grouping: AI does it, you check. AI-help — options, wording, translation: AI proposes, you decide.</div></div>
+<div class="kc"><h4>✔ Knowledge check</h4><p class="kc-q">What should happen between step 1 and step 2 of any Q·M·P chain?</p><button class="kc-opt" data-correct="0" onclick="kc(this,false)">Nothing — paste the output straight into the next prompt</button><button class="kc-opt" data-correct="1" onclick="kc(this,true)">Verify the output against the source</button><button class="kc-opt" data-correct="0" onclick="kc(this,false)">Start a new chat</button><button class="kc-opt" data-correct="0" onclick="kc(this,false)">Ask Copilot if it is sure</button><div class="kc-feedback">Verify before you chain. A wrong row in step 1 becomes a wrong flag in step 2 and a wrong URGENT in step 4.</div></div>
+</section>
+
+<div class="pager"><a href="https://www.tictechtoelabs.com/resources/mitsubishi-chemical/index.html"><span class="dir">← Previous</span><span class="nm">🏠 Learning Hub</span></a><a href="https://www.tictechtoelabs.com/resources/mitsubishi-chemical/02_Module4_Opportunity_Recognition.html" class="next"><span class="dir">Next →</span><span class="nm">🔎 5 · Opportunity Recognition</span></a></div>
+</div>
+<footer class="site"><strong>Mitsubishi Chemical Methacrylates Singapore · 2-Day SFDW 2.0 (General) · 15 &amp; 16 October 2026</strong>Tic Tech Toe Labs · Workplace Digital Skills Training</footer>
+<button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+<script>
+
+/*
+  Behaviour written to survive being embedded in a Google Sites iframe.
+
+  1. In-page anchors: Sites auto-sizes the iframe to full content height, so the
+     iframe never scrolls and a native #hash jump appears to do nothing.
+     preventDefault + scrollIntoView() bubbles up and scrolls the parent page.
+  2. Back-to-top: window.scrollY is permanently 0 inside the iframe, so when
+     embedded we just show the button always.
+  3. Copy buttons: the handler reads previousElementSibling, so a .copy-btn MUST
+     be the immediate next sibling of its .prompt-box / .formula.
+*/
+(function () {
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!link) return;
+    var hash = link.getAttribute('href');
+    if (!hash || hash === '#') return;
+    var id = link.getAttribute('data-target') || hash.slice(1);
+    var target = document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  var btn = document.getElementById('backToTop');
+  if (btn) {
+    var embedded = window.self !== window.top;
+    var top = document.body.firstElementChild || document.body;
+    if (embedded) { btn.classList.add('visible'); }
+    else {
+      var onScroll = function () { btn.classList.toggle('visible', window.scrollY > 600); };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      try { top.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      catch (err) { window.scrollTo(0, 0); }
+    });
+  }
+})();
+
+function copyPrompt(btn) {
+  var src = btn.previousElementSibling;
+  if (!src) return;
+  var text = src.innerText;
+  var done = function () {
+    var old = btn.textContent;
+    btn.textContent = '✓ Copied to clipboard';
+    btn.classList.add('copied');
+    setTimeout(function () { btn.textContent = old; btn.classList.remove('copied'); }, 1800);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done, function () { fallback(text, done); });
+  } else { fallback(text, done); }
+}
+function fallback(text, done) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); done(); } catch (e) {}
+  document.body.removeChild(ta);
+}
+
+function kc(btn, correct) {
+  var box = btn.closest('.kc');
+  var opts = box.querySelectorAll('.kc-opt');
+  for (var i = 0; i < opts.length; i++) { opts[i].disabled = true; }
+  btn.classList.add(correct ? 'right' : 'wrong');
+  if (!correct) {
+    for (var j = 0; j < opts.length; j++) {
+      if (opts[j].getAttribute('data-correct') === '1') { opts[j].classList.add('right'); }
+    }
+  }
+  var fb = box.querySelector('.kc-feedback');
+  if (fb) fb.classList.add('show');
+}
+
+</script>
+</body>
+</html>

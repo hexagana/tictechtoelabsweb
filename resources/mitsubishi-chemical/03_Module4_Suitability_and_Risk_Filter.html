@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suitability and Risk Filter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #0f172a; background: #f8fafc; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: #1d4ed8; }
+
+  /* ===================== HERO ===================== */
+  .hero {
+    background:
+      radial-gradient(at 10% 20%, rgba(37,99,235,0.28) 0, transparent 50%),
+      radial-gradient(at 90% 80%, rgba(245,158,11,0.18) 0, transparent 50%),
+      linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #fff; padding: 3.4rem 2rem 2.8rem;
+  }
+  .hero-inner { max-width: 1100px; margin: 0 auto; }
+  .hero-tag {
+    display: inline-block; background: rgba(37,99,235,0.20); color: #93c5fd;
+    padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.74rem;
+    font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 1.1rem; border: 1px solid rgba(37,99,235,0.42);
+  }
+  .hero h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.75rem, 4.2vw, 2.7rem); font-weight: 800;
+    line-height: 1.15; margin: 0 0 0.7rem; letter-spacing: -0.02em;
+  }
+  .hero h1 span {
+    background: linear-gradient(90deg, #60a5fa, #fbbf24);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p.sub { color: #cbd5e1; font-size: 1.03rem; max-width: 760px; margin: 0; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.35rem; }
+  .hero-chip {
+    background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.16);
+    color: #e2e8f0; border-radius: 8px; padding: 0.35rem 0.8rem;
+    font-size: 0.8rem; font-weight: 500;
+  }
+
+  /* ============ CROSS-PAGE NAVIGATION (top strip) ============ */
+  .page-nav {
+    background: #0b1220; border-bottom: 1px solid #1e293b;
+    padding: 0.55rem 0; position: relative;
+  }
+  .page-nav-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+    display: flex; align-items: center; gap: 0.4rem;
+    overflow-x: auto; scrollbar-width: thin;
+  }
+  .page-nav-inner::-webkit-scrollbar { height: 5px; }
+  .page-nav-inner::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+  .page-nav-label {
+    color: #64748b; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; white-space: nowrap; padding-right: 0.5rem;
+    border-right: 1px solid #1e293b; margin-right: 0.35rem;
+  }
+  .page-nav a {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    color: #94a3b8; text-decoration: none; white-space: nowrap;
+    font-size: 0.82rem; font-weight: 600; padding: 0.4rem 0.75rem;
+    border-radius: 7px; border: 1px solid transparent; transition: all 0.15s ease;
+  }
+  .page-nav a:hover { color: #fff; background: #1e293b; }
+  .page-nav a.current {
+    color: #0b1220; background: #fbbf24; border-color: #fbbf24; cursor: default;
+  }
+  .page-nav a.current:hover { color: #0b1220; background: #fbbf24; }
+
+  /* ===================== LAYOUT ===================== */
+  .wrap { max-width: 900px; margin: 0 auto; padding: 2.4rem 2rem 3rem; }
+  .wrap.wide { max-width: 1100px; }
+
+  .card {
+    background: #fff; border-radius: 14px; padding: 1.5rem 1.75rem;
+    box-shadow: 0 4px 20px rgba(15,23,42,0.06); border: 1px solid #e8edf3;
+    margin-bottom: 1.6rem;
+  }
+  .card.accent { border-left: 4px solid #2563eb; }
+
+  /* ===================== IN-PAGE TOC ===================== */
+  nav.toc { background: #fff; border-radius: 14px; padding: 1.4rem 1.6rem;
+    box-shadow: 0 4px 20px rgba(15,23,42,0.06); border: 1px solid #e8edf3;
+    margin-bottom: 2.2rem; }
+  nav.toc h2 { font-family: 'Poppins', sans-serif; font-size: 1.05rem; margin: 0 0 0.9rem; }
+  .toc-row {
+    display: flex; align-items: flex-start; gap: 0.8rem; text-decoration: none;
+    color: inherit; padding: 0.6rem 0.7rem; border-radius: 9px;
+    border: 1px solid transparent; transition: all 0.15s ease;
+  }
+  .toc-row:hover { background: #f1f5f9; border-color: #dbe3ec; }
+  .toc-emoji { font-size: 1.2rem; line-height: 1.4; flex-shrink: 0; }
+  .toc-text { display: flex; flex-direction: column; }
+  .toc-title { font-weight: 650; font-size: 0.95rem; color: #0f172a; }
+  .toc-sub { font-size: 0.83rem; color: #64748b; }
+
+  /* ===================== TOPIC BLOCKS ===================== */
+  .topic { margin: 0 0 2.6rem; scroll-margin-top: 1rem; }
+  .topic-label {
+    display: inline-block; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #1d4ed8; background: #eff6ff;
+    padding: 0.28rem 0.7rem; border-radius: 999px; margin-bottom: 0.7rem;
+  }
+  .topic-title {
+    font-family: 'Poppins', sans-serif; font-size: 1.55rem; font-weight: 700;
+    margin: 0 0 0.35rem; line-height: 1.25; color: #0f172a;
+  }
+  .topic-subtitle { color: #64748b; font-size: 0.97rem; margin: 0 0 1.2rem; }
+  h3.sub {
+    font-family: 'Poppins', sans-serif; font-size: 1.12rem; margin: 1.8rem 0 0.6rem;
+    color: #0f172a;
+  }
+  h4.subsub {
+    font-family: 'Poppins', sans-serif; font-size: 0.98rem; margin: 1.3rem 0 0.5rem;
+    color: #1e293b;
+  }
+  p { margin: 0 0 0.9rem; }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.3rem; }
+  li { margin-bottom: 0.4rem; }
+
+  .objective {
+    background: #f0fdfa; border: 1px solid #99f6e4; border-left: 4px solid #0d9488;
+    border-radius: 10px; padding: 0.9rem 1.1rem; margin: 0 0 1.4rem;
+    font-size: 0.93rem;
+  }
+  .objective strong { color: #0f766e; }
+
+  /* ===================== STEPS ===================== */
+  .steps { margin: 1rem 0 1.4rem; }
+  .step { display: flex; gap: 0.9rem; margin-bottom: 1rem; align-items: flex-start; }
+  .step-letter {
+    flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px;
+    background: #2563eb; color: #fff; font-family: 'Poppins', sans-serif;
+    font-weight: 700; font-size: 0.85rem; display: flex;
+    align-items: center; justify-content: center; margin-top: 2px;
+  }
+  .step-body { flex: 1; }
+  .step-head { font-weight: 650; color: #0f172a; margin-bottom: 0.15rem; }
+  .step-body p { margin: 0 0 0.4rem; font-size: 0.94rem; color: #475569; }
+
+  /* ===================== CALLOUTS ===================== */
+  .protip, .warn, .note {
+    border-radius: 10px; padding: 0.95rem 1.15rem; margin: 1.1rem 0;
+    font-size: 0.92rem; line-height: 1.6;
+  }
+  .protip { background: #fffbeb; border: 1px solid #fde68a; border-left: 4px solid #f59e0b; }
+  .warn   { background: #fef2f2; border: 1px solid #fecaca; border-left: 4px solid #dc2626; }
+  .note   { background: #eff6ff; border: 1px solid #bfdbfe; border-left: 4px solid #2563eb; }
+  .protip strong, .warn strong, .note strong { display: inline; }
+
+  /* ===================== ACTIVITY ===================== */
+  .activity {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #e2e8f0; border-radius: 14px; padding: 1.5rem 1.7rem; margin: 1.6rem 0;
+  }
+  .activity h4 {
+    font-family: 'Poppins', sans-serif; color: #fbbf24; margin: 0 0 0.7rem;
+    font-size: 1.08rem;
+  }
+  .activity p { color: #cbd5e1; }
+  .activity ul, .activity ol { color: #cbd5e1; }
+  .activity strong { color: #fff; }
+  .act-sub {
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.11em; text-transform: uppercase;
+    color: #7dd3fc; margin: 1.1rem 0 0.4rem;
+  }
+  /* Light-background components nested inside the dark activity card.
+     Their default text colours are near-black and vanish on navy, so restate
+     them here. Anything with its own light background (dl-btn, callouts, kc,
+     tables) must also stop inheriting the card's light text. */
+  .activity .step-head { color: #fff; }
+  .activity .step-body p { color: #cbd5e1; }
+  .activity .step-body em { color: #fde68a; font-style: italic; }
+  .activity .dl-btn { color: #0f172a; }
+  .activity .dl-btn .dl-meta { color: #64748b; }
+  .activity .protip, .activity .warn, .activity .note { color: #1e293b; }
+  .activity .protip p, .activity .warn p, .activity .note p { color: #1e293b; }
+  .activity .protip strong, .activity .warn strong, .activity .note strong { color: #0f172a; }
+  .activity .kc, .activity .kc-q, .activity .kc-opt { color: #0f172a; }
+  .activity table td { color: #1e293b; }
+  .activity .formula-label { color: #94a3b8; }
+  .activity code.inline { color: #b91c1c; }
+
+  /* ===================== PROMPT BOX + COPY ===================== */
+  .prompt-box {
+    background: #0f172a; color: #e2e8f0; border-radius: 10px 10px 0 0;
+    padding: 1rem 1.15rem; font-family: 'Consolas', 'SF Mono', Menlo, monospace;
+    font-size: 0.855rem; line-height: 1.65; white-space: pre-wrap;
+    word-break: break-word; margin: 1.1rem 0 0; border: 1px solid #1e293b;
+  }
+  .copy-btn {
+    display: block; width: 100%; background: #1e293b; color: #93c5fd;
+    border: 1px solid #1e293b; border-top: none; border-radius: 0 0 10px 10px;
+    padding: 0.55rem; font-family: 'Inter', sans-serif; font-size: 0.8rem;
+    font-weight: 650; cursor: pointer; margin: 0 0 1.2rem; transition: all 0.15s ease;
+  }
+  .copy-btn:hover { background: #334155; color: #fff; }
+  .copy-btn.copied { background: #059669; color: #fff; border-color: #059669; }
+
+  /* ===================== FORMULA BOX ===================== */
+  .formula {
+    background: #0b1220; color: #a5d6ff; border: 1px solid #1e293b;
+    border-radius: 10px; padding: 0.95rem 1.1rem; margin: 0.8rem 0 1.1rem;
+    font-family: 'Consolas', 'SF Mono', Menlo, monospace; font-size: 0.83rem;
+    line-height: 1.7; overflow-x: auto; white-space: pre;
+  }
+  .formula-label {
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #64748b; margin: 1.2rem 0 0.3rem;
+  }
+  code.inline {
+    background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 5px;
+    padding: 0.1rem 0.38rem; font-family: 'Consolas', monospace; font-size: 0.87em;
+    color: #b91c1c;
+  }
+
+  /* ===================== TABLES ===================== */
+  .table-wrap { overflow-x: auto; margin: 1.1rem 0 1.4rem;
+    border: 1px solid #e2e8f0; border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.9rem; background: #fff; }
+  thead th {
+    background: #0f172a; color: #fff; text-align: left; padding: 0.7rem 0.9rem;
+    font-weight: 650; font-size: 0.82rem; letter-spacing: 0.02em; white-space: nowrap;
+  }
+  tbody td { padding: 0.62rem 0.9rem; border-top: 1px solid #eef2f7; vertical-align: top; }
+  tbody tr:nth-child(even) { background: #fafbfd; }
+  td .yes { color: #059669; font-weight: 700; }
+  td .no  { color: #dc2626; font-weight: 700; }
+
+  /* ===================== DOWNLOAD BUTTONS ===================== */
+  .dl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 0.9rem; margin: 1.3rem 0 1.6rem; }
+  .dl-btn {
+    display: flex; align-items: center; gap: 0.85rem; text-decoration: none;
+    background: #fff; border: 1px solid #cbd5e1; border-radius: 12px;
+    padding: 0.95rem 1.1rem; color: inherit; transition: all 0.18s ease;
+  }
+  .dl-btn:hover { border-color: #2563eb; box-shadow: 0 8px 22px rgba(37,99,235,0.14);
+    transform: translateY(-2px); }
+  .dl-icon {
+    width: 42px; height: 42px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; background: #dcfce7; color: #166534;
+  }
+  .dl-icon.csv { background: #dbeafe; color: #1e40af; }
+  .dl-name { font-weight: 650; font-size: 0.92rem; display: block; }
+  .dl-meta { font-size: 0.79rem; color: #64748b; }
+
+  /* ===================== SCOREBOARD ===================== */
+  .versus { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.4rem 0; }
+  .versus > div { border-radius: 12px; padding: 1.2rem 1.35rem; }
+  .v-manual { background: #fef2f2; border: 1px solid #fecaca; }
+  .v-copilot { background: #ecfdf5; border: 1px solid #a7f3d0; }
+  .versus h4 { font-family: 'Poppins', sans-serif; margin: 0 0 0.6rem; font-size: 1rem; }
+  .v-manual h4 { color: #b91c1c; }
+  .v-copilot h4 { color: #047857; }
+  .versus ul { margin: 0; padding-left: 1.1rem; font-size: 0.9rem; }
+  @media (max-width: 720px) { .versus { grid-template-columns: 1fr; } }
+
+  /* ===================== KNOWLEDGE CHECK ===================== */
+  .kc { background: #fff; border: 1px solid #e2e8f0; border-left: 4px solid #7c3aed;
+    border-radius: 12px; padding: 1.25rem 1.45rem; margin: 1.6rem 0; }
+  .kc h4 { font-family: 'Poppins', sans-serif; margin: 0 0 0.3rem; font-size: 1rem; color: #5b21b6; }
+  .kc-q { font-weight: 600; margin: 0.6rem 0 0.8rem; }
+  .kc-opt {
+    display: block; width: 100%; text-align: left; background: #f8fafc;
+    border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6rem 0.85rem;
+    margin-bottom: 0.5rem; font-family: inherit; font-size: 0.92rem;
+    cursor: pointer; transition: all 0.15s ease; color: #0f172a;
+  }
+  .kc-opt:hover { border-color: #7c3aed; background: #faf5ff; }
+  .kc-opt.right { background: #dcfce7; border-color: #22c55e; color: #14532d; font-weight: 600; }
+  .kc-opt.wrong { background: #fee2e2; border-color: #ef4444; color: #7f1d1d; }
+  .kc-feedback { display: none; margin-top: 0.7rem; font-size: 0.9rem;
+    padding: 0.7rem 0.9rem; border-radius: 8px; background: #f1f5f9; color: #334155; }
+  .kc-feedback.show { display: block; }
+
+  /* ===================== PREV / NEXT ===================== */
+  .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2.6rem 0 0; }
+  .pager a {
+    display: block; text-decoration: none; background: #fff; border: 1px solid #e2e8f0;
+    border-radius: 12px; padding: 1rem 1.2rem; color: inherit; transition: all 0.18s ease;
+  }
+  .pager a:hover { border-color: #2563eb; box-shadow: 0 8px 22px rgba(15,23,42,0.09);
+    transform: translateY(-2px); }
+  .pager .dir { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.11em;
+    text-transform: uppercase; color: #64748b; display: block; margin-bottom: 0.2rem; }
+  .pager .nm { font-weight: 650; color: #0f172a; font-size: 0.95rem; }
+  .pager .next { text-align: right; }
+  .pager .spacer { }
+  @media (max-width: 640px) { .pager { grid-template-columns: 1fr; } }
+
+  /* ===================== FOOTER ===================== */
+  footer.site {
+    background: #0f172a; color: #94a3b8; text-align: center;
+    padding: 2.2rem 2rem; font-size: 0.85rem; margin-top: 3rem;
+  }
+  footer.site strong { color: #e2e8f0; display: block; margin-bottom: 0.25rem;
+    font-family: 'Poppins', sans-serif; }
+
+  /* ===================== BACK TO TOP ===================== */
+  .back-to-top {
+    position: fixed; right: 20px; bottom: 20px; width: 44px; height: 44px;
+    border-radius: 50%; background: #2563eb; color: #fff; border: none;
+    font-size: 1.15rem; cursor: pointer; z-index: 9999; display: none;
+    box-shadow: 0 6px 20px rgba(37,99,235,0.4);
+  }
+  .back-to-top.visible { display: block; }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 1.8rem 1.15rem 2.4rem; }
+    .hero { padding: 2.4rem 1.15rem 2rem; }
+    .page-nav-inner { padding: 0 1.15rem; }
+    .card { padding: 1.2rem 1.15rem; }
+  }
+
+  .part-divider { margin: 3.2rem 0 2.2rem; padding: 1.6rem 1.8rem; border-radius: 14px;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #e2e8f0; }
+  .part-divider .pd-tag { display:inline-block; font-size:0.7rem; font-weight:800;
+    letter-spacing:0.12em; text-transform:uppercase; color:#fbbf24;
+    background:rgba(251,191,36,0.14); border:1px solid rgba(251,191,36,0.34);
+    padding:0.25rem 0.7rem; border-radius:999px; margin-bottom:0.75rem; }
+  .part-divider h2 { font-family:'Poppins',sans-serif; font-size:1.6rem; margin:0 0 0.5rem;
+    color:#fff; line-height:1.25; }
+  .part-divider p { color:#cbd5e1; margin:0; font-size:0.97rem; }
+  .toc-part { font-size:0.68rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase;
+    color:#94a3b8; margin:1.1rem 0 0.45rem; padding-top:0.9rem; border-top:1px solid #e8edf3; }
+  .insight-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:0.85rem; margin:1.2rem 0 1.4rem; }
+  .insight { background:#fff; border:1px solid #e2e8f0; border-left:4px solid #0d9488;
+    border-radius:10px; padding:0.9rem 1.1rem; font-size:0.89rem; }
+  .insight strong { display:block; margin-bottom:0.2rem; color:#0f172a; font-size:0.93rem; }
+  .gcse-map td:first-child { font-weight:800; font-size:1.05rem; text-align:center; width:44px; }
+
+  /* ---------- hub cards (from the UEL hub) ---------- */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 1.2rem; }
+  .topic-card { display: flex; flex-direction: column; background: #fff; border-radius: 14px;
+    padding: 1.5rem 1.7rem; box-shadow: 0 2px 14px rgba(15,23,42,0.05); border: 1px solid #e2e8f0;
+    text-decoration: none; color: inherit; min-height: 250px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
+  .topic-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(15,23,42,0.12);
+    border-color: #2563eb; }
+  .card-meta { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.9rem; }
+  .card-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 44px;
+    height: 44px; padding: 0 0.5rem; border-radius: 10px; background: #2563eb; color: #fff;
+    font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 0.95rem; flex-shrink: 0; }
+  .card-badge.b2 { background: #dc2626; } .card-badge.b3 { background: #0d9488; }
+  .card-badge.b4 { background: #7c3aed; } .card-badge.b5 { background: #b45309; }
+  .card-time { font-size: 0.77rem; font-weight: 600; color: #64748b; background: #f1f5f9;
+    padding: 0.3rem 0.7rem; border-radius: 6px; }
+  .card-dev { font-size: 0.77rem; font-weight: 600; color: #1e40af; background: #dbeafe;
+    padding: 0.3rem 0.7rem; border-radius: 6px; }
+  .card-title { font-family: 'Poppins', sans-serif; font-size: 1.16rem; font-weight: 700;
+    line-height: 1.3; margin: 0 0 0.55rem; }
+  .card-desc { color: #475569; font-size: 0.92rem; line-height: 1.6; margin: 0 0 1.15rem; flex-grow: 1; }
+  .card-cta { display: inline-flex; align-items: center; gap: 0.4rem; color: #1d4ed8;
+    font-weight: 650; font-size: 0.89rem; margin-top: auto; }
+  
+  .heading-pill { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    background: #eff6ff; color: #1d4ed8; padding: 0.25rem 0.7rem; border-radius: 999px; margin-left: auto; }
+
+  .topic-section { margin-bottom: 2.8rem; }
+
+
+
+  .tag { display:inline-block; font-size:0.7rem; font-weight:800; letter-spacing:0.08em; text-transform:uppercase;
+    padding:0.2rem 0.55rem; border-radius:999px; margin-right:0.3rem; white-space:nowrap; }
+  .tag.basic { background:#ccfbf1; color:#115e59; } .tag.prem { background:#ede9fe; color:#5b21b6; }
+  .tag.assessed { background:#fee2e2; color:#991b1b; } .tag.trainer { background:#fef3c7; color:#92400e; }
+  .toc-emoji { font-family:'Poppins',sans-serif; font-weight:800; font-size:0.85rem; color:#fff; background:#2563eb;
+    border-radius:7px; min-width:28px; height:28px; display:inline-flex; align-items:center; justify-content:center; }
+  .dl-icon { font-family:'Poppins',sans-serif; font-size:0.72rem; font-weight:800; letter-spacing:0.04em; }
+  .timetable td:first-child { white-space:nowrap; font-weight:650; color:#1e40af; }
+  .timetable tr.brk td { background:#fffbeb; color:#92400e; font-weight:600; }
+  .timetable tr.att td { background:#fef2f2; color:#991b1b; font-weight:600; }
+  .three-up { display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:1rem; margin:1.3rem 0; }
+  .three-up > div { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:1.1rem 1.2rem; }
+  .three-up h4 { font-family:'Poppins',sans-serif; margin:0 0 0.45rem; font-size:0.98rem; color:#1e40af; }
+  .three-up p, .three-up li { font-size:0.9rem; }
+  .check { background:#ecfdf5; border:1px solid #a7f3d0; border-left:4px solid #059669; border-radius:10px;
+    padding:0.75rem 1rem; margin:0.8rem 0 1.2rem; font-size:0.9rem; }
+  .check strong { color:#047857; }
+  .ask { font-weight:700; margin:1.3rem 0 0; color:#0f172a; }
+
+  /* ---- worksheet fields ---- */
+  .toolbar { display:flex; flex-wrap:wrap; align-items:center; gap:0.6rem; background:#0f172a; color:#cbd5e1;
+    border-radius:12px; padding:0.6rem 0.9rem; margin:0 0 1.4rem; font-size:0.83rem; }
+  .toolbar button, .btn { border:1px solid #334155; background:#1e293b; color:#fff; border-radius:999px; padding:0.38rem 0.95rem;
+    font:inherit; font-weight:700; cursor:pointer; }
+  .toolbar button:hover, .btn:hover { background:#334155; }
+  .btn.light { background:#fff; color:#0f172a; border-color:#cbd5e1; } .btn.light:hover { background:#f1f5f9; }
+  .fill { min-height:2.2rem; background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:0.45rem 0.65rem;
+    font-size:0.92rem; line-height:1.55; outline:none; }
+  .fill.tall { min-height:5rem; } .fill.xtall { min-height:8rem; }
+  .fill:focus, .in:focus, select.in:focus { border-color:#2563eb; box-shadow:0 0 0 3px rgba(37,99,235,0.15); }
+  .fill:empty:before { content:attr(data-ph); color:#94a3b8; }
+  .in { width:100%; font:inherit; font-size:0.9rem; border:1px solid #cbd5e1; border-radius:7px; padding:0.38rem 0.5rem;
+    background:#fff; color:#0f172a; outline:none; }
+  .in.num { max-width:6.5rem; text-align:right; }
+  .field { margin:0 0 1rem; } .field > label { display:block; font-weight:650; font-size:0.9rem; margin:0 0 0.3rem; color:#0f172a; }
+  .field .hint { display:block; font-weight:400; color:#64748b; font-size:0.82rem; }
+  .ws-two { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-top:0.8rem; }
+  @media (max-width: 640px) { .ws-two { grid-template-columns:1fr; } }
+  table.ws td { vertical-align:middle; } table.ws td .in, table.ws td .fill { margin:0; }
+  .opts { display:flex; flex-wrap:wrap; gap:0.35rem; }
+  .opts label { display:inline-flex; align-items:center; gap:0.3rem; border:1px solid #cbd5e1; border-radius:999px;
+    padding:0.22rem 0.7rem; font-size:0.84rem; cursor:pointer; background:#fff; white-space:normal; max-width:100%; }
+  .opts input { margin:0; accent-color:#2563eb; }
+  .opts label:has(input:checked) { background:#eff6ff; border-color:#2563eb; color:#1e3a8a; font-weight:650; }
+  .sheet-title { display:flex; flex-wrap:wrap; align-items:baseline; gap:0.6rem; justify-content:space-between; margin:0 0 0.8rem; }
+  .sheet-title h3 { font-family:'Poppins',sans-serif; margin:0; font-size:1.12rem; }
+
+  /* ---- five categories ---- */
+  .five { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:0.8rem; margin:1.2rem 0 1.4rem; }
+  .five > div { border-radius:14px; padding:1rem 1.1rem; color:#fff; }
+  .five .n { font-family:'Poppins',sans-serif; font-size:1.7rem; font-weight:800; line-height:1; opacity:0.4; }
+  .five h4 { font-family:'Poppins',sans-serif; margin:0.25rem 0 0.35rem; font-size:1.02rem; color:#fff; }
+  .five p { margin:0 0 0.4rem; font-size:0.86rem; color:rgba(255,255,255,0.92); }
+  .five .sig { font-size:0.8rem; color:rgba(255,255,255,0.8); font-style:italic; }
+  .c1 { background:linear-gradient(135deg,#1d4ed8,#1e3a8a); } .c2 { background:linear-gradient(135deg,#b45309,#78350f); }
+  .c3 { background:linear-gradient(135deg,#047857,#064e3b); } .c4 { background:linear-gradient(135deg,#7c3aed,#4c1d95); }
+  .c5 { background:linear-gradient(135deg,#be123c,#881337); } .c6 { background:linear-gradient(135deg,#475569,#334155); }
+  .bars { margin:0.6rem 0 0; } .bar { display:grid; grid-template-columns:150px 1fr 92px; gap:0.6rem; align-items:center; margin:0.35rem 0; font-size:0.86rem; }
+  .bar .track { background:#e2e8f0; border-radius:999px; height:14px; overflow:hidden; }
+  .bar .track span { display:block; height:100%; border-radius:999px; width:0; transition:width 0.25s ease; }
+  .bar .v { text-align:right; font-weight:650; color:#0f172a; font-variant-numeric:tabular-nums; }
+  .stat-row { display:flex; flex-wrap:wrap; gap:0.8rem; margin:0.4rem 0 0.8rem; }
+  .stat { background:#f1f5f9; border-radius:10px; padding:0.55rem 0.9rem; font-size:0.82rem; color:#475569; }
+  .stat b { display:block; font-family:'Poppins',sans-serif; font-size:1.25rem; color:#0f172a; }
+
+  /* ---- filter verdicts ---- */
+  .verdict { border-radius:10px; padding:0.6rem 0.8rem; font-size:0.86rem; font-weight:650; margin-top:0.5rem; }
+  .verdict.go { background:#dcfce7; color:#14532d; border:1px solid #86efac; }
+  .verdict.care { background:#fef9c3; color:#713f12; border:1px solid #fde047; }
+  .verdict.stop { background:#fee2e2; color:#7f1d1d; border:1px solid #fca5a5; }
+  .verdict.wait { background:#f1f5f9; color:#475569; border:1px solid #e2e8f0; font-weight:500; }
+  .cand-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(270px,1fr)); gap:1rem; margin:1rem 0; }
+  .cand { background:#fff; border:1px solid #e2e8f0; border-top:5px solid #2563eb; border-radius:14px; padding:1rem 1.1rem; }
+  .cand h4 { font-family:'Poppins',sans-serif; margin:0 0 0.5rem; font-size:1rem; }
+  .q { border-top:1px solid #eef2f7; padding:0.55rem 0; } .q .qt { font-size:0.86rem; font-weight:650; margin-bottom:0.3rem; }
+  .q .qh { font-size:0.78rem; color:#64748b; margin:-0.15rem 0 0.35rem; }
+
+  /* ---- traffic light ---- */
+  .tl { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:1rem; margin:1.2rem 0; }
+  .tl > div { border-radius:14px; padding:1.1rem 1.2rem; border:1px solid #e2e8f0; font-size:0.9rem; }
+  .tl h4 { font-family:'Poppins',sans-serif; margin:0 0 0.2rem; font-size:1.1rem; }
+  .tl .rule { font-weight:650; margin:0 0 0.6rem; } .tl ul { margin:0 0 0.5rem; padding-left:1.1rem; }
+  .tl .g { background:#ecfdf5; border-top:6px solid #16a34a; } .tl .g h4 { color:#15803d; }
+  .tl .a { background:#fffbeb; border-top:6px solid #f59e0b; } .tl .a h4 { color:#b45309; }
+  .tl .r { background:#fef2f2; border-top:6px solid #dc2626; } .tl .r h4 { color:#b91c1c; }
+  .flow { display:grid; gap:0.6rem; margin:1rem 0 1.4rem; }
+  .flow > div { display:grid; grid-template-columns:34px 1fr auto; gap:0.8rem; align-items:center; background:#fff;
+    border:1px solid #e2e8f0; border-radius:12px; padding:0.7rem 0.9rem; font-size:0.92rem; }
+  .flow .fn { width:34px; height:34px; border-radius:9px; background:#0f172a; color:#fff; display:flex; align-items:center;
+    justify-content:center; font-family:'Poppins',sans-serif; font-weight:800; }
+  .pill { display:inline-block; border-radius:999px; padding:0.18rem 0.65rem; font-size:0.76rem; font-weight:800; white-space:nowrap; }
+  .pill.g { background:#dcfce7; color:#14532d; } .pill.a { background:#fef3c7; color:#78350f; } .pill.r { background:#fee2e2; color:#7f1d1d; }
+  .sort-item { display:grid; grid-template-columns:28px 1fr auto; gap:0.7rem; align-items:start; background:#fff; border:1px solid #e2e8f0;
+    border-radius:12px; padding:0.7rem 0.9rem; margin:0.55rem 0; font-size:0.9rem; }
+  .sort-item .sn { font-weight:800; color:#64748b; }
+  .sort-btns { display:flex; gap:0.3rem; }
+  .sort-btns button { border:1px solid #cbd5e1; background:#fff; border-radius:8px; padding:0.25rem 0.6rem; font:inherit; font-size:0.8rem;
+    font-weight:700; cursor:pointer; }
+  .sort-btns button.g:hover { background:#dcfce7; } .sort-btns button.a:hover { background:#fef3c7; } .sort-btns button.r:hover { background:#fee2e2; }
+  .sort-btns button:disabled { cursor:default; opacity:0.45; } .sort-btns button.picked { opacity:1; outline:2px solid #0f172a; }
+  .sort-fb { grid-column:2 / -1; display:none; font-size:0.86rem; border-radius:8px; padding:0.5rem 0.7rem; }
+  .sort-fb.show { display:block; } .sort-fb.ok { background:#ecfdf5; color:#14532d; } .sort-fb.no { background:#fef2f2; color:#7f1d1d; }
+  .score { font-family:'Poppins',sans-serif; font-weight:800; }
+
+  /* ---- GCES builder ---- */
+  .gces-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:0.8rem; margin:0.8rem 0; }
+  .gces-grid .field { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:0.8rem 0.9rem; margin:0; }
+  .gl { display:inline-flex; width:26px; height:26px; border-radius:7px; color:#fff; font-family:'Poppins',sans-serif; font-weight:800;
+    align-items:center; justify-content:center; margin-right:0.4rem; font-size:0.85rem; }
+  .gl.g { background:#1d4ed8; } .gl.c { background:#b45309; } .gl.e { background:#047857; } .gl.s { background:#7c3aed; }
+  .commit { background:linear-gradient(135deg,#0f172a,#1e293b); color:#e2e8f0; border-radius:14px; padding:1.2rem 1.4rem;
+    font-size:1.02rem; line-height:1.7; margin:1rem 0; }
+  .commit b { color:#fbbf24; font-weight:700; }
+  .reveal summary { cursor:pointer; font-weight:700; color:#1d4ed8; margin:0.6rem 0; }
+  .lab { border:1px solid #e2e8f0; border-radius:14px; padding:1.2rem 1.4rem; margin:1.4rem 0; background:#fff; }
+  .lab h4 { font-family:'Poppins',sans-serif; margin:0 0 0.4rem; font-size:1.08rem; display:flex; align-items:center; gap:0.6rem; }
+  .lab .ln { display:inline-flex; width:32px; height:32px; border-radius:8px; background:#dc2626; color:#fff; align-items:center;
+    justify-content:center; font-family:'Poppins',sans-serif; font-weight:800; flex-shrink:0; }
+  .lab .what { color:#64748b; font-size:0.9rem; margin:0 0 0.6rem; }
+  .gloss td:first-child { font-weight:800; color:#1e3a8a; white-space:nowrap; }
+  .gloss td { font-size:0.88rem; }
+
+  @media (max-width: 640px) {
+    .bar { grid-template-columns:110px 1fr 70px; }
+    .flow > div { grid-template-columns:34px 1fr; } .flow > div .pill { grid-column:2; justify-self:start; }
+    .sort-item { grid-template-columns:22px 1fr; } .sort-btns { grid-column:2; }
+  }
+  @media print {
+    @page { size:A4; margin:12mm; }
+    body { background:#fff; font-size:11pt; }
+    .page-nav, .back-to-top, .noprint, .pager, .toolbar, .copy-btn { display:none !important; }
+    .hero { padding:1rem 1.2rem; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .hero-meta { margin-top:0.5rem; }
+    .wrap { padding:1rem 0; max-width:none; }
+    .activity, .five > div, .commit, .tl > div, .lab .ln, .gl, .toc-emoji, thead th, .verdict, .pill, .bar .track span
+      { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .card, .lab, .cand, .tl > div, .five > div, .sort-item, tr, .field { break-inside:avoid; }
+    .table-wrap { overflow:visible; }
+    a { color:inherit; text-decoration:none; }
+    footer.site { margin-top:1rem; padding:0.8rem; background:#fff; color:#475569; }
+    footer.site strong { color:#0f172a; }
+    details.reveal:not([open]) { display:none; }
+    body.print-one .hero, body.print-one footer.site { display:none !important; }
+    body.print-one .wrap > :not(.print-target) { display:none !important; }
+  }
+
+</style>
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_ApprovalStatus msdt:dt="string">0</mso:_ApprovalStatus>
+<mso:_ApprovalAssignedTo msdt:dt="string"></mso:_ApprovalAssignedTo>
+<mso:_ApprovalRespondedBy msdt:dt="string"></mso:_ApprovalRespondedBy>
+<mso:_ApprovalSentBy msdt:dt="string"></mso:_ApprovalSentBy>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+<body data-page="p3">
+<div class="page-nav"><div class="page-nav-inner"><span class="page-nav-label">MCMS · Day 2</span><a href="index.html" class="">Learning Hub</a><a href="00_MCMS_Day2_Hub.html" class="">Day 2 Hub</a><a href="01_Module1_Failure_Lab_and_Glossary.html" class="">1 · Failure Lab &amp; Glossary</a><a href="02_Module4_Opportunity_Recognition.html" class="">2 · Opportunity Recognition</a><a href="03_Module4_Suitability_and_Risk_Filter.html" class="current">3 · Suitability &amp; Risk Filter</a><a href="04_Module5_UC4_Operational_Dataset.html" class="">4 · Operational Dataset</a><a href="05_Module6_Traffic_Light_Data.html" class="">5 · Traffic-Light Data</a><a href="06_Module7_Where_I_Start_and_Assessment.html" class="">6 · Where I Start + Assessment</a></div></div>
+<div class="hero"><div class="hero-inner">
+  <span class="hero-tag">Day 2 · Module 4 · Filter</span>
+  <h1>Suitability &amp; <span>Risk Filter</span></h1>
+  <p class="sub">Decide which opportunities to try first, and which not to try at all. Use the same five questions on any AI idea after the course.</p>
+  <div class="hero-meta"><span class="hero-chip">Fri 16 Oct 2026</span><span class="hero-chip">Mitsubishi Chemical Methacrylates Singapore</span><span class="hero-chip">Module 4</span><span class="hero-chip">Checklist + worksheet</span></div>
+</div></div>
+<div class="wrap">
+
+<div class="toolbar noprint"><button onclick="window.print()">Print / Save as PDF</button><button onclick="clearAnswers()">Clear my answers</button><span>Your answers save automatically in this browser only. Save as PDF to keep or submit them.</span></div>
+<nav class="toc"><h2>On this page</h2>
+<a class="toc-row" href="#how" data-target="how"><span class="toc-emoji">1</span><span class="toc-text"><span class="toc-title">How the filter works</span><span class="toc-sub">Four suitability questions, one risk question</span></span></a>
+<a class="toc-row" href="#filter" data-target="filter"><span class="toc-emoji">2</span><span class="toc-text"><span class="toc-title">Filter my three candidates</span><span class="toc-sub">Live verdict and ranking</span></span></a>
+<a class="toc-row" href="#card" data-target="card"><span class="toc-emoji">3</span><span class="toc-text"><span class="toc-title">The pocket checklist</span><span class="toc-sub">Use it on any future AI idea</span></span></a>
+</nav>
+
+<section class="topic" id="how">
+<span class="topic-label">Module 4 · after your shortlist</span>
+<h2 class="topic-title">How the filter works</h2>
+<p class="topic-subtitle">A good first AI task is one where a mistake is easy to spot and cheap to fix. The filter checks exactly that.</p>
+<div class="three-up">
+<div><h4>Suitability: is it worth doing?</h4><p>Four questions. A "No" on any of them means you fix that first or park the task. A "No" on safe data means stop.</p></div>
+<div><h4>Risk: what if it is wrong?</h4><p>One question: if the output is wrong and nobody catches it, what happens? High-risk tasks are not first candidates, however attractive they are.</p></div>
+<div><h4>Saying "not yet" is a good result</h4><p>Naming a task openly as a poor first candidate is a good outcome. It is exactly the judgement the assessment looks for.</p></div>
+</div>
+</section>
+
+<section class="topic" id="filter">
+<span class="topic-label">Hands-on · 15 minutes</span>
+<h2 class="topic-title">Filter my three candidates</h2>
+<p>Bring the three tasks from your <a href="02_Module4_Opportunity_Recognition.html">opportunity shortlist</a>.</p>
+<div class="cand-grid"><div class="cand"><h4>Candidate A</h4>
+<div class="field"><label>Task</label><input class="in " type="text" data-k="f-tA" placeholder="From your shortlist"></div>
+<div class="q"><div class="qt">Volume or effort</div><div class="qh">Is it frequent (weekly or more), or does it take a lot of effort each time?</div><div class="opts"><label><input type="radio" name="f-s1-A" value="2"> Yes</label><label><input type="radio" name="f-s1-A" value="1"> Partly</label><label><input type="radio" name="f-s1-A" value="0"> No</label></div></div><div class="q"><div class="qt">Readable input</div><div class="qh">Is the input in a form the tool can read: typed text, a file, an email, a spreadsheet? (Not only in someone's head, on paper, or locked in a system you cannot export from.)</div><div class="opts"><label><input type="radio" name="f-s2-A" value="2"> Yes</label><label><input type="radio" name="f-s2-A" value="1"> Partly</label><label><input type="radio" name="f-s2-A" value="0"> No</label></div></div><div class="q"><div class="qt">Checkable output</div><div class="qh">Could you, or someone near you, quickly tell if the output were wrong?</div><div class="opts"><label><input type="radio" name="f-s3-A" value="2"> Yes</label><label><input type="radio" name="f-s3-A" value="1"> Partly</label><label><input type="radio" name="f-s3-A" value="0"> No</label></div></div><div class="q"><div class="qt">Safe data</div><div class="qh">On the traffic-light sheet, is the data Green, or Amber that you can anonymise? Red means no.</div><div class="opts"><label><input type="radio" name="f-s4-A" value="2"> Yes</label><label><input type="radio" name="f-s4-A" value="1"> Partly</label><label><input type="radio" name="f-s4-A" value="0"> No</label></div></div>
+<div class="q"><div class="qt">Risk filter</div><div class="qh">If the output is wrong and nobody catches it, what happens?</div><div class="opts"><label><input type="radio" name="f-r-A" value="low"> Low: mild inconvenience, easily fixed</label><label><input type="radio" name="f-r-A" value="med"> Medium: rework, delay or internal embarrassment</label><label><input type="radio" name="f-r-A" value="high"> High: customer, safety, regulatory, financial or personnel harm</label></div></div>
+<div class="verdict wait" id="vA">Answer all five questions to see the verdict.</div>
+</div><div class="cand"><h4>Candidate B</h4>
+<div class="field"><label>Task</label><input class="in " type="text" data-k="f-tB" placeholder="From your shortlist"></div>
+<div class="q"><div class="qt">Volume or effort</div><div class="qh">Is it frequent (weekly or more), or does it take a lot of effort each time?</div><div class="opts"><label><input type="radio" name="f-s1-B" value="2"> Yes</label><label><input type="radio" name="f-s1-B" value="1"> Partly</label><label><input type="radio" name="f-s1-B" value="0"> No</label></div></div><div class="q"><div class="qt">Readable input</div><div class="qh">Is the input in a form the tool can read: typed text, a file, an email, a spreadsheet? (Not only in someone's head, on paper, or locked in a system you cannot export from.)</div><div class="opts"><label><input type="radio" name="f-s2-B" value="2"> Yes</label><label><input type="radio" name="f-s2-B" value="1"> Partly</label><label><input type="radio" name="f-s2-B" value="0"> No</label></div></div><div class="q"><div class="qt">Checkable output</div><div class="qh">Could you, or someone near you, quickly tell if the output were wrong?</div><div class="opts"><label><input type="radio" name="f-s3-B" value="2"> Yes</label><label><input type="radio" name="f-s3-B" value="1"> Partly</label><label><input type="radio" name="f-s3-B" value="0"> No</label></div></div><div class="q"><div class="qt">Safe data</div><div class="qh">On the traffic-light sheet, is the data Green, or Amber that you can anonymise? Red means no.</div><div class="opts"><label><input type="radio" name="f-s4-B" value="2"> Yes</label><label><input type="radio" name="f-s4-B" value="1"> Partly</label><label><input type="radio" name="f-s4-B" value="0"> No</label></div></div>
+<div class="q"><div class="qt">Risk filter</div><div class="qh">If the output is wrong and nobody catches it, what happens?</div><div class="opts"><label><input type="radio" name="f-r-B" value="low"> Low: mild inconvenience, easily fixed</label><label><input type="radio" name="f-r-B" value="med"> Medium: rework, delay or internal embarrassment</label><label><input type="radio" name="f-r-B" value="high"> High: customer, safety, regulatory, financial or personnel harm</label></div></div>
+<div class="verdict wait" id="vB">Answer all five questions to see the verdict.</div>
+</div><div class="cand"><h4>Candidate C</h4>
+<div class="field"><label>Task</label><input class="in " type="text" data-k="f-tC" placeholder="From your shortlist"></div>
+<div class="q"><div class="qt">Volume or effort</div><div class="qh">Is it frequent (weekly or more), or does it take a lot of effort each time?</div><div class="opts"><label><input type="radio" name="f-s1-C" value="2"> Yes</label><label><input type="radio" name="f-s1-C" value="1"> Partly</label><label><input type="radio" name="f-s1-C" value="0"> No</label></div></div><div class="q"><div class="qt">Readable input</div><div class="qh">Is the input in a form the tool can read: typed text, a file, an email, a spreadsheet? (Not only in someone's head, on paper, or locked in a system you cannot export from.)</div><div class="opts"><label><input type="radio" name="f-s2-C" value="2"> Yes</label><label><input type="radio" name="f-s2-C" value="1"> Partly</label><label><input type="radio" name="f-s2-C" value="0"> No</label></div></div><div class="q"><div class="qt">Checkable output</div><div class="qh">Could you, or someone near you, quickly tell if the output were wrong?</div><div class="opts"><label><input type="radio" name="f-s3-C" value="2"> Yes</label><label><input type="radio" name="f-s3-C" value="1"> Partly</label><label><input type="radio" name="f-s3-C" value="0"> No</label></div></div><div class="q"><div class="qt">Safe data</div><div class="qh">On the traffic-light sheet, is the data Green, or Amber that you can anonymise? Red means no.</div><div class="opts"><label><input type="radio" name="f-s4-C" value="2"> Yes</label><label><input type="radio" name="f-s4-C" value="1"> Partly</label><label><input type="radio" name="f-s4-C" value="0"> No</label></div></div>
+<div class="q"><div class="qt">Risk filter</div><div class="qh">If the output is wrong and nobody catches it, what happens?</div><div class="opts"><label><input type="radio" name="f-r-C" value="low"> Low: mild inconvenience, easily fixed</label><label><input type="radio" name="f-r-C" value="med"> Medium: rework, delay or internal embarrassment</label><label><input type="radio" name="f-r-C" value="high"> High: customer, safety, regulatory, financial or personnel harm</label></div></div>
+<div class="verdict wait" id="vC">Answer all five questions to see the verdict.</div>
+</div></div>
+<div class="card accent"><h3 class="sub" style="margin-top:0">My ranking</h3><div id="rank" class="verdict wait">Complete at least one candidate.</div>
+<div class="field"><label>Why my #1 is the right place to start (one or two sentences)</label><div class="fill tall" contenteditable="true" data-k="f-why" data-ph="Type here..."></div></div>
+<div class="field"><label>The candidate I am naming as a poor first choice, and why</label><div class="fill tall" contenteditable="true" data-k="f-not" data-ph="Type here..."></div></div>
+</div>
+<div class="note"><strong>Scoring, if you're curious:</strong> Yes = 2, Partly = 1, No = 0 on each suitability question, plus 2 for low risk and 1 for medium risk (10 max). Red data or high risk overrides the score.</div>
+</section>
+
+<section class="topic" id="card">
+<div class="sheet-title"><h2 class="topic-title">The pocket checklist</h2><button class="btn light noprint" onclick="printSection('card')">Print this checklist only</button></div>
+<p class="topic-subtitle">For any AI idea after today, take five questions and 30 seconds before you start.</p>
+<div class="table-wrap"><table class=""><thead><tr><th></th><th>Question</th><th>If the answer is No</th></tr></thead><tbody><tr><td><strong>1</strong></td><td><strong>Volume or effort.</strong> Is it frequent, or a lot of effort each time?</td><td>Probably not worth setting up. Do it by hand.</td></tr><tr><td><strong>2</strong></td><td><strong>Readable input.</strong> Can the tool read the input (text, file, email, spreadsheet)?</td><td>Fix the input first (export it, type it up) or park it.</td></tr><tr><td><strong>3</strong></td><td><strong>Checkable output.</strong> Would someone notice quickly if it were wrong?</td><td>Park it until you can check it. Unchecked output is the biggest risk.</td></tr><tr><td><strong>4</strong></td><td><strong>Safe data.</strong> Is the data Green, or Amber that you can anonymise?</td><td>Stop. Red data does not go into AI tools.</td></tr><tr><td><strong>5</strong></td><td><strong>Risk.</strong> If it is wrong and nobody catches it, is the damage small?</td><td>Not a first candidate. Revisit later with a second-person check.</td></tr></tbody></table></div>
+<div class="objective"><strong>Green light:</strong> Yes to 1 to 4, and low or medium risk. Start small, check every output for the first few runs, and save the prompt that works.</div>
+</section>
+
+<div class="pager"><a href="02_Module4_Opportunity_Recognition.html"><span class="dir">Previous</span><span class="nm">2 · Opportunity Recognition</span></a><a href="04_Module5_UC4_Operational_Dataset.html" class="next"><span class="dir">Next</span><span class="nm">4 · Operational Dataset</span></a></div>
+</div>
+<footer class="site"><strong>Mitsubishi Chemical Methacrylates Singapore · 2-Day Digital and AI Skills Course (SFDW) · 15 &amp; 16 October 2026</strong>Tic Tech Toe Labs · Workplace Digital Skills Training</footer>
+<button class="back-to-top" id="backToTop" aria-label="Back to top">&uarr;</button>
+<script>
+
+/*
+  Behaviour written to survive being embedded in a Google Sites iframe.
+
+  1. In-page anchors: Sites auto-sizes the iframe to full content height, so the
+     iframe never scrolls and a native #hash jump appears to do nothing.
+     preventDefault + scrollIntoView() bubbles up and scrolls the parent page.
+  2. Back-to-top: window.scrollY is permanently 0 inside the iframe, so when
+     embedded we just show the button always.
+  3. Copy buttons: the handler reads previousElementSibling, so a .copy-btn MUST
+     be the immediate next sibling of its .prompt-box / .formula.
+*/
+(function () {
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!link) return;
+    var hash = link.getAttribute('href');
+    if (!hash || hash === '#') return;
+    var id = link.getAttribute('data-target') || hash.slice(1);
+    var target = document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  var btn = document.getElementById('backToTop');
+  if (btn) {
+    var embedded = window.self !== window.top;
+    var top = document.body.firstElementChild || document.body;
+    if (embedded) { btn.classList.add('visible'); }
+    else {
+      var onScroll = function () { btn.classList.toggle('visible', window.scrollY > 600); };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      try { top.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      catch (err) { window.scrollTo(0, 0); }
+    });
+  }
+})();
+
+function copyPrompt(btn) {
+  var src = btn.previousElementSibling;
+  if (!src) return;
+  var text = src.innerText;
+  var done = function () {
+    var old = btn.textContent;
+    btn.textContent = '✓ Copied to clipboard';
+    btn.classList.add('copied');
+    setTimeout(function () { btn.textContent = old; btn.classList.remove('copied'); }, 1800);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done, function () { fallback(text, done); });
+  } else { fallback(text, done); }
+}
+function fallback(text, done) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); done(); } catch (e) {}
+  document.body.removeChild(ta);
+}
+
+function kc(btn, correct) {
+  var box = btn.closest('.kc');
+  var opts = box.querySelectorAll('.kc-opt');
+  for (var i = 0; i < opts.length; i++) { opts[i].disabled = true; }
+  btn.classList.add(correct ? 'right' : 'wrong');
+  if (!correct) {
+    for (var j = 0; j < opts.length; j++) {
+      if (opts[j].getAttribute('data-correct') === '1') { opts[j].classList.add('right'); }
+    }
+  }
+  var fb = box.querySelector('.kc-feedback');
+  if (fb) fb.classList.add('show');
+}
+
+
+window.recalc = function () {
+  function val(n) { var e = document.querySelector('input[name="' + n + '"]:checked'); return e ? e.value : null; }
+  var out = [];
+  ['A','B','C'].forEach(function (x) {
+    var s = ['s1','s2','s3','s4'].map(function (q) { return val('f-' + q + '-' + x); });
+    var r = val('f-r-' + x), box = document.getElementById('v' + x);
+    var name = (document.querySelector('[data-k="f-t' + x + '"]') || {}).value || ('Candidate ' + x);
+    var cls = 'wait', msg = 'Answer all five questions to see the verdict.', score = -1;
+    if (s[3] === '0') { cls = 'stop'; msg = 'Not a first candidate: the data is Red. Stop here, or change what you would put in.'; score = -2; }
+    else if (r === 'high') { cls = 'stop'; msg = 'Not a first candidate: a wrong output could cause real harm. Name it openly and revisit it later with a second-person check.'; score = -1; }
+    else if (s.indexOf(null) < 0 && r) {
+      var labels = ['volume or effort', 'readable input', 'checkable output', 'safe data'], nos = [];
+      s.forEach(function (v, i) { if (v === '0') nos.push(labels[i]); });
+      score = s.reduce(function (a, v) { return a + Number(v); }, 0) + (r === 'low' ? 2 : 1);
+      if (nos.length) { cls = 'care'; msg = 'Park or fix first: ' + nos.join(', ') + '. Score ' + score + '/10.'; }
+      else if (score >= 8) { cls = 'go'; msg = 'Strong first candidate. Score ' + score + '/10.'; }
+      else { cls = 'care'; msg = 'Workable. Start with care and check every output at first. Score ' + score + '/10.'; }
+    }
+    box.className = 'verdict ' + cls; box.textContent = msg;
+    if (cls !== 'wait') out.push({ n: name, s: score, c: cls });
+  });
+  var rk = document.getElementById('rank');
+  if (!out.length) { rk.className = 'verdict wait'; rk.textContent = 'Complete at least one candidate.'; return; }
+  out.sort(function (a, b) { return b.s - a.s; });
+  rk.className = 'verdict ' + out[0].c;
+  rk.innerHTML = out.map(function (o, i) { var t = o.n.replace(/</g, '&lt;');
+    return (i + 1) + '. ' + t + (o.s >= 0 ? ' (' + o.s + '/10)' : ' (not a first candidate)'); }).join('<br>');
+};
+
+
+(function () {
+  var KEY = 'mcms-sfdw-' + (document.body.getAttribute('data-page') || 'x');
+  var st = {};
+  try { st = JSON.parse(window.localStorage.getItem(KEY) || '{}') || {}; } catch (e) { st = {}; }
+  function put() { try { window.localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} }
+  var ks = document.querySelectorAll('[data-k]');
+  for (var i = 0; i < ks.length; i++) {
+    var el = ks[i], v = st[el.getAttribute('data-k')];
+    if (v == null) continue;
+    if (el.isContentEditable) el.innerHTML = v; else el.value = v;
+  }
+  var rs = document.querySelectorAll('input[type=radio][name]');
+  for (var j = 0; j < rs.length; j++) if (st['r:' + rs[j].name] === rs[j].value) rs[j].checked = true;
+  function onEdit(e) {
+    var el = e.target;
+    if (!el || !el.getAttribute) return;
+    var host = el.closest ? el.closest('[data-k]') : null;
+    if (el.type === 'radio' && el.name) { st['r:' + el.name] = el.value; put(); }
+    else if (host) { st[host.getAttribute('data-k')] = host.isContentEditable ? host.innerHTML : host.value; put(); }
+    if (window.recalc) window.recalc();
+  }
+  document.addEventListener('input', onEdit);
+  document.addEventListener('change', onEdit);
+  window.clearAnswers = function () {
+    if (!window.confirm('Clear everything you have typed on this page?')) return;
+    try { window.localStorage.removeItem(KEY); } catch (e) {}
+    window.location.reload();
+  };
+  window.printSection = function (id) {
+    var t = document.getElementById(id);
+    if (!t) { window.print(); return; }
+    document.body.classList.add('print-one'); t.classList.add('print-target');
+    var done = function () { document.body.classList.remove('print-one'); t.classList.remove('print-target');
+      window.removeEventListener('afterprint', done); };
+    window.addEventListener('afterprint', done);
+    window.print();
+  };
+  if (window.recalc) window.recalc();
+})();
+
+</script>
+</body>
+</html>
