@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -523,23 +523,14 @@
   }
 
 </style>
-
-<!--[if gte mso 9]><xml>
-<mso:CustomDocumentProperties>
-<mso:_ApprovalStatus msdt:dt="string">0</mso:_ApprovalStatus>
-<mso:_ApprovalAssignedTo msdt:dt="string"></mso:_ApprovalAssignedTo>
-<mso:_ApprovalRespondedBy msdt:dt="string"></mso:_ApprovalRespondedBy>
-<mso:_ApprovalSentBy msdt:dt="string"></mso:_ApprovalSentBy>
-</mso:CustomDocumentProperties>
-</xml><![endif]-->
 </head>
 <body data-page="p1b">
 <div class="page-nav"><div class="page-nav-inner"><span class="page-nav-label">Qorvo · SFDW</span><a href="https://www.tictechtoelabs.com/learninghub/qorvo_2nd_batch_learninghub.html">Learning Hub</a><a href="01_Prompting_GCES_Card.html" class="current">Prompting · GCES Card</a><a href="02_Guardrails_Traffic_Light_Data.html" class="">Guardrails · Traffic-Light Data</a><a href="03_Opportunity_Recognition.html" class="">Opportunity Recognition</a></div></div>
 <div class="hero"><div class="hero-inner">
-  <span class="hero-tag">Day 1 · Module 2 · Prompt Engineering with Copilot</span>
+  <span class="hero-tag">Prompt Engineering with Copilot</span>
   <h1>Prompting: <span>One Shared Method</span></h1>
   <p class="sub">GCES on one card: the four parts of a good prompt, a before-and-after, how to fix a weak answer one part at a time, and where your best prompts go.</p>
-  <div class="hero-meta"><span class="hero-chip">Wed 21 Oct 2026</span><span class="hero-chip">Qorvo International</span><span class="hero-chip">Module 2 · 60 min</span><span class="hero-chip">Laptop · Copilot</span></div>
+  <div class="hero-meta"><span class="hero-chip">Qorvo International</span><span class="hero-chip">60 min</span><span class="hero-chip">Laptop · Copilot</span></div>
 </div></div>
 <div class="wrap">
 
@@ -613,7 +604,7 @@ Source: Use only the facts in this prompt. Do not add dates, rules or links that
 <p class="topic-subtitle">A disappointing answer usually means one letter is weak. Find it, change only that line, and run it again.</p>
 <div class="table-wrap"><table class=""><thead><tr><th>If the answer is...</th><th>Change this part</th><th>For example</th></tr></thead><tbody><tr><td>About the wrong thing, or answers a different question</td><td><span style="white-space:nowrap"><span class="gl g">G</span>Goal</span></td><td>Say exactly what you want: "a 6-bullet summary", not "something about the build plan"</td></tr><tr><td>Generic, and could be about any company</td><td><span style="white-space:nowrap"><span class="gl c">C</span>Context</span></td><td>Add who it is for and the situation they are in</td></tr><tr><td>Right content, wrong shape: too long, wrong tone, no table</td><td><span style="white-space:nowrap"><span class="gl e">E</span>Expectations</span></td><td>"Maximum 4 bullets", "as a table with these columns", "for a non-technical reader"</td></tr><tr><td>Full of facts, names or figures you did not give it</td><td><span style="white-space:nowrap"><span class="gl s">S</span>Source</span></td><td>"Use only the attached file", "if it is missing, say so"</td></tr></tbody></table></div>
 <div class="three-up">
-<div><h4>Change one part per try</h4><p>Then you know what made the difference, and you can explain it in the Day 2 assessment.</p></div>
+<div><h4>Change one part per try</h4><p>Then you know what made the difference, and you can explain what you changed.</p></div>
 <div><h4>Reply in the same chat</h4><p>For small fixes, just reply: "Shorter, maximum 4 bullets." Start a new chat only when you change the Goal completely.</p></div>
 <div><h4>Stop after three tries</h4><p>If it is still not usable, the input may be missing, or the task may be a poor candidate for AI (see <a href="03_Opportunity_Recognition.html">Opportunity Recognition</a>). Doing it yourself is a valid answer.</p></div>
 </div>
@@ -622,7 +613,7 @@ Source: Use only the facts in this prompt. Do not add dates, rules or links that
 <section class="topic" id="extras">
 <span class="topic-label">Add-ons</span>
 <h2 class="topic-title">Personas, examples and formats</h2>
-<p class="topic-subtitle">Lines you can add to any GCES prompt to lock in the style you want for reports, logs and specifications. These are the prompt modifiers from Module 2: tone, length, audience and style.</p>
+<p class="topic-subtitle">Lines you can add to any GCES prompt to lock in the style you want for reports, logs and specifications. These are prompt modifiers: tone, length, audience and style.</p>
 <div class="table-wrap"><table class=""><thead><tr><th>Add-on</th><th>A line you can paste</th><th>What it does</th></tr></thead><tbody><tr><td><strong>Persona</strong></td><td>"Act as an experienced production planner writing for the operations director."</td><td>Sets the tone and vocabulary. It does not give the tool knowledge it does not have.</td></tr><tr><td><strong>Example</strong></td><td>"Here is last month's summary. Match its layout, headings and tone."</td><td>The fastest way to get your house style. Remove confidential details from the example first.</td></tr><tr><td><strong>Table</strong></td><td>"As a table with columns: Item | Owner | Due date | Status."</td><td>Output you can paste straight into Excel or Word.</td></tr><tr><td><strong>Length</strong></td><td>"Maximum 120 words" or "one line per item".</td><td>Stops long, padded answers.</td></tr><tr><td><strong>Gaps</strong></td><td>"List any questions you need answered before this is final."</td><td>Makes missing context visible instead of invented.</td></tr></tbody></table></div>
 </section>
 
@@ -631,7 +622,7 @@ Source: Use only the facts in this prompt. Do not add dates, rules or links that
 <h2 class="topic-title">Grounding in your own files</h2>
 <p class="topic-subtitle">An answer grounded in your own document beats one from the open web. How you give Copilot the file depends on which Copilot your account has.</p>
 <div class="table-wrap"><table class=""><thead><tr><th></th><th>Copilot Chat (everyone)</th><th>Microsoft 365 Copilot (add-on licence)</th></tr></thead><tbody><tr><td>How to give it the file</td><td>Upload the file, or paste the text into the chat</td><td>Type <strong>/</strong> and pick a file, email or meeting, or name the file in your prompt</td></tr><tr><td>What to write in Source</td><td>"Use only the attached file."</td><td>"Use only [file name]."</td></tr><tr><td>What it can see</td><td>Only what you upload or paste</td><td>Files you already have permission to open in SharePoint, OneDrive and Teams</td></tr></tbody></table></div>
-<div class="note"><strong>Either way,</strong> check the file against <a href="02_Guardrails_Traffic_Light_Data.html">the traffic-light sheet</a> before it goes in. Red data does not go into any AI tool. On Day 2, Copilot Notebooks take this further: a whole set of files that Copilot answers from.</div>
+<div class="note"><strong>Either way,</strong> check the file against <a href="02_Guardrails_Traffic_Light_Data.html">the traffic-light sheet</a> before it goes in. Red data does not go into any AI tool. Copilot Notebooks take this further: a whole set of files that Copilot answers from.</div>
 </section>
 
 <section class="topic" id="mine">
@@ -653,14 +644,14 @@ Source: Use only the facts in this prompt. Do not add dates, rules or links that
 <div class="field"><label>What I changed, and what improved</label><div class="fill tall" contenteditable="true" data-k="m2-what" data-ph="e.g. Added "use only the pasted email" because the first answer invented a ship date..."></div></div>
 <div class="card accent">
 <h3 class="sub" style="margin-top:0">Our shared prompt library</h3>
-<p>The group collects its best prompts in one place, so they keep growing after the course. On Day 2, Module 6 builds the shared prompt library for HR, Finance, IT, Planning and Operations, and the group agrees where it lives (for example a Teams channel, a OneNote page or a SharePoint list) and who looks after it. Your best prompt from today goes in first.</p>
+<p>The group collects its best prompts in one place, so they keep growing after the course. The group builds a shared prompt library for HR, Finance, IT, Planning and Operations, and agrees where it lives (for example a Teams channel, a OneNote page or a SharePoint list) and who looks after it. Your best prompt from today goes in first.</p>
 <div class="field"><label>My best prompt, ready to share (remove anything confidential)</label><div class="fill xtall" contenteditable="true" data-k="m2-share" data-ph="Paste your final GCES prompt here..."></div></div>
 </div>
 </section>
 
 <div class="pager"><span class="spacer"></span><a href="02_Guardrails_Traffic_Light_Data.html" class="next"><span class="dir">Next</span><span class="nm">Guardrails · Traffic-Light Data</span></a></div>
 </div>
-<footer class="site"><strong>Qorvo International · 2-Day Digital and AI Skills Course (SFDW) · 21 &amp; 23 October 2026</strong>Tic Tech Toe Labs · Workplace Digital Skills Training</footer>
+<footer class="site"><strong>Qorvo International · SkillsFuture for Digital Workplace (SFDW)</strong>Tic Tech Toe Labs · Workplace Digital Skills Training</footer>
 <button class="back-to-top" id="backToTop" aria-label="Back to top">&uarr;</button>
 <script>
 
