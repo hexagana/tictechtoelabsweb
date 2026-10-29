@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Pick an entry type and mood, jot what happened, and get tonight's journal prompts to write against.">
+<title>Journal Entry Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow notebook column on dot-grid paper; setup panel above, the entry "sheet" below, saved entries at the end. */
+:root {
+  --paper: #f3f5f9;
+  --sheet: #ffffff;
+  --ink: #1a2132;
+  --ink-soft: #5b6579;
+  --rule: #dce1ea;
+  --dot: #c8cfdc;
+  --accent: #2545b5;
+  --accent-ink: #ffffff;
+  --accent-soft: #e6ebfb;
+  --hl: rgba(226, 242, 82, 0.95);
+  --warn: #b4361f;
+  --shadow: 0 1px 0 rgba(26, 33, 50, .04), 0 8px 24px -12px rgba(26, 33, 50, .18);
+  --f-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Newsreader", Georgia, "Times New Roman", serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0e1320; --sheet: #151c2b; --ink: #e5e8ef; --ink-soft: #97a1b5; --rule: #263049;
+    --dot: #253150; --accent: #92aaff; --accent-ink: #0e1320; --accent-soft: #1d2846;
+    --hl: rgba(206, 228, 74, 0.32); --warn: #ff8f78;
+    --shadow: 0 1px 0 rgba(0,0,0,.2), 0 10px 28px -14px rgba(0,0,0,.6);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0e1320; --sheet: #151c2b; --ink: #e5e8ef; --ink-soft: #97a1b5; --rule: #263049;
+  --dot: #253150; --accent: #92aaff; --accent-ink: #0e1320; --accent-soft: #1d2846;
+  --hl: rgba(206, 228, 74, 0.32); --warn: #ff8f78;
+  --shadow: 0 1px 0 rgba(0,0,0,.2), 0 10px 28px -14px rgba(0,0,0,.6);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background-color: var(--paper);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.5;
+}
+.wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+  display: grid;
+  gap: 22px;
+}
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+p { margin: 0; }
+button, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.stamp {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+.mast { display: grid; gap: 8px; }
+.mast h1 { font-size: clamp(30px, 8vw, 42px); font-weight: 700; line-height: 1.05; }
+.mast .lede { color: var(--ink-soft); max-width: 46ch; }
+
+/* Setup panel */
+.setup {
+  display: grid; gap: 18px;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  padding: 18px;
+}
+.field { display: grid; gap: 8px; }
+.label {
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft);
+}
+.label .opt { text-transform: none; letter-spacing: 0; opacity: .8; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  border: 1px solid var(--rule); background: transparent; border-radius: 999px;
+  padding: 6px 13px; font-family: var(--f-display); font-size: 15px; font-weight: 500; cursor: pointer;
+  transition: border-color .15s, background-color .15s;
+}
+.chip:hover { border-color: var(--ink-soft); }
+.chip[aria-checked="true"] {
+  border-color: var(--ink);
+  background-image: linear-gradient(transparent 52%, var(--hl) 52%, var(--hl) 88%, transparent 88%);
+}
+.mood { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.mood button {
+  display: grid; justify-items: center; gap: 2px;
+  border: 1px solid var(--rule); background: transparent; border-radius: 10px;
+  padding: 8px 2px; cursor: pointer; min-width: 0;
+}
+.mood .n { font-family: var(--f-mono); font-size: 15px; font-variant-numeric: tabular-nums; }
+.mood .w { font-family: var(--f-display); font-size: 12.5px; color: var(--ink-soft); }
+.mood button[aria-checked="true"] { background: var(--ink); border-color: var(--ink); }
+.mood button[aria-checked="true"] .n, .mood button[aria-checked="true"] .w { color: var(--sheet); }
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; padding: 3px; width: max-content; }
+.seg button {
+  border: 0; background: transparent; border-radius: 999px; padding: 5px 14px; cursor: pointer;
+  font-family: var(--f-display); font-size: 14px; font-weight: 500; color: var(--ink-soft);
+}
+.seg button[aria-checked="true"] { background: var(--accent-soft); color: var(--ink); }
+.seg-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+textarea {
+  width: 100%; resize: none; border: 1px solid var(--rule); border-radius: 10px;
+  background: transparent; padding: 10px 12px; line-height: 1.5; min-height: 2.9em; overflow: hidden;
+}
+textarea::placeholder { color: var(--ink-soft); opacity: .75; font-style: italic; }
+#notes { min-height: 5.5em; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn {
+  border: 1px solid var(--rule); background: transparent; border-radius: 10px;
+  padding: 10px 15px; font-family: var(--f-display); font-weight: 500; font-size: 15px; cursor: pointer;
+}
+.btn:hover { border-color: var(--ink-soft); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn:disabled { opacity: .55; cursor: progress; }
+.btn.ghost { border-color: transparent; color: var(--ink-soft); }
+.btn.ghost:hover { color: var(--ink); border-color: var(--rule); }
+.btn.danger { color: var(--warn); border-color: var(--warn); }
+.status { font-size: 15px; color: var(--ink-soft); min-height: 0; }
+.status:empty { display: none; }
+
+/* The entry sheet: ruled notebook page with a margin line */
+.sheet {
+  background: var(--sheet);
+  border-radius: 6px 14px 14px 6px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--rule);
+  padding: 22px 18px 18px 30px;
+  position: relative;
+  display: grid; gap: 18px;
+}
+.sheet::before {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 16px; width: 1px; background: var(--accent); opacity: .35;
+}
+.sheet-head { display: grid; gap: 4px; padding-bottom: 14px; border-bottom: 1px solid var(--rule); }
+.sheet-head h2 { font-size: 24px; font-weight: 700; }
+.meta { font-size: 15px; color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; }
+.src {
+  font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+  border: 1px solid var(--rule); border-radius: 999px; padding: 2px 8px;
+}
+.src.claude { border-color: var(--accent); color: var(--accent); }
+
+.draft { display: grid; gap: 6px; }
+.draft textarea { border-style: dashed; }
+.prompts { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; counter-reset: q; }
+.prompts li { display: grid; grid-template-columns: 26px 1fr; gap: 0 8px; min-width: 0; }
+.prompts .num {
+  font-family: var(--f-mono); font-size: 12px; color: var(--ink-soft); padding-top: 5px; font-variant-numeric: tabular-nums;
+}
+.prompts .body { display: grid; gap: 6px; min-width: 0; }
+.prompts .q { font-size: 18px; font-weight: 500; line-height: 1.35; }
+.prompts .q.bookend { font-style: italic; font-weight: 400; color: var(--ink-soft); }
+.prompts textarea {
+  border: 0; border-radius: 0; padding: 4px 0;
+  background-image: linear-gradient(transparent calc(1.5em + 3px), var(--rule) calc(1.5em + 3px), var(--rule) calc(1.5em + 4px), transparent calc(1.5em + 4px));
+  background-size: 100% 1.5em; background-position: 0 -0.1em;
+  line-height: 1.5em;
+}
+.prompts textarea:focus-visible { outline: none; background-color: var(--accent-soft); }
+.sheet-foot { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 14px; border-top: 1px solid var(--rule); }
+#copyFallback { font-family: var(--f-mono); font-size: 13px; min-height: 8em; overflow: auto; }
+
+/* Saved entries */
+.history { display: grid; gap: 10px; }
+.history h2 { font-size: 20px; font-weight: 700; display: flex; align-items: baseline; gap: 8px; }
+.history h2 .count { font-family: var(--f-mono); font-size: 13px; font-weight: 400; color: var(--ink-soft); }
+.hist { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.hist details { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; }
+.hist summary { cursor: pointer; padding: 11px 14px; display: grid; gap: 2px; list-style: none; }
+.hist summary::-webkit-details-marker { display: none; }
+.hist .first { font-size: 15.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hist .inner { padding: 0 14px 14px; display: grid; gap: 10px; border-top: 1px solid var(--rule); padding-top: 12px; }
+.hist .qa p:first-child { font-weight: 500; }
+.hist .qa p + p { color: var(--ink-soft); white-space: pre-wrap; }
+.hist .row { display: flex; gap: 8px; flex-wrap: wrap; }
+.empty { color: var(--ink-soft); font-size: 15px; }
+
+.toast {
+  position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px);
+  background: var(--ink); color: var(--sheet); font-family: var(--f-display); font-size: 14px;
+  padding: 9px 16px; border-radius: 999px; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s;
+  max-width: calc(100% - 32px);
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="mast">
+    <p class="stamp" id="stamp">Today</p>
+    <h1>Journal Entry Generator</h1>
+    <p class="lede">Pick the kind of entry, say how today felt, jot what happened. Get the prompts to write against tonight.</p>
+  </header>
+
+  <section class="setup" aria-label="Entry setup">
+    <div class="field">
+      <span class="label" id="typeLbl">Entry type</span>
+      <div class="chips" role="radiogroup" aria-labelledby="typeLbl" id="types"></div>
+    </div>
+    <div class="field">
+      <span class="label" id="moodLbl">Today felt</span>
+      <div class="mood" role="radiogroup" aria-labelledby="moodLbl" id="moods"></div>
+    </div>
+    <div class="field">
+      <label class="label" for="notes">What happened today <span class="opt">(optional)</span></label>
+      <textarea id="notes" placeholder="e.g. Ran a Copilot workshop for a new client, projector died mid-demo, good debrief over lunch"></textarea>
+    </div>
+    <div class="seg-row">
+      <span class="label" id="lenLbl">Length</span>
+      <div class="seg" role="radiogroup" aria-labelledby="lenLbl" id="lens">
+        <button type="button" role="radio" data-len="quick" aria-checked="false">Quick · 5</button>
+        <button type="button" role="radio" data-len="full" aria-checked="true">Full · 7</button>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn primary" id="gen">Generate prompts</button>
+      <button type="button" class="btn" id="draftBtn" hidden>Draft entry from notes</button>
+      <button type="button" class="btn" id="stop" hidden>Stop</button>
+      <button type="button" class="btn ghost" id="shuffle">Shuffle from library</button>
+    </div>
+    <p class="status" id="status" role="status"></p>
+  </section>
+
+  <article class="sheet" id="sheet" aria-label="Tonight's entry">
+    <header class="sheet-head">
+      <p class="stamp" id="sheetStamp"></p>
+      <h2 id="sheetTitle">Daily reflection</h2>
+      <p class="meta"><span id="sheetMood">Mood 3 · Okay</span><span class="src" id="sheetSrc">Prompt library</span></p>
+    </header>
+    <div class="draft" id="draftBlock" hidden>
+      <label class="label" for="draftText">Draft entry · edit freely</label>
+      <textarea id="draftText"></textarea>
+    </div>
+    <ol class="prompts" id="prompts"></ol>
+    <footer class="sheet-foot">
+      <button type="button" class="btn primary" id="copy">Copy entry</button>
+      <button type="button" class="btn" id="save">Save entry</button>
+      <button type="button" class="btn ghost" id="clear">Clear answers</button>
+    </footer>
+    <textarea id="copyFallback" readonly hidden aria-label="Entry text to copy"></textarea>
+  </article>
+
+  <section class="history" aria-labelledby="histTitle">
+    <h2 id="histTitle">Saved entries <span class="count" id="count"></span></h2>
+    <ul class="hist" id="hist"></ul>
+    <p class="empty" id="histEmpty">Entries you save appear here, on this device only.</p>
+  </section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  const TYPES = [
+    { id: "daily", label: "Daily reflection" },
+    { id: "gratitude", label: "Gratitude" },
+    { id: "work", label: "Work log" },
+    { id: "goals", label: "Goals & plans" },
+    { id: "mood", label: "Mood check-in" },
+    { id: "free", label: "Free write" }
+  ];
+  const MOODS = ["Drained", "Low", "Okay", "Good", "Great"];
+  const LIB = {
+    daily: [
+      "What took up most of your attention today, and was it worth it?",
+      "What's one moment from today you'd want to remember a year from now?",
+      "Where did you feel most like yourself today?",
+      "What did you avoid today, and why?",
+      "What surprised you today?",
+      "If you could replay one hour of today, which one and what would you change?",
+      "Who did you have a real conversation with, and what stuck with you?",
+      "What drained you today, and what refilled you?",
+      "What did you learn today, even something small?",
+      "What's still on your mind as the day ends?"
+    ],
+    gratitude: [
+      "Name three specific things that went right today, however small.",
+      "Who made your day easier, and have you told them?",
+      "What did you use today that you'd miss if it disappeared?",
+      "What's a comfort you usually overlook?",
+      "What problem did you not have today?",
+      "Which part of your routine are you quietly grateful for?",
+      "What skill or habit paid off for you today?",
+      "What made you laugh or smile today?",
+      "What do you appreciate about where you live?",
+      "Who taught you something you used today?"
+    ],
+    work: [
+      "What did you ship, finish or move forward today?",
+      "What's blocked, and what's the next concrete step to unblock it?",
+      "Which task took longer than expected, and why?",
+      "What did a client, colleague or learner say that's worth keeping?",
+      "What would you delegate or automate if you could?",
+      "What decision did you make today, and what was it based on?",
+      "Where did you spend time that didn't move anything forward?",
+      "What feedback did you give or get today?",
+      "What idea came up today that deserves a note before it's lost?",
+      "What would make tomorrow's work go smoother?"
+    ],
+    goals: [
+      "Which goal did today move closer, and by how much?",
+      "What's the smallest next step on your most important goal?",
+      "What are you saying yes to that's crowding out a bigger goal?",
+      "If this week went perfectly, what would be done by Sunday?",
+      "What habit are you building, and how did it go today?",
+      "What's one thing you'll stop doing this week?",
+      "What would you attempt if you knew it would work?",
+      "Who could help you get there faster?",
+      "Which goal feels heavy right now, and does it still matter?",
+      "What progress have you made this month that you haven't noticed?"
+    ],
+    mood: [
+      "Describe today's mood as weather. What's the forecast?",
+      "Where do you feel today's mood in your body?",
+      "What happened just before your mood shifted today?",
+      "What do you need more of right now?",
+      "What's one thing that would make tonight a little better?",
+      "Which thought kept repeating today? Is it true?",
+      "What did you do today that was kind to yourself?",
+      "Who would you like to talk to right now, and why them?",
+      "What are you holding on to that you could set down?",
+      "How rested are you out of 10, and what would add a point?"
+    ],
+    free: [
+      "Start with \"Right now I'm…\" and keep going for five minutes.",
+      "Write about something you noticed today that nobody else would have.",
+      "What question have you been carrying around lately?",
+      "Describe the room you're in as if a stranger will read this in 50 years.",
+      "Write a short letter to yourself from one year ago.",
+      "What's an opinion you've changed recently?",
+      "Write about a place you keep thinking about.",
+      "List ten things on your mind, then pick one and go deeper.",
+      "What would you make or start if you had a free month?",
+      "What's a small detail from today worth describing in full?"
+    ]
+  };
+  const MOOD_LIB = {
+    low: [
+      "What's one small thing that went okay today, even on a hard day?",
+      "What is in your control tomorrow, and what isn't?",
+      "What would you say to a friend who had the day you just had?",
+      "What's one thing you can let go of tonight?"
+    ],
+    mid: [
+      "What would turn an okay day into a good one tomorrow?",
+      "What felt routine today, and is that routine still serving you?",
+      "What's one thing you're looking forward to this week?",
+      "What gave you a bit of energy today?"
+    ],
+    high: [
+      "What made today good, and can you repeat it on purpose?",
+      "Who should you share today's win with?",
+      "What did you do differently today that worked?",
+      "How can you carry today's momentum into tomorrow?"
+    ]
+  };
+  const OPEN = "Today in one line:";
+  const CLOSE = "Tomorrow, the one thing I'll do:";
+
+  const $ = (id) => document.getElementById(id);
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+  };
+
+  // ---- Dates
+  const now = new Date();
+  const dateKey = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
+  function isoWeek(d) {
+    const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    const day = t.getUTCDay() || 7; t.setUTCDate(t.getUTCDate() + 4 - day);
+    const y0 = new Date(Date.UTC(t.getUTCFullYear(), 0, 1));
+    return Math.ceil(((t - y0) / 86400000 + 1) / 7);
+  }
+  const dateLong = now.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  const stampText = now.toLocaleDateString("en-GB", { weekday: "short" }) + " · " +
+    now.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) + " · Week " + isoWeek(now);
+  $("stamp").textContent = stampText;
+
+  // ---- State
+  const blank = { date: dateKey, type: "daily", mood: 3, len: "full", notes: "", prompts: [], answers: [], source: "library", draft: "" };
+  let state = store.get("jeg.current", null);
+  if (!state || state.date !== dateKey) {
+    const prev = state || {};
+    state = { ...blank, type: prev.type || "daily", mood: prev.mood || 3, len: prev.len || "full" };
+  }
+  let history = store.get("jeg.history", []);
+  const persist = () => store.set("jeg.current", state);
+
+  // ---- Helpers
+  const pick = (arr, n, avoid = []) => {
+    const pool = arr.filter((x) => !avoid.includes(x));
+    const src = pool.length >= n ? pool : arr.slice();
+    for (let i = src.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [src[i], src[j]] = [src[j], src[i]]; }
+    return src.slice(0, n);
+  };
+  const middleCount = () => (state.len === "quick" ? 3 : 5);
+  const moodBand = (m) => (m <= 2 ? "low" : m === 3 ? "mid" : "high");
+  const typeLabel = (id) => (TYPES.find((t) => t.id === id) || TYPES[0]).label;
+  function grow(el) { el.style.height = "auto"; el.style.height = el.scrollHeight + 2 + "px"; }
+  let toastT;
+  function toast(msg) { const t = $("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 1800); }
+  function status(msg) { $("status").textContent = msg || ""; }
+
+  function libraryPrompts() {
+    const n = middleCount();
+    const prev = state.prompts.slice(1, -1);
+    const mood = pick(MOOD_LIB[moodBand(state.mood)], 1, prev);
+    const typ = pick(LIB[state.type], n - 1, prev);
+    return [OPEN, ...mood, ...typ, CLOSE];
+  }
+  function setPrompts(list, source) {
+    const old = new Map(state.prompts.map((q, i) => [q, state.answers[i] || ""]));
+    state.prompts = list;
+    state.answers = list.map((q) => old.get(q) || "");
+    state.source = source;
+    persist(); renderSheet();
+  }
+
+  // ---- Render setup
+  function renderSetup() {
+    $("types").innerHTML = "";
+    TYPES.forEach((t) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "chip"; b.setAttribute("role", "radio");
+      b.setAttribute("aria-checked", String(state.type === t.id)); b.textContent = t.label;
+      b.onclick = () => { state.type = t.id; renderSetup(); setPrompts(libraryPrompts(), "library"); };
+      $("types").append(b);
+    });
+    $("moods").innerHTML = "";
+    MOODS.forEach((w, i) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.setAttribute("role", "radio"); b.setAttribute("aria-checked", String(state.mood === i + 1));
+      b.setAttribute("aria-label", (i + 1) + " " + w);
+      b.innerHTML = '<span class="n">' + (i + 1) + '</span><span class="w"></span>';
+      b.querySelector(".w").textContent = w;
+      b.onclick = () => { const band = moodBand(state.mood); state.mood = i + 1; renderSetup(); if (moodBand(state.mood) !== band && state.source === "library") setPrompts(libraryPrompts(), "library"); else { persist(); renderSheetHead(); } };
+      $("moods").append(b);
+    });
+    document.querySelectorAll("#lens button").forEach((b) => {
+      b.setAttribute("aria-checked", String(b.dataset.len === state.len));
+      b.onclick = () => { if (state.len === b.dataset.len) return; state.len = b.dataset.len; renderSetup(); setPrompts(libraryPrompts(), "library"); };
+    });
+    const notes = $("notes");
+    if (notes.value !== state.notes) notes.value = state.notes;
+    grow(notes);
+  }
+  $("notes").addEventListener("input", (e) => { state.notes = e.target.value; grow(e.target); persist(); });
+
+  // ---- Render sheet
+  function renderSheetHead() {
+    $("sheetStamp").textContent = dateLong;
+    $("sheetTitle").textContent = typeLabel(state.type);
+    $("sheetMood").textContent = "Mood " + state.mood + " · " + MOODS[state.mood - 1];
+    const s = $("sheetSrc");
+    s.textContent = state.source === "claude" ? "Tailored by Claude" : "Prompt library";
+    s.className = "src" + (state.source === "claude" ? " claude" : "");
+  }
+  function renderSheet() {
+    renderSheetHead();
+    const ol = $("prompts"); ol.innerHTML = "";
+    state.prompts.forEach((q, i) => {
+      const li = document.createElement("li");
+      const num = document.createElement("span"); num.className = "num"; num.textContent = String(i + 1).padStart(2, "0");
+      const body = document.createElement("div"); body.className = "body";
+      const p = document.createElement("label"); p.className = "q" + (q === OPEN || q === CLOSE ? " bookend" : ""); p.textContent = q;
+      p.htmlFor = "a" + i;
+      const ta = document.createElement("textarea"); ta.id = "a" + i; ta.placeholder = "Write here…"; ta.value = state.answers[i] || "";
+      ta.addEventListener("input", () => { state.answers[i] = ta.value; grow(ta); persist(); });
+      body.append(p, ta); li.append(num, body); ol.append(li);
+      requestAnimationFrame(() => grow(ta));
+    });
+    const db = $("draftBlock");
+    db.hidden = !state.draft;
+    $("draftText").value = state.draft || "";
+    requestAnimationFrame(() => grow($("draftText")));
+  }
+  $("draftText").addEventListener("input", (e) => { state.draft = e.target.value; grow(e.target); persist(); });
+
+  // ---- Copy / save / clear
+  function entryText(entry) {
+    const lines = [entry.dateLong, typeLabel(entry.type) + " · Mood " + entry.mood + " (" + MOODS[entry.mood - 1] + ")", ""];
+    if (entry.draft) lines.push(entry.draft.trim(), "");
+    entry.prompts.forEach((q, i) => { lines.push(q, (entry.answers[i] || "").trim() || "—", ""); });
+    return lines.join("\n").trim();
+  }
+  $("copy").onclick = () => {
+    const text = entryText({ ...state, dateLong });
+    const fb = $("copyFallback");
+    const fallback = () => { fb.hidden = false; fb.value = text; grow(fb); fb.focus(); fb.select(); toast("Select all and copy"); };
+    try {
+      navigator.clipboard.writeText(text).then(() => { fb.hidden = true; toast("Entry copied"); }, fallback);
+    } catch { fallback(); }
+  };
+  $("save").onclick = () => {
+    const filled = state.answers.some((a) => a && a.trim()) || (state.draft && state.draft.trim());
+    if (!filled) { toast("Write at least one answer first"); return; }
+    const entry = { id: Date.now(), dateLong, type: state.type, mood: state.mood, prompts: state.prompts.slice(), answers: state.answers.slice(), draft: state.draft };
+    history = [entry, ...history].slice(0, 100);
+    store.set("jeg.history", history);
+    renderHistory(); toast("Entry saved");
+  };
+  let clearArm = 0;
+  $("clear").onclick = () => {
+    const b = $("clear");
+    if (!clearArm) { clearArm = setTimeout(() => { clearArm = 0; b.textContent = "Clear answers"; b.classList.remove("danger"); }, 3000); b.textContent = "Tap again to clear"; b.classList.add("danger"); return; }
+    clearTimeout(clearArm); clearArm = 0; b.textContent = "Clear answers"; b.classList.remove("danger");
+    state.answers = state.prompts.map(() => ""); state.draft = ""; persist(); renderSheet(); toast("Answers cleared");
+  };
+
+  // ---- History
+  function renderHistory() {
+    const ul = $("hist"); ul.innerHTML = "";
+    $("histEmpty").hidden = history.length > 0;
+    $("count").textContent = history.length ? String(history.length) : "";
+    history.forEach((e) => {
+      const li = document.createElement("li");
+      const d = document.createElement("details");
+      const s = document.createElement("summary");
+      const st = document.createElement("span"); st.className = "stamp"; st.textContent = e.dateLong + " · " + typeLabel(e.type) + " · Mood " + e.mood;
+      const first = document.createElement("span"); first.className = "first";
+      first.textContent = (e.answers.find((a) => a && a.trim()) || e.draft || "").trim().split("\n")[0];
+      s.append(st, first); d.append(s);
+      const inner = document.createElement("div"); inner.className = "inner";
+      if (e.draft) { const qa = document.createElement("div"); qa.className = "qa"; const a = document.createElement("p"); a.textContent = "Draft"; const b = document.createElement("p"); b.textContent = e.draft; qa.append(a, b); inner.append(qa); }
+      e.prompts.forEach((q, i) => {
+        if (!(e.answers[i] || "").trim()) return;
+        const qa = document.createElement("div"); qa.className = "qa";
+        const a = document.createElement("p"); a.textContent = q; const b = document.createElement("p"); b.textContent = e.answers[i];
+        qa.append(a, b); inner.append(qa);
+      });
+      const row = document.createElement("div"); row.className = "row";
+      const cp = document.createElement("button"); cp.type = "button"; cp.className = "btn"; cp.textContent = "Copy";
+      cp.onclick = () => { const t = entryText(e); try { navigator.clipboard.writeText(t).then(() => toast("Entry copied"), () => toast("Copy isn't allowed here")); } catch { toast("Copy isn't allowed here"); } };
+      const del = document.createElement("button"); del.type = "button"; del.className = "btn ghost"; del.textContent = "Delete";
+      let armed = 0;
+      del.onclick = () => {
+        if (!armed) { armed = setTimeout(() => { armed = 0; del.textContent = "Delete"; del.classList.remove("danger"); }, 3000); del.textContent = "Tap again to delete"; del.classList.add("danger"); return; }
+        clearTimeout(armed); history = history.filter((x) => x.id !== e.id); store.set("jeg.history", history); renderHistory(); toast("Entry deleted");
+      };
+      row.append(cp, del); inner.append(row); d.append(inner); li.append(d); ul.append(li);
+    });
+  }
+
+  // ---- Claude (optional)
+  let sample = null, ctl = null;
+  const ERR = {
+    rate_limited: "Too many requests just now. Try again in a minute.",
+    refused: "Claude couldn't write that. Try rewording your notes.",
+    empty_completion: "Claude came back empty. Try again with a bit more in your notes.",
+    invalid_json: "Claude's prompts came back in the wrong shape. Try again.",
+    session_expired: "Your session expired. Sign in again to use Claude.",
+    prompt_too_large: "Your notes are too long. Trim them and try again."
+  };
+  const PERMANENT = ["not_granted", "sampling_disabled", "not_declared", "capability_disabled", "capability_removed"];
+  function handleErr(e) {
+    const code = e && e.code;
+    if (code === "cancelled") { status(""); return; }
+    if (PERMANENT.includes(code)) { sample = null; $("draftBtn").hidden = true; status("Claude isn't available here, so prompts come from the built-in library."); return; }
+    status(ERR[code] || "Couldn't reach Claude. Try again.");
+  }
+  function busy(on) {
+    $("gen").disabled = on; $("draftBtn").disabled = on; $("shuffle").disabled = on; $("stop").hidden = !on;
+  }
+  $("stop").onclick = () => ctl && ctl.abort();
+
+  async function claudePrompts() {
+    const n = middleCount();
+    const prompt =
+      "You write journal prompts for one person's entry tonight.\n" +
+      "Entry type: " + typeLabel(state.type) + "\n" +
+      "Today's mood: " + MOODS[state.mood - 1] + " (" + state.mood + " of 5)\n" +
+      "What happened today, in their own notes (may be empty):\n\"\"\"\n" + (state.notes.trim().slice(0, 4000) || "(no notes)") + "\n\"\"\"\n\n" +
+      "Write " + n + " journal prompts. Where there are notes, refer to the actual events, people or tasks in them; never invent events. " +
+      "Each prompt is one open question in second person, under 22 words, no numbering, no emoji. " +
+      "Fit the mood: gentle and grounding if low, forward-looking if high. Cover different angles (what happened, how it felt, what it means, what's next). " +
+      "Reply with only a JSON array of " + n + " strings, like [\"What ...?\", \"Which ...?\"].";
+    ctl = new AbortController();
+    busy(true); status("Thinking…");
+    try {
+      const out = await sample.json(prompt, { modelTier: "quick", cache: false, signal: ctl.signal });
+      const list = Array.isArray(out) ? out.filter((x) => typeof x === "string" && x.trim()).map((x) => x.trim()).slice(0, n) : [];
+      if (list.length < 2) throw { code: "invalid_json" };
+      setPrompts([OPEN, ...list, CLOSE], "claude");
+      status("");
+    } catch (e) { handleErr(e); }
+    finally { busy(false); ctl = null; }
+  }
+
+  async function claudeDraft() {
+    if (!state.notes.trim()) { status("Add a few notes about your day first, then Claude can draft from them."); $("notes").focus(); return; }
+    const prompt =
+      "Write a short first-person journal entry for " + dateLong + ".\n" +
+      "Entry type: " + typeLabel(state.type) + ". Mood: " + MOODS[state.mood - 1] + " (" + state.mood + " of 5).\n" +
+      "Use only what is in these notes. Do not invent events, people or details:\n\"\"\"\n" + state.notes.trim().slice(0, 4000) + "\n\"\"\"\n\n" +
+      "120 to 180 words, plain text, no title or headings, natural and honest voice, close with one line about tomorrow.";
+    ctl = new AbortController();
+    busy(true); status("Thinking…");
+    $("draftBlock").hidden = false;
+    const ta = $("draftText"); const before = ta.value;
+    try {
+      const { text, truncated } = await sample(prompt, {
+        modelTier: "quick", cache: false, signal: ctl.signal,
+        onText: ({ text }) => { ta.value = text; grow(ta); }
+      });
+      state.draft = text; persist(); grow(ta);
+      status(truncated ? "The draft was cut short. Edit it or try again." : "");
+    } catch (e) {
+      if (e && typeof e.text === "string" && e.text) { state.draft = e.text; ta.value = e.text; persist(); }
+      else { ta.value = before; state.draft = before; $("draftBlock").hidden = !before; }
+      handleErr(e);
+    } finally { busy(false); ctl = null; }
+  }
+
+  $("gen").onclick = () => {
+    if (sample) claudePrompts();
+    else { setPrompts(libraryPrompts(), "library"); status(""); }
+  };
+  $("shuffle").onclick = () => { setPrompts(libraryPrompts(), "library"); status(""); };
+  $("draftBtn").onclick = claudeDraft;
+
+  // ---- Boot
+  if (!state.prompts.length) { state.prompts = libraryPrompts(); state.answers = state.prompts.map(() => ""); state.source = "library"; persist(); }
+  renderSetup(); renderSheet(); renderHistory();
+
+  (async () => {
+    try {
+      const s = window.claude && window.claude.use ? await window.claude.use("sample") : null;
+      if (s) { sample = s; $("draftBtn").hidden = false; }
+    } catch { sample = null; }
+  })();
+})();
+</script>
+</body>
+</html>
