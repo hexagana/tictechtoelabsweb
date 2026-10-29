@@ -7,7 +7,7 @@
 <title>Journal Entry Generator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Caveat:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap">
 <style>
 /* Layout: one narrow column on dot-grid paper. Pickers on top, then the idea card (what to write tonight), then optional "tailor to my day". */
 :root {
@@ -23,10 +23,10 @@
   --pen: #1f3a9e;
   --hl: rgba(226, 242, 82, 0.95);
   --shadow: 0 1px 0 rgba(26, 33, 50, .04), 0 8px 24px -12px rgba(26, 33, 50, .18);
-  --f-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
-  --f-body: "Newsreader", Georgia, "Times New Roman", serif;
-  --f-hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
-  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --f-display: "Special Elite", "Courier Prime", "Courier New", Courier, monospace;
+  --f-body: "Courier Prime", "Courier New", Courier, monospace;
+  --f-hand: "Special Elite", "Courier Prime", "Courier New", Courier, monospace;
+  --f-mono: "Courier Prime", "Courier New", Courier, monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -74,7 +74,7 @@ button, textarea { font: inherit; color: inherit; }
   color: var(--ink-soft); font-variant-numeric: tabular-nums;
 }
 .mast { display: grid; gap: 8px; }
-.mast h1 { font-size: clamp(30px, 8vw, 42px); font-weight: 700; line-height: 1.05; }
+.mast h1 { font-size: clamp(28px, 7.5vw, 40px); font-weight: 400; line-height: 1.05; }
 .mast .lede { color: var(--ink-soft); max-width: 48ch; }
 
 /* Pickers */
@@ -109,7 +109,7 @@ button, textarea { font: inherit; color: inherit; }
   border: 1px solid var(--rule); border-radius: 999px; padding: 2px 9px; color: var(--ink-soft);
 }
 .tag.claude { border-color: var(--accent); color: var(--accent); }
-.question { font-family: var(--f-body); font-size: clamp(24px, 6vw, 30px); font-weight: 500; line-height: 1.22; text-wrap: balance; }
+.question { font-family: var(--f-display); font-size: clamp(21px, 5.4vw, 27px); font-weight: 400; line-height: 1.3; text-wrap: balance; }
 
 .block { display: grid; gap: 8px; }
 .angles { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
@@ -125,11 +125,11 @@ button, textarea { font: inherit; color: inherit; }
   border-top: 1px dashed var(--rule); padding-top: 16px; display: grid; gap: 6px;
 }
 .hand {
-  font-family: var(--f-hand); font-size: 25px; line-height: 34px; color: var(--pen);
+  font-family: var(--f-hand); font-size: 19px; line-height: 34px; color: var(--pen);
   background-image: linear-gradient(transparent 32px, var(--rule) 32px, var(--rule) 33px, transparent 33px);
   background-size: 100% 34px;
 }
-.hand .dt { display: block; font-size: 21px; opacity: .8; }
+.hand .dt { display: block; font-size: 16px; opacity: .8; }
 
 .actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .btn {
@@ -145,7 +145,7 @@ button, textarea { font: inherit; color: inherit; }
 
 /* Tailor */
 .tailor { display: grid; gap: 10px; padding: 16px; border: 1px solid var(--rule); border-radius: 14px; background: var(--sheet); }
-.tailor h2 { font-size: 18px; font-weight: 700; }
+.tailor h2 { font-size: 18px; font-weight: 400; }
 .tailor p.hint { color: var(--ink-soft); font-size: 15px; }
 textarea {
   width: 100%; resize: vertical; border: 1px solid var(--rule); border-radius: 10px; background: transparent;
