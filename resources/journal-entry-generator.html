@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Pick an entry type and mood, jot what happened, and get tonight's journal prompts to write against.">
+<meta name="description" content="Not sure what to write in your journal tonight? Pick a theme and how long you have, and get one idea to take to your notebook.">
 <title>Journal Entry Generator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Caveat:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: one narrow notebook column on dot-grid paper; setup panel above, the entry "sheet" below, saved entries at the end. */
+/* Layout: one narrow column on dot-grid paper. Pickers on top, then the idea card (what to write tonight), then optional "tailor to my day". */
 :root {
   --paper: #f3f5f9;
   --sheet: #ffffff;
@@ -20,26 +20,27 @@
   --accent: #2545b5;
   --accent-ink: #ffffff;
   --accent-soft: #e6ebfb;
+  --pen: #1f3a9e;
   --hl: rgba(226, 242, 82, 0.95);
-  --warn: #b4361f;
   --shadow: 0 1px 0 rgba(26, 33, 50, .04), 0 8px 24px -12px rgba(26, 33, 50, .18);
   --f-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --f-body: "Newsreader", Georgia, "Times New Roman", serif;
+  --f-hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
   --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #0e1320; --sheet: #151c2b; --ink: #e5e8ef; --ink-soft: #97a1b5; --rule: #263049;
-    --dot: #253150; --accent: #92aaff; --accent-ink: #0e1320; --accent-soft: #1d2846;
-    --hl: rgba(206, 228, 74, 0.32); --warn: #ff8f78;
+    --dot: #253150; --accent: #92aaff; --accent-ink: #0e1320; --accent-soft: #1d2846; --pen: #a9bcff;
+    --hl: rgba(206, 228, 74, 0.32);
     --shadow: 0 1px 0 rgba(0,0,0,.2), 0 10px 28px -14px rgba(0,0,0,.6);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --paper: #0e1320; --sheet: #151c2b; --ink: #e5e8ef; --ink-soft: #97a1b5; --rule: #263049;
-  --dot: #253150; --accent: #92aaff; --accent-ink: #0e1320; --accent-soft: #1d2846;
-  --hl: rgba(206, 228, 74, 0.32); --warn: #ff8f78;
+  --dot: #253150; --accent: #92aaff; --accent-ink: #0e1320; --accent-soft: #1d2846; --pen: #a9bcff;
+  --hl: rgba(206, 228, 74, 0.32);
   --shadow: 0 1px 0 rgba(0,0,0,.2), 0 10px 28px -14px rgba(0,0,0,.6);
   color-scheme: dark;
 }
@@ -61,144 +62,99 @@ body {
   padding-right: max(16px, env(safe-area-inset-right, 0px));
   padding-block: 28px 56px;
   display: grid;
-  gap: 22px;
+  gap: 20px;
 }
 h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
 p { margin: 0; }
 button, textarea { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-.stamp {
-  font-family: var(--f-mono);
-  font-size: 12px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  font-variant-numeric: tabular-nums;
+.label, .stamp {
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink-soft); font-variant-numeric: tabular-nums;
 }
 .mast { display: grid; gap: 8px; }
 .mast h1 { font-size: clamp(30px, 8vw, 42px); font-weight: 700; line-height: 1.05; }
-.mast .lede { color: var(--ink-soft); max-width: 46ch; }
+.mast .lede { color: var(--ink-soft); max-width: 48ch; }
 
-/* Setup panel */
-.setup {
-  display: grid; gap: 18px;
-  background: var(--sheet);
-  border: 1px solid var(--rule);
-  border-radius: 14px;
-  padding: 18px;
-}
+/* Pickers */
+.pickers { display: grid; gap: 14px; }
 .field { display: grid; gap: 8px; }
-.label {
-  font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft);
-}
-.label .opt { text-transform: none; letter-spacing: 0; opacity: .8; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip {
-  border: 1px solid var(--rule); background: transparent; border-radius: 999px;
+  border: 1px solid var(--rule); background: var(--sheet); border-radius: 999px;
   padding: 6px 13px; font-family: var(--f-display); font-size: 15px; font-weight: 500; cursor: pointer;
-  transition: border-color .15s, background-color .15s;
+  transition: border-color .15s;
 }
 .chip:hover { border-color: var(--ink-soft); }
 .chip[aria-checked="true"] {
   border-color: var(--ink);
   background-image: linear-gradient(transparent 52%, var(--hl) 52%, var(--hl) 88%, transparent 88%);
 }
-.mood { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
-.mood button {
-  display: grid; justify-items: center; gap: 2px;
-  border: 1px solid var(--rule); background: transparent; border-radius: 10px;
-  padding: 8px 2px; cursor: pointer; min-width: 0;
+
+/* Idea card */
+.card {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 6px 14px 14px 6px;
+  box-shadow: var(--shadow);
+  padding: 22px 20px 20px 32px;
+  position: relative;
+  display: grid; gap: 20px;
 }
-.mood .n { font-family: var(--f-mono); font-size: 15px; font-variant-numeric: tabular-nums; }
-.mood .w { font-family: var(--f-display); font-size: 12.5px; color: var(--ink-soft); }
-.mood button[aria-checked="true"] { background: var(--ink); border-color: var(--ink); }
-.mood button[aria-checked="true"] .n, .mood button[aria-checked="true"] .w { color: var(--sheet); }
-.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; padding: 3px; width: max-content; }
-.seg button {
-  border: 0; background: transparent; border-radius: 999px; padding: 5px 14px; cursor: pointer;
-  font-family: var(--f-display); font-size: 14px; font-weight: 500; color: var(--ink-soft);
+.card::before { content: ""; position: absolute; top: 0; bottom: 0; left: 17px; width: 1px; background: var(--accent); opacity: .35; }
+.card-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.tag {
+  font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+  border: 1px solid var(--rule); border-radius: 999px; padding: 2px 9px; color: var(--ink-soft);
 }
-.seg button[aria-checked="true"] { background: var(--accent-soft); color: var(--ink); }
-.seg-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-textarea {
-  width: 100%; resize: none; border: 1px solid var(--rule); border-radius: 10px;
-  background: transparent; padding: 10px 12px; line-height: 1.5; min-height: 2.9em; overflow: hidden;
+.tag.claude { border-color: var(--accent); color: var(--accent); }
+.question { font-family: var(--f-body); font-size: clamp(24px, 6vw, 30px); font-weight: 500; line-height: 1.22; text-wrap: balance; }
+
+.block { display: grid; gap: 8px; }
+.angles { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.angles li { display: grid; grid-template-columns: 18px 1fr; gap: 8px; }
+.angles li::before { content: ""; width: 12px; height: 12px; border: 1.5px solid var(--ink-soft); border-radius: 3px; margin-top: 6px; }
+
+.format { display: grid; gap: 2px; }
+.format strong { font-family: var(--f-display); font-weight: 700; font-size: 17px; }
+.format span { color: var(--ink-soft); }
+
+/* What to write on the paper: shown in handwriting on ruled lines */
+.paper {
+  border-top: 1px dashed var(--rule); padding-top: 16px; display: grid; gap: 6px;
 }
-textarea::placeholder { color: var(--ink-soft); opacity: .75; font-style: italic; }
-#notes { min-height: 5.5em; }
+.hand {
+  font-family: var(--f-hand); font-size: 25px; line-height: 34px; color: var(--pen);
+  background-image: linear-gradient(transparent 32px, var(--rule) 32px, var(--rule) 33px, transparent 33px);
+  background-size: 100% 34px;
+}
+.hand .dt { display: block; font-size: 21px; opacity: .8; }
 
 .actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .btn {
-  border: 1px solid var(--rule); background: transparent; border-radius: 10px;
+  border: 1px solid var(--rule); background: var(--sheet); border-radius: 10px;
   padding: 10px 15px; font-family: var(--f-display); font-weight: 500; font-size: 15px; cursor: pointer;
 }
 .btn:hover { border-color: var(--ink-soft); }
 .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 .btn.primary:hover { filter: brightness(1.08); }
-.btn:disabled { opacity: .55; cursor: progress; }
-.btn.ghost { border-color: transparent; color: var(--ink-soft); }
+.btn:disabled { opacity: .5; cursor: default; }
+.btn.ghost { background: transparent; border-color: transparent; color: var(--ink-soft); }
 .btn.ghost:hover { color: var(--ink); border-color: var(--rule); }
-.btn.danger { color: var(--warn); border-color: var(--warn); }
-.status { font-size: 15px; color: var(--ink-soft); min-height: 0; }
+
+/* Tailor */
+.tailor { display: grid; gap: 10px; padding: 16px; border: 1px solid var(--rule); border-radius: 14px; background: var(--sheet); }
+.tailor h2 { font-size: 18px; font-weight: 700; }
+.tailor p.hint { color: var(--ink-soft); font-size: 15px; }
+textarea {
+  width: 100%; resize: vertical; border: 1px solid var(--rule); border-radius: 10px; background: transparent;
+  padding: 10px 12px; line-height: 1.5; min-height: 4.8em;
+}
+textarea::placeholder { color: var(--ink-soft); opacity: .75; font-style: italic; }
+.status { font-size: 15px; color: var(--ink-soft); }
 .status:empty { display: none; }
-
-/* The entry sheet: ruled notebook page with a margin line */
-.sheet {
-  background: var(--sheet);
-  border-radius: 6px 14px 14px 6px;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--rule);
-  padding: 22px 18px 18px 30px;
-  position: relative;
-  display: grid; gap: 18px;
-}
-.sheet::before {
-  content: ""; position: absolute; top: 0; bottom: 0; left: 16px; width: 1px; background: var(--accent); opacity: .35;
-}
-.sheet-head { display: grid; gap: 4px; padding-bottom: 14px; border-bottom: 1px solid var(--rule); }
-.sheet-head h2 { font-size: 24px; font-weight: 700; }
-.meta { font-size: 15px; color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; }
-.src {
-  font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
-  border: 1px solid var(--rule); border-radius: 999px; padding: 2px 8px;
-}
-.src.claude { border-color: var(--accent); color: var(--accent); }
-
-.draft { display: grid; gap: 6px; }
-.draft textarea { border-style: dashed; }
-.prompts { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; counter-reset: q; }
-.prompts li { display: grid; grid-template-columns: 26px 1fr; gap: 0 8px; min-width: 0; }
-.prompts .num {
-  font-family: var(--f-mono); font-size: 12px; color: var(--ink-soft); padding-top: 5px; font-variant-numeric: tabular-nums;
-}
-.prompts .body { display: grid; gap: 6px; min-width: 0; }
-.prompts .q { font-size: 18px; font-weight: 500; line-height: 1.35; }
-.prompts .q.bookend { font-style: italic; font-weight: 400; color: var(--ink-soft); }
-.prompts textarea {
-  border: 0; border-radius: 0; padding: 4px 0;
-  background-image: linear-gradient(transparent calc(1.5em + 3px), var(--rule) calc(1.5em + 3px), var(--rule) calc(1.5em + 4px), transparent calc(1.5em + 4px));
-  background-size: 100% 1.5em; background-position: 0 -0.1em;
-  line-height: 1.5em;
-}
-.prompts textarea:focus-visible { outline: none; background-color: var(--accent-soft); }
-.sheet-foot { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 14px; border-top: 1px solid var(--rule); }
-#copyFallback { font-family: var(--f-mono); font-size: 13px; min-height: 8em; overflow: auto; }
-
-/* Saved entries */
-.history { display: grid; gap: 10px; }
-.history h2 { font-size: 20px; font-weight: 700; display: flex; align-items: baseline; gap: 8px; }
-.history h2 .count { font-family: var(--f-mono); font-size: 13px; font-weight: 400; color: var(--ink-soft); }
-.hist { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.hist details { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; }
-.hist summary { cursor: pointer; padding: 11px 14px; display: grid; gap: 2px; list-style: none; }
-.hist summary::-webkit-details-marker { display: none; }
-.hist .first { font-size: 15.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.hist .inner { padding: 0 14px 14px; display: grid; gap: 10px; border-top: 1px solid var(--rule); padding-top: 12px; }
-.hist .qa p:first-child { font-weight: 500; }
-.hist .qa p + p { color: var(--ink-soft); white-space: pre-wrap; }
-.hist .row { display: flex; gap: 8px; flex-wrap: wrap; }
-.empty { color: var(--ink-soft); font-size: 15px; }
+.foot { color: var(--ink-soft); font-size: 14.5px; }
 
 .toast {
   position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px);
@@ -207,7 +163,9 @@ textarea::placeholder { color: var(--ink-soft); opacity: .75; font-style: italic
   max-width: calc(100% - 32px);
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+.card.flip { animation: flip .28s ease-out; }
+@keyframes flip { from { opacity: .35; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 </head>
 <body>
@@ -215,172 +173,151 @@ textarea::placeholder { color: var(--ink-soft); opacity: .75; font-style: italic
   <header class="mast">
     <p class="stamp" id="stamp">Today</p>
     <h1>Journal Entry Generator</h1>
-    <p class="lede">Pick the kind of entry, say how today felt, jot what happened. Get the prompts to write against tonight.</p>
+    <p class="lede">Not sure what to write tonight? Pick a theme and how long you have. You get one idea to take to your notebook.</p>
   </header>
 
-  <section class="setup" aria-label="Entry setup">
+  <section class="pickers" aria-label="Choose an idea">
     <div class="field">
-      <span class="label" id="typeLbl">Entry type</span>
-      <div class="chips" role="radiogroup" aria-labelledby="typeLbl" id="types"></div>
-    </div>
-    <div class="field">
-      <span class="label" id="moodLbl">Today felt</span>
-      <div class="mood" role="radiogroup" aria-labelledby="moodLbl" id="moods"></div>
+      <span class="label" id="focusLbl">Theme</span>
+      <div class="chips" role="radiogroup" aria-labelledby="focusLbl" id="focus"></div>
     </div>
     <div class="field">
-      <label class="label" for="notes">What happened today <span class="opt">(optional)</span></label>
-      <textarea id="notes" placeholder="e.g. Ran a Copilot workshop for a new client, projector died mid-demo, good debrief over lunch"></textarea>
+      <span class="label" id="timeLbl">Time I have</span>
+      <div class="chips" role="radiogroup" aria-labelledby="timeLbl" id="time"></div>
     </div>
-    <div class="seg-row">
-      <span class="label" id="lenLbl">Length</span>
-      <div class="seg" role="radiogroup" aria-labelledby="lenLbl" id="lens">
-        <button type="button" role="radio" data-len="quick" aria-checked="false">Quick · 5</button>
-        <button type="button" role="radio" data-len="full" aria-checked="true">Full · 7</button>
-      </div>
+  </section>
+
+  <article class="card" id="card" aria-live="polite">
+    <div class="card-top">
+      <span class="label" id="cardKicker">Tonight's idea</span>
+      <span class="tag" id="cardTag">Reflection</span>
     </div>
+    <p class="question" id="question"></p>
+    <div class="block">
+      <span class="label">Things to cover</span>
+      <ul class="angles" id="angles"></ul>
+    </div>
+    <div class="block">
+      <span class="label" id="formatLbl">How to lay out the page</span>
+      <div class="format"><strong id="formatName"></strong><span id="formatHow"></span></div>
+    </div>
+    <div class="paper">
+      <span class="label">Write this at the top of your page</span>
+      <p class="hand" id="hand"><span class="dt" id="handDate"></span><span id="handTitle"></span></p>
+      <span class="label" style="margin-top:8px">Stuck? Start with</span>
+      <p class="hand" id="starter"></p>
+    </div>
+  </article>
+
+  <div class="actions">
+    <button type="button" class="btn primary" id="next">Give me another idea</button>
+    <button type="button" class="btn" id="back" disabled>Previous</button>
+    <button type="button" class="btn ghost" id="copy">Copy idea</button>
+  </div>
+
+  <section class="tailor" id="tailor" hidden aria-labelledby="tailorTitle">
+    <h2 id="tailorTitle">Make it about my day</h2>
+    <p class="hint">Jot a few words about what happened or what's on your mind. Claude turns it into an idea for your journal. It won't write the entry for you.</p>
+    <label class="label" for="notes">What's on my mind <span style="text-transform:none;letter-spacing:0">(optional)</span></label>
+    <textarea id="notes" placeholder="e.g. Ran a Copilot workshop for a new client, projector died mid-demo, good chat with the team over lunch"></textarea>
     <div class="actions">
-      <button type="button" class="btn primary" id="gen">Generate prompts</button>
-      <button type="button" class="btn" id="draftBtn" hidden>Draft entry from notes</button>
+      <button type="button" class="btn primary" id="tailorBtn">Suggest an idea for today</button>
       <button type="button" class="btn" id="stop" hidden>Stop</button>
-      <button type="button" class="btn ghost" id="shuffle">Shuffle from library</button>
     </div>
     <p class="status" id="status" role="status"></p>
   </section>
 
-  <article class="sheet" id="sheet" aria-label="Tonight's entry">
-    <header class="sheet-head">
-      <p class="stamp" id="sheetStamp"></p>
-      <h2 id="sheetTitle">Daily reflection</h2>
-      <p class="meta"><span id="sheetMood">Mood 3 · Okay</span><span class="src" id="sheetSrc">Prompt library</span></p>
-    </header>
-    <div class="draft" id="draftBlock" hidden>
-      <label class="label" for="draftText">Draft entry · edit freely</label>
-      <textarea id="draftText"></textarea>
-    </div>
-    <ol class="prompts" id="prompts"></ol>
-    <footer class="sheet-foot">
-      <button type="button" class="btn primary" id="copy">Copy entry</button>
-      <button type="button" class="btn" id="save">Save entry</button>
-      <button type="button" class="btn ghost" id="clear">Clear answers</button>
-    </footer>
-    <textarea id="copyFallback" readonly hidden aria-label="Entry text to copy"></textarea>
-  </article>
-
-  <section class="history" aria-labelledby="histTitle">
-    <h2 id="histTitle">Saved entries <span class="count" id="count"></span></h2>
-    <ul class="hist" id="hist"></ul>
-    <p class="empty" id="histEmpty">Entries you save appear here, on this device only.</p>
-  </section>
+  <p class="foot">Ideas change each time you ask, and today's first idea stays the same all day.</p>
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 (() => {
-  const TYPES = [
-    { id: "daily", label: "Daily reflection" },
-    { id: "gratitude", label: "Gratitude" },
-    { id: "work", label: "Work log" },
-    { id: "goals", label: "Goals & plans" },
-    { id: "mood", label: "Mood check-in" },
-    { id: "free", label: "Free write" }
+  const FOCUS = [
+    { id: "any", label: "Surprise me" },
+    { id: "reflect", label: "Reflection" },
+    { id: "grat", label: "Gratitude" },
+    { id: "work", label: "Work & learning" },
+    { id: "goals", label: "Goals" },
+    { id: "feel", label: "Feelings" },
+    { id: "mem", label: "Memories" },
+    { id: "create", label: "Creative" }
   ];
-  const MOODS = ["Drained", "Low", "Okay", "Good", "Great"];
-  const LIB = {
-    daily: [
-      "What took up most of your attention today, and was it worth it?",
-      "What's one moment from today you'd want to remember a year from now?",
-      "Where did you feel most like yourself today?",
-      "What did you avoid today, and why?",
-      "What surprised you today?",
-      "If you could replay one hour of today, which one and what would you change?",
-      "Who did you have a real conversation with, and what stuck with you?",
-      "What drained you today, and what refilled you?",
-      "What did you learn today, even something small?",
-      "What's still on your mind as the day ends?"
+  const TIMES = [
+    { id: 5, label: "5 min" },
+    { id: 15, label: "15 min" },
+    { id: 30, label: "30 min+" }
+  ];
+  const FORMATS = {
+    5: [
+      ["Quick list", "Five bullet points, one line each. No full sentences needed."],
+      ["Three sentences", "One on what happened, one on how it felt, one on what it means."],
+      ["Timed paragraph", "Set a 5-minute timer and keep the pen moving until it rings."]
     ],
-    gratitude: [
-      "Name three specific things that went right today, however small.",
-      "Who made your day easier, and have you told them?",
-      "What did you use today that you'd miss if it disappeared?",
-      "What's a comfort you usually overlook?",
-      "What problem did you not have today?",
-      "Which part of your routine are you quietly grateful for?",
-      "What skill or habit paid off for you today?",
-      "What made you laugh or smile today?",
-      "What do you appreciate about where you live?",
-      "Who taught you something you used today?"
+    15: [
+      ["Letter", "Address it to someone involved, or to yourself."],
+      ["Two columns", "Rule a line down the page. Left: what happened. Right: what you make of it."],
+      ["One page", "Give each point under Things to cover its own paragraph."],
+      ["Mind map, then summary", "Put the question in the middle, branch out, then write one line at the bottom on what stands out."]
     ],
-    work: [
-      "What did you ship, finish or move forward today?",
-      "What's blocked, and what's the next concrete step to unblock it?",
-      "Which task took longer than expected, and why?",
-      "What did a client, colleague or learner say that's worth keeping?",
-      "What would you delegate or automate if you could?",
-      "What decision did you make today, and what was it based on?",
-      "Where did you spend time that didn't move anything forward?",
-      "What feedback did you give or get today?",
-      "What idea came up today that deserves a note before it's lost?",
-      "What would make tomorrow's work go smoother?"
-    ],
-    goals: [
-      "Which goal did today move closer, and by how much?",
-      "What's the smallest next step on your most important goal?",
-      "What are you saying yes to that's crowding out a bigger goal?",
-      "If this week went perfectly, what would be done by Sunday?",
-      "What habit are you building, and how did it go today?",
-      "What's one thing you'll stop doing this week?",
-      "What would you attempt if you knew it would work?",
-      "Who could help you get there faster?",
-      "Which goal feels heavy right now, and does it still matter?",
-      "What progress have you made this month that you haven't noticed?"
-    ],
-    mood: [
-      "Describe today's mood as weather. What's the forecast?",
-      "Where do you feel today's mood in your body?",
-      "What happened just before your mood shifted today?",
-      "What do you need more of right now?",
-      "What's one thing that would make tonight a little better?",
-      "Which thought kept repeating today? Is it true?",
-      "What did you do today that was kind to yourself?",
-      "Who would you like to talk to right now, and why them?",
-      "What are you holding on to that you could set down?",
-      "How rested are you out of 10, and what would add a point?"
-    ],
-    free: [
-      "Start with \"Right now I'm…\" and keep going for five minutes.",
-      "Write about something you noticed today that nobody else would have.",
-      "What question have you been carrying around lately?",
-      "Describe the room you're in as if a stranger will read this in 50 years.",
-      "Write a short letter to yourself from one year ago.",
-      "What's an opinion you've changed recently?",
-      "Write about a place you keep thinking about.",
-      "List ten things on your mind, then pick one and go deeper.",
-      "What would you make or start if you had a free month?",
-      "What's a small detail from today worth describing in full?"
+    30: [
+      ["Full spread", "Left page: tell the story. Right page: what it taught you and what you'll do next."],
+      ["Letter and reply", "Write the letter, then turn the page and answer it as the other person."],
+      ["Then and now", "Describe it as it was, then as it is now, then what changed in between."],
+      ["Deep dive", "One page on the question, then half a page of what you'll actually do about it."]
     ]
   };
-  const MOOD_LIB = {
-    low: [
-      "What's one small thing that went okay today, even on a hard day?",
-      "What is in your control tomorrow, and what isn't?",
-      "What would you say to a friend who had the day you just had?",
-      "What's one thing you can let go of tonight?"
-    ],
-    mid: [
-      "What would turn an okay day into a good one tomorrow?",
-      "What felt routine today, and is that routine still serving you?",
-      "What's one thing you're looking forward to this week?",
-      "What gave you a bit of energy today?"
-    ],
-    high: [
-      "What made today good, and can you repeat it on purpose?",
-      "Who should you share today's win with?",
-      "What did you do differently today that worked?",
-      "How can you carry today's momentum into tomorrow?"
-    ]
-  };
-  const OPEN = "Today in one line:";
-  const CLOSE = "Tomorrow, the one thing I'll do:";
+  // [theme, title, question, [things to cover], starter]
+  const IDEAS = [
+    ["reflect", "The hour worth replaying", "Which hour of today would you replay, and what would you do differently?", ["What actually happened in that hour", "What you were thinking at the time", "What you'd change, and what you'd keep"], "If I could go back to…"],
+    ["reflect", "Where my attention went", "What took up most of your attention today, and did it deserve it?", ["The thing that pulled you in most", "What got pushed aside because of it", "Whether you'd choose the same tomorrow"], "Most of today went to…"],
+    ["reflect", "The thing I avoided", "What did you put off today, and what's really behind it?", ["The task or conversation you avoided", "The feeling that comes up when you think of it", "The smallest first step you could take"], "I keep not doing…"],
+    ["reflect", "A small surprise", "What surprised you this week, even slightly?", ["What you expected", "What happened instead", "What it says about your assumptions"], "I didn't expect…"],
+    ["reflect", "Most like myself", "When did you feel most like yourself recently?", ["Where you were and who was there", "What you were doing", "How to get more of that"], "I felt most like me when…"],
+    ["reflect", "The conversation that stuck", "Which conversation from the past few days is still on your mind?", ["Who it was with and what was said", "The line you keep coming back to", "What you'd say if you had another go"], "I keep thinking about when…"],
+
+    ["grat", "Three specific things", "What are three specific things that went right today?", ["Make each one concrete, not general", "Why each one mattered", "Which of them you helped make happen"], "Today, three things went right…"],
+    ["grat", "The person who made it easier", "Who made your week easier, and do they know?", ["What they did", "What it would have been like without them", "How you could thank them"], "This week, ___ made things easier by…"],
+    ["grat", "Something I'd miss", "What ordinary thing would you miss most if it disappeared tomorrow?", ["How it shows up in your day", "When it first came into your life", "How you'd manage without it"], "I take ___ for granted, but…"],
+    ["grat", "A problem I don't have", "What problem do you no longer have that you once did?", ["What life was like with it", "What changed", "Who or what helped"], "A year ago I was still dealing with…"],
+    ["grat", "A skill that paid off", "Which skill or habit paid off for you recently?", ["Where you picked it up", "The moment it helped", "How you could build on it"], "I'm glad I learned…"],
+    ["grat", "Small joys", "What made you smile or laugh this week?", ["Describe the moment in detail", "Who was there", "How to have more moments like it"], "I laughed when…"],
+
+    ["work", "What moved forward", "What did you finish or move forward this week?", ["The result, in plain words", "What made it possible", "What's next on it"], "This week I got ___ done."],
+    ["work", "The stuck thing", "What's stuck right now, and what would unstick it?", ["What exactly is blocked", "What you've already tried", "One step you can take tomorrow"], "The thing that's stuck is…"],
+    ["work", "A lesson worth keeping", "What did you learn recently that you want to remember?", ["Where you learned it", "Why it matters to your work", "How you'll use it next"], "Something I learned…"],
+    ["work", "Feedback", "What's the most useful feedback you've given or received lately?", ["What was said", "How you reacted at first", "What you'll do with it"], "When I heard it, my first reaction was…"],
+    ["work", "Energy audit", "Which parts of your work gave you energy this week, and which drained it?", ["List what energised you", "List what drained you", "One change to tilt the balance"], "What gave me energy…"],
+    ["work", "An idea to catch", "What idea has been floating around your head that deserves a page?", ["The idea in one sentence", "Why it excites you", "What it would take to try it"], "I have this idea…"],
+
+    ["goals", "Closer or further", "Which goal did this week move closer, and which one drifted?", ["Progress you can point to", "What got in the way", "One adjustment for next week"], "This week I got closer to…"],
+    ["goals", "The next small step", "What's the smallest next step on the goal that matters most?", ["The goal, stated simply", "Why it matters now", "A step small enough to do tomorrow"], "The next step is…"],
+    ["goals", "Saying no", "What are you saying yes to that's crowding out something more important?", ["What you've agreed to", "What it's costing you", "What you'd say no to next time"], "I said yes to ___ and it's costing me…"],
+    ["goals", "A perfect week", "If next week went perfectly, what would be done by Sunday?", ["The three outcomes", "What time you'd need to protect", "What could derail it"], "By Sunday…"],
+    ["goals", "Future self", "What would you, one year from now, thank yourself for starting today?", ["Picture that version of you", "What they're glad you did", "What they wish you'd stopped"], "A year from now, I'll be glad I…"],
+    ["goals", "Habit check", "Which habit are you building, and how is it really going?", ["An honest score out of 10", "When it works and when it slips", "One tweak to make it easier"], "Honestly, it's going…"],
+
+    ["feel", "Weather report", "If today's mood was weather, what's the forecast?", ["Describe the weather", "What brought it in", "What tomorrow might look like"], "Today felt like…"],
+    ["feel", "In the body", "Where do you feel today's mood in your body?", ["Where it sits", "When it started", "What would ease it"], "Right now I notice…"],
+    ["feel", "The repeating thought", "Which thought kept coming back today, and is it true?", ["Write the thought word for word", "Evidence for it and against it", "A kinder, more accurate version"], "I kept thinking…"],
+    ["feel", "What I need", "What do you need more of right now, and less of?", ["More of", "Less of", "One thing you can do about each"], "I need more…"],
+    ["feel", "Advice to a friend", "What would you tell a friend who had the week you just had?", ["Describe the week as if it were theirs", "What you'd say to them", "Whether you can say it to yourself"], "If a friend told me this, I'd say…"],
+    ["feel", "Letting go", "What are you holding on to that you could set down?", ["What it is", "Why you've held on", "What setting it down would look like"], "I'm still carrying…"],
+
+    ["mem", "A place I can still picture", "Describe a place from your childhood you can still see clearly.", ["What you saw, heard and smelled", "Who was usually there", "Why it stuck with you"], "I can still picture…"],
+    ["mem", "A turning point", "What's a moment that changed the direction of your life?", ["What happened", "What you decided", "Where you'd be if you'd chosen differently"], "Everything changed when…"],
+    ["mem", "A first time", "Write about a first time you remember vividly.", ["The setting", "How you felt before and after", "What it taught you"], "The first time I…"],
+    ["mem", "Someone who shaped me", "Who shaped how you work or think, and how?", ["Who they are", "A specific thing they said or did", "Where you see their influence now"], "___ taught me…"],
+    ["mem", "One year ago", "What was your life like exactly one year ago?", ["What you were worried about", "What you were hoping for", "What turned out differently"], "A year ago, I was…"],
+    ["mem", "An object with a story", "Pick an object near you and tell its story.", ["Where it came from", "Moments it's been part of", "Why you've kept it"], "This has been with me since…"],
+
+    ["create", "Fifty years from now", "Describe the room you're in for someone reading this in 50 years.", ["What's here and what it's for", "What would seem strange to them", "What you'd want them to know about today"], "I'm writing this in…"],
+    ["create", "Ten things", "List ten things on your mind, then go deep on one.", ["The list, no filtering", "Circle the one with the most pull", "A full paragraph on that one"], "On my mind: 1."],
+    ["create", "Letter to past me", "Write a letter to yourself from five years ago.", ["What you'd warn them about", "What you'd reassure them about", "What you'd tell them to start"], "Dear me, five years ago…"],
+    ["create", "A free month", "If you had a free month with no obligations, what would you make or start?", ["What you'd do", "What you'd need", "A small version you could try now"], "With a free month, I would…"],
+    ["create", "The detail", "What small detail from today is worth describing in full?", ["Describe it as precisely as you can", "Why it caught your eye", "What it reminds you of"], "I noticed…"],
+    ["create", "Changed my mind", "What's something you've changed your mind about recently?", ["What you used to think", "What changed it", "What you think now"], "I used to believe…"]
+  ];
 
   const $ = (id) => document.getElementById(id);
   const store = {
@@ -388,270 +325,157 @@ textarea::placeholder { color: var(--ink-soft); opacity: .75; font-style: italic
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
   };
 
-  // ---- Dates
   const now = new Date();
-  const dateKey = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
-  function isoWeek(d) {
-    const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-    const day = t.getUTCDay() || 7; t.setUTCDate(t.getUTCDate() + 4 - day);
-    const y0 = new Date(Date.UTC(t.getUTCFullYear(), 0, 1));
-    return Math.ceil(((t - y0) / 86400000 + 1) / 7);
-  }
-  const dateLong = now.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
-  const stampText = now.toLocaleDateString("en-GB", { weekday: "short" }) + " · " +
-    now.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) + " · Week " + isoWeek(now);
-  $("stamp").textContent = stampText;
+  const dayNum = Math.floor((Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())) / 86400000);
+  const handDate = now.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
+  $("stamp").textContent = now.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
 
-  // ---- State
-  const blank = { date: dateKey, type: "daily", mood: 3, len: "full", notes: "", prompts: [], answers: [], source: "library", draft: "" };
-  let state = store.get("jeg.current", null);
-  if (!state || state.date !== dateKey) {
-    const prev = state || {};
-    state = { ...blank, type: prev.type || "daily", mood: prev.mood || 3, len: prev.len || "full" };
-  }
-  let history = store.get("jeg.history", []);
-  const persist = () => store.set("jeg.current", state);
+  let prefs = store.get("jeg2.prefs", { focus: "any", time: 15 });
+  if (!FOCUS.some((f) => f.id === prefs.focus)) prefs.focus = "any";
+  if (!TIMES.some((t) => t.id === prefs.time)) prefs.time = 15;
+  let seen = store.get("jeg2.seen", []);
+  let trail = [];   // ideas shown this visit, for Previous
+  let pos = -1;
 
-  // ---- Helpers
-  const pick = (arr, n, avoid = []) => {
-    const pool = arr.filter((x) => !avoid.includes(x));
-    const src = pool.length >= n ? pool : arr.slice();
-    for (let i = src.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [src[i], src[j]] = [src[j], src[i]]; }
-    return src.slice(0, n);
-  };
-  const middleCount = () => (state.len === "quick" ? 3 : 5);
-  const moodBand = (m) => (m <= 2 ? "low" : m === 3 ? "mid" : "high");
-  const typeLabel = (id) => (TYPES.find((t) => t.id === id) || TYPES[0]).label;
-  function grow(el) { el.style.height = "auto"; el.style.height = el.scrollHeight + 2 + "px"; }
+  const focusLabel = (id) => (FOCUS.find((f) => f.id === id) || FOCUS[0]).label;
+  const pool = () => IDEAS.map((x, i) => i).filter((i) => prefs.focus === "any" || IDEAS[i][0] === prefs.focus);
+  function fromLib(i, fmtSeed) {
+    const [theme, title, question, angles, starter] = IDEAS[i];
+    return { theme, title, question, angles, starter, fmt: fmtSeed, src: "library", key: i };
+  }
+  function todaysIdea() {
+    const p = pool();
+    return fromLib(p[dayNum % p.length], dayNum);
+  }
+  function randomIdea() {
+    const p = pool();
+    const cur = trail[pos];
+    let fresh = p.filter((i) => !seen.includes(i) && (!cur || cur.key !== i));
+    if (!fresh.length) { seen = seen.filter((i) => !p.includes(i)); fresh = p.filter((i) => !cur || cur.key !== i); }
+    const i = fresh[Math.floor(Math.random() * fresh.length)];
+    return fromLib(i, Math.floor(Math.random() * 1000));
+  }
+  function remember(idea) {
+    if (idea.src === "library") { seen = [...seen.filter((x) => x !== idea.key), idea.key].slice(-36); store.set("jeg2.seen", seen); }
+  }
+  function show(idea, push = true) {
+    if (push) { trail = trail.slice(0, pos + 1); trail.push(idea); pos = trail.length - 1; }
+    remember(idea);
+    render();
+    const c = $("card"); c.classList.remove("flip"); void c.offsetWidth; c.classList.add("flip");
+  }
+
+  function render() {
+    const idea = trail[pos];
+    $("cardKicker").textContent = pos === 0 && idea.src === "library" ? "Today's idea" : "Idea for tonight";
+    const tag = $("cardTag");
+    tag.textContent = idea.src === "claude" ? "From your notes" : focusLabel(idea.theme);
+    tag.className = "tag" + (idea.src === "claude" ? " claude" : "");
+    $("question").textContent = idea.question;
+    const ul = $("angles"); ul.innerHTML = "";
+    idea.angles.forEach((a) => { const li = document.createElement("li"); li.textContent = a; ul.append(li); });
+    const fmts = FORMATS[prefs.time];
+    const [fname, fhow] = fmts[Math.abs(idea.fmt) % fmts.length];
+    $("formatLbl").textContent = "How to lay out the page · about " + (prefs.time === 30 ? "30 min" : prefs.time + " min");
+    $("formatName").textContent = fname;
+    $("formatHow").textContent = fhow;
+    $("handDate").textContent = handDate;
+    $("handTitle").textContent = idea.title;
+    $("starter").textContent = idea.starter;
+    $("back").disabled = pos <= 0;
+  }
+
+  function renderPickers() {
+    const mk = (wrap, items, cur, onPick) => {
+      wrap.innerHTML = "";
+      items.forEach((it) => {
+        const b = document.createElement("button");
+        b.type = "button"; b.className = "chip"; b.setAttribute("role", "radio");
+        b.setAttribute("aria-checked", String(it.id === cur)); b.textContent = it.label;
+        b.onclick = () => onPick(it.id);
+        wrap.append(b);
+      });
+    };
+    mk($("focus"), FOCUS, prefs.focus, (id) => {
+      if (id === prefs.focus) return;
+      prefs.focus = id; store.set("jeg2.prefs", prefs); renderPickers(); show(randomIdea());
+    });
+    mk($("time"), TIMES, prefs.time, (id) => {
+      if (id === prefs.time) return;
+      prefs.time = id; store.set("jeg2.prefs", prefs); renderPickers(); render();
+    });
+  }
+
   let toastT;
   function toast(msg) { const t = $("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 1800); }
-  function status(msg) { $("status").textContent = msg || ""; }
 
-  function libraryPrompts() {
-    const n = middleCount();
-    const prev = state.prompts.slice(1, -1);
-    const mood = pick(MOOD_LIB[moodBand(state.mood)], 1, prev);
-    const typ = pick(LIB[state.type], n - 1, prev);
-    return [OPEN, ...mood, ...typ, CLOSE];
-  }
-  function setPrompts(list, source) {
-    const old = new Map(state.prompts.map((q, i) => [q, state.answers[i] || ""]));
-    state.prompts = list;
-    state.answers = list.map((q) => old.get(q) || "");
-    state.source = source;
-    persist(); renderSheet();
-  }
-
-  // ---- Render setup
-  function renderSetup() {
-    $("types").innerHTML = "";
-    TYPES.forEach((t) => {
-      const b = document.createElement("button");
-      b.type = "button"; b.className = "chip"; b.setAttribute("role", "radio");
-      b.setAttribute("aria-checked", String(state.type === t.id)); b.textContent = t.label;
-      b.onclick = () => { state.type = t.id; renderSetup(); setPrompts(libraryPrompts(), "library"); };
-      $("types").append(b);
-    });
-    $("moods").innerHTML = "";
-    MOODS.forEach((w, i) => {
-      const b = document.createElement("button");
-      b.type = "button"; b.setAttribute("role", "radio"); b.setAttribute("aria-checked", String(state.mood === i + 1));
-      b.setAttribute("aria-label", (i + 1) + " " + w);
-      b.innerHTML = '<span class="n">' + (i + 1) + '</span><span class="w"></span>';
-      b.querySelector(".w").textContent = w;
-      b.onclick = () => { const band = moodBand(state.mood); state.mood = i + 1; renderSetup(); if (moodBand(state.mood) !== band && state.source === "library") setPrompts(libraryPrompts(), "library"); else { persist(); renderSheetHead(); } };
-      $("moods").append(b);
-    });
-    document.querySelectorAll("#lens button").forEach((b) => {
-      b.setAttribute("aria-checked", String(b.dataset.len === state.len));
-      b.onclick = () => { if (state.len === b.dataset.len) return; state.len = b.dataset.len; renderSetup(); setPrompts(libraryPrompts(), "library"); };
-    });
-    const notes = $("notes");
-    if (notes.value !== state.notes) notes.value = state.notes;
-    grow(notes);
-  }
-  $("notes").addEventListener("input", (e) => { state.notes = e.target.value; grow(e.target); persist(); });
-
-  // ---- Render sheet
-  function renderSheetHead() {
-    $("sheetStamp").textContent = dateLong;
-    $("sheetTitle").textContent = typeLabel(state.type);
-    $("sheetMood").textContent = "Mood " + state.mood + " · " + MOODS[state.mood - 1];
-    const s = $("sheetSrc");
-    s.textContent = state.source === "claude" ? "Tailored by Claude" : "Prompt library";
-    s.className = "src" + (state.source === "claude" ? " claude" : "");
-  }
-  function renderSheet() {
-    renderSheetHead();
-    const ol = $("prompts"); ol.innerHTML = "";
-    state.prompts.forEach((q, i) => {
-      const li = document.createElement("li");
-      const num = document.createElement("span"); num.className = "num"; num.textContent = String(i + 1).padStart(2, "0");
-      const body = document.createElement("div"); body.className = "body";
-      const p = document.createElement("label"); p.className = "q" + (q === OPEN || q === CLOSE ? " bookend" : ""); p.textContent = q;
-      p.htmlFor = "a" + i;
-      const ta = document.createElement("textarea"); ta.id = "a" + i; ta.placeholder = "Write here…"; ta.value = state.answers[i] || "";
-      ta.addEventListener("input", () => { state.answers[i] = ta.value; grow(ta); persist(); });
-      body.append(p, ta); li.append(num, body); ol.append(li);
-      requestAnimationFrame(() => grow(ta));
-    });
-    const db = $("draftBlock");
-    db.hidden = !state.draft;
-    $("draftText").value = state.draft || "";
-    requestAnimationFrame(() => grow($("draftText")));
-  }
-  $("draftText").addEventListener("input", (e) => { state.draft = e.target.value; grow(e.target); persist(); });
-
-  // ---- Copy / save / clear
-  function entryText(entry) {
-    const lines = [entry.dateLong, typeLabel(entry.type) + " · Mood " + entry.mood + " (" + MOODS[entry.mood - 1] + ")", ""];
-    if (entry.draft) lines.push(entry.draft.trim(), "");
-    entry.prompts.forEach((q, i) => { lines.push(q, (entry.answers[i] || "").trim() || "—", ""); });
-    return lines.join("\n").trim();
-  }
+  $("next").onclick = () => show(randomIdea());
+  $("back").onclick = () => { if (pos > 0) { pos--; render(); } };
   $("copy").onclick = () => {
-    const text = entryText({ ...state, dateLong });
-    const fb = $("copyFallback");
-    const fallback = () => { fb.hidden = false; fb.value = text; grow(fb); fb.focus(); fb.select(); toast("Select all and copy"); };
-    try {
-      navigator.clipboard.writeText(text).then(() => { fb.hidden = true; toast("Entry copied"); }, fallback);
-    } catch { fallback(); }
-  };
-  $("save").onclick = () => {
-    const filled = state.answers.some((a) => a && a.trim()) || (state.draft && state.draft.trim());
-    if (!filled) { toast("Write at least one answer first"); return; }
-    const entry = { id: Date.now(), dateLong, type: state.type, mood: state.mood, prompts: state.prompts.slice(), answers: state.answers.slice(), draft: state.draft };
-    history = [entry, ...history].slice(0, 100);
-    store.set("jeg.history", history);
-    renderHistory(); toast("Entry saved");
-  };
-  let clearArm = 0;
-  $("clear").onclick = () => {
-    const b = $("clear");
-    if (!clearArm) { clearArm = setTimeout(() => { clearArm = 0; b.textContent = "Clear answers"; b.classList.remove("danger"); }, 3000); b.textContent = "Tap again to clear"; b.classList.add("danger"); return; }
-    clearTimeout(clearArm); clearArm = 0; b.textContent = "Clear answers"; b.classList.remove("danger");
-    state.answers = state.prompts.map(() => ""); state.draft = ""; persist(); renderSheet(); toast("Answers cleared");
+    const idea = trail[pos];
+    const fmts = FORMATS[prefs.time]; const [fname, fhow] = fmts[Math.abs(idea.fmt) % fmts.length];
+    const text = [handDate + " · " + idea.title, "", idea.question, "", "Things to cover:", ...idea.angles.map((a) => "- " + a), "", "Page layout: " + fname + ". " + fhow, "Start with: " + idea.starter].join("\n");
+    try { navigator.clipboard.writeText(text).then(() => toast("Idea copied"), () => toast("Copy isn't allowed here")); }
+    catch { toast("Copy isn't allowed here"); }
   };
 
-  // ---- History
-  function renderHistory() {
-    const ul = $("hist"); ul.innerHTML = "";
-    $("histEmpty").hidden = history.length > 0;
-    $("count").textContent = history.length ? String(history.length) : "";
-    history.forEach((e) => {
-      const li = document.createElement("li");
-      const d = document.createElement("details");
-      const s = document.createElement("summary");
-      const st = document.createElement("span"); st.className = "stamp"; st.textContent = e.dateLong + " · " + typeLabel(e.type) + " · Mood " + e.mood;
-      const first = document.createElement("span"); first.className = "first";
-      first.textContent = (e.answers.find((a) => a && a.trim()) || e.draft || "").trim().split("\n")[0];
-      s.append(st, first); d.append(s);
-      const inner = document.createElement("div"); inner.className = "inner";
-      if (e.draft) { const qa = document.createElement("div"); qa.className = "qa"; const a = document.createElement("p"); a.textContent = "Draft"; const b = document.createElement("p"); b.textContent = e.draft; qa.append(a, b); inner.append(qa); }
-      e.prompts.forEach((q, i) => {
-        if (!(e.answers[i] || "").trim()) return;
-        const qa = document.createElement("div"); qa.className = "qa";
-        const a = document.createElement("p"); a.textContent = q; const b = document.createElement("p"); b.textContent = e.answers[i];
-        qa.append(a, b); inner.append(qa);
-      });
-      const row = document.createElement("div"); row.className = "row";
-      const cp = document.createElement("button"); cp.type = "button"; cp.className = "btn"; cp.textContent = "Copy";
-      cp.onclick = () => { const t = entryText(e); try { navigator.clipboard.writeText(t).then(() => toast("Entry copied"), () => toast("Copy isn't allowed here")); } catch { toast("Copy isn't allowed here"); } };
-      const del = document.createElement("button"); del.type = "button"; del.className = "btn ghost"; del.textContent = "Delete";
-      let armed = 0;
-      del.onclick = () => {
-        if (!armed) { armed = setTimeout(() => { armed = 0; del.textContent = "Delete"; del.classList.remove("danger"); }, 3000); del.textContent = "Tap again to delete"; del.classList.add("danger"); return; }
-        clearTimeout(armed); history = history.filter((x) => x.id !== e.id); store.set("jeg.history", history); renderHistory(); toast("Entry deleted");
-      };
-      row.append(cp, del); inner.append(row); d.append(inner); li.append(d); ul.append(li);
-    });
-  }
-
-  // ---- Claude (optional)
+  // ---- Optional: tailor with Claude (only inside Claude)
   let sample = null, ctl = null;
+  const notes = $("notes");
+  notes.value = store.get("jeg2.notes", "");
+  notes.addEventListener("input", () => store.set("jeg2.notes", notes.value));
+  const status = (m) => { $("status").textContent = m || ""; };
+  const PERMANENT = ["not_granted", "sampling_disabled", "not_declared", "capability_disabled", "capability_removed"];
   const ERR = {
     rate_limited: "Too many requests just now. Try again in a minute.",
-    refused: "Claude couldn't write that. Try rewording your notes.",
-    empty_completion: "Claude came back empty. Try again with a bit more in your notes.",
-    invalid_json: "Claude's prompts came back in the wrong shape. Try again.",
-    session_expired: "Your session expired. Sign in again to use Claude.",
+    refused: "Claude couldn't use those notes. Try rewording them.",
+    invalid_json: "That idea came back garbled. Try again.",
+    empty_completion: "Nothing came back. Add a little more to your notes and try again.",
+    session_expired: "Your session expired. Sign in again to use this.",
     prompt_too_large: "Your notes are too long. Trim them and try again."
   };
-  const PERMANENT = ["not_granted", "sampling_disabled", "not_declared", "capability_disabled", "capability_removed"];
-  function handleErr(e) {
-    const code = e && e.code;
-    if (code === "cancelled") { status(""); return; }
-    if (PERMANENT.includes(code)) { sample = null; $("draftBtn").hidden = true; status("Claude isn't available here, so prompts come from the built-in library."); return; }
-    status(ERR[code] || "Couldn't reach Claude. Try again.");
-  }
-  function busy(on) {
-    $("gen").disabled = on; $("draftBtn").disabled = on; $("shuffle").disabled = on; $("stop").hidden = !on;
-  }
   $("stop").onclick = () => ctl && ctl.abort();
-
-  async function claudePrompts() {
-    const n = middleCount();
+  $("tailorBtn").onclick = async () => {
+    const txt = notes.value.trim();
+    if (!txt) { status("Write a few words about your day first."); notes.focus(); return; }
+    const theme = prefs.focus === "any" ? "any theme that fits" : focusLabel(prefs.focus);
     const prompt =
-      "You write journal prompts for one person's entry tonight.\n" +
-      "Entry type: " + typeLabel(state.type) + "\n" +
-      "Today's mood: " + MOODS[state.mood - 1] + " (" + state.mood + " of 5)\n" +
-      "What happened today, in their own notes (may be empty):\n\"\"\"\n" + (state.notes.trim().slice(0, 4000) || "(no notes)") + "\n\"\"\"\n\n" +
-      "Write " + n + " journal prompts. Where there are notes, refer to the actual events, people or tasks in them; never invent events. " +
-      "Each prompt is one open question in second person, under 22 words, no numbering, no emoji. " +
-      "Fit the mood: gentle and grounding if low, forward-looking if high. Cover different angles (what happened, how it felt, what it means, what's next). " +
-      "Reply with only a JSON array of " + n + " strings, like [\"What ...?\", \"Which ...?\"].";
+      "Someone keeps a pen-and-paper journal and wants ONE idea for what to write about tonight. Do not write the entry for them.\n" +
+      "Preferred theme: " + theme + ".\n" +
+      "Their notes about today:\n\"\"\"\n" + txt.slice(0, 3000) + "\n\"\"\"\n\n" +
+      "Pick the single most worthwhile thing in the notes to reflect on. Refer to the real events in the notes; never invent events.\n" +
+      "Reply with only a JSON object: {\"title\": short page title of 2-5 words, \"question\": one open question in second person under 25 words, " +
+      "\"angles\": array of exactly 3 short things to cover (under 9 words each), \"starter\": an unfinished first line under 8 words ending with an ellipsis}.";
     ctl = new AbortController();
-    busy(true); status("Thinking…");
+    $("tailorBtn").disabled = true; $("stop").hidden = false; status("Thinking…");
     try {
-      const out = await sample.json(prompt, { modelTier: "quick", cache: false, signal: ctl.signal });
-      const list = Array.isArray(out) ? out.filter((x) => typeof x === "string" && x.trim()).map((x) => x.trim()).slice(0, n) : [];
-      if (list.length < 2) throw { code: "invalid_json" };
-      setPrompts([OPEN, ...list, CLOSE], "claude");
-      status("");
-    } catch (e) { handleErr(e); }
-    finally { busy(false); ctl = null; }
-  }
-
-  async function claudeDraft() {
-    if (!state.notes.trim()) { status("Add a few notes about your day first, then Claude can draft from them."); $("notes").focus(); return; }
-    const prompt =
-      "Write a short first-person journal entry for " + dateLong + ".\n" +
-      "Entry type: " + typeLabel(state.type) + ". Mood: " + MOODS[state.mood - 1] + " (" + state.mood + " of 5).\n" +
-      "Use only what is in these notes. Do not invent events, people or details:\n\"\"\"\n" + state.notes.trim().slice(0, 4000) + "\n\"\"\"\n\n" +
-      "120 to 180 words, plain text, no title or headings, natural and honest voice, close with one line about tomorrow.";
-    ctl = new AbortController();
-    busy(true); status("Thinking…");
-    $("draftBlock").hidden = false;
-    const ta = $("draftText"); const before = ta.value;
-    try {
-      const { text, truncated } = await sample(prompt, {
-        modelTier: "quick", cache: false, signal: ctl.signal,
-        onText: ({ text }) => { ta.value = text; grow(ta); }
+      const o = await sample.json(prompt, { modelTier: "quick", cache: false, signal: ctl.signal });
+      const ok = o && typeof o.question === "string" && Array.isArray(o.angles);
+      if (!ok) throw { code: "invalid_json" };
+      show({
+        theme: prefs.focus, src: "claude", key: "c" + Date.now(), fmt: Math.floor(Math.random() * 1000),
+        title: String(o.title || "Today").trim(), question: o.question.trim(),
+        angles: o.angles.filter((a) => typeof a === "string" && a.trim()).slice(0, 3).map((a) => a.trim()),
+        starter: String(o.starter || "Today…").trim()
       });
-      state.draft = text; persist(); grow(ta);
-      status(truncated ? "The draft was cut short. Edit it or try again." : "");
+      status("");
+      $("card").scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
     } catch (e) {
-      if (e && typeof e.text === "string" && e.text) { state.draft = e.text; ta.value = e.text; persist(); }
-      else { ta.value = before; state.draft = before; $("draftBlock").hidden = !before; }
-      handleErr(e);
-    } finally { busy(false); ctl = null; }
-  }
-
-  $("gen").onclick = () => {
-    if (sample) claudePrompts();
-    else { setPrompts(libraryPrompts(), "library"); status(""); }
+      const code = e && e.code;
+      if (code === "cancelled") status("");
+      else if (PERMANENT.includes(code)) { sample = null; $("tailor").hidden = true; }
+      else status(ERR[code] || "Couldn't reach Claude. Try again.");
+    } finally { $("tailorBtn").disabled = false; $("stop").hidden = true; ctl = null; }
   };
-  $("shuffle").onclick = () => { setPrompts(libraryPrompts(), "library"); status(""); };
-  $("draftBtn").onclick = claudeDraft;
 
-  // ---- Boot
-  if (!state.prompts.length) { state.prompts = libraryPrompts(); state.answers = state.prompts.map(() => ""); state.source = "library"; persist(); }
-  renderSetup(); renderSheet(); renderHistory();
+  renderPickers();
+  show(todaysIdea());
+  $("card").classList.remove("flip");
 
   (async () => {
     try {
       const s = window.claude && window.claude.use ? await window.claude.use("sample") : null;
-      if (s) { sample = s; $("draftBtn").hidden = false; }
+      if (s) { sample = s; $("tailor").hidden = false; }
     } catch { sample = null; }
   })();
 })();
